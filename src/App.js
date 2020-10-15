@@ -1,11 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import Login from "./components/Login";
 
 export default function App() {
   return (
-    <div>
+    <Router>
+    <div className="App">
       <h3>Hello world!</h3>
-      <p>This is my first React app!</p>
+      <Switch>
+      <Route path="/" exact component={Login}/>
+      </Switch>
     </div>
+    </Router>
   );
 }
