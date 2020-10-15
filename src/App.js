@@ -39,7 +39,7 @@ export default function App() {
               <h2>Events:</h2>
                 <div className="col-12">
                   {events.map((event) => {
-                  return <Event key={event.id} {...event} />;
+                    return <Event key={event.eventId} {...event}/>;
                   })}
                 </div>
               </div>
