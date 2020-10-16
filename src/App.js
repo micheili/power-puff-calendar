@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import Event from './Event.js'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from "./components/Login";
+import Register from "./components/Register"
 
 export default function App() {
 
@@ -21,31 +22,9 @@ export default function App() {
     <Router>
       <div className="App">
         <Switch>
-          {/* 
-          //Add your routes and component names here!
-          <Route exact path="/" component={} />
-          <Route exact path="/invitations" component={} />
-          <Route path="/event" component={} />
-          <Route path="/event/:id" component={} /> 
-        */}
+          <Route path="/" exact component={Login}/>
+          <Route path="/register" exact component={Register}/>
         </Switch>
-
-        <div className="container">
-          <div className="row mt-5">
-            <div className="col-12 w-100">
-              <h1>HellO!</h1>
-              <h3>check to see if your database work..</h3>
-              <div className="row mt-5">
-              <h2>Events:</h2>
-                <div className="col-12">
-                  {events.map((event) => {
-                    return <Event key={event.eventId} {...event}/>;
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </Router>
   );
