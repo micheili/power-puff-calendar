@@ -1,11 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import CalendarView from './CalendarView';
 
 export default function App() {
   return (
+
+    <Router>
     <div>
-      <h3>Hello world!</h3>
-      <p>This is my first React app!</p>
+           
+      <Route exact path="/"  component={CalendarView} />
+
     </div>
+    </Router>
+
   );
 }
