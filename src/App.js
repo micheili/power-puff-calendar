@@ -6,12 +6,12 @@ export default function App() {
   return (
 
     <Router>
-    <div>
-           <div className="container">
-      <Route exact path="/"  component={CalendarView} />
-      </div>
+      <div>
+        <div className="container">
+          <Route exact path="/home" component={CalendarView} />
+        </div>
 
-    </div>
+      </div>
     </Router>
 
   );
