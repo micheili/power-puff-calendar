@@ -13,7 +13,7 @@ module.exports = class Server {
   constructor(port = 3000) {
     this.port = port;
     this.startServer();
-    new RestApi(this.app, path.join(__dirname, '../database/example-database.db'));
+    new RestApi(this.app, path.join(__dirname, '../database/calendar.db'));
     this.setupRoutes();
     this.serveStaticFiles();
   }
