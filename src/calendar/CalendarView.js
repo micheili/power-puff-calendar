@@ -57,7 +57,7 @@ export default function CalendarView() {
 
           <div className="container ">
 
-            <div class="row">
+            <div className="row">
 
               <div className="previous col"
                 onClick={() => setValue(prevMonth())}>
