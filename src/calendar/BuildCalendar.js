@@ -18,5 +18,6 @@ export default function BuildCalendar(value){
          );
      }
 
+
      return calendar;
 }
