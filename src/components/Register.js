@@ -62,13 +62,13 @@ export default function Register() {
       }
     }
     setErrors(errorClone);
-    console.log("errors: ", errors);
+
     return isValid;
   };
 
   async function save(e) {
     // the default behavior of a form submit is to reload the page stop that
-    console.log("form data:", formData);
+
     e.preventDefault();
 
     if (validate()) {

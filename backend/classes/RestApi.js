@@ -18,7 +18,6 @@ module.exports = class RestApi {
       // we will write methods that setup
       // put, post and delete routes too later!
     }
-    //this.setupRoutes();
   }
 
   getAllTables() {
@@ -71,16 +70,42 @@ module.exports = class RestApi {
 
   setupPostRoute(table) {
     // create a post
+
     this.app.post(this.routePrefix + "/" + table, (req, res) => {
-      res.json(
-        this.db.run(
-          /*sql*/ `
+      // if the Table name is  "Event", then check for the start and stop time,
+      // check if the time duration is min 15 minutes (900 sec) and max 7 days (604800 sec)
+      // otherwise forbidden to post
+      if (table === "Event") {
+        let start = Date.parse(req.body.start);
+        let stop = Date.parse(req.body.stop);
+
+        let diff = (stop - start) / 1000;
+        console.log("start: ", start, " stop: ", stop, " diff: ", diff);
+        if (diff >= 900 && diff < 604800) {
+          res.json(
+            this.db.run(
+              /*sql*/ `
+          INSERT INTO ${table} (${Object.keys(req.body)})
+          VALUES (${Object.keys(req.body).map((x) => "$" + x)})
+        `,
+              req.body
+            )
+          );
+        } else {
+          res.status(403);
+          res.json({ error: 403 });
+        }
+      } else {
+        res.json(
+          this.db.run(
+            /*sql*/ `
         INSERT INTO ${table} (${Object.keys(req.body)})
         VALUES (${Object.keys(req.body).map((x) => "$" + x)})
       `,
-          req.body
-        )
-      );
+            req.body
+          )
+        );
+      }
     });
   }
 
@@ -113,29 +138,4 @@ module.exports = class RestApi {
       );
     });
   }
-
-  // setupRoutes() {
-  //   // Tell express to answer a certain thing
-  //   // when someone goes to the url /random-number
-  //   this.app.get(this.routePrefix + "/random-number", (request, response) => {
-  //     response.json({ aRandomNumber: Math.random() });
-  //   });
-
-  //   // Another route (note: request and response as arguments
-  //   // are ofthen shortened to req and res)
-  //   this.app.get(this.routePrefix + "/now", (req, res) => {
-  //     res.json({ now: new Date() });
-  //   });
-
-  //   this.app.get(this.routePrefix + "/:start" + "/:end", (req, res) => {
-  //     let start = new Date($start);
-  //     let end = new Date($end);
-  //     let diff = (end - start) / 1000;
-  //     if (diff >= 900 && diff < 604800) {
-  //       res.json({ allowed: "yes" });
-  //     } else {
-  //       res.json({ allowed: "no" });
-  //     }
-  //   });
-  // }
 };

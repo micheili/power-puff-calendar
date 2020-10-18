@@ -13,7 +13,7 @@ module.exports = class Server {
     this.port = port;
     this.startServer();
     new RestApi(this.app, path.join(__dirname, "../database/calendar.db"));
-    //this.setupRoutes();
+    this.setupRoutes();
     this.serveStaticFiles();
   }
 
@@ -35,5 +35,19 @@ module.exports = class Server {
     // we are using the built in middleware express.static
     // that let us serve files from a folder (www)
     this.app.use(express.static("www"));
+  }
+
+  setupRoutes() {
+    // Tell express to answer a certain thing
+    // when someone goes to the url /random-number
+    this.app.get(this.routePrefix + "/random-number", (request, response) => {
+      response.json({ aRandomNumber: Math.random() });
+    });
+
+    // Another route (note: request and response as arguments
+    // are of then shortened to req and res)
+    this.app.get(this.routePrefix + "/now", (req, res) => {
+      res.json({ now: new Date() });
+    });
   }
 };
