@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import CalendarView from "../calendar/CalendarView";
-import Invitation from "./Invitation";
+//import Invitation from "./Invitation";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +27,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/calendar" component={CalendarView} />
-      <Route exact path="/invitation" component={Invitation} />
+      <Route exact path="/invitation" component={()=> "Invitation"} />
       
     </Switch>
   </Container>
