@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import {
+  Container, 
+  Row, 
+  Col,
+  Form,
+  FormGroup    
+} from "reactstrap";
+
 export default function Register() {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
@@ -84,12 +92,11 @@ export default function Register() {
   }
 
   return (
-    <div className="homePageContainer container-fluid mt-5">
-      <div className="row justify-content-center">
-        
-        <form onSubmit={save}><h3 className="row justify-content-center mb-5">Create account</h3>
-          <section className="col-12">
-            <div className="form-group">
+    <Container fluid={true}>
+      <Row className="justify-content-center">
+        <Form onSubmit={save}><h3 className="row justify-content-center mb-5">Create account</h3>
+          <Col>
+            <FormGroup>
               <label>
                 Firstname
                 <input
@@ -101,8 +108,8 @@ export default function Register() {
                   required
                 />
               </label>
-            </div>
-            <div className="form-group">
+            </FormGroup>
+            <FormGroup>
               <label>
                 Lastname
                 <input
@@ -114,8 +121,8 @@ export default function Register() {
                   required
                 />
               </label>
-            </div>
-            <div className="form-group">
+            </FormGroup>
+            <FormGroup>
               <label>
                 Email address
                 <input
@@ -129,8 +136,8 @@ export default function Register() {
                 />
               </label>
               <div className="text-danger">{emailError}</div>
-            </div>
-            <div className="form-group">
+            </FormGroup>
+            <FormGroup>
               <label>
                 Password
                 <input
@@ -143,7 +150,7 @@ export default function Register() {
                 />
               </label>
               <div className="text-danger"> {passwordError}</div>
-            </div>
+            </FormGroup>
             <Link to="/">
               <p className="row justify-content-center">
                 Already have an account?
@@ -154,9 +161,9 @@ export default function Register() {
               className="btn btn-primary btn-block"
               value="Sign up"
             />
-          </section>
-        </form>
-      </div>
-    </div>
+          </Col>
+        </Form>
+      </Row>
+    </Container>
   );
 }
