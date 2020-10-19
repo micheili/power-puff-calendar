@@ -20,8 +20,8 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
   >
-   <Button color="info" onClick={toggleSidebar}>
-   <FontAwesomeIcon icon={faBars} />
+   <Button className="toogleSidebarButton" onClick={toggleSidebar}>
+   <FontAwesomeIcon  className="icon" icon={faBars} />
     </Button>
     <Switch>
       <Route exact path="/" component={Login} />
