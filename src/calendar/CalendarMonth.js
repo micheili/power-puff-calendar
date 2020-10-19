@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import moment, { calendarFormat } from 'moment';
-import buildCalendar from './BuildCalendar';
 
 
 
-export default function CalendarView() {
+
+export default function CalendarMonth() {
 
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
 
+  //startday for month
+  const startDay = value.clone().startOf('month').startOf('week');
+  //endDay of month
+  const endDay = value.clone().endOf('month').endOf('week');
+
+        //iterator, get all dates between startday and endday
+   //containing weeks and weeks containing days
+ const day = startDay.clone().subtract(0, 'day');
+ const ca = [];
+ //isbefore = method from moment, (endday is when the loop stops, day is the interval)
+ while(day.isBefore(endDay, 'day')){
+     ca.push(
+         Array(7).fill(0).map(() => day.add(1, 'day').clone())
+     );
+ }
+
+
   
 
   useEffect(() => {
-    setCalendar(buildCalendar(value));
+    setCalendar(ca);
   }, [value]);
 
   function currentMonthName() {
@@ -71,13 +88,13 @@ export default function CalendarView() {
           <table className="table mt-4">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">Su</th>
-                <th scope="col">Mo</th>
-                <th scope="col">Tu</th>
-                <th scope="col">We</th>
-                <th scope="col">Th</th>
-                <th scope="col">Fr</th>
-                <th scope="col">Sa</th>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+                <th scope="col">Saturday</th>
+                <th scope="col">Sunday</th>
               </tr>
             </thead>
             <tbody>
