@@ -2,6 +2,8 @@
 const path = require("path");
 const express = require("express");
 const RestApi = require("./RestApi");
+const LoginHandler = require("./LoginHandler");
+const encryptor = require("./PasswordEncryptor");
 
 // module.exports exports something
 // a class, a function etc so that it is
@@ -12,7 +14,16 @@ module.exports = class Server {
   constructor(port = 3000) {
     this.port = port;
     this.startServer();
-    new RestApi(this.app, path.join(__dirname, "../database/calendar.db"));
+    let dbPath = path.join(__dirname, "../database/calendar.db");
+    this.app.use(
+      encryptor({
+        // Our settings for the encryptor
+        salt: "veryUnusual%butDontChangeAfterDBhasDataX",
+      })
+    );
+    new RestApi(this.app, dbPath);
+    new LoginHandler(this.app, dbPath);
+
     this.setupRoutes();
     this.serveStaticFiles();
   }
