@@ -23,6 +23,13 @@ backend/database/calendar.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+
+backend/database/calendar.db
+
+debug.log
+=======
 debug.log
 
 backend/database/calendar.db
+>>>>>>> dev
