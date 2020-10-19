@@ -28,7 +28,6 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/register" component={Register} />
       <Route exact path="/calendar" component={CalendarView} />
       <Route exact path="/invitation" component={Invitation} />
-      
     </Switch>
   </Container>
 );
