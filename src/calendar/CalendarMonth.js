@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment, { calendarFormat } from 'moment';
+import { Link } from "react-router-dom";
 
 
 export default function CalendarMonth() {
@@ -41,6 +42,7 @@ export default function CalendarMonth() {
   }
 
 
+
   return (
     <div>
 
@@ -48,13 +50,20 @@ export default function CalendarMonth() {
       <div className="container">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="/" role="button">Day</a>
+          <Link to="/calendarday">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Day</button>
+          </Link>
           </div>
           <div className="col text-center">
-            <button className="btn btn-primary btn-lg btn-block my-2" >Week</button>
+          <Link to="/calendarweek">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Week</button>
+         </Link>
+           
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Month</a>
+          <Link to="/calendar">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Month</button>
+         </Link>
           </div>
         </div>
       </div>

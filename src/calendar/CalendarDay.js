@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment, { calendarFormat, weekdays } from 'moment';
+import { Link } from "react-router-dom";
 
 
 export default function CalendarDay() {
@@ -45,19 +46,27 @@ export default function CalendarDay() {
   return (
     <div>
 
-      <div className="container">
+<div className="container">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="/" role="button">Day</a>
+          <Link to="/calendarday">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Day</button>
+          </Link>
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Week</a>
+          <Link to="/calendarweek">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Week</button>
+         </Link>
+           
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Month</a>
+          <Link to="/calendar">
+          <button className="btn btn-primary btn-lg btn-block my-2" >Month</button>
+         </Link>
           </div>
         </div>
       </div>
+
 
    
 
@@ -88,7 +97,7 @@ export default function CalendarDay() {
             <div >
               {day.map((hour) => (
 
-                <div className="hour  border border-light" onClick={() => setValue(hour)}>
+                <div className="hour  border border-dark" onClick={() => setValue(hour)}>
                   <div className={value.isSame(hour, 'hour') ? 'table-primary' : ''} >
 
                     {hour.format('kk').toString()}
