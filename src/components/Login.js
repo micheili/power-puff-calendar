@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import usePassWordToggler from '../hooks/usePasswordToggler';
-
 import {
     Container, 
     Row, 
@@ -10,7 +9,6 @@ import {
     FormGroup,
     Button    
   } from "reactstrap";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 
 export default function Login(){
     const [PasswordInputType, ToggleIcon] = usePassWordToggler();
@@ -30,8 +28,6 @@ export default function Login(){
                                 <input name="password" type={PasswordInputType} className="form-control" required></input>
                                 <span className="password-toggle-icon">{ToggleIcon}</span>
                             </label>
-                           
-    
                         </FormGroup>
                         <Link to="/Register"><p className="row justify-content-center">Don't have an account?</p></Link>
                         <Button type="submit" color="primary" className="btn btn-primary btn-block">Login</Button>
