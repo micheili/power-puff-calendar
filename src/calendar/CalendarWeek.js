@@ -60,21 +60,20 @@ export default function CalendarWeek() {
       <div className="container">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="/" role="button">Days</a>
+            <a className="btn btn-primary btn-lg btn-block my-2" href="/" role="button">Day</a>
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Weeks</a>
+            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Week</a>
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Months</a>
+            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Month</a>
           </div>
         </div>
       </div>
 
-      <div className="table-responsive">
-        <div className="border border-dark">
+     
 
-          <div className="container ">
+          <div className="container border border-dark">
             <div className="row">
               <div className="previous col"
                 onClick={() => setValue(prevWeek())}>
@@ -87,8 +86,7 @@ export default function CalendarWeek() {
                   {String.fromCharCode(187)}
                 </div>
               </div>
-            </div>
-          </div>
+          
 
           <table className="table mt-4">
             <thead className="thead-dark">
@@ -142,6 +140,83 @@ export default function CalendarWeek() {
           </table>
         </div>
       </div>
+
+
+
+
+
+      <div className="container border border-dark">
+        
+        {calendar.map((week) => (
+                <div className="row border border-dark bg-dark text-white">
+                  <div className="col mt-2 mb-2">tid</div>
+                  {week.map((day) => (
+                   
+                      <div className="col mt-2 mb-2">
+
+                        {day.format('dd') + ' ' + day.format('D').toString()}
+
+                      </div>
+                    
+                  ))}
+
+
+                </div>
+              ))}
+         
+        
+
+         <div className="row  border border-dark">
+     
+                 <div  className="col p-0">
+
+                      {hours.map((day) => (
+                        <div >
+                          {day.map((hour) => (
+
+                            <div className="hour  border border-light" onClick={() => setValue(hour)}>
+                              <div className={value.isSame(hour, 'hour') ? 'table-primary' : ''} >
+
+                                {hour.format('kk').toString()}
+                                <div  className="row p-0">
+                                  
+                                  <div  className="col p-0">
+                                  </div>
+                                  <div  className="col p-0">dsad
+                                  </div>
+                                  <div  className="col p-0">smon
+                                  </div>
+                                  <div  className="col p-0">ghtr
+                                  </div>
+                                  <div  className="col p-0">rttt
+                                  </div>
+                                  <div  className="col p-0">rewr
+                                  </div>
+                                  <div  className="col p-0">sasa
+                                  </div>
+                                  <div  className="col p-0">jyhj
+                                  </div>
+                                  </div>
+                                
+
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                
+           
+        
+        </div>
+
+
+
+</div>
+
+     
+
+
     </div>
   );
 }
