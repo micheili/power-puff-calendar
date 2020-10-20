@@ -31,6 +31,12 @@ const SideBar = ({ isOpen, toggle }) => (
           </NavLink>
         </NavItem>
         <NavItem>
+          <NavLink  tag={Link} to={"/calendarbox"}>
+          <FontAwesomeIcon  className="sidebar-icon mr-2" icon={faCalendar} />
+            CalendarBox
+          </NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink  tag={Link} to={"/invitation"}>
           <FontAwesomeIcon  className="sidebar-icon mr-2" icon={faInbox} />
             Invitation
