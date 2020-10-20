@@ -4,7 +4,7 @@ import { Container } from "reactstrap";
 import { Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
-import CalendarView from "../calendar/CalendarView";
+import CalendarMonth from "../calendar/CalendarMonth";
 import Invitation from "./Invitation";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +26,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
     <Switch>
       <Route exact path="/" component={Login} />
       <Route exact path="/register" component={Register} />
-      <Route exact path="/calendar" component={CalendarView} />
+      <Route exact path="/calendar" component={CalendarMonth} />
       <Route exact path="/invitation" component={Invitation} />
     </Switch>
   </Container>
