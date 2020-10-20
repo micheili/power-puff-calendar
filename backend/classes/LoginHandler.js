@@ -67,7 +67,7 @@ module.exports = class LoginHandler {
       }
       // Log out the user by deleting the session.user property
       delete req.session.user;
-      res.json({ success: "Logged out! " + req.session.user });
+      res.json({ success: "Logged out! " });
     });
   }
 };

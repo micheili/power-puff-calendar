@@ -14,9 +14,24 @@ import {
 export default function Login() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
+
   useEffect(() => {
+    // (async () => {
+    //   const data = await (await fetch("/api/login")).json();
+    //   if (data.error) {
     setFormData({ email: "", password: "" });
+    setError("");
+    //   }
+    // })();
   }, []);
+
+  if (formData.error) {
+    return <Redirect to="/" />;
+  }
+
+  if (formData.done) {
+    return <Redirect to="/calendar" />;
+  }
   if (formData.email === undefined) {
     return null;
   }
@@ -39,12 +54,15 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
       });
       const data = await result.json();
-      if (data.error === "No match!") {
+      if (data.error == "Already logged in!") {
+        setError("Someone is already logged-in");
+      } else if (data.error === "No match!") {
         setError("No match found");
-      } /*else {
-        //return <Redirect to="/calendar" />;
-      }*/
-      console.log(data);
+      } else {
+        setFormData({ done: true });
+        console.log(data);
+      }
+
       return data;
     } catch (e) {
       return e;
@@ -56,7 +74,7 @@ export default function Login() {
       <Row className="justify-content-center">
         <Form onSubmit={login}>
           <Col xs="12">
-            <h3 className="mb-4 text-info">Welcome back</h3>
+            <h3 className="mb-4 text-info ">Welcome back</h3>
           </Col>
           <Col xs="12">
             <h5 className="mb-4 text-warning">{error}</h5>
