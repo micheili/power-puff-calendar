@@ -92,7 +92,7 @@ export default function Register() {
   }
 
   return (
-    <Container fluid={true}>
+    <Container className="data" fluid={true}>
       <Row className="justify-content-center">
         <Form onSubmit={save}><h3 className="row justify-content-center mb-5">Create account</h3>
           <Col>

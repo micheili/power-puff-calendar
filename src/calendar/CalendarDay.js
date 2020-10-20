@@ -44,7 +44,7 @@ export default function CalendarDay() {
   
 
   return (
-    <div>
+    <div className="">
 
 <div className="container">
         <div className="row justify-content-md-center bg-secondary">
@@ -69,7 +69,7 @@ export default function CalendarDay() {
 
 
    
-
+     
           <div className="container border border-dark">
             <div className="row">
               <div className="previous col"
@@ -85,6 +85,7 @@ export default function CalendarDay() {
               </div>
             </div>
           </div>
+        
 
     
 

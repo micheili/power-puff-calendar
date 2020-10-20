@@ -12,7 +12,7 @@ import {
 
 export default function Login(){
     return (
-        <Container>
+        <Container className="data">
             <Row className="justify-content-center">
                 <Form>
                 <Row className="justify-content-center mb-5"><h3>Welcome back</h3></Row>
