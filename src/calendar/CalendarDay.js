@@ -44,9 +44,9 @@ export default function CalendarDay() {
   
 
   return (
-    <div className="">
+    <div className="data">
 
-<div className="container">
+<div className="data">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
           <Link to="/calendarday">

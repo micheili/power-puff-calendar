@@ -132,8 +132,51 @@
       }
     }
 
-  
-   
+
   }
 
+  @media only screen and (max-width: 700px) {
+
+    body {
+      overflow: hidden;
+      }
+  
+      .toogleSidebarButton{
+        width: 40px;
+        height: 40px; 
+        left: -2%;
+       
+        .icon{
+          margin-right: -1px;
+          margin-left: -1px;
+          margin-top: 2px;
+          font-size: 20px;
+        }
+      }
+    
+    
+      .sidebar.is-open {
+        min-width: 75%;
+        max-width: 75%;
+        margin-left: 0;
+        transition: all 0.5s, height 0s;
+  
+      }
+  
+      content .is-open .container-fluid{
+        display: none;
+      }
+  
+    
+      .sidebar.is-open > .sidebar-header span {
+        display: unset;
+      }
+  
+      .content.is-open{
+        .data{
+          display: none;
+        }
+      }
+  
+  }
   
