@@ -86,8 +86,8 @@ export default function Register() {
   return (
     <div className="homePageContainer container-fluid mt-5">
       <div className="row justify-content-center">
-        
-        <form onSubmit={save}><h3 className="row justify-content-center mb-5">Create account</h3>
+        <form onSubmit={save}>
+          <h3 className="row justify-content-center mb-5">Create account</h3>
           <section className="col-12">
             <div className="form-group">
               <label>

@@ -1,30 +1,107 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 
-export default function Login(){
-    return (
-        <div className="homePageContainer container-fluid mt-5">
-            <div className="row justify-content-center">
-                
-                <form>
-                <h3 className="row justify-content-center mb-5">Welcome back</h3>
-                    <section className="col-12">
-                        <div className="form-group">
-                            <label>Email address
-                                <input name="email" type="email" className="form-control" aria-describedby="emailHelp" required/>
-                            </label>
-                        </div>
-                        <div className="form-group">
-                            <label>Password
-                                <input name="password" type="password" className="form-control" required/>
-                            </label>
-                        </div>
-                        <Link to="/Register"><p className="row justify-content-center">Don't have an account?</p></Link>
-                        <button type="submit" className="btn btn-primary btn-block">Login</button>
-                    </section>
-                </form>
-            </div>
-        </div>
-               
-    ) 
-} 
+export default function Login() {
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
+  useEffect(() => {
+    setFormData({ email: "", password: "" });
+  }, []);
+  if (formData.email === undefined) {
+    return null;
+  }
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+
+  async function login(e) {
+    e.preventDefault();
+    let res = await fetch("/api/login");
+
+    try {
+      let result = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await result.json();
+      if (data.error === "No match!") {
+        setError("No match found");
+      } /*else {
+        //return <Redirect to="/calendar" />;
+      }*/
+      console.log(data);
+      return data;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  return (
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Form onSubmit={login}>
+          <Col xs="12">
+            <h3 className="mb-4 text-info">Welcome back</h3>
+          </Col>
+          <Col xs="12">
+            <h5 className="mb-4 text-warning">{error}</h5>
+          </Col>
+          <Col xs="12">
+            <FormGroup>
+              <Label className="text-info">
+                Email address
+                <Input
+                  name="email"
+                  type="email"
+                  onChange={handleInputChange}
+                  value={formData.email}
+                  aria-describedby="emailHelp"
+                  required
+                />
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Label className="text-info">
+                Password
+                <Input
+                  name="password"
+                  type="password"
+                  onChange={handleInputChange}
+                  value={formData.password}
+                  required
+                />
+              </Label>
+            </FormGroup>
+            <Link to="/Register">
+              <Row className="justify-content-center text-info">
+                Don't have an account?
+              </Row>
+            </Link>
+            <Button
+              color="info"
+              type="submit"
+              className="btn-block text-light mt-2"
+            >
+              Login
+            </Button>
+          </Col>
+        </Form>
+      </Row>
+    </Container>
+  );
+}
