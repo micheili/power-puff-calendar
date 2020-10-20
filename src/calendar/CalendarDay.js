@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import moment, { calendarFormat, weekdays } from 'moment';
+import moment from 'moment';
 import { Link } from "react-router-dom";
 
 

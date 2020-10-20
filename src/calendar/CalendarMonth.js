@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import moment, { calendarFormat } from 'moment';
+import moment from 'moment';
 import { Link } from "react-router-dom";
 
 
@@ -39,6 +39,11 @@ export default function CalendarMonth() {
 
   function nextMonth() {
     return value.clone().add(1, 'month');
+  }
+
+  function showEventContainer(value){
+    return  console.log(value.format('dd/DD/MM/YYYY'));
+    
   }
 
 
@@ -99,10 +104,10 @@ export default function CalendarMonth() {
               {calendar.map((week) => (
                 <tr >
                   {week.map((day) => (
-                    <td className='day' scope="col" onClick={() => setValue(day)}>
-                      <div className={value.isSame(day, 'day') ? 'table-primary' : ''}>
+                    <td className='day' onClick={() => setValue(day)}>
+                      <div className={value.isSame(day, 'day') ? 'table-primary' : ''}></div>
                         {day.format('D').toString()}
-                      </div>
+                   
                     </td>
                   ))}
                 </tr>
@@ -158,10 +163,12 @@ export default function CalendarMonth() {
 
 
             {week.map((day) => (
-              <div className='day col border border-dark' onClick={() => setValue(day)}>
-                <div className={value.isSame(day, 'day') ? 'table-primary' : ''}>
-
+              <div className='day col border border-dark' onClick={() => setValue(day)}  >
+                <div className={showEventContainer(value)} >
+                <div className= {value.isSame(day, 'day') ? 'table-primary' : ''} >
+               
                   {day.format('D').toString()}
+                  </div>
                 </div>
               </div>
             ))}

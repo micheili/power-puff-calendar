@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import moment, { calendarFormat, weekdays } from 'moment';
+import moment  from 'moment';
 import { Link } from "react-router-dom";
 
 
@@ -79,9 +79,6 @@ export default function CalendarWeek() {
         </div>
       </div>
 
-
-     
-
           <div className="container border border-dark">
             <div className="row">
               <div className="previous col"
@@ -128,7 +125,7 @@ export default function CalendarWeek() {
                         <div >
                           {day.map((hour) => (
 
-                            <div className='hour' scope="col" onClick={() => setValue(hour)}>
+                            <div className='hour'  onClick={() => setValue(hour)}>
                               <div className={value.isSame(hour, 'hour') ? 'table-primary' : ''} >
 
                                 {hour.format('kk').toString()}
