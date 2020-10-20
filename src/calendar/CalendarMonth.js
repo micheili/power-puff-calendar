@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import moment, { calendarFormat } from 'moment';
 
 
-
-
 export default function CalendarMonth() {
 
   const [calendar, setCalendar] = useState([]);
@@ -46,13 +44,14 @@ export default function CalendarMonth() {
   return (
     <div>
 
+      
       <div className="container">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
             <a className="btn btn-primary btn-lg btn-block my-2" href="/" role="button">Day</a>
           </div>
           <div className="col text-center">
-            <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Week</a>
+            <button className="btn btn-primary btn-lg btn-block my-2" >Week</button>
           </div>
           <div className="col text-center">
             <a className="btn btn-primary btn-lg btn-block my-2" href="#" role="button">Month</a>
@@ -150,7 +149,7 @@ export default function CalendarMonth() {
 
 
             {week.map((day) => (
-              <div className='day col border border-light' onClick={() => setValue(day)}>
+              <div className='day col border border-dark' onClick={() => setValue(day)}>
                 <div className={value.isSame(day, 'day') ? 'table-primary' : ''}>
 
                   {day.format('D').toString()}

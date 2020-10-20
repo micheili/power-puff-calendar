@@ -174,7 +174,7 @@ export default function CalendarWeek() {
                         <div >
                           {day.map((hour) => (
 
-                            <div className="hour  border border-light" onClick={() => setValue(hour)}>
+                            <div className="hour  border border-dark" onClick={() => setValue(hour)}>
                               <div className={value.isSame(hour, 'hour') ? 'table-primary' : ''} >
 
                                 {hour.format('kk').toString()}
