@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import usePassWordToggler from '../hooks/usePasswordToggler';
 
 import {
   Container, 
@@ -12,6 +13,7 @@ import {
 export default function Register() {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+  const [PasswordInputType, ToggleIcon] = usePassWordToggler();
 
   useEffect(() => {
     setFormData({ firstName: "", lastName: "", email: "", password: "" });
@@ -142,13 +144,14 @@ export default function Register() {
                 Password
                 <input
                   name="password"
-                  type="password"
+                  type={PasswordInputType}
                   className="form-control"
                   onChange={handleInputChange}
                   value={password}
                   required
                 />
               </label>
+              <span className="password-toggle-icon-register">{ToggleIcon}</span>
               <div className="text-danger"> {passwordError}</div>
             </FormGroup>
             <Link to="/">
