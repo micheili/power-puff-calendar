@@ -5,7 +5,7 @@ import {
      }
     from 'reactstrap';
 
-    const newEvent = (props) => {
+    export default function newEvent() {
         return(                
                  <Form>
                      <h1>Heloj</h1>    
@@ -33,5 +33,5 @@ import {
         );      
 }
 
-export default newEvent;
+
 

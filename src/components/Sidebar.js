@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faFemale, faCalendar, faInbox } from "@fortawesome/free-solid-svg-icons";
 
 
-const SideBar = ({ isOpen, toggle }) => (
+const SideBar = ({ isOpen }) => (
   <div className={classNames("sidebar", { "is-open": isOpen })}>    
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">

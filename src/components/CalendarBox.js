@@ -1,6 +1,6 @@
 import React from "react";
 import CalendarMonth from '../calendar/CalendarMonth';
-import newEvent from './newEvent';
+import newEvent from "./newEvent";
 
 import { 
     Container,
@@ -17,11 +17,10 @@ const CalendarBox = (props) => {
             <Container>                
                 <Row>
                     <Col>
+                        <newEvent/>
                         <CalendarMonth/>
                     </Col>
-                    <Col>
-                        <newEvent/>
-                    </Col>
+                    
                  </Row>   
             </Container>        
         );      
