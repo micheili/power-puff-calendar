@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from "react";
-import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
@@ -46,11 +45,7 @@ export default function App() {
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
         <div className="App wrapper">
-          <Sidebar
-            toggle={toggleSidebar}
-            isOpen={sidebarIsOpen}
-            //loggedInUser={loggedInUser}
-          />
+          <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
           <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
