@@ -17,13 +17,17 @@ import {
             [e.currentTarget.name]: e.currentTarget.value
           });
         
-          const concatStartDateTime = () => {
-            const dateTime = moment(start + ' ' + starttime, 'YYYY-MM-DD HH:mm');
-            return dateTime;
-          }
+          
+            const date = '10/21/2020';
+            const time = '12:20'
+            
+            const dateTime = moment(date + ' ' + time);
+            
+            const formatedDateTime = dateTime.format('YYYY-MM-DD HH:mm')
+           
 
 
-          console.log(concatStartDateTime);
+          console.log(formatedDateTime);
                     
             let { title, description, start, stop, userId } = formData;
 
