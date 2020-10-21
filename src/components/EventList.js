@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
+import { Alert } from "reactstrap";
 
 export default function EventList(props) {
-  let [{title}] = props;
 
-  return (
-    
-    <div>
-      <li>p{title}</li>
-    </div>
-  );
+  props.map(event => {
+    return (
+      <Alert color="primary">{event.title}</Alert>
+    )
+  });
+
 }
