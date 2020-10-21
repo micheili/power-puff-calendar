@@ -12,7 +12,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
  
-const Infobox = (props, date) => {
+const Infobox = (props) => {
   props = [{ 
     id: '',
     eventTitle: '',
@@ -22,8 +22,8 @@ const Infobox = (props, date) => {
     invitedGuests: '',
   }];
 
-  date = Date.today();
   let events = props;
+  let date = 'Chosen Date';
   
   let eventDetails = null;
   let eventList = null;
@@ -49,10 +49,12 @@ const Infobox = (props, date) => {
  
   return (
     <Row>
-      <Col sm="6" lg="12">
+      <Col sm="12" lg="6">
         <Card>
           <CardHeader>
-            {date}
+            <div className="float-left">
+              {date}
+            </div>
             <div>
               <span href="#" id="addEventHover">
                 <Button className="float-right" color="warning">
@@ -64,13 +66,14 @@ const Infobox = (props, date) => {
               </span>
             </div>
           </CardHeader>
+       
+          <CardBody>
           {/* ETT event, event-komponent */}
           {eventDetails}
           {/* en lista på olika events */}
           {eventList}
           {/* om det inte finns några events på vald dag */}
           {defaultText}
-          <CardBody>
             <Button>Button</Button>
           </CardBody>
         </Card>
