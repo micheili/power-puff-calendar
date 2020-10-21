@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 import { Container, Row } from "reactstrap";
 import { Switch, Route, Link } from "react-router-dom";
@@ -13,10 +13,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "reactstrap";
-//import { Context } from "../App";
+import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
-  //const [context, updateContext] = useContext(Context);
+  const [context, updateContext] = useContext(Context);
 
   return (
     <Container
@@ -27,7 +27,6 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-
         <Button
           tag={Link}
           to="/"
