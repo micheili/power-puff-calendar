@@ -7,6 +7,7 @@ export default function CalendarMonth() {
 
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
+  const [events, setEvents] = useState([])
 
 
   const startDay = value.clone().startOf('month').startOf('week');
@@ -20,8 +21,14 @@ export default function CalendarMonth() {
 
   }
 
+  async function fetchEvents(){
+    //get all persons from db
+    setEvents( await(await fetch('/api/event')).json());
+    }
+
   useEffect(() => {
     setCalendar(ca);
+   
   }, [value]);
 
 
@@ -44,6 +51,10 @@ export default function CalendarMonth() {
   function showEventContainer(value){
     return  console.log(value.format('dd/DD/MM/YYYY'));
     
+  }
+
+  function addEventToCalendar(){
+    return;
   }
 
 
