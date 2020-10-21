@@ -1,26 +1,26 @@
 import React from "react";
+import {
+    Col, Container,
+    Row
+} from 'reactstrap';
 import CalendarMonth from '../calendar/CalendarMonth';
-import newEvent from "./newEvent";
+import NewEvent from './NewEvent';
 
-import { 
-    Container,
-    Row, 
-    Col    
-     }
-    from 'reactstrap';
 
 
 
 const CalendarBox = (props) => {
     
         return(
-            <Container>                
+            
+            <Container>   
                 <Row>
-                    <Col>
-                        <newEvent/>
+                    <Col xs="12" lg="8">
                         <CalendarMonth/>
                     </Col>
-                    
+                    <Col xs="12" lg="4">
+                        <NewEvent></NewEvent>
+                    </Col>
                  </Row>   
             </Container>        
         );      
