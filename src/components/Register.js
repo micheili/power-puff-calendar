@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import usePassWordToggler from "../hooks/usePasswordToggler";
 
-import { Container, Row, Col, Form, FormGroup } from "reactstrap";
+import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function Register() {
   const [formData, setFormData] = useState({});
@@ -91,74 +91,72 @@ export default function Register() {
     <Container className="data" fluid={true}>
       <Row className="justify-content-center">
         <Form onSubmit={save}>
-          <h3 className="row justify-content-center mb-5">Create account</h3>
+          <h3 className="row justify-content-center mb-5 text-info">
+            Create account
+          </h3>
           <Col>
             <FormGroup>
-              <label>
+              <Label className="text-info">
                 Firstname
-                <input
+                <Input
                   name="firstName"
                   type="text"
-                  className="form-control"
                   onChange={handleInputChange}
                   value={firstName}
                   required
                 />
-              </label>
+              </Label>
             </FormGroup>
             <FormGroup>
-              <label>
+              <Label className="text-info">
                 Lastname
-                <input
+                <Input
                   name="lastName"
                   type="text"
-                  className="form-control"
                   onChange={handleInputChange}
                   value={lastName}
                   required
                 />
-              </label>
+              </Label>
             </FormGroup>
             <FormGroup>
-              <label>
+              <Label className="text-info">
                 Email address
-                <input
+                <Input
                   name="email"
                   type="email"
-                  className="form-control"
                   onChange={handleInputChange}
                   aria-describedby="emailHelp"
                   value={email}
                   required
                 />
-              </label>
+              </Label>
               <div className="text-danger">{emailError}</div>
             </FormGroup>
             <FormGroup>
-              <label>
+              <Label className="text-info">
                 Password
-                <input
+                <Input
                   name="password"
                   type={PasswordInputType}
-                  className="form-control"
                   onChange={handleInputChange}
                   value={password}
                   required
                 />
-              </label>
+              </Label>
               <span className="password-toggle-icon-register">
                 {ToggleIcon}
               </span>
               <div className="text-danger"> {passwordError}</div>
             </FormGroup>
             <Link to="/">
-              <p className="row justify-content-center">
+              <p className="row justify-content-center text-info">
                 Already have an account?
               </p>
             </Link>
-            <input
+            <Input
               type="submit"
-              className="btn btn-primary btn-block"
+              className="btn btn-info text-light btn-block"
               value="Sign up"
             />
           </Col>

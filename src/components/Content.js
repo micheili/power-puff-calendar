@@ -27,18 +27,22 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-        <Button
-          tag={Link}
-          to="/"
-          color="info"
-          className="text-light"
-          onClick={logout}
-        >
-          <div className="mt-2">
-            <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
-            Logout
-          </div>
-        </Button>
+        {context.currentUser.firstName != undefined ? (
+          <Button
+            tag={Link}
+            to="/"
+            color="info"
+            className="text-light"
+            onClick={logout}
+          >
+            <div className="mt-2">
+              <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
+              Logout
+            </div>
+          </Button>
+        ) : (
+          <></>
+        )}
       </Row>
 
       <Switch>

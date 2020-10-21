@@ -9,9 +9,7 @@ import "./sass/style.scss";
 export const Context = createContext();
 
 export default function App() {
-  const [contextVal, setContext] = useState({
-    currentUser: {},
-  });
+  const [contextVal, setContext] = useState({ currentUser: {} });
 
   const updateContext = (updates) =>
     setContext({

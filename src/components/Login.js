@@ -13,11 +13,11 @@ import {
   Row,
   Alert,
 } from "reactstrap";
-//import { Context } from "../App";
+import { Context } from "../App";
 
 export default function Login() {
   const [PasswordInputType, ToggleIcon] = usePassWordToggler();
-  //const [context, updateContext] = useContext(Context);
+  const [context, updateContext] = useContext(Context);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -66,15 +66,19 @@ export default function Login() {
       const data = await result.json();
       if (data.error == "Already logged in!") {
         setError("Someone is already logged-in");
+        setFormData({ email: "", password: "" });
         setAlert(true);
-      } else if (data.error === "No match!") {
+        return;
+      }
+      if (data.error === "No match!") {
         setError("No match found");
         setAlert(true);
-      } else {
-        setRedirect(true);
-        setFormData({ email: "", password: "" });
-        console.log(data);
+        return;
       }
+      updateContext({ currentUser: result });
+      setRedirect(true);
+      setFormData({ email: "", password: "" });
+      console.log(data);
 
       return data;
     } catch (e) {
