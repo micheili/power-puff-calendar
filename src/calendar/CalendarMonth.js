@@ -22,13 +22,17 @@ export default function CalendarMonth() {
   }
 
   async function fetchEvents(){
-    //get all persons from db
-    setEvents( await(await fetch('/api/event')).json());
+    //let result = ->
+    setEvents( await(await fetch('/api/Event')).json());
+   /* if(result === currentuser){
+      return setEvents(result);
+    }*/
     }
 
   useEffect(() => {
     setCalendar(ca);
-   
+   fetchEvents();
+  
   }, [value]);
 
 
@@ -49,20 +53,39 @@ export default function CalendarMonth() {
   }
 
   function showEventContainer(value){
-    return  console.log(value.format('dd/DD/MM/YYYY'));
+    let dateFromCalendar = value.format('YYYY-MM-DD');
+    console.log(dateFromCalendar);
+    return ;
     
   }
 
+
   function addEventToCalendar(){
+  //in Calendar-StateArray, "find" on index/date where Event-StatArray = date, then add eventObject in array and render out!
+
+  /* arra1.map(item => {
+    let item2 = arra2.find(i2 => i2.transid === item.transid);
+    return item2 ? { ...item, ...item2 } : item;
+  });*/
+
     return;
   }
+
+  
 
 
 
   return (
     <div>
 
-      
+{events.map((event) =>(
+  <>
+  <div>{event.eventid} </div>
+<div>Titel: {event.title}</div>
+<div>Description: {event.description}</div>
+</>
+))}
+
       <div className="container">
         <div className="row justify-content-md-center bg-secondary">
           <div className="col text-center">
@@ -187,10 +210,9 @@ export default function CalendarMonth() {
         ))}
 
 
-
-
-
       </div>
+
+
 
     </div>
   );
