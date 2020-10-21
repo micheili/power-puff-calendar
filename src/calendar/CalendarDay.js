@@ -8,7 +8,7 @@ export default function CalendarDay() {
   
   const [value, setValue] = useState(moment());
   const [hours, setHours] = useState([]);
-
+  const [events, setEvents] = useState([]);
 
   const startHour = value.clone().startOf('day');
   const endHour = value.clone().endOf('day').add(1, 'hour');
