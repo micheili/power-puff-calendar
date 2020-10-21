@@ -4,7 +4,7 @@ import {
     Row
 } from 'reactstrap';
 import CalendarMonth from '../calendar/CalendarMonth';
-import NewEvent from './NewEvent';
+import NewEvent from './NewEvent'
 
 
 

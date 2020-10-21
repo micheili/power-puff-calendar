@@ -10,33 +10,18 @@ import {
 
     const NewEvent = () => {
 
-    const [formData, setFormData, setDateTime] = useState({});
-
-        useEffect(() => {
-            
-        
-            setFormData({  title: '', description: ''});
-
-            setDateTime({  startdate: '', starttime: '', enddate: '', endtime: ''});
-            
-            });
+    const [formData, setFormData]= useState({});
 
         
-        
 
+        
         const handleInputChange = e => setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value
           });
 
 
-        const handleChangeDateTime = e => setDateTime({            
-            [e.currentTarget.name]: e.currentTarget.value
-          });
           
-
-          
-        
           let { title, description,   userId = 1 } = formData;
 
           async function save(e) {
@@ -44,7 +29,7 @@ import {
             // stop that - we are not barbarians, we ar SPA developers!
             e.preventDefault();
             // Send the data to the REST api
-            let result = await (await fetch('/api/event/' + eventId, {
+            let result = await (await fetch('/api/event/', {
               method: ('POST'),
               body: JSON.stringify(formData),
               headers: { 'Content-Type': 'application/json' }
@@ -54,15 +39,18 @@ import {
           }
 
         return(                
-            <Form onSubmit={save}>
+            <Form onSubmit={save}
+            >
                 <h1>NewEvent</h1>    
                 <FormGroup>
                     <Label for="eventTitle">Title</Label>
-                    <Input type="text" name="title" id="eventTitle" onChange={handleInputChange} value={title}/>
+                    <Input type="text" name="title" id="eventTitle" onChange={handleInputChange} value={title}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Label for="eventDescription">Description</Label>
-                    <Input type="textarea" name="description" id="eventDescription"  onChange={handleInputChange} value={description} />
+                    <Input type="textarea" name="description" id="eventDescription"  onChange={handleInputChange} value={description} 
+                    />
                 </FormGroup>
                 <Label>Start:</Label>
                 <Row>
@@ -74,7 +62,7 @@ import {
                             id="eventStartDate"
                             placeholder="date placeholder"
                             format="yyyy/MM/dd"
-                            onChange={handleChangeDateTime} value={startdate}
+                            //onChange={handleChangeStartDateTime} value={startdate}
                             />
                         </FormGroup>
                     </Col>
@@ -85,7 +73,7 @@ import {
                             name="starttime"
                             id="eventStartTime"
                             placeholder="time placeholder"
-                            onChange={handleChangeDateTime} value={starttime}
+                            //onChange={handleChangeStartDateTime} value={starttime}
                             />
                         </FormGroup>
                     </Col>
@@ -99,7 +87,7 @@ import {
                             name="enddate"
                             id="eventEndDate"
                             placeholder="date placeholder"
-                            onChange={handleChangeDateTime} value={enddate}
+                            //onChange={handleChangeEndDateTime} value={enddate}
                             />
                         </FormGroup>
                     </Col>
@@ -110,7 +98,7 @@ import {
                             name="endtime"
                             id="eventEndTime"
                             placeholder="time placeholder"
-                            onChange={handleChangeDateTime} value={endtime}
+                            //onChange={handleChangeEndDateTime} value={endtime}
                             />
                         </FormGroup>
                     </Col>                    
