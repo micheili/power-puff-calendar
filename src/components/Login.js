@@ -13,11 +13,11 @@ import {
   Row,
   Alert,
 } from "reactstrap";
-import { Context } from "../App";
+//import { Context } from "../App";
 
 export default function Login() {
   const [PasswordInputType, ToggleIcon] = usePassWordToggler();
-  const [context, updateContext] = useContext(Context);
+  //const [context, updateContext] = useContext(Context);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);

@@ -45,7 +45,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/calendar" component={CalendarView} />
+        <Route exact path="/calendar" component={CalendarMonth} />
         <Route exact path="/calendarweek" component={CalendarWeek} />
         <Route exact path="/calendarday" component={CalendarDay} />
         <Route exact path="/invitation" component={Invitation} />
