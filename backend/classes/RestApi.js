@@ -46,16 +46,22 @@ module.exports = class RestApi {
     let rp = this.routePrefix;
     // get all posts
     this.app.get(rp + "/" + table, (req, res) => {
-      res.json(this.db.select("SELECT * FROM " + table));
+      res.json(
+        this.db
+          .select("SELECT * FROM " + table)
+          .map((x) => ({ ...x, password: undefined }))
+      );
     });
     // get a post by id
     this.app.get(rp + "/" + table + "/:id", (req, res) => {
-      let result = this.db.select(
-        "SELECT * FROM " + table + " WHERE id = $id",
-        // req.params includes the values of params
-        // (things written with : before them in the route)
-        { id: req.params.id }
-      );
+      let result = this.db
+        .select(
+          "SELECT * FROM " + table + " WHERE id = $id",
+          // req.params includes the values of params
+          // (things written with : before them in the route)
+          { id: req.params.id }
+        )
+        .map((x) => ({ ...x, password: undefined }));
       // if a post with the id exists return the post
       if (result.length > 0) {
         res.json(result[0]);

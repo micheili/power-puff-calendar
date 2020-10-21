@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "reactstrap";
+//import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   //const [context, updateContext] = useContext(Context);

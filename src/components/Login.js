@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
+
 import {
   Button,
   Col,
@@ -9,11 +10,18 @@ import {
   Input,
   Label,
   Row,
+  Alert,
 } from "reactstrap";
+import { Context } from "../App";
 
 export default function Login() {
+  const [context, updateContext] = useContext(Context);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const [alert, setAlert] = useState(false);
+
+  const onDismiss = () => setAlert(false);
 
   useEffect(() => {
     // (async () => {
@@ -29,7 +37,7 @@ export default function Login() {
     return <Redirect to="/" />;
   }
 
-  if (formData.done) {
+  if (redirect) {
     return <Redirect to="/calendar" />;
   }
   if (formData.email === undefined) {
@@ -56,10 +64,13 @@ export default function Login() {
       const data = await result.json();
       if (data.error == "Already logged in!") {
         setError("Someone is already logged-in");
+        setAlert(true);
       } else if (data.error === "No match!") {
         setError("No match found");
+        setAlert(true);
       } else {
-        setFormData({ done: true });
+        setRedirect(true);
+        setFormData({ email: "", password: "" });
         console.log(data);
       }
 
@@ -77,7 +88,9 @@ export default function Login() {
             <h3 className="mb-4 text-info ">Welcome back</h3>
           </Col>
           <Col xs="12">
-            <h5 className="mb-4 text-warning">{error}</h5>
+            <Alert color="danger" isOpen={alert} toggle={onDismiss}>
+              {error}
+            </Alert>
           </Col>
           <Col xs="12">
             <FormGroup>

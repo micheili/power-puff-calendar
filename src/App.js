@@ -1,25 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 import "./sass/style.scss";
 
+// create and export the context
+export const Context = createContext();
+
 export default function App() {
+  const [contextVal, setContext] = useState({
+    currentUser: {},
+  });
+
+  const updateContext = (updates) =>
+    setContext({
+      ...contextVal,
+      ...updates,
+    });
+
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
-  const [loggedInUser, setLoggedInUser] = useState({});
+  //const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
     (async () => {
       const result = await (await fetch("/api/login")).json();
       if (!result.error) {
-        setLoggedInUser(result);
+        updateContext({ currentUser: result });
       } else {
-        setLoggedInUser({});
+        updateContext({ currentUser: {} });
+        return;
       }
     })();
-  }, [loggedInUser]);
+  }, [contextVal]);
 
   async function logout() {
     const res = await fetch("/api/login", {
@@ -30,19 +44,21 @@ export default function App() {
   }
 
   return (
-    <Router>
-      <div className="App wrapper">
-        <Sidebar
-          toggle={toggleSidebar}
-          isOpen={sidebarIsOpen}
-          loggedInUser={loggedInUser}
-        />
-        <Content
-          toggleSidebar={toggleSidebar}
-          sidebarIsOpen={sidebarIsOpen}
-          logout={logout}
-        />
-      </div>
-    </Router>
+    <Context.Provider value={[contextVal, updateContext]}>
+      <Router>
+        <div className="App wrapper">
+          <Sidebar
+            toggle={toggleSidebar}
+            isOpen={sidebarIsOpen}
+            //loggedInUser={loggedInUser}
+          />
+          <Content
+            toggleSidebar={toggleSidebar}
+            sidebarIsOpen={sidebarIsOpen}
+            logout={logout}
+          />
+        </div>
+      </Router>
+    </Context.Provider>
   );
 }

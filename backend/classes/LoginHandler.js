@@ -35,14 +35,16 @@ module.exports = class LoginHandler {
       }
       // Check if email and password exists
       // in the db and matches the request
-      let result = this.db.select(
-        /*sql*/ `
+      let result = this.db
+        .select(
+          /*sql*/ `
         SELECT *
         FROM User
         WHERE email = $email AND password = $password
         `,
-        req.body
-      );
+          req.body
+        )
+        .map((x) => ({ ...x, password: undefined }));
       // We did not find any matching email + password
       if (result.length === 0) {
         res.json({ error: "No match!" });

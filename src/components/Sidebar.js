@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -11,23 +11,18 @@ import {
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function Sidebar({ isOpen, toggle, loggedInUser }) {
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await (await fetch("/api/login")).json();
-  //     if (!result.error) {
-  //       updateContext({ loggedInUser: result });
-  //     }
-  //   })();
-  // }, [context]);
+import { Context } from "../App";
+
+export default function Sidebar({ isOpen, toggle }) {
+  const [context] = useContext(Context);
 
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
       <div className="side-menu">
         <Nav vertical className="list-unstyled pb-3">
           <h3 className="text-info">
-            {loggedInUser.firstName != undefined
-              ? `Welcome ${loggedInUser.firstName}`
+            {context.currentUser.firstName != undefined
+              ? `Welcome ${context.currentUser.firstName}`
               : "Calendar"}
           </h3>
 
