@@ -12,29 +12,34 @@ import {
 
     const [formData, setFormData]= useState({});
 
-        
-
-        
         const handleInputChange = e => setFormData({
-            ...formData,
+            ...formData,            
             [e.currentTarget.name]: e.currentTarget.value
           });
+        
+          const concatStartDateTime = () => {
+            const dateTime = moment(start + ' ' + starttime, 'YYYY-MM-DD HH:mm');
+            return dateTime;
+          }
 
 
-          
-          let { title, description,   userId = 1 } = formData;
+          console.log(concatStartDateTime);
+                    
+            let { title, description, start, stop, userId } = formData;
 
-          async function save(e) {
+          async function save(e) { 
             // the default behavior of a form submit is to reload the page
             // stop that - we are not barbarians, we ar SPA developers!
             e.preventDefault();
+            console.log(formData);
             // Send the data to the REST api
-            let result = await (await fetch('/api/event/', {
-              method: ('POST'),
+            let result = await (await fetch('/api/Event', {
+              method: 'POST',
               body: JSON.stringify(formData),
               headers: { 'Content-Type': 'application/json' }
             })).json(); 
             setFormData({ done: true });
+            console.log(result);
             return result;           
           }
 
@@ -52,17 +57,23 @@ import {
                     <Input type="textarea" name="description" id="eventDescription"  onChange={handleInputChange} value={description} 
                     />
                 </FormGroup>
+                <FormGroup>
+                    <Label for="eventUserId">UserId</Label>
+                    <Input type="tex" name="userId" id="eventUserId"  onChange={handleInputChange} value={userId} 
+                    />
+                </FormGroup>
                 <Label>Start:</Label>
                 <Row>
                     <Col xs="12" lg="6">
                         <FormGroup>                            
                             <Input
                             type="date"
-                            name="startdate"
+                            name="start"
                             id="eventStartDate"
                             placeholder="date placeholder"
                             format="yyyy/MM/dd"
-                            //onChange={handleChangeStartDateTime} value={startdate}
+                            onChange={handleInputChange}
+                            value= {start}                            
                             />
                         </FormGroup>
                     </Col>
@@ -73,7 +84,7 @@ import {
                             name="starttime"
                             id="eventStartTime"
                             placeholder="time placeholder"
-                            //onChange={handleChangeStartDateTime} value={starttime}
+                                                        
                             />
                         </FormGroup>
                     </Col>
@@ -84,10 +95,11 @@ import {
                         <FormGroup>                            
                             <Input
                             type="date"
-                            name="enddate"
+                            name="stop"
                             id="eventEndDate"
                             placeholder="date placeholder"
-                            //onChange={handleChangeEndDateTime} value={enddate}
+                            onChange={handleInputChange}
+                            value= {stop}                            
                             />
                         </FormGroup>
                     </Col>
@@ -96,14 +108,13 @@ import {
                             <Input
                             type="time"
                             name="endtime"
-                            id="eventEndTime"
-                            placeholder="time placeholder"
-                            //onChange={handleChangeEndDateTime} value={endtime}
+                            id="eventEndTime"                            
+                            placeholder="time placeholder"                            
                             />
                         </FormGroup>
                     </Col>                    
                 </Row>
-                <Button value="save">Submit</Button>
+                <Button type="submit" value="save">Submit</Button>
             </Form>
                 
         );      
