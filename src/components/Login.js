@@ -1,30 +1,40 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import usePassWordToggler from '../hooks/usePasswordToggler';
+import {
+    Container, 
+    Row, 
+    Col,
+    Form,
+    FormGroup,
+    Button    
+  } from "reactstrap";
 
 export default function Login(){
+    const [PasswordInputType, ToggleIcon] = usePassWordToggler();
     return (
-        <div className="homePageContainer container-fluid mt-5">
-            <div className="row justify-content-center">
-                
-                <form>
-                <h3 className="row justify-content-center mb-5">Welcome back</h3>
-                    <section className="col-12">
-                        <div className="form-group">
+        <Container className="data">
+            <Row className="justify-content-center">
+                <Form>
+                <Row className="justify-content-center mb-5"><h3>Welcome back</h3></Row>
+                    <Col>
+                        <FormGroup>
                             <label>Email address
                                 <input name="email" type="email" className="form-control" aria-describedby="emailHelp" required/>
                             </label>
-                        </div>
-                        <div className="form-group">
+                        </FormGroup>
+                        <FormGroup>
                             <label>Password
-                                <input name="password" type="password" className="form-control" required/>
+                                <input name="password" type={PasswordInputType} className="form-control" required></input>
+                                <span className="password-toggle-icon">{ToggleIcon}</span>
                             </label>
-                        </div>
+                        </FormGroup>
                         <Link to="/Register"><p className="row justify-content-center">Don't have an account?</p></Link>
-                        <button type="submit" className="btn btn-primary btn-block">Login</button>
-                    </section>
-                </form>
-            </div>
-        </div>
+                        <Button type="submit" color="primary" className="btn btn-primary btn-block">Login</Button>
+                    </Col>
+                </Form>
+            </Row>
+        </Container>
                
     ) 
 } 
