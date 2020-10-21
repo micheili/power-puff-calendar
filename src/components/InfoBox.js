@@ -74,7 +74,6 @@ const Infobox = (props) => {
           {eventList}
           {/* om det inte finns några events på vald dag */}
           {defaultText}
-            <Button>Button</Button>
           </CardBody>
         </Card>
       </Col>
