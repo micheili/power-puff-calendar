@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 import CalendarHeader from './CalendarHeader';
-import WeekdayIndicator from './WeekdayIndicator';
-import DateIndicator from './DateIndicator';
+import WeekdayIndicator from './indicators/WeekdayIndicator';
+import DateIndicator from './indicators/DateIndicator';
+import MonthIndicator from './indicators/MonthIndicator';
+import '../sass/_calendar.scss';
 
 
 export default function CalendarMonth() {
@@ -16,19 +18,21 @@ export default function CalendarMonth() {
   return (
   
 
-    <div className="calendar-container">
+    <div className="container">
       <CalendarHeader selectDate={selectDate}/>
-      <table>
-      <thead className="thead-dark"> 
+     
+      <div className="calendar-container">
       <WeekdayIndicator />
-      </thead>
-      <tbody>
+     
       <DateIndicator
         selectDate={selectDate}
         setSelectDate={setSelectDate}
       />
-      </tbody>
-      </table>
+     </div>
+     <MonthIndicator 
+        selectDate={selectDate} 
+        setSelectDate={setSelectDate}
+      />
     </div>
 
 

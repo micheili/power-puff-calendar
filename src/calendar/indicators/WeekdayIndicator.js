@@ -7,12 +7,12 @@ export default function WeekdayIndicator(){
 
     const weekdayIcons = weekdays.map((day, key) => {
         return (
-          <th className="weekday-indicator-icon" key={key}>
+          <div className="weekday-indicator-icon" key={key}>
             {day}
-          </th>
+          </div>
         );
       });
 
-      return <tr className="weekday-indicators">{weekdayIcons}</tr>;
+      return <div className="weekday-indicators">{weekdayIcons}</div>;
 
 }

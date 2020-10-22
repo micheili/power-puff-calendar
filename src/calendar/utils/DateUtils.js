@@ -1,5 +1,11 @@
 import moment from 'moment';
-
+import {
+  getSpecificDate,
+  getMonth,
+  getYear,
+  getMonthDayYear,
+} from '../utils/MomentUtils';
+import { totalDatesPerMonthView } from '../constants/dates';
 
 
 
@@ -48,6 +54,28 @@ import moment from 'moment';
     //result is an array of date objects
     return result;
   }
+
+ export const getMonthSet = (selectDate) => {
+    const month = getMonth(selectDate) + 1;
+    
+    const result = {
+      current: selectDate,
+      prev: getSpecificDate(month - 1, 1, getYear(selectDate)),
+      next: getSpecificDate(month + 1, 1, getYear(selectDate)),
+    };
+  
+    if (month === 1) {
+      result.prev = getSpecificDate(12, 1, getYear(selectDate) - 1);
+    }
+  
+    if (month === 12) {
+      result.next = getSpecificDate(1, 1, getYear(selectDate) + 1);
+    }
+  
+    return result;
+  };
+
+
 
   const getDaysInMonth = (month, year) => {
     return moment(`${month}-${year}`, 'MM-YYYY').daysInMonth();

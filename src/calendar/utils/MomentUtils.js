@@ -1,8 +1,8 @@
 import moment from 'moment';
 
 //export formating moment-dates!
-export const getSpecificDate = (year, month, dayOfMonth ) => {
-  return moment(`${year}-${month}-${dayOfMonth}`, 'YYYY-MM-DD').toDate();
+export const getSpecificDate = ( month, dayOfMonth, year ) => {
+  return moment(`${month}-${dayOfMonth}-${year}`, 'MM-DD-YYYY').toDate();
 };
 
 export const getDayOfMonth = (date) => moment(date).date();
