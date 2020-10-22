@@ -31,12 +31,22 @@ export const getDatesInWeekDisplay = (selectDate) =>{
 
 export const getWeekSet = (selectDate) => {
   const week = getWeek(selectDate);
+  const month = getMonth(selectDate);
     
   const result = {
     current: selectDate,
     prev: getSpecificWeek(week - 1, getYear(selectDate)),
     next: getSpecificWeek(week + 1,  getYear(selectDate)),
   };
+
+  if (week === 1) {
+    result.prev = getSpecificWeek(52, getYear(selectDate) - 1);
+  }
+
+
+ /* if (week === 53 || week === 52) {
+    result.next = getSpecificWeek(1, getYear(selectDate) + 1);
+  }*/
 
   return result;
 };
