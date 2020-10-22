@@ -9,7 +9,7 @@ import Infobox from "./components/InfoBox";
 export const Context = createContext();
 
 export default function App() {
-  const [contextVal, setContext] = useState({});
+  const [contextVal, setContext] = useState({ user: false });
 
   const updateContext = (updates) =>
     setContext({
@@ -22,31 +22,17 @@ export default function App() {
   //const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    updateContext({ waiting: true });
     (async () => {
       let result = await (await fetch("/api/login")).json();
-      updateContext({ waiting: false });
       if (result.error) {
         updateContext({ user: false });
         return;
       }
-
       // add the user data to the context variable
       updateContext({ user: result });
+      console.log(contextVal.user);
     })();
-  }, [contextVal]); // eslint-disable-line react-hooks/exhaustive-deps
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await (await fetch("/api/login")).json();
-  //     if (!result.error) {
-  //       updateContext({ currentUser: result });
-  //       console.log(contextVal.currentUser);
-  //     } else {
-  //       updateContext({ currentUser: {} });
-  //       return;
-  //     }
-  //   })();
-  // }, [contextVal]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function logout() {
     const res = await fetch("/api/login", {

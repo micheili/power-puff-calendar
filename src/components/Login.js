@@ -75,12 +75,13 @@ export default function Login() {
         setAlert(true);
         return;
       }
-      updateContext({ user: result });
+      updateContext({ user: data });
+      console.log(context.user);
       setRedirect(true);
       setFormData({ email: "", password: "" });
       console.log(data);
 
-      return data;
+      // return data;
     } catch (e) {
       return e;
     }

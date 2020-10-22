@@ -112,9 +112,8 @@ export default function Register() {
           headers: { "Content-Type": "application/json" },
         })
       ).json();
-      //
 
-      //updateContext({ user: res });
+      updateContext({ user: res });
 
       setFormData({ done: true });
     }
