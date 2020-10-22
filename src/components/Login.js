@@ -55,7 +55,7 @@ export default function Login() {
 
   async function login(e) {
     e.preventDefault();
-    let res = await fetch("/api/login");
+    // let res = await fetch("/api/login");
 
     try {
       let result = await fetch("/api/login", {
@@ -75,12 +75,13 @@ export default function Login() {
         setAlert(true);
         return;
       }
-      updateContext({ currentUser: result });
+      updateContext({ user: data });
+      console.log(context.user);
       setRedirect(true);
       setFormData({ email: "", password: "" });
       console.log(data);
 
-      return data;
+      // return data;
     } catch (e) {
       return e;
     }

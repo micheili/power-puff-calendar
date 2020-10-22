@@ -21,9 +21,7 @@ export default function Sidebar({ isOpen, toggle }) {
       <div className="side-menu">
         <Nav vertical className="list-unstyled pb-3">
           <h3 className="text-info">
-            {context.currentUser.firstName != undefined
-              ? `Welcome ${context.currentUser.firstName}`
-              : "Calendar"}
+            {context.user ? `Welcome ${context.user.firstName}` : "Calendar"}
           </h3>
 
           <NavItem>
@@ -51,6 +49,12 @@ export default function Sidebar({ isOpen, toggle }) {
             <NavLink tag={Link} to={"/invitation"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
               Invitation
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to={"/calendarbox"}>
+              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
+              CalendarBox
             </NavLink>
           </NavItem>
         </Nav>

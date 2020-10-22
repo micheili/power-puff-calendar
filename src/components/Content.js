@@ -9,6 +9,7 @@ import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
 import CalendarPage from "../CalendarPage";
+import CalendarBox from "./CalendarBox";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -29,7 +30,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-        {context.currentUser.firstName != undefined ? (
+        {context.user ? (
           <Button
             tag={Link}
             to="/"
@@ -55,6 +56,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Route exact path="/calendarday" component={CalendarDay} />
         <Route exact path="/invitation" component={Invitation} />
         <Route path="/calendarpage" component={CalendarPage}></Route>
+        <Route path="/calendarbox" component={CalendarBox}></Route>
       </Switch>
     </Container>
   );

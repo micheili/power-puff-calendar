@@ -8,7 +8,7 @@ import "./sass/style.scss";
 export const Context = createContext();
 
 export default function App() {
-  const [contextVal, setContext] = useState({ currentUser: {} });
+  const [contextVal, setContext] = useState({ user: false });
 
   const updateContext = (updates) =>
     setContext({
@@ -22,20 +22,22 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const result = await (await fetch("/api/login")).json();
-      if (!result.error) {
-        updateContext({ currentUser: result });
-      } else {
-        updateContext({ currentUser: {} });
+      let result = await (await fetch("/api/login")).json();
+      if (result.error) {
+        updateContext({ user: false });
         return;
       }
+      // add the user data to the context variable
+      updateContext({ user: result });
+      console.log(contextVal.user);
     })();
-  }, [contextVal]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function logout() {
     const res = await fetch("/api/login", {
       method: "DELETE",
     });
+    updateContext({ user: false });
     const result = await res.json();
     console.log(result);
   }
