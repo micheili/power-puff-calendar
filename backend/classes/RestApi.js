@@ -77,7 +77,9 @@ module.exports = class RestApi {
   setupPostRoute(table) {
     // create a post
 
-    this.app.post(this.routePrefix + "/" + table, (req, res) => {
+   
+
+   this.app.post(this.routePrefix + "/" + table, (req, res) => {
       // if the Table name is  "Event", then check for the start and stop time,
       // check if the time duration is min 15 minutes (900 sec) and max 7 days (604800 sec)
       // otherwise forbidden to post
@@ -104,7 +106,7 @@ module.exports = class RestApi {
       } else {
         res.json(
           this.db.run(
-            /*sql*/ `
+           /* sql*/ `
         INSERT INTO ${table} (${Object.keys(req.body)})
         VALUES (${Object.keys(req.body).map((x) => "$" + x)})
       `,

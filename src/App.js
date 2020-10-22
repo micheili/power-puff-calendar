@@ -1,9 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 import "./sass/style.scss";
-import Infobox from "./components/InfoBox";
 
 // create and export the context
 export const Context = createContext();
@@ -54,7 +53,6 @@ export default function App() {
             logout={logout}
           />
         </div>
-        <Route path="/infobox" component={Infobox}></Route>
       </Router>
     </Context.Provider>
   );
