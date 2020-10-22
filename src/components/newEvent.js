@@ -14,15 +14,7 @@ import {
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
-  let {
-    title,
-    description,
-    start,
-    stop,
-    starttime,
-    endtime,
-    userId,
-  } = formData;
+  
 
   const handleInputChange = (e) =>
     setFormData({
@@ -30,13 +22,23 @@ const NewEvent = () => {
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
-  const startdateTime = new Date(start + " " + starttime);
-  const endDateTime = new Date(stop + " " + endtime);
+    let {
+      title,
+      description,
+      startDate,
+      stopDate,
+      startTime,
+      stopTime,
+      userId
+    } = formData;
 
-  const start = moment(startdateTime).format("YYYY-MM-DD HH:mm");
-  const stop = moment(endDateTime).format("YYYY-MM-DD HH:mm");
+  const getStart = new Date(startDate + " " + startTime);
+  const getStop = new Date(stopDate + " " + stopTime);
 
-  console.log("start: ", dateTimeStart, "  stop: ", dateTimeStop);
+  const start = moment(getStart).format("YYYY-MM-DD HH:mm");
+  const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+
+  console.log("start: ", start, "  stop: ", stop);
 
   async function save(e) {
     // the default behavior of a form submit is to reload the page
@@ -47,7 +49,7 @@ const NewEvent = () => {
     let result = await (
       await fetch("/api/Event", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ userId, title, description, start, stop}),
         headers: { "Content-Type": "application/json" },
       })
     ).json();
@@ -95,12 +97,12 @@ const NewEvent = () => {
           <FormGroup>
             <Input
               type="date"
-              name="start"
+              name="startDate"
               id="eventStartDate"
               placeholder="date placeholder"
               format="yyyy/MM/dd"
               onChange={handleInputChange}
-              value={start}
+              value={startDate}
             />
           </FormGroup>
         </Col>
@@ -108,11 +110,11 @@ const NewEvent = () => {
           <FormGroup xs="12" lg="6">
             <Input
               type="time"
-              name="starttime"
+              name="startTime"
               id="eventStartTime"
               placeholder="time placeholder"
               onChange={handleInputChange}
-              value={starttime}
+              value={startTime}
             />
           </FormGroup>
         </Col>
@@ -123,11 +125,11 @@ const NewEvent = () => {
           <FormGroup>
             <Input
               type="date"
-              name="stop"
+              name="stopDate"
               id="eventEndDate"
               placeholder="date placeholder"
               onChange={handleInputChange}
-              value={stop}
+              value={stopDate}
             />
           </FormGroup>
         </Col>
@@ -135,11 +137,11 @@ const NewEvent = () => {
           <FormGroup xs="12" lg="6">
             <Input
               type="time"
-              name="endtime"
+              name="stopTime"
               id="eventEndTime"
               placeholder="time placeholder"
               onChange={handleInputChange}
-              value={endtime}
+              value={stopTime}
             />
           </FormGroup>
         </Col>
