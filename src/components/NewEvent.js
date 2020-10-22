@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
+import {Context} from "../App";
 
 import {
-  Col,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input
+  Col,  Row,  Button,  Form,  FormGroup,  Label,  Input
 } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
-  
+  const [context] = useContext(Context);
 
   const handleInputChange = (e) =>
     setFormData({
@@ -27,18 +22,17 @@ const NewEvent = () => {
       startDate,
       stopDate,
       startTime,
-      stopTime,
-      userId
+      stopTime
     } = formData;
 
     const getStart = new Date(startDate + " " + startTime);
     const getStop = new Date(stopDate + " " + stopTime);
 
+    const userId = context.currentUser.userId;   
     const start = moment(getStart).format("YYYY-MM-DD HH:mm");
     const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-    console.log("start: ", start, "  stop: ", stop);
-
+    
     async function save(e) {
       // the default behavior of a form submit is to reload the page
       // stop that - we are not barbarians, we ar SPA developers!
@@ -79,17 +73,7 @@ const NewEvent = () => {
           onChange={handleInputChange}
           value={description}
         />
-      </FormGroup>
-      <FormGroup>
-        <Label for="eventUserId">UserId</Label>
-        <Input
-          type="tex"
-          name="userId"
-          id="eventUserId"
-          onChange={handleInputChange}
-          value={userId}
-        />
-      </FormGroup>
+      </FormGroup>      
       <Label>Start:</Label>
       <Row>
         <Col xs="12" lg="6">
