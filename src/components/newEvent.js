@@ -17,19 +17,28 @@ import {
             [e.currentTarget.name]: e.currentTarget.value
           });
         
-          
-            const date = '10/21/2020';
-            const time = '12:20'
+           
+            let { title, description, userId, startDate, startTime, stopDate, stopTime } = formData;
+
             
-            const dateTime = moment(date + ' ' + time);
-            
-            const formatedDateTime = dateTime.format('YYYY-MM-DD HH:mm')
+
+            let startdate = startDate;
+            let starttime = startTime;
+            let stopdate = stopDate;
+            let stoptime = stopTime;
+
            
 
+            const dateTimeStart = moment(startdate + ' ' + starttime);
+            const dateTimeStop = moment(stopdate + ' ' + stoptime);
+            
+            const start = dateTimeStart.format('YYYY-MM-DD HH:mm')
+            const stop = dateTimeStop.format('YYYY-MM-DD HH:mm')
 
-          console.log(formatedDateTime);
-                    
-            let { title, description, start, stop, userId } = formData;
+            console.log("start: " + start);
+            console.log("stop: " + stop);
+
+            console.log(formData); 
 
           async function save(e) { 
             // the default behavior of a form submit is to reload the page
@@ -39,7 +48,7 @@ import {
             // Send the data to the REST api
             let result = await (await fetch('/api/Event', {
               method: 'POST',
-              body: JSON.stringify(formData),
+              body: JSON.stringify({title, description, start, stop, userId }),
               headers: { 'Content-Type': 'application/json' }
             })).json(); 
             setFormData({ done: true });
@@ -72,12 +81,11 @@ import {
                         <FormGroup>                            
                             <Input
                             type="date"
-                            name="start"
+                            name="startdate"
                             id="eventStartDate"
-                            placeholder="date placeholder"
-                            format="yyyy/MM/dd"
-                            onChange={handleInputChange}
-                            value= {start}                            
+                            placeholder="date placeholder"  
+                            format="yyyy/MM/dd"                                                  
+                            onChange={handleInputChange} value={startDate}                     
                             />
                         </FormGroup>
                     </Col>
@@ -88,7 +96,7 @@ import {
                             name="starttime"
                             id="eventStartTime"
                             placeholder="time placeholder"
-                                                        
+                            onChange={handleInputChange} value={startTime}   
                             />
                         </FormGroup>
                     </Col>
@@ -99,11 +107,11 @@ import {
                         <FormGroup>                            
                             <Input
                             type="date"
-                            name="stop"
+                            name="stopdate"
                             id="eventEndDate"
                             placeholder="date placeholder"
                             onChange={handleInputChange}
-                            value= {stop}                            
+                            value= {stopDate}                            
                             />
                         </FormGroup>
                     </Col>
@@ -111,9 +119,10 @@ import {
                         <FormGroup xs="12" lg="6">                            
                             <Input
                             type="time"
-                            name="endtime"
+                            name="stoptime"
                             id="eventEndTime"                            
-                            placeholder="time placeholder"                            
+                            placeholder="time placeholder"    
+                            onChange={handleInputChange} value={stopTime}                            
                             />
                         </FormGroup>
                     </Col>                    
