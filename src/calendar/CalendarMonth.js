@@ -5,6 +5,7 @@ import CalendarHeader from './CalendarHeader';
 import WeekdayIndicator from './indicators/WeekdayIndicator';
 import DateIndicator from './indicators/DateIndicator';
 import MonthIndicator from './indicators/MonthIndicator';
+import GoToCalendarButtons from './GoToCalendarButtons';
 import '../sass/_calendar.scss';
 
 
@@ -19,6 +20,7 @@ export default function CalendarMonth() {
   
 
     <div className="container">
+      <GoToCalendarButtons />
       <CalendarHeader selectDate={selectDate}/>
      
       <div className="calendar-container">

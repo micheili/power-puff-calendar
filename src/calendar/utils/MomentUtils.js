@@ -5,9 +5,16 @@ export const getSpecificDate = ( month, dayOfMonth, year ) => {
   return moment(`${month}-${dayOfMonth}-${year}`, 'MM-DD-YYYY').toDate();
 };
 
+export const getSpecificWeek = ( week, year ) => {
+  return moment(`${week}-${year}`, 'WW-YYYY').toDate();
+};
+
+
 export const getDayOfMonth = (date) => moment(date).date();
 
 export const getMonth = (date) => moment(date).month();
+
+export const getWeek = (date) => moment(date).week();
 
 export const getYear = (date) => moment(date).year();
 

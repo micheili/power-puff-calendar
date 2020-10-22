@@ -33,6 +33,33 @@
     }
   }
 
+  .date-week-indicator{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(auto, 1fr));
+    grid-gap: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    .date-week-icon {
+      display: flex;
+      justify-content: center;
+      justify-self: center;
+      align-items: center;
+      height: 100px;
+      width: 25px;
+          
+      cursor: pointer;
+      &[data-active-month='false'] {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      &.active,
+      &.selected {
+        border-radius: 50%;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
   .date-indicator {
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));

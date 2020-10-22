@@ -1,12 +1,47 @@
 import moment from 'moment';
 import {
   getSpecificDate,
+  getSpecificWeek,
   getMonth,
   getYear,
   getMonthDayYear,
+  getWeek
 } from '../utils/MomentUtils';
 import { totalDatesPerMonthView } from '../constants/dates';
 
+
+export const getHoursInDay = () => {
+
+}
+
+
+export const getDatesInWeekDisplay = (selectDate) =>{
+ 
+  const weekStart = moment(selectDate).startOf('week').add(1, "day");
+  
+  const days = [];
+  for (let i = 0; i <= 6; i++) {
+    days.push({
+      date:moment(weekStart).add(i, 'days').toDate()});
+  }
+
+  return days;
+
+}
+
+export const getWeekSet = (selectDate) => {
+  const week = getWeek(selectDate);
+    
+  const result = {
+    current: selectDate,
+    prev: getSpecificWeek(week - 1, getYear(selectDate)),
+    next: getSpecificWeek(week + 1,  getYear(selectDate)),
+  };
+
+  return result;
+};
+
+  
 
 
 
@@ -14,7 +49,7 @@ import { totalDatesPerMonthView } from '../constants/dates';
     const daysInMonth = getDaysInMonth(month, year);
     const firstWeekday = getFirstWeekdayOfMonth(month, year);
     const result = [];
-  const prev = getPrevMonthYear(month, year);
+    const prev = getPrevMonthYear(month, year);
     const prevDaysInMonth = getDaysInMonth(
       prev.month, 
       prev.year
@@ -34,7 +69,7 @@ import { totalDatesPerMonthView } from '../constants/dates';
       result.push({
         date:moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
         currentMonth: true
-      })
+      });
     }
     // Overflow dates for next month to meet 42 days per month display   requirement
     if (result.length < 42) {
@@ -75,17 +110,17 @@ import { totalDatesPerMonthView } from '../constants/dates';
     return result;
   };
 
-
-
+ 
   const getDaysInMonth = (month, year) => {
     return moment(`${month}-${year}`, 'MM-YYYY').daysInMonth();
   }
+ 
 
   const getFirstWeekdayOfMonth = (month, year) => {
     return moment(
       `${month}-${year}`, 
       'MM-YYYY'
-    ).startOf('month').weekday()
+    ).startOf('month').subtract(1, 'day').weekday()
   }
 
   const getPrevMonthYear = (month, year) => {
