@@ -27,13 +27,14 @@ export default function App() {
       let result = await (await fetch("/api/login")).json();
       updateContext({ waiting: false });
       if (result.error) {
+        updateContext({ user: false });
         return;
       }
+
       // add the user data to the context variable
       updateContext({ user: result });
     })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [contextVal]); // eslint-disable-line react-hooks/exhaustive-deps
   // useEffect(() => {
   //   (async () => {
   //     const result = await (await fetch("/api/login")).json();
@@ -51,6 +52,7 @@ export default function App() {
     const res = await fetch("/api/login", {
       method: "DELETE",
     });
+    updateContext({ user: false });
     const result = await res.json();
     console.log(result);
   }

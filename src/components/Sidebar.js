@@ -15,6 +15,9 @@ import { Context } from "../App";
 
 export default function Sidebar({ isOpen, toggle }) {
   const [context] = useContext(Context);
+  if (context.user) {
+    console.log("sidebar---", context.user.firstName);
+  }
 
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
