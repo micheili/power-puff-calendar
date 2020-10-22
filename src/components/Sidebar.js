@@ -53,6 +53,12 @@ export default function Sidebar({ isOpen, toggle }) {
               Invitation
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to={"/calendarbox"}>
+              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
+              CalendarBox
+            </NavLink>
+          </NavItem>
         </Nav>
       </div>
     </div>

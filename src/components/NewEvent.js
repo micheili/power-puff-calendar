@@ -8,8 +8,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText,
+  Input
 } from "reactstrap";
 
 const NewEvent = () => {
@@ -32,31 +31,31 @@ const NewEvent = () => {
       userId
     } = formData;
 
-  const getStart = new Date(startDate + " " + startTime);
-  const getStop = new Date(stopDate + " " + stopTime);
+    const getStart = new Date(startDate + " " + startTime);
+    const getStop = new Date(stopDate + " " + stopTime);
 
-  const start = moment(getStart).format("YYYY-MM-DD HH:mm");
-  const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+    const start = moment(getStart).format("YYYY-MM-DD HH:mm");
+    const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-  console.log("start: ", start, "  stop: ", stop);
+    console.log("start: ", start, "  stop: ", stop);
 
-  async function save(e) {
-    // the default behavior of a form submit is to reload the page
-    // stop that - we are not barbarians, we ar SPA developers!
-    e.preventDefault();
-    console.log(formData);
-    // Send the data to the REST api
-    let result = await (
-      await fetch("/api/Event", {
-        method: "POST",
-        body: JSON.stringify({ userId, title, description, start, stop}),
-        headers: { "Content-Type": "application/json" },
-      })
-    ).json();
-    setFormData({ done: true });
-    console.log(result);
-    return result;
-  }
+    async function save(e) {
+      // the default behavior of a form submit is to reload the page
+      // stop that - we are not barbarians, we ar SPA developers!
+      e.preventDefault();
+      console.log(formData);
+      // Send the data to the REST api
+      let result = await (
+        await fetch("/api/Event", {
+          method: "POST",
+          body: JSON.stringify({ userId, title, description, start, stop}),
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+      setFormData({ done: true });
+      console.log(result);
+      return result;
+    }
 
   return (
     <Form onSubmit={save}>
