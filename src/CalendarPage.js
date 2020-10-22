@@ -23,7 +23,7 @@ export default function CalendarPage() {
           {/*<CalenderView /> */}
         </Col>
         <Col sm="12 mt-2" lg="4">
-          <Infobox {...events} />
+          <Infobox events={events} />
         </Col>
       </Row>
   </Container>

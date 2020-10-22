@@ -27,15 +27,16 @@ const Infobox = (events) => {
   let eventList = null;
   let defaultText = null;
 
-  console.log(events);
+  console.log("eventlist: " , events)
+  console.log(events.events.length);
 
-  if (events.length === 1) {
-    eventDetails = <Event key={events.id} {...events} />;
+  if (events.events.length === 1) {
+    //eventDetails = <Event key={events.id} {...events} />;
     console.log('ETT event');
   }
-  else if (events.length > 1) {
+  else if (events.events.length > 1) {
     console.log('FLERA event');
-    eventList = <EventList {...events} />
+    eventList = <EventList events />
   } else {
     defaultText = (
       <CardText>
