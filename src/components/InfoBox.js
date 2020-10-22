@@ -3,7 +3,6 @@ import Event from "./Event";
 import EventList from "./EventList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
 import {
   CardHeader,
   Card,
@@ -15,19 +14,12 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-const Infobox = (props) => {
-  props = [
-    {
-      id: "",
-      eventTitle: "",
-      eventDescription: "",
-      start: "",
-      ends: "",
-      invitedGuests: "",
-    },
-  ];
+const Infobox = (events) => {
 
-  let events = props;
+  //let events = props;
+  //just for testing
+  //should come from calendar
+  //depending on chosen date
   let date = "22/10";
   let year = "2020";
 
@@ -35,14 +27,15 @@ const Infobox = (props) => {
   let eventList = null;
   let defaultText = null;
 
-  //visa detaljvy om bara ett event finns vald dag
-  if (events === 1) {
+  console.log(events);
+
+  if (events.length === 1) {
     eventDetails = <Event key={events.id} {...events} />;
-  } //ifall det finns flera event
-  else if (events.val > 1) {
-    //skapa en komponent för att visa en lista
-    //info för alla events eller id?
-    eventList = events.map((event) => <EventList key={event.id} {...event} />);
+    console.log('ETT event');
+  }
+  else if (events.length > 1) {
+    console.log('FLERA event');
+    eventList = <EventList {...events} />
   } else {
     defaultText = (
       <CardText>
