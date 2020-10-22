@@ -114,7 +114,7 @@ export default function Register() {
       ).json();
       //
 
-      updateContext({ user: res });
+      //updateContext({ user: res });
 
       setFormData({ done: true });
     }

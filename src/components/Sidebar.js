@@ -21,9 +21,7 @@ export default function Sidebar({ isOpen, toggle }) {
       <div className="side-menu">
         <Nav vertical className="list-unstyled pb-3">
           <h3 className="text-info">
-            {context.currentUser.firstName != undefined
-              ? `Welcome ${context.currentUser.firstName}`
-              : "Calendar"}
+            {context.user ? `Welcome ${context.user.firstName}` : "Calendar"}
           </h3>
 
           <NavItem>

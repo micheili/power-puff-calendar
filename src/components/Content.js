@@ -27,7 +27,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-        {context.currentUser.firstName != undefined ? (
+        {context.user ? (
           <Button
             tag={Link}
             to="/"

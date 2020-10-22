@@ -75,7 +75,7 @@ export default function Login() {
         setAlert(true);
         return;
       }
-      //updateContext({ currentUser: result });
+      updateContext({ user: result });
       setRedirect(true);
       setFormData({ email: "", password: "" });
       console.log(data);
