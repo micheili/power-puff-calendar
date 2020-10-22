@@ -28,7 +28,8 @@ const Infobox = (props) => {
   ];
 
   let events = props;
-  let date = "Chosen Date/Today";
+  let date = "22/10";
+  let year = "2020";
 
   let eventDetails = null;
   let eventList = null;
@@ -45,36 +46,48 @@ const Infobox = (props) => {
   } else {
     defaultText = (
       <CardText>
-        You have no events this day! Do you want to{" "}
-        <span style={{ textDecoration: "underline", color: "black" }} href="#">
+        You have no events this day! <br></br>
+        Do you want to{" "}
+        <a
+          href="#"
+          onClick={addNewEvent}
+          className="text-dark font-weight-bolder link"
+        >
           add a new event?
-        </span>
+        </a>
       </CardText>
     );
   }
 
+  function addNewEvent() {
+    console.log("render add-new-event-form");
+  }
+
   //kanske formattera om date -> 10/7
-  let dateText = <div className="float-left">{date}</div>;
+  let dateText = <div className="float-left" id="dateText">{date}</div>;
 
   return (
     <Row>
       <Col>
         <Card>
           <CardHeader className="bg-secondary">
-            <div className="float-left">{date}</div>
+            {dateText}
+            <div className="float-left ml-3" id="yearText">
+              {year}
+            </div>
             <div>
-              <span href="#" id="addEventHover">
-                <Button className="float-right" color="primary">
-                  <FontAwesomeIcon
-                    className="sidebar-icon mr-1"
-                    id="addEventPlus"
-                    icon={faPlus}
-                  />
-                  <UncontrolledTooltip placement="right" target="addEventHover">
-                    Add new event
-                  </UncontrolledTooltip>
-                </Button>{" "}
+              <span id="addEventHover">
+                <FontAwesomeIcon
+                  className="sidebar-icon mr-1 float-right link"
+                  id="addEventPlus"
+                  icon={faPlus}
+                  size="2x"
+                  onClick={addNewEvent}
+                />
               </span>
+                <UncontrolledTooltip placement="right" target="addEventHover">
+                  Add new event
+                </UncontrolledTooltip>
             </div>
           </CardHeader>
 
