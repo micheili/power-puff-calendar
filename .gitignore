@@ -26,3 +26,4 @@ yarn-error.log*
 debug.log
 
 backend/database/calendar.db
+backend/database/calendar.db
