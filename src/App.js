@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 import "./sass/style.scss";
-import Infobox from "./components/InfoBox";
 
 // create and export the context
 export const Context = createContext();

@@ -8,6 +8,7 @@ import CalendarMonth from "../calendar/CalendarMonth";
 import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
+import CalendarPage from "../CalendarPage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +18,7 @@ import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   const [context, updateContext] = useContext(Context);
+
 
   return (
     <Container
@@ -44,7 +46,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
           <></>
         )}
       </Row>
-
+      
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
@@ -52,6 +54,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Route exact path="/calendarweek" component={CalendarWeek} />
         <Route exact path="/calendarday" component={CalendarDay} />
         <Route exact path="/invitation" component={Invitation} />
+        <Route path="/calendarpage" component={CalendarPage}></Route>
       </Switch>
     </Container>
   );
