@@ -109,7 +109,7 @@ module.exports = class RestApi {
       }
     });
 
-    //get all invited user by event id
+    //get all invited users by event id
     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
       let result = this.db
         .select(
