@@ -1,6 +1,6 @@
 import React from 'react';
 import NavInvites from './NavInvites';
-import MyInvite from './MyInvite';
+import MyDeclinedInvite from './MyDeclinedInvite';
 import useVisibilityToggler from "../hooks/useVisibilityToggler";
 
 
@@ -22,7 +22,7 @@ export default function Invitations_declined(){
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
         <CardBody>
             <hr></hr>
-                <MyInvite/>   
+             <MyDeclinedInvite/>
         </CardBody>, true
         );
 
