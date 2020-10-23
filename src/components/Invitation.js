@@ -8,17 +8,16 @@ import {
     Col,
     Card, 
     CardBody,
-    CardText,
     Button,
     CardTitle
      }
     from 'reactstrap';
 
 const Invitation = (props) => {
-    let {inviteId,userID, title, description, start, stop} = props;
+    let {inviteId, title, description, start, stop} = props;
 
     async function fetchInvitations() {
-        setInvitation(await (await fetch('/api/Event/')).json());
+        setInvitation(await (await fetch('/api/')).json());
     }
     
     const [allInvites, setInvitation] = useState({});
@@ -38,15 +37,13 @@ const Invitation = (props) => {
         return(
             <Container className="data">
                 <Row className="justify-content-center mt-4 mb-3">
-                  
-                    <h3>New invitations</h3>
-                    
+                    <h3>New invitations</h3>  
                 </Row>
                 <Row>
                     <Col>
                         <Card className="mb-4">
                             <CardBody>
-                                <CardTitle className="font-weight-bold d-flex">{userID} has sent you an invitation
+                                <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
                                 </CardTitle>
                                 <Button color="primary" className="" onClick={toggleVisibility}>Read more</Button>
                             </CardBody>

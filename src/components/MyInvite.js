@@ -35,22 +35,10 @@ export default function MyInvite (props){
               </FormGroup>
               <Label>Start:</Label>
               <Row>
-                <Col xs="12" lg="6">
-                  <FormGroup>
+                <Col xs="12" lg="12">
+                  <FormGroup xs="12" lg="12">
                     <Input
-                      type="date"
-                      name="startDate"
-                      id="eventStartDate"
-                      placeholder="date placeholder"
-                      format="yyyy/MM/dd"
-                      disabled
-                    />
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup xs="12" lg="6">
-                    <Input
-                      type="time"
+                      type="text"
                       name="startTime"
                       id="eventStartTime"
                       placeholder="time placeholder"
@@ -58,35 +46,22 @@ export default function MyInvite (props){
                     />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Label>End:</Label>
-              <Row>
-                <Col xs="12" lg="6">
-                  <FormGroup>
-                    <Input
-                      type="date"
-                      name="stopDate"
-                      id="eventEndDate"
-                      placeholder="date placeholder"
-                      disabled
-                    />
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup xs="12" lg="6">
-                    <Input
-                      type="time"
-                      name="stopTime"
-                      id="eventEndTime"
-                      placeholder="time placeholder"
-                      disabled
-                    />
-                  </FormGroup>
+                <Col xs="12" lg="12">
+                    <Label>End:</Label>
+                    <FormGroup xs="12" lg="12">
+                        <Input
+                        type="text"
+                        name="stopTime"
+                        id="eventEndTime"
+                        placeholder="time placeholder"
+                        disabled
+                        />
+                    </FormGroup>
                 </Col> 
               </Row>
               <Row>
-              <Button color="danger float-rightf mr-2">No, cant make it</Button>
-            <Button color="primary  float-right">Yes, count me in!</Button> 
+                <Button color="danger float-rightf mr-2">No, cant make it</Button>
+                <Button color="primary  float-right">Yes, count me in!</Button> 
               </Row>
             </Form>
     )
