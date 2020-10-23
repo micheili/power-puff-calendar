@@ -2,25 +2,30 @@ import moment from 'moment';
 import {
   getSpecificDate,
   getSpecificWeek,
+  getSpecificDay,
   getMonth,
   getYear,
   getMonthDayYear,
-  getWeek
+  getWeek,
+  getDayOfMonth,
+  getToday,
+  getDay,
+  getSpecificWeekDay
 } from '../utils/MomentUtils';
 
 
 
-export const getHoursInDay = (selectDate) => {
+export const getHoursInDayDisplay = (selectDate) => {
   const hourStart = moment(selectDate).startOf('day');
 
   const hours = [];
-  for (let i = 0; i <= 23; i++) {
+  for (let i = 1; i <= 24; i++) {
     hours.push({
       date:moment(hourStart).add(i, 'hour').toDate()});
   }
 
   return hours;
-}
+};
 
 
 export const getDatesInWeekDisplay = (selectDate) =>{
@@ -35,11 +40,31 @@ export const getDatesInWeekDisplay = (selectDate) =>{
 
   return days;
 
-}
+};
 
 export const getDaySet = (selectDate) => {
+  const day = getDayOfMonth(selectDate);
 
-}
+  const result = {
+    current: selectDate,
+    prev: getSpecificDay(day- 1, getYear(selectDate)),
+    next: getSpecificDay(day + 1,  getYear(selectDate)),
+  };
+
+
+  /*if (day === 1) {
+    result.prev = getSpecificDay(12, getYear(selectDate) - 1);
+  }
+
+  if (day === 12) {
+    result.next = getSpecificDay(1, getYear(selectDate) + 1);
+  }*/
+
+  return result;
+};
+
+
+
 
 export const getWeekSet = (selectDate) => {
   const week = getWeek(selectDate);
