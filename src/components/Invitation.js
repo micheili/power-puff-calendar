@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import useVisibilityToggler from "../hooks/useVisibilityToggler";
 import MyInvite from "./MyInvite";
+import NavInvites from "./NavInvites";
 
 import { 
     Container,
@@ -9,12 +10,12 @@ import {
     Card, 
     CardBody,
     Button,
-    CardTitle
+    CardTitle,
      }
     from 'reactstrap';
 
-const Invitation = (props) => {
-    let {inviteId, title, description, start, stop} = props;
+export default function Invitation(props) {
+    //let {inviteId, title, description, start, stop} = props;
 
     async function fetchInvitations() {
         setInvitation(await (await fetch('/api/')).json());
@@ -36,6 +37,7 @@ const Invitation = (props) => {
     );
         return(
             <Container className="data">
+                 <NavInvites/>
                 <Row className="justify-content-center mt-4 mb-3">
                     <h3>New invitations</h3>  
                 </Row>
@@ -50,9 +52,10 @@ const Invitation = (props) => {
                             {InvitationCardComponent}
                         </Card>
                     </Col>
+                  
                 </Row>
             </Container>
         );      
 }
 
-export default Invitation;
+

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
+import Invitations_declined from "./components/Invitations_declined";
 import "./sass/style.scss";
 
 // create and export the context
@@ -51,8 +52,11 @@ export default function App() {
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
             logout={logout}
+            
           />
+          <Route path="/invitations_declined" component={Invitations_declined}/>
         </div>
+        
       </Router>
     </Context.Provider>
   );

@@ -6,7 +6,7 @@ import React from 'react';
       FormGroup,
       Label,
       Input,
-      Button
+      Button,
     } from "reactstrap";
 
 export default function MyInvite (props){
@@ -15,7 +15,7 @@ export default function MyInvite (props){
             <Form>
               <h3>{title}</h3>
               <FormGroup>
-                <Label for="eventDescription">Description</Label>
+                <Label for="eventDescription"></Label>
                 <Input
                   type="textarea"
                   name="description"
