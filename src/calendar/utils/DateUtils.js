@@ -7,11 +7,19 @@ import {
   getMonthDayYear,
   getWeek
 } from '../utils/MomentUtils';
-import { totalDatesPerMonthView } from '../constants/dates';
 
 
-export const getHoursInDay = () => {
 
+export const getHoursInDay = (selectDate) => {
+  const hourStart = moment(selectDate).startOf('day');
+
+  const hours = [];
+  for (let i = 0; i <= 23; i++) {
+    hours.push({
+      date:moment(hourStart).add(i, 'hour').toDate()});
+  }
+
+  return hours;
 }
 
 
@@ -29,10 +37,13 @@ export const getDatesInWeekDisplay = (selectDate) =>{
 
 }
 
+export const getDaySet = (selectDate) => {
+
+}
+
 export const getWeekSet = (selectDate) => {
   const week = getWeek(selectDate);
-  const month = getMonth(selectDate);
-    
+      
   const result = {
     current: selectDate,
     prev: getSpecificWeek(week - 1, getYear(selectDate)),

@@ -1,9 +1,23 @@
 import React from 'react';
 import { getMonth } from '../utils/MomentUtils';
 import { getMonthSet } from '../utils/DateUtils';
-import { monthsFull } from '../constants/dates';
 
 export default function MonthIndicator({ selectDate, setSelectDate }){
+
+  const monthsFull = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
     const changeMonth = (e) => {
         setSelectDate(e.target.getAttribute('data-date'));

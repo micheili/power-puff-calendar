@@ -11,7 +11,7 @@ import '../sass/_calendar.scss';
 
 export default function CalendarWeek() {
 
-  const [selectDate, setSelectDate] = useState(moment().toDate()); //prop
+  const [selectDate, setSelectDate] = useState(moment().toDate());
 
   return (
     <div className="container">
