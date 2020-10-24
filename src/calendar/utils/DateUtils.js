@@ -9,7 +9,6 @@ import {
   getWeek,
   getDayOfMonth,
   getToday,
-  getDay,
   getSpecificWeekDay
 } from '../utils/MomentUtils';
 
@@ -67,6 +66,21 @@ export const getDaySet = (selectDate) => {
 
 
 export const getWeekSet = (selectDate) => {
+  
+ /*  // daysInMs -> number of milliseconds in a day
+   let dayInMs = 24 * 60 * 60 * 1000;
+   // thisMonday -> this Monday at midnight 
+   let thisMonday = moment((selectDate.toLocaleDateString()));
+   
+   while (thisMonday.getDay() !== 1) {
+     thisMonday = new Date(thisMonday.getTime() - dayInMs);
+   }
+   // prev -> previous Monday at midnight
+   let prev = new Date(thisMonday.getTime() - dayInMs * 7);
+   // prev -> next Monday at midnight
+   let next = new Date(thisMonday.getTime() + dayInMs * 7);
+   return { current: thisMonday, prev, next };*/
+  
   const week = getWeek(selectDate);
       
   const result = {
@@ -75,12 +89,12 @@ export const getWeekSet = (selectDate) => {
     next: getSpecificWeek(week + 1,  getYear(selectDate)),
   };
 
-  if (week === 1) {
+/*  if (week === 1) {
     result.prev = getSpecificWeek(52, getYear(selectDate) - 1);
   }
 
 
- /* if (week === 53 || week === 52) {
+ if (week === 53 || week === 52) {
     result.next = getSpecificWeek(1, getYear(selectDate) + 1);
   }*/
 
