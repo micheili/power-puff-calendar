@@ -14,11 +14,10 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
       setSelectDate(e.target.getAttribute('data-date'));
     };
 
-
     const datesInMonth = getDatesInMonthDisplay(
-        getMonth(selectDate) + 1,
-        getYear(selectDate)
-      );
+      getMonth(selectDate) + 1,
+      getYear(selectDate)
+    );
 
       const monthDates = datesInMonth.map((item, key) => {
         const selected =

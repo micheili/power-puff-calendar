@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -7,7 +8,7 @@ import {
   getWeek,
   getToday
 } from '../utils/MomentUtils';
-import { getDatesInWeekDisplay } from '../utils/DateUtils';
+import { getDatesInWeekDisplay, getDatesInWeekOnehDisplay } from '../utils/DateUtils';
 
 
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
@@ -17,7 +18,10 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
     setSelectDate(e.target.getAttribute('data-date'));
   };
 
-const datesInWeek = getDatesInWeekDisplay(selectDate);
+  const datesInWeek = getDatesInWeekDisplay(selectDate);
+  const bla = getDatesInWeekOnehDisplay(getMonth(selectDate) + 1,
+  getYear(selectDate),selectDate)
+  
 
   const weekDates = datesInWeek.map((item, key) => {
     const selected =
@@ -30,6 +34,7 @@ const datesInWeek = getDatesInWeekDisplay(selectDate);
         className={"date-week-icon"}
         data-date={item.date.toString()}
         key={key}
+        data-active-month={item.currentMonth}
         onClick={changeDate}
       >
         {getDayOfMonth(item.date)}
