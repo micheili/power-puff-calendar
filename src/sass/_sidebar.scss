@@ -1,113 +1,166 @@
 .App {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
+  display: flex;
+  //width: 100%;
+  //align-items: stretch;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
+}
+
+.toogleSidebarButton {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: relative;
+  left: -4%;
+  .icon {
+    margin-right: -30px;
+    font-size: 18px;
   }
-  
+  & {
+    background: transparent;
+    border-color: transparent;
+    &:after {
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      transform: rotate(45deg);
+      background: #d27f78;
+      border-radius: 5px;
+    }
+    &:hover,
+    &:focus {
+      background: transparent !important;
+      border-color: transparent !important;
+      text-decoration: none !important;
+    }
+  }
+}
+
+/* sidebar */
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: #fbc5b8;
+  color: #fff;
+  margin-left: -250px;
+  transition: all 0.5s;
+}
+
+.sidebar > .side-menu > ul > h3 {
+  padding: 5%;
+  text-align: center;
+}
+
+.nav-link {
+  padding: 10px 10px;
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nav-link:hover {
+  color: #d27f78 !important;
+  background: #fff;
+}
+
+.sidebar-icon {
+  color: #d27f78;
+}
+
+.sidebar.is-open {
+  margin-left: 0;
+  transition: 0.5s;
+}
+
+/* content side */
+.content {
+  padding: 20px;
+  margin-left: 0;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 400px) {
   body {
-    font-family: "Poppins", sans-serif;
-    background: #fafafa;
-  }
-  
-
-  .toogleSidebarButton{
-      width: 60px;
-			height: 60px;
-			border-radius: 50%;
-      position: relative;      
-      left: -5%;
-			.icon{
-				margin-right: -40px;
-				font-size: 14px;
-			}
-			&{
-				background: transparent;
-				border-color: transparent;
-				&:after{
-					z-index: -1;
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					content: '';
-          transform: rotate(45deg);
-          background: #d27f78;				  
-				  border-radius: 5px;
-				}
-				&:hover, &:focus{
-					background: transparent !important;
-          border-color: transparent !important;
-          text-decoration: none !important;
-				}
-			
-	}
-  }
-  
-  /* sidebar */
-  .sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #fbc5b8;
-    color: #fff;
-    margin-left: -250px;
-    transition: all 0.5s;
+    overflow: hidden;
   }
 
-  .sidebar > .side-menu > ul > h3 {
-    padding: 5%;
-    text-align: center;
+  .toogleSidebarButton {
+    width: 40px;
+    height: 40px;
+    left: -2%;
+
+    .icon {
+      margin-right: -1px;
+      margin-left: -1px;
+      margin-top: 2px;
+      font-size: 20px;
+    }
   }
 
-  .nav-link{
-        padding: 10px 10px;
-		    display: block;
-		    color: rgba(255,255,255,.6);
-		    border-bottom: 1px solid rgba(255,255,255,.1);
-  }
-  .nav-link:hover {
-    color: #d27f78 !important;
-    background: #fff;
-  }
-
-  .sidebar-icon{
-    color: #d27f78;    
-  }
-  
   .sidebar.is-open {
+    min-width: 75%;
+    max-width: 75%;
     margin-left: 0;
-    transition: 0.5s;
+    transition: all 0.5s, height 0s;
   }
-  
-   
-  
-  /* content side */
-  .content {
-    padding: 20px;
+
+  content .is-open .container-fluid {
+    display: none;
+  }
+
+  .sidebar.is-open > .sidebar-header span {
+    display: unset;
+  }
+
+  .content.is-open {
+    .data {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  body {
+    overflow: hidden;
+  }
+
+  .toogleSidebarButton {
+    width: 40px;
+    height: 40px;
+    left: -2%;
+
+    .icon {
+      margin-right: -1px;
+      margin-left: -1px;
+      margin-top: 2px;
+      font-size: 20px;
+    }
+  }
+
+  .sidebar.is-open {
+    min-width: 75%;
+    max-width: 75%;
     margin-left: 0;
-    height: 100vh;
+    transition: all 0.5s, height 0s;
   }
-  
-  @media only screen and (max-width: 500px) {
-    body {
-     overflow: hidden;
-    }
-  
-    .content.is-open {
-      margin-left: 100%;
-    }
-  
-    .sidebar.is-open {
-      min-width: 100%;
-      max-width: 100%;
-      margin-left: 0;
-      transition: all 0.5s, height 0s;
-    }
-  
-    .sidebar.is-open > .sidebar-header span {
-      display: unset;
-    }
-  
-   
+
+  content .is-open .container-fluid {
+    display: none;
   }
-  
+
+  .sidebar.is-open > .sidebar-header span {
+    display: unset;
+  }
+
+  .content.is-open {
+    .data {
+      display: none;
+    }
+  }
+}

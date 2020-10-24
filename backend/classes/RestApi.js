@@ -46,16 +46,22 @@ module.exports = class RestApi {
     let rp = this.routePrefix;
     // get all posts
     this.app.get(rp + "/" + table, (req, res) => {
-      res.json(this.db.select("SELECT * FROM " + table));
+      res.json(
+        this.db
+          .select("SELECT * FROM " + table)
+          .map((x) => ({ ...x, password: undefined }))
+      );
     });
     // get a post by id
     this.app.get(rp + "/" + table + "/:id", (req, res) => {
-      let result = this.db.select(
-        "SELECT * FROM " + table + " WHERE id = $id",
-        // req.params includes the values of params
-        // (things written with : before them in the route)
-        { id: req.params.id }
-      );
+      let result = this.db
+        .select(
+          "SELECT * FROM " + table + " WHERE id = $id",
+          // req.params includes the values of params
+          // (things written with : before them in the route)
+          { id: req.params.id }
+        )
+        .map((x) => ({ ...x, password: undefined }));
       // if a post with the id exists return the post
       if (result.length > 0) {
         res.json(result[0]);
@@ -66,7 +72,62 @@ module.exports = class RestApi {
         res.json({ error: 404 });
       }
     });
-    
+
+    //get events created by (logged-in) userId
+
+    this.app.get(rp + "/myEvents/:userId", (req, res) => {
+      let result = this.db.select(
+        /*sql*/ `
+      SELECT * FROM Event 
+      WHERE userId = $userId
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
+    //get events which i am invited for
+    this.app.get(rp + "/invitedEvents/:userId", (req, res) => {
+      let result = this.db.select(
+        /*sql*/ `
+      SELECT e.* FROM Event e
+      INNER JOIN Invite i ON e.id = i.eventId 
+      WHERE i.invitedUser = $userId AND accepted = true
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
+    //get all invited users by event id
+    this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
   }
 
   setupPostRoute(table) {
@@ -99,7 +160,7 @@ module.exports = class RestApi {
       } else {
         res.json(
           this.db.run(
-            /*sql*/ `
+            /* sql*/ `
         INSERT INTO ${table} (${Object.keys(req.body)})
         VALUES (${Object.keys(req.body).map((x) => "$" + x)})
       `,
