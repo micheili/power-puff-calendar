@@ -13,10 +13,10 @@ import {
         return(
             <Nav className="navLinks justify-content-center">
             <NavItem className="navLinks">
-                <NavLink className="navLinks" tag={Link} to={"/invitation"}>New invitations</NavLink>
+                <NavLink active={true} className="navLinks" active tag={Link} to={"/invitation"}>New invitations</NavLink>
             </NavItem>
-            <NavItem>
-                <NavLink className="navLinks" tag={Link} to={"/invitations_declined"} >Declined invitations</NavLink>
+            <NavItem active>
+                <NavLink active={true} className="navLinks" tag={Link} to={"/invitations_declined"} >Declined invitations</NavLink>
             </NavItem>
         </Nav>
 
