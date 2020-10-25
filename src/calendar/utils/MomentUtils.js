@@ -23,7 +23,7 @@ export const getHourOfDay = (date) => moment(date).format('HH');
 
 export const getMonth = (date) => moment(date).month();
 
-export const getWeek = (date) => moment(date).isoWeek();
+export const getWeek = (date) => moment(date).week();
 
 export const getYear = (date) => moment(date).year();
 

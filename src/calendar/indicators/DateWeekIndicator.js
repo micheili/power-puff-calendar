@@ -8,7 +8,7 @@ import {
   getWeek,
   getToday
 } from '../utils/MomentUtils';
-import { getDatesInWeekDisplay, getDatesInWeekOnehDisplay } from '../utils/DateUtils';
+import { getDatesInWeekDisplay } from '../utils/DateUtils';
 
 
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
@@ -19,10 +19,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
   };
 
   const datesInWeek = getDatesInWeekDisplay(selectDate);
-  const bla = getDatesInWeekOnehDisplay(getMonth(selectDate) + 1,
-  getYear(selectDate),selectDate)
-  
-
+ 
   const weekDates = datesInWeek.map((item, key) => {
     const selected =
       getMonthDayYear(selectDate) === getMonthDayYear(item.date) ? 'selected' : '';
@@ -43,8 +40,6 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
   });
 
   return <div className="date-week-indicator">{weekDates}</div>;
-
-
 
 
 }
