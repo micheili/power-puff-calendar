@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
 
-import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Col, Row, Button, Form, FormGroup, Label, Input, Alert } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
+  const [alert, setAlert] = useState(false);
   const [context] = useContext(Context);
 
   const handleInputChange = (e) =>
@@ -23,34 +24,88 @@ const NewEvent = () => {
     stopTime,
   } = formData;
 
-  const getStart = new Date(startDate + " " + startTime);
-  const getStop = new Date(stopDate + " " + stopTime);
+  const start = () => {
+    const getStart = new Date(startDate + " " + startTime);
+    const start = moment(getStart).format("YYYY-MM-DD HH:mm");
+    return start
+  }
+
+  const stop = () => {
+    const getStop = new Date(stopDate + " " + stopTime);
+    const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+    return stop
+  }
+   
 
   const userId = context.user.userId;
-  const start = moment(getStart).format("YYYY-MM-DD HH:mm");
-  const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+  
+  
+
+  const validate = () => {
+    let isValid = true;
+
+    if (start && stop  !== undefined) {
+      console.log("start stop right")
+      let startParse = Date.parse(start)
+      let stopParse = Date.parse(stop);
+      let diff = (stopParse - startParse) / 1000;
+      
+     if (!(diff >= 900 && diff < 604800)) {
+        isValid = false;
+        setAlert("Sorry, the date and time interval you entered is invalid!");
+      }
+    }
+
+    return isValid;
+  };
 
   async function save(e) {
-    // the default behavior of a form submit is to reload the page
-    // stop that - we are not barbarians, we ar SPA developers!
-    e.preventDefault();
-    console.log(formData);
-    // Send the data to the REST api
-    let result = await (
-      await fetch("/api/Event", {
-        method: "POST",
-        body: JSON.stringify({ userId, title, description, start, stop }),
-        headers: { "Content-Type": "application/json" },
-      })
-    ).json();
-    setFormData({ done: true });
-    console.log(result);
-    return result;
+    
+      e.preventDefault();
+      console.log(formData);
+      
+      if (validate()) {
+      let result = await (
+        await fetch("/api/Event", {
+          method: "POST",
+          body: JSON.stringify({ userId, title, description, start, stop }),
+          
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+
+      console.log("body" , result.body)
+      //error msg handling
+      if (result.error === 403){
+        setAlert("Sorry, the date and time interval you entered is invalid!");
+        console.log("error" + result.error)
+        return;
+      } else if(result.error) {
+        setAlert("You are not logged in ");
+        console.log("error", result.error)
+        return;
+      }
+
+      setFormData({ title: '',
+        description: '',
+        startDate: '',
+        stopDate: '',
+        startTime: '',
+        stopTime:'' });
+
+      console.log(result);
+      return result;
+    }
   }
 
   return (
     <Form onSubmit={save}>
       <h1>NewEvent</h1>
+        <Alert color="danger" isOpen={alert} 
+        toggle={() => {
+          setAlert(false);
+        }}>{alert}
+        </Alert>
       <FormGroup>
         <Label for="eventTitle">Title</Label>
         <Input
@@ -59,6 +114,7 @@ const NewEvent = () => {
           id="eventTitle"
           onChange={handleInputChange}
           value={title}
+          required
         />
       </FormGroup>
       <FormGroup>
@@ -69,6 +125,7 @@ const NewEvent = () => {
           id="eventDescription"
           onChange={handleInputChange}
           value={description}
+          required
         />
       </FormGroup>
       <Label>Start:</Label>
@@ -83,6 +140,7 @@ const NewEvent = () => {
               format="yyyy/MM/dd"
               onChange={handleInputChange}
               value={startDate}
+              required
             />
           </FormGroup>
         </Col>
@@ -95,6 +153,7 @@ const NewEvent = () => {
               placeholder="time placeholder"
               onChange={handleInputChange}
               value={startTime}
+              required
             />
           </FormGroup>
         </Col>
@@ -110,6 +169,7 @@ const NewEvent = () => {
               placeholder="date placeholder"
               onChange={handleInputChange}
               value={stopDate}
+              required
             />
           </FormGroup>
         </Col>
@@ -122,6 +182,7 @@ const NewEvent = () => {
               placeholder="time placeholder"
               onChange={handleInputChange}
               value={stopTime}
+              required
             />
           </FormGroup>
         </Col>
