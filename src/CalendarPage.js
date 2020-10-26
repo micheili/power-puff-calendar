@@ -6,6 +6,7 @@ import { Context } from "./App";
 export default function CalendarPage() {
   const [context, updateContext] = useContext(Context);
   console.log(context.myEvents);
+  console.log(context.invitedEvents);
 
   return (
     <Container fluid={true}>

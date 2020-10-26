@@ -97,7 +97,7 @@ module.exports = class RestApi {
         /*sql*/ `
       SELECT e.* FROM Event e
       INNER JOIN Invite i ON e.id = i.eventId 
-      WHERE i.invitedUser = $userId AND accepted = true
+      WHERE i.invitedUser = $userId AND accepted = ${req.query.accepted}
       `,
         req.params
       );

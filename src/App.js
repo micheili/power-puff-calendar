@@ -38,7 +38,7 @@ export default function App() {
       }
 
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + result.id)
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=true")
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
@@ -49,7 +49,6 @@ export default function App() {
         myEvents: events,
         invitedEvents: invitedEvents,
       });
-      console.log(contextVal.user);
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

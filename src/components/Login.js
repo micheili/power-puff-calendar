@@ -25,14 +25,14 @@ export default function Login() {
 
   const onDismiss = () => setAlert(false);
 
- useEffect(() => {
-     (async () => {
-       const data = await (await fetch("/api/login")).json();
-       if (data.error) {
-    setFormData({ email: "", password: "" });
-    setError("");
-       }
-     })();
+  useEffect(() => {
+    (async () => {
+      const data = await (await fetch("/api/login")).json();
+      if (data.error) {
+        setFormData({ email: "", password: "" });
+        setError("");
+      }
+    })();
   }, []);
 
   if (formData.error) {
@@ -84,7 +84,7 @@ export default function Login() {
       }
 
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + data.id)
+        await fetch("/api/invitedEvents/" + data.id + "?accepted=true")
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
