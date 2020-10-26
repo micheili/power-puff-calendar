@@ -19,8 +19,8 @@ const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context); 
-  const [value, setValues] = useState([]);  
-  const tempArray = []
+  const [values, setValues] = useState([]);  
+  
 
   const handleInputChange = (e) =>
     setFormData({
@@ -31,13 +31,14 @@ const NewEvent = () => {
 
     
 
-    const handleInvites = (value, e) => {
-      console.log('onChangeMultiSelect', value)
-      setValues(value)
+    const handleInvites = (e) => {
+      setValues({...values,
+        values: Array.from(e.target.selectedOptions, (item) => item.value)})
     }
     
 
-    console.log("arraylist", tempArray)
+    let{ } = values;
+    console.log("arraylist", values)
 
     
 
@@ -218,16 +219,15 @@ const NewEvent = () => {
             />
           </FormGroup>
         </Col>
-      </Row>
-      <Row>
+      </Row>        
       <FormGroup>
         <Label for="exampleCustomMutlipleSelect">Invite Friends To Your Event</Label>
-        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>          
-          {context.allUsers.map(user => <option key={user.id} value={user.id} onClick={handleInvites}>{user.email}</option>)}
+        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" value={values} onChange={handleInvites} multiple>          
+          {context.allUsers.map(user => <option key={user.id} value={user.id} >{user.email}</option>)}
 
         </CustomInput>
       </FormGroup>
-      </Row>
+      
       
       <Button className="button-submit" type="submit" value="save">
         Submit
