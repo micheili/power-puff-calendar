@@ -85,9 +85,9 @@ body {
   height: 100vh;
 }
 
-@media only screen and (max-width: 400px) {
+@media (max-width: 400px) {
   body {
-    overflow: hidden;
+    overflow: scroll;
   }
 
   .toogleSidebarButton {
@@ -125,9 +125,9 @@ body {
   }
 }
 
-@media only screen and (max-width: 750px) {
+@media (max-width: 750px) {
   body {
-    overflow: hidden;
+    overflow: scroll;
   }
 
   .toogleSidebarButton {
