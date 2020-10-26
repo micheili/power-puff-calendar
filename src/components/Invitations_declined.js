@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import NavInvites from './NavInvites';
 import MyDeclinedInvite from './MyDeclinedInvite';
 import useVisibilityToggler from "../hooks/useVisibilityToggler";
+import { Context } from "../App";
 
 
 import { 
@@ -19,10 +20,27 @@ import {
 
 export default function Invitations_declined(){
 
+    const [context] = useContext(Context);
+
+    const userId =  context.user.id;
+
+    async function fetchInvitations() {
+        if(!userId){return;}
+        setInvitations(await (await fetch(`api/declinedEvents/${userId}`)).json()); 
+    }
+
+    const [allInvites, setInvitations] = useState([]);
+
+    useEffect(() => {
+        fetchInvitations(); 
+    }, [userId]);
+
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
         <CardBody>
             <hr></hr>
-             <MyDeclinedInvite/>
+            {(allInvites).map((invite) => 
+              <MyDeclinedInvite key={invite.id} {...invite}></MyDeclinedInvite>
+        )}
         </CardBody>, true
         );
 

@@ -15,7 +15,8 @@ import {
      }
     from 'reactstrap';
 
-export default function Invitation() {
+export default function Invitation(prop) {
+    let {name} = prop;
 
     const [context] = useContext(Context);
 
@@ -24,6 +25,7 @@ export default function Invitation() {
     console.log('this is the currentuserID' + userId)
  
     async function fetchInvitations() {
+        if(!userId){return;}
         setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json()); 
     }
 
@@ -34,17 +36,15 @@ export default function Invitation() {
     
     useEffect(() => {
         fetchInvitations(); 
-      }, []);
+    }, [userId]);
 
       //map data in MyInvite here
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
-      
-      
-        {allInvites.map((invite) => {
-              return <MyInvite key={invite.id}{...invite}></MyInvite>
-        })}
+        {(allInvites).map((invite) => 
+              <MyInvite key={invite.id} {...invite}></MyInvite>
+        )}
                   
     </CardBody>, true
             
@@ -53,15 +53,15 @@ export default function Invitation() {
             <Container className="data" >
                  <NavInvites/>
                 <Row className="justify-content-center mt-4 mb-3">
-                    <h3>{fetchInvitations.length} New invitation
-                    {fetchInvitations.length > 1 ? 's' : ''|| fetchInvitations.length === 0 ? 's' : ''}
+                    <h3>{allInvites.length} New invitation
+                    {allInvites.length > 1 ? 's' : ''|| allInvites.length === 0 ? 's' : ''}
                     </h3>  
                 </Row>
                 <Row>
                     <Col>
                         <Card className="mb-4">
                             <CardBody>
-                                <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
+                                <CardTitle className="font-weight-bold d-flex">{invite.name} has sent you an invitation
                                 </CardTitle>
                                 <Button color="primary" onClick={toggleVisibility}> Read more </Button>
                             </CardBody>
