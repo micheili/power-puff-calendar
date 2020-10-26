@@ -38,10 +38,12 @@ export default function App() {
         events = [];
       }
 
-      let users = await(await (await fetch("/api/user")).json())
+      let users = await(await fetch("/api/user")).json();
       if(users.error){
         users = [];
       }
+
+      console.log("App users" , users);
 
       let invitedEvents = await (
         await fetch("/api/invitedEvents/" + result.id)

@@ -90,7 +90,7 @@ export default function Login() {
         invitedEvents = [];
       }
 
-      console.log(events);
+      
 
       updateContext({
         user: data,
