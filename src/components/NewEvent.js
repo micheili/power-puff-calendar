@@ -24,17 +24,13 @@ const NewEvent = () => {
     stopTime,
   } = formData;
 
-  const start = () => {
+ 
     const getStart = new Date(startDate + " " + startTime);
     const start = moment(getStart).format("YYYY-MM-DD HH:mm");
-    return start
-  }
-
-  const stop = () => {
+     
     const getStop = new Date(stopDate + " " + stopTime);
     const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
-    return stop
-  }
+    
    
 
   const userId = context.user.userId;
