@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
     import {
       Col,
       Row,
@@ -10,7 +10,10 @@ import React from 'react';
     } from "reactstrap";
 
 export default function MyInvite (props){
-    let {eventId, title, description, start, stop} = props
+  let {title, description, start, stop} = props;
+  console.log('i myinvite' + props)
+
+
           return (
             <Form>
               <h3>{title}</h3>
@@ -21,7 +24,7 @@ export default function MyInvite (props){
                   name="description"
                   id="eventDescription"
                   disabled
-                  placeholder={description}
+                  placeholder={description} 
                 />
               </FormGroup>
               <FormGroup>
@@ -30,6 +33,7 @@ export default function MyInvite (props){
                   type="text"
                   name="userId"
                   id="eventUserId"
+                  placeholder="invited users"
                   disabled
                 />
               </FormGroup>
@@ -41,7 +45,7 @@ export default function MyInvite (props){
                       type="text"
                       name="startTime"
                       id="eventStartTime"
-                      placeholder="time placeholder"
+                      placeholder={start}
                       disabled
                     />
                   </FormGroup>
@@ -53,7 +57,7 @@ export default function MyInvite (props){
                         type="text"
                         name="stopTime"
                         id="eventEndTime"
-                        placeholder="time placeholder"
+                        placeholder={stop}
                         disabled
                         />
                     </FormGroup>

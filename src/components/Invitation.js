@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import useVisibilityToggler from "../hooks/useVisibilityToggler";
 import MyInvite from "./MyInvite";
 import NavInvites from "./NavInvites";
+import { Context } from "../App";
 
 import { 
     Container,
@@ -14,32 +15,47 @@ import {
      }
     from 'reactstrap';
 
-export default function Invitation(props) {
-    //let {inviteId, title, description, start, stop} = props;
+export default function Invitation() {
 
+    const [context] = useContext(Context);
+
+    const userId =  context.user.id;
+
+    console.log('this is the currentuserID' + userId)
+ 
     async function fetchInvitations() {
-        setInvitation(await (await fetch('/api/')).json());
+        setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json()); 
     }
-    
-    const [allInvites, setInvitation] = useState({});
-    console.log(allInvites);
 
+    
+    const [allInvites, setInvitations] = useState([]);
+    
+    console.log('data' , allInvites)
+    
     useEffect(() => {
-        fetchInvitations();
+        fetchInvitations(); 
       }, []);
 
-
+      //map data in MyInvite here
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
-            <MyInvite/>   
+      
+      
+        {allInvites.map((invite) => {
+              return <MyInvite key={invite.id}{...invite}></MyInvite>
+        })}
+                  
     </CardBody>, true
+            
     );
         return(
-            <Container className="data">
+            <Container className="data" >
                  <NavInvites/>
                 <Row className="justify-content-center mt-4 mb-3">
-                    <h3>New invitations</h3>  
+                    <h3>{fetchInvitations.length} New invitation
+                    {fetchInvitations.length > 1 ? 's' : ''|| fetchInvitations.length === 0 ? 's' : ''}
+                    </h3>  
                 </Row>
                 <Row>
                     <Col>
@@ -47,12 +63,11 @@ export default function Invitation(props) {
                             <CardBody>
                                 <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
                                 </CardTitle>
-                                <Button color="primary" className="" onClick={toggleVisibility}>Read more</Button>
+                                <Button color="primary" onClick={toggleVisibility}> Read more </Button>
                             </CardBody>
                             {InvitationCardComponent}
                         </Card>
                     </Col>
-                  
                 </Row>
             </Container>
         );      
