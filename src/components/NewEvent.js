@@ -208,7 +208,7 @@ const NewEvent = () => {
         <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
           <option value="">Select</option>
           <option>Value 1</option>
-          {context.users.map(user => <option key={user.id}>{user.email}</option>)}
+          {context.allUsers.map(user => <option key={user.userId}>{user.email}</option>)}
         </CustomInput>
       </FormGroup>
       </Row>
