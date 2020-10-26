@@ -38,10 +38,18 @@
         
 }
 
+
+
+input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
+    background-color: $info !important;  
+}
+
 input[type=date]::-webkit-inner-spin-button,input[type=time]::-webkit-inner-spin-button {
     color: white;
     background-color: $lighterpink !important;    
 }
+
+
 
 .button-submit{
     float: right;
