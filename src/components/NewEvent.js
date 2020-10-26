@@ -12,7 +12,7 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem,
+  BreadcrumbItem, CustomInput
 } from "reactstrap";
 
 const NewEvent = () => {
@@ -60,6 +60,8 @@ const NewEvent = () => {
 
     return isValid;
   };
+
+  console.log("Context users",context.users)
 
   async function save(e) {
     e.preventDefault();
@@ -200,6 +202,17 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
       </Row>
+      <Row>
+      <FormGroup>
+        <Label for="exampleCustomMutlipleSelect">Custom Multiple Select</Label>
+        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
+          <option value="">Select</option>
+          <option>Value 1</option>
+          {context.users.map(user => <option key={user.id}>{user.email}</option>)}
+        </CustomInput>
+      </FormGroup>
+      </Row>
+      
       <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>

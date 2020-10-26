@@ -12,6 +12,7 @@ export default function App() {
     user: false,
     myEvents: [],
     invitedEvents: [],
+    users: []
   });
 
   const updateContext = (updates) =>
@@ -37,6 +38,11 @@ export default function App() {
         events = [];
       }
 
+      let users = await(await (await fetch("/api/user")).json())
+      if(users.error){
+        users = [];
+      }
+
       let invitedEvents = await (
         await fetch("/api/invitedEvents/" + result.id)
       ).json();
@@ -48,6 +54,7 @@ export default function App() {
         user: result,
         myEvents: events,
         invitedEvents: invitedEvents,
+        users: users
       });
       console.log(contextVal.user);
     })();

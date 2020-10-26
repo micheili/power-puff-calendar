@@ -75,6 +75,7 @@ module.exports = class RestApi {
 
     //get events created by (logged-in) userId
 
+    
     this.app.get(rp + "/myEvents/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
