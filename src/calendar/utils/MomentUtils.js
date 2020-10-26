@@ -9,13 +9,15 @@ export const getSpecificWeek = ( week, year ) => {
   return moment(`${week}-${year}`, 'WW-YYYY').toDate();
 };
 
+export const getSpecificWeekDay = ( day, year ) => {
+  return moment(`${day}-${year}`, 'dddd-YYYY').toDate();
+};
+
 export const getSpecificDay = ( day, year ) => {
   return moment(`${day}-${year}`, 'DD-YYYY').toDate();
 };
 
-export const getSpecificWeekDay = ( day, year ) => {
-  return moment(`${day}-${year}`, 'dddd-YYYY').toDate();
-};
+
 
 export const getDayOfMonth = (date) => moment(date).date();
 
@@ -23,7 +25,7 @@ export const getHourOfDay = (date) => moment(date).format('HH');
 
 export const getMonth = (date) => moment(date).month();
 
-export const getWeek = (date) => moment(date).week();
+export const getWeek = (date) => moment(date).isoWeek();
 
 export const getYear = (date) => moment(date).year();
 

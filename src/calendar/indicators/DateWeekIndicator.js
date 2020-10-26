@@ -29,7 +29,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
     return (
       <div
         className={"date-week-icon"}
-        data-date={item.date.toString()}
+        data-date={item.date.toISOString().split('T')[0]}
         key={key}
         data-active-month={item.currentMonth}
         onClick={changeDate}

@@ -29,7 +29,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
           <div
             className={"date-icon"}
             data-active-month={item.currentMonth}
-            data-date={item.date.toString()}
+            data-date={item.date.toISOString().split('T')[0]}
             key={key}
          
             onClick={changeDate}

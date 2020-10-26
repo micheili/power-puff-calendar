@@ -21,7 +21,7 @@ export const getHoursInDayDisplay = (selectDate) => {
   const hourStart = moment(selectDate).startOf('day');
 
   const hours = [];
-  for (let i = 1; i <= 24; i++) {
+  for (let i = 0; i <= 23; i++) {
     hours.push({
       date:moment(hourStart).add(i, 'hour').toDate()});
   }
@@ -30,14 +30,36 @@ export const getHoursInDayDisplay = (selectDate) => {
 };
 
 export const getDaySet = (selectDate) => {
+
+  // daysInMs -> number of milliseconds in a day
+   let dayInMs = 24 * 60 * 60 * 1000;
+
+   // today -> this day at midnight 
+   let today = new Date(selectDate);
+   today.setHours(0,0,0,0);
+
+   let prev = new Date(today.getTime() - dayInMs);
+   // prev -> next Monday at midnight
+   let next = new Date(today.getTime() + dayInMs);
+   return { current: today, prev, next };
+  
+ /* const month = getMonth(selectDate);
   const day = getDayOfMonth(selectDate);
 
   const result = {
     current: selectDate,
-    prev: getSpecificDay(day- 1, getYear(selectDate)),
-    next: getSpecificDay(day + 1,  getYear(selectDate)),
+    prev: getSpecificDate(month, day- 1, getYear(selectDate)),
+    next: getSpecificDate(month, day + 1,  getYear(selectDate)),
   };
 
+  /*
+  if (month === 1) {
+    result.prev = getSpecificDate(12, 1, getYear(selectDate) - 1);
+  }
+
+  if (month === 12) {
+    result.next = getSpecificDate(1, 1, getYear(selectDate) + 1);
+  }
 
   /*if (day === 1) {
     result.prev = getSpecificDay(12, getYear(selectDate) - 1);
@@ -45,27 +67,27 @@ export const getDaySet = (selectDate) => {
 
   if (day === 12) {
     result.next = getSpecificDay(1, getYear(selectDate) + 1);
-  }*/
+  }
 
-  return result;
+  return result;*/
 };
 
 
 
 //WEEK
 export const getDatesInWeekDisplay = (selectDate) =>{
-  const days = [];
 
+
+
+
+/*
   const firstWeekInMonth = moment(selectDate).startOf('month').startOf('week').add(1, 'day');
- 
-  const weekStart = moment(selectDate).startOf('week').add(1, "day");
-
   const firstDaysInMonthWeek = [];
   for (let i = 0; i <= 6; i++) {
     firstDaysInMonthWeek.push({
       date:moment(firstWeekInMonth).add(i, 'days').toDate(),
     })
-  }
+  }*/
 
 
   //if(firstweekday.day are in preMonth - currentMonth false)
@@ -80,24 +102,26 @@ export const getDatesInWeekDisplay = (selectDate) =>{
   
 
   //delete previus months days
+  const days = [];
+  const weekStart = moment(selectDate).startOf('week').add(1, "day");
+  let rightMonth = new Date(selectDate).getMonth();
   for (let i = 0; i <= 6; i++) {
     days.push({
       date:moment(weekStart).add(i, 'days').toDate(),
       currentMonth: true
-    })
+    });
   }
-
   return days;
-
 };
 
 
 export const getWeekSet = (selectDate) => {
   
- /* // daysInMs -> number of milliseconds in a day
+  // daysInMs -> number of milliseconds in a day
    let dayInMs = 24 * 60 * 60 * 1000;
    // thisMonday -> this Monday at midnight 
-   let thisMonday = new Date(selectDate.toLocaleDateString());
+   let thisMonday = new Date(selectDate);
+   thisMonday.setHours(0,0,0,0);
    
    while (thisMonday.getDay() !== 1) {
      thisMonday = new Date(thisMonday.getTime() - dayInMs);
@@ -106,10 +130,10 @@ export const getWeekSet = (selectDate) => {
    let prev = new Date(thisMonday.getTime() - dayInMs * 7);
    // prev -> next Monday at midnight
    let next = new Date(thisMonday.getTime() + dayInMs * 7);
-   return { current: thisMonday, prev, next };*/
+   return { current: thisMonday, prev, next };
   
 
-  const week = getWeek(selectDate);
+ /* const week = getWeek(selectDate);
       
   const result = {
     current: selectDate,
@@ -124,9 +148,9 @@ export const getWeekSet = (selectDate) => {
 
  if (week === 53 || week === 52) {
     result.next = getSpecificWeek(1, getYear(selectDate) + 1);
-  }*/
+  }
 
-  return result;
+  return result;*/
 };
 
   
