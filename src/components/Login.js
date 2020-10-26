@@ -25,14 +25,14 @@ export default function Login() {
 
   const onDismiss = () => setAlert(false);
 
-  useEffect(() => {
-    // (async () => {
-    //   const data = await (await fetch("/api/login")).json();
-    //   if (data.error) {
+ useEffect(() => {
+     (async () => {
+       const data = await (await fetch("/api/login")).json();
+       if (data.error) {
     setFormData({ email: "", password: "" });
     setError("");
-    //   }
-    // })();
+       }
+     })();
   }, []);
 
   if (formData.error) {
