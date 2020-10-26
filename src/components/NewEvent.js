@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, {  useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
 
@@ -18,13 +18,30 @@ import {
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
-  const [context] = useContext(Context);
+  const [context] = useContext(Context); 
+  const [value, setValues] = useState([]);  
+  const tempArray = []
 
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+
+
+    
+
+    const handleInvites = (value, e) => {
+      console.log('onChangeMultiSelect', value)
+      setValues(value)
+    }
+    
+
+    console.log("arraylist", tempArray)
+
+    
+
+    
 
   let {
     title,
@@ -61,7 +78,7 @@ const NewEvent = () => {
     return isValid;
   };
 
-  console.log("Context users",context.users)
+  console.log("Context users" , context.allUsers)
 
   async function save(e) {
     e.preventDefault();
@@ -204,11 +221,10 @@ const NewEvent = () => {
       </Row>
       <Row>
       <FormGroup>
-        <Label for="exampleCustomMutlipleSelect">Custom Multiple Select</Label>
-        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
-          <option value="">Select</option>
-          <option>Value 1</option>
-          {context.allUsers.map(user => <option key={user.userId}>{user.email}</option>)}
+        <Label for="exampleCustomMutlipleSelect">Invite Friends To Your Event</Label>
+        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>          
+          {context.allUsers.map(user => <option key={user.id} value={user.id} onClick={handleInvites}>{user.email}</option>)}
+
         </CustomInput>
       </FormGroup>
       </Row>

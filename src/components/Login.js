@@ -83,6 +83,10 @@ export default function Login() {
         events = [];
       }
 
+      let users = await (await fetch("/api/user")).json();
+      if(users.error){
+        users = [];      }
+
       let invitedEvents = await (
         await fetch("/api/invitedEvents/" + data.id)
       ).json();
@@ -96,6 +100,7 @@ export default function Login() {
         user: data,
         myEvents: events,
         invitedEvents: invitedEvents,
+        allUsers : users
       });
 
       setRedirect(true);

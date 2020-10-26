@@ -38,12 +38,10 @@ export default function App() {
         events = [];
       }
 
-      let users = await(await fetch("/api/user")).json();
+      let users = await (await fetch("/api/user")).json();
       if(users.error){
         users = [];
       }
-
-      console.log("Users error" + users.error)
 
       
       let invitedEvents = await (
@@ -58,8 +56,7 @@ export default function App() {
         myEvents: events,
         invitedEvents: invitedEvents,
         allUsers: users
-      });
-      console.log(contextVal.allUser);
+      });      
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
