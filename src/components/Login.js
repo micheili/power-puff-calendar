@@ -40,7 +40,7 @@ export default function Login() {
   }
 
   if (redirect) {
-    return <Redirect to="/calendar" />;
+    return <Redirect to="/calendarpage" />;
   }
   if (formData.email === undefined) {
     return null;
@@ -75,11 +75,31 @@ export default function Login() {
         setAlert(true);
         return;
       }
-      updateContext({ user: data });
-      console.log(context.user);
+      console.log(data);
+      //updateContext({ user: data });
+
+      let events = await (await fetch("/api/myEvents/" + data.id)).json();
+      if (events.error) {
+        events = [];
+      }
+
+      let invitedEvents = await (
+        await fetch("/api/invitedEvents/" + data.id)
+      ).json();
+      if (invitedEvents.error) {
+        invitedEvents = [];
+      }
+
+      console.log(events);
+
+      updateContext({
+        user: data,
+        myEvents: events,
+        invitedEvents: invitedEvents,
+      });
+
       setRedirect(true);
       setFormData({ email: "", password: "" });
-      console.log(data);
 
       // return data;
     } catch (e) {

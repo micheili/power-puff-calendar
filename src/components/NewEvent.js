@@ -26,7 +26,8 @@ const NewEvent = () => {
   const getStart = new Date(startDate + " " + startTime);
   const getStop = new Date(stopDate + " " + stopTime);
 
-  const userId = context.user.userId;
+  const userId = context.user.id;
+  console.log(userId);
   const start = moment(getStart).format("YYYY-MM-DD HH:mm");
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
