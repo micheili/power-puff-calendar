@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
 
-import { Col, Row, Button, Form, FormGroup, Label, Input, Alert } from "reactstrap";
+import { Col, Row, Button, Form, FormGroup, Label, Input, Alert, Breadcrumb, BreadcrumbItem } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
@@ -100,18 +100,20 @@ const NewEvent = () => {
 
   return (
     <Form onSubmit={save}>
-      <h1>NewEvent</h1>
+       <Breadcrumb>
+        <BreadcrumbItem active>New Event</BreadcrumbItem>
+      </Breadcrumb>
         <Alert color="danger" isOpen={alert} 
         toggle={() => {
           setAlert(false);
         }}>{alert}
         </Alert>
       <FormGroup>
-        <Label for="eventTitle">Title</Label>
+        <Label for="eventTitle" className="event_label">Title</Label>
         <Input
           type="text"
           name="title"
-          id="eventTitle"
+          id="eventTitle"          
           onChange={handleInputChange}
           value={title}
           required
@@ -127,11 +129,11 @@ const NewEvent = () => {
           value={description}
           required
         />
-      </FormGroup>
-      <Label>Start:</Label>
+      </FormGroup>      
       <Row>
-        <Col xs="12" lg="6">
+        <Col xs="12" lg="7">          
           <FormGroup>
+          <Label for="eventStartDate">Start Date:</Label>
             <Input
               type="date"
               name="startDate"
@@ -145,7 +147,8 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
         <Col>
-          <FormGroup xs="12" lg="6">
+          <FormGroup xs="12" lg="5">
+          <Label for="eventStartTime">Start Time:</Label>
             <Input
               type="time"
               name="startTime"
@@ -157,11 +160,11 @@ const NewEvent = () => {
             />
           </FormGroup>
         </Col>
-      </Row>
-      <Label>End:</Label>
+      </Row>      
       <Row>
-        <Col xs="12" lg="6">
+        <Col xs="12" lg="7">
           <FormGroup>
+          <Label for="eventEndDate">End Date:</Label>
             <Input
               type="date"
               name="stopDate"
@@ -174,7 +177,8 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
         <Col>
-          <FormGroup xs="12" lg="6">
+          <FormGroup xs="12" lg="5">
+          <Label for="eventEndTime">End Time:</Label>
             <Input
               type="time"
               name="stopTime"
@@ -187,7 +191,7 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
       </Row>
-      <Button type="submit" value="save">
+      <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>
     </Form>
