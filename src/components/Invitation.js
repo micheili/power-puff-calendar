@@ -24,21 +24,15 @@ export default function Invitation(prop) {
 
   console.log("this is the currentuserID" + userId);
 
-  //   async function fetchInvitations() {
-  //     //if(!userId){return;}
-  //     setInvitations(
-  //       await (await fetch(`api/invitedEvents/${userId}?accepted=null`)).json()
-  //     );
-  //   }
+  async function fetchInvitations() {
+    setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
+  }
 
-  //   const [allInvites, setInvitations] = useState([]);
-  //   console.log("invitation", allInvites);
+  const [allInvites, setInvitations] = useState([]);
 
-  console.log("allInvites", allInvites);
-
-  //   useEffect(() => {
-  //     fetchInvitations();
-  //   }, [userId]);
+  useEffect(() => {
+    fetchInvitations();
+  }, [userId]);
 
   const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
@@ -48,7 +42,7 @@ export default function Invitation(prop) {
           <MyInvite key={invite.id} {...invite}></MyInvite>
         ))
       ) : (
-        <div>You don't have any invites</div>
+        <div>You dont have any invites</div>
       )}
     </CardBody>,
     true
@@ -69,17 +63,25 @@ export default function Invitation(prop) {
       <Row>
         <Col>
           <Card className="mb-4">
-            <CardBody>
-              <CardTitle className="font-weight-bold d-flex">
-                {" "}
-                has sent you an invitation
-              </CardTitle>
-              <Button color="primary" onClick={toggleVisibility}>
-                {" "}
-                Read more{" "}
-              </Button>
-            </CardBody>
-            {InvitationCardComponent}
+            {allInvites.length > 0 ? (
+              <CardBody>
+                <CardTitle className="font-weight-bold d-flex">
+                  {allInvites.map((invite) => (
+                    <p key={invite.id}>
+                      {invite.userId}
+                      has sent you an invitation
+                    </p>
+                  ))}
+                </CardTitle>
+                <Button color="primary" onClick={toggleVisibility}>
+                  {" "}
+                  Read more{" "}
+                </Button>
+                {InvitationCardComponent}
+              </CardBody>
+            ) : (
+              <div></div>
+            )}
           </Card>
         </Col>
       </Row>

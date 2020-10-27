@@ -11,7 +11,7 @@ import {
   Input,
   Label,
   Row,
-  Alert,
+  Alert, InputGroup, InputGroupAddon,InputGroupText
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -74,10 +74,8 @@ export default function Login() {
         setError("No match found");
         setAlert(true);
         return;
-      }
-      console.log(data);
-      //updateContext({ user: data });
-
+      }     
+      
       let events = await (await fetch("/api/myEvents/" + data.id)).json();
       if (events.error) {
         events = [];
@@ -143,7 +141,7 @@ export default function Login() {
           <Col xs="12">
             <FormGroup>
               <Label className="text-info">
-                Email address
+                Email address</Label>
                 <Input
                   name="email"
                   type="email"
@@ -152,20 +150,21 @@ export default function Login() {
                   aria-describedby="emailHelp"
                   required
                 />
-              </Label>
+              
             </FormGroup>
             <FormGroup>
-              <Label className="text-info">
-                Password
-                <Input
-                  name="password"
-                  type={PasswordInputType}
-                  onChange={handleInputChange}
-                  value={formData.password}
-                  required
-                />
-                <span className="password-toggle-icon">{ToggleIcon}</span>
-              </Label>
+              <Label>
+                Password</Label>
+                <InputGroup>
+                  <Input name="password"
+                            type={PasswordInputType}
+                            onChange={handleInputChange}
+                            value={formData.password}
+                            required/>
+                  <InputGroupAddon addonType="append">
+                  <InputGroupText><span className="password-toggle-icon">{ToggleIcon}</span></InputGroupText>
+                  </InputGroupAddon>
+              </InputGroup>
             </FormGroup>
             <Link to="/Register">
               <Row className="justify-content-center text-info">

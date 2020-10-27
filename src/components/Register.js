@@ -12,7 +12,7 @@ import {
   Label,
   Input,
   Button,
-  Alert,
+  Alert,InputGroup, InputGroupAddon,InputGroupText
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -138,31 +138,29 @@ export default function Register() {
           <Col>
             <FormGroup>
               <Label className="text-info">
-                Firstname
+                Firstname</Label>
                 <Input
                   name="firstName"
                   type="text"
                   onChange={handleInputChange}
                   value={firstName}
                   required
-                />
-              </Label>
+                />              
             </FormGroup>
             <FormGroup>
               <Label className="text-info">
-                Lastname
+                Lastname</Label>
                 <Input
                   name="lastName"
                   type="text"
                   onChange={handleInputChange}
                   value={lastName}
                   required
-                />
-              </Label>
+                />              
             </FormGroup>
             <FormGroup>
               <Label className="text-info">
-                Email address
+                Email address</Label>
                 <Input
                   name="email"
                   type="email"
@@ -170,24 +168,24 @@ export default function Register() {
                   aria-describedby="emailHelp"
                   value={email}
                   required
-                />
-              </Label>
+                />              
             </FormGroup>
             <FormGroup>
-              <Label className="text-info">
-                Password
-                <Input
-                  name="password"
-                  type={PasswordInputType}
-                  onChange={handleInputChange}
-                  value={password}
-                  required
-                />
-              </Label>
-              <span className="password-toggle-icon-register">
-                {ToggleIcon}
-              </span>
-            </FormGroup>
+            <Label className="text-info">
+                Password</Label>
+              <InputGroup>
+                    <Input name="password"
+                    type={PasswordInputType}
+                    onChange={handleInputChange}
+                    value={password}
+                    required/>
+                    <InputGroupAddon addonType="append">
+                    <InputGroupText><span className="password-toggle-icon-register">
+                  {ToggleIcon}
+                </span></InputGroupText>
+                    </InputGroupAddon>
+                </InputGroup>
+            </FormGroup>            
             <Link to="/">
               <p className="row justify-content-center text-info">
                 Already have an account?

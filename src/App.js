@@ -32,7 +32,6 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let result = await (await fetch("/api/login")).json();
-      console.log(result);
       if (result.error) {
         updateContext({ user: false });
         return;
@@ -63,15 +62,12 @@ export default function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log("App users", contextVal.allUsers);
-
   async function logout() {
     const res = await fetch("/api/login", {
       method: "DELETE",
     });
     updateContext({ user: false });
     const result = await res.json();
-    console.log(result);
   }
 
   return (
