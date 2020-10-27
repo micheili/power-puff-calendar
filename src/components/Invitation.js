@@ -26,11 +26,12 @@ export default function Invitation(prop) {
  
     async function fetchInvitations() {
         if(!userId){return;}
-        setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json()); 
+        setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
     }
-
+    
     
     const [allInvites, setInvitations] = useState([]);
+    console.log('invitation' , allInvites)
     
     console.log('data' , allInvites)
     
@@ -38,7 +39,6 @@ export default function Invitation(prop) {
         fetchInvitations(); 
     }, [userId]);
 
-      //map data in MyInvite here
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
@@ -61,7 +61,7 @@ export default function Invitation(prop) {
                     <Col>
                         <Card className="mb-4">
                             <CardBody>
-                                <CardTitle className="font-weight-bold d-flex">{invite.name} has sent you an invitation
+                                <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
                                 </CardTitle>
                                 <Button color="primary" onClick={toggleVisibility}> Read more </Button>
                             </CardBody>

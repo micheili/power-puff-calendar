@@ -1,4 +1,6 @@
-import React, { useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import { Redirect} from 'react-router-dom';
+
     import {
       Col,
       Row,
@@ -9,11 +11,38 @@ import React, { useState, useEffect} from 'react';
       Button,
     } from "reactstrap";
 
+
 export default function MyInvite (props){
-  let {title, description, start, stop} = props;
-  console.log('i myinvite' + props)
+  let {id, inviteId, title, description, start, stop} = props;
 
 
+  async function Decline() {
+    let result = await(await fetch("/api/invite/" + inviteId,  {
+        method: "PUT",
+        body: JSON.stringify({
+          accepted: 0,
+        } 
+        ),
+        headers: { "Content-Type": "application/json" },
+      }))
+    .json();
+    console.log('result and id ' , result, inviteId)
+    
+  };
+
+  async function Accept() {
+    let result = await(await fetch("/api/invite/" + inviteId,  {
+      method: "PUT",
+      body: JSON.stringify({
+        accepted: 1,
+      } 
+      ),
+      headers: { "Content-Type": "application/json" },
+    }))
+  .json();
+  console.log('result and id ' , result, inviteId)
+ 
+};
           return (
             <Form>
               <h3>{title}</h3>
@@ -64,8 +93,8 @@ export default function MyInvite (props){
                 </Col> 
               </Row>
               <Row>
-                <Button color="danger float-rightf mr-2">No, cant make it</Button>
-                <Button color="primary  float-right">Yes, count me in!</Button> 
+                <Button onClick={Decline}  color="danger float-rightf mr-2">No, cant make it</Button>
+                <Button onClick={Accept}  color="primary  float-right">Yes, count me in!</Button> 
               </Row>
             </Form>
     )

@@ -131,7 +131,7 @@ module.exports = class RestApi {
     this.app.get(rp + "/pendingEvents/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
-      SELECT e.* FROM Event e
+      SELECT e.* , i.id as inviteId FROM Event e
       INNER JOIN Invite i ON e.id = i.eventId 
       WHERE i.invitedUser = $userId AND accepted IS NULL
       `,
