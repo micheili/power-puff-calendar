@@ -173,6 +173,7 @@ const NewEvent = () => {
             <Label for="eventStartDate">Start Date:</Label>
             <Input
               type="date"
+              min={new Date().toISOString().split("T")[0]}
               name="startDate"
               id="eventStartDate"
               placeholder="date placeholder"
@@ -204,6 +205,7 @@ const NewEvent = () => {
             <Label for="eventEndDate">End Date:</Label>
             <Input
               type="date"
+              min={new Date().toISOString().split("T")[0]}
               name="stopDate"
               id="eventEndDate"
               placeholder="date placeholder"
