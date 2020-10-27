@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import useVisibilityToggler from "../hooks/useVisibilityToggler";
 import MyInvite from "./MyInvite";
+import NavInvites from "./NavInvites";
+import { Context } from "../App";
 
 import { 
     Container,
@@ -9,35 +11,56 @@ import {
     Card, 
     CardBody,
     Button,
-    CardTitle
+    CardTitle,
      }
     from 'reactstrap';
 
-const Invitation = (props) => {
-    let {inviteId, title, description, start, stop} = props;
+export default function Invitation(prop) {
+    let {name} = prop;
 
+
+
+
+    const [context] = useContext(Context);
+
+    const userId =  context.user.id;
+
+    console.log('this is the currentuserID' + userId)
+ 
     async function fetchInvitations() {
-        setInvitation(await (await fetch('/api/')).json());
+        //if(!userId){return;}
+        setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
     }
     
-    const [allInvites, setInvitation] = useState({});
-    console.log(allInvites);
-
+    
+    const [allInvites, setInvitations] = useState([]);
+    console.log('invitation' , allInvites)
+    
+    console.log('data' , allInvites)
+    
     useEffect(() => {
-        fetchInvitations();
-      }, []);
-
+        fetchInvitations(); 
+    }, [userId]);
 
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
-            <MyInvite/>   
+        {allInvites.length> 0 ? (allInvites.map((invite) => 
+              <MyInvite key={invite.id} {...invite}></MyInvite>)) : <div>You dont have any invites</div>
+        }
+        
+   
+                  
     </CardBody>, true
+            
     );
         return(
-            <Container className="data">
+            <Container className="data" >
+                 <NavInvites/>
                 <Row className="justify-content-center mt-4 mb-3">
-                    <h3>New invitations</h3>  
+                    <h3>{allInvites.length} New invitation
+                    {allInvites.length > 1 ? 's' : ''|| allInvites.length === 0 ? 's' : ''}
+                    </h3>  
                 </Row>
                 <Row>
                     <Col>
@@ -45,7 +68,7 @@ const Invitation = (props) => {
                             <CardBody>
                                 <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
                                 </CardTitle>
-                                <Button color="primary" className="" onClick={toggleVisibility}>Read more</Button>
+                                <Button color="primary" onClick={toggleVisibility}> Read more </Button>
                             </CardBody>
                             {InvitationCardComponent}
                         </Card>
@@ -55,4 +78,4 @@ const Invitation = (props) => {
         );      
 }
 
-export default Invitation;
+

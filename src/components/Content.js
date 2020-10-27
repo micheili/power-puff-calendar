@@ -10,6 +10,7 @@ import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
 import CalendarPage from "../CalendarPage";
 import CalendarBox from "./CalendarBox";
+import Invitations_declined from "./Invitations_declined";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -57,6 +58,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Route exact path="/invitation" component={Invitation} />
         <Route path="/calendarpage" component={CalendarPage}></Route>
         <Route path="/calendarbox" component={CalendarBox}></Route>
+        <Route path="/invitations_declined" component={Invitations_declined}/>
       </Switch>
     </Container>
   );

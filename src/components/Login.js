@@ -11,7 +11,7 @@ import {
   Input,
   Label,
   Row,
-  Alert,
+  Alert, InputGroup, InputGroupAddon,InputGroupText
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -83,6 +83,10 @@ export default function Login() {
         events = [];
       }
 
+      let users = await (await fetch("/api/user")).json();
+      if(users.error){
+        users = [];      }
+
       let invitedEvents = await (
         await fetch("/api/invitedEvents/" + data.id + "?accepted=true")
       ).json();
@@ -90,12 +94,13 @@ export default function Login() {
         invitedEvents = [];
       }
 
-      console.log(events);
+      
 
       updateContext({
         user: data,
         myEvents: events,
         invitedEvents: invitedEvents,
+        allUsers : users
       });
 
       setRedirect(true);
@@ -122,7 +127,7 @@ export default function Login() {
           <Col xs="12">
             <FormGroup>
               <Label className="text-info">
-                Email address
+                Email address</Label>
                 <Input
                   name="email"
                   type="email"
@@ -131,20 +136,21 @@ export default function Login() {
                   aria-describedby="emailHelp"
                   required
                 />
-              </Label>
+              
             </FormGroup>
             <FormGroup>
-              <Label className="text-info">
-                Password
-                <Input
-                  name="password"
-                  type={PasswordInputType}
-                  onChange={handleInputChange}
-                  value={formData.password}
-                  required
-                />
-                <span className="password-toggle-icon">{ToggleIcon}</span>
-              </Label>
+              <Label>
+                Password</Label>
+                <InputGroup>
+                  <Input name="password"
+                            type={PasswordInputType}
+                            onChange={handleInputChange}
+                            value={formData.password}
+                            required/>
+                  <InputGroupAddon addonType="append">
+                  <InputGroupText><span className="password-toggle-icon">{ToggleIcon}</span></InputGroupText>
+                  </InputGroupAddon>
+              </InputGroup>
             </FormGroup>
             <Link to="/Register">
               <Row className="justify-content-center text-info">

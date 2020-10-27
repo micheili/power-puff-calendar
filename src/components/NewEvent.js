@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
+import Select from "react-select";
 
 import {
   Col,
@@ -13,18 +14,34 @@ import {
   Alert,
   Breadcrumb,
   BreadcrumbItem,
+  CustomInput,
 } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context);
+  const [invitesList, setinvitesList] = useState([]);
+
+  const userId = context.user.id;
+  const usersData = context.allUsers.filter((u) => u.id != userId);
 
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+
+  const options = usersData.map((user) => ({
+    value: user.id,
+    label: user.email,
+  }));
+
+  const handleInvites = (e) => {
+    setinvitesList(e);
+  };
+
+  console.log("Invitelist", invitesList);
 
   let {
     title,
@@ -70,12 +87,10 @@ const NewEvent = () => {
         await fetch("/api/Event", {
           method: "POST",
           body: JSON.stringify({ userId, title, description, start, stop }),
-
           headers: { "Content-Type": "application/json" },
         })
       ).json();
 
-      console.log("body", result.body);
       //error msg handling
       if (result.error === 403) {
         setAlert("Sorry, the date and time interval you entered is invalid!");
@@ -87,6 +102,20 @@ const NewEvent = () => {
         return;
       }
 
+      if (!result.error && invitesList.length) {
+        const eventId = result.lastInsertRowid;
+        for (var i = 0; i < invitesList.length; i++) {
+          const invitedUser = invitesList[i].value;
+          let result = await (
+            await fetch("/api/Invite", {
+              method: "POST",
+              body: JSON.stringify({ eventId, invitedUser }),
+              headers: { "Content-Type": "application/json" },
+            })
+          ).json();
+        }
+      }
+
       setFormData({
         title: "",
         description: "",
@@ -96,13 +125,13 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log(result);
+      console.log("result", result.lastInsertRowid);
       return result;
     }
   }
 
   return (
-    <Form onSubmit={save}>
+    <Form ClassName="newEvent-form" onSubmit={save}>
       <Breadcrumb>
         <BreadcrumbItem active>New Event</BreadcrumbItem>
       </Breadcrumb>
@@ -136,7 +165,6 @@ const NewEvent = () => {
           id="eventDescription"
           onChange={handleInputChange}
           value={description}
-          required
         />
       </FormGroup>
       <Row>
@@ -145,6 +173,7 @@ const NewEvent = () => {
             <Label for="eventStartDate">Start Date:</Label>
             <Input
               type="date"
+              min={new Date().toISOString().split("T")[0]}
               name="startDate"
               id="eventStartDate"
               placeholder="date placeholder"
@@ -176,6 +205,7 @@ const NewEvent = () => {
             <Label for="eventEndDate">End Date:</Label>
             <Input
               type="date"
+              min={new Date().toISOString().split("T")[0]}
               name="stopDate"
               id="eventEndDate"
               placeholder="date placeholder"
@@ -200,6 +230,10 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
       </Row>
+      <FormGroup>
+        <Select options={options} onChange={handleInvites} isMulti />
+      </FormGroup>
+
       <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>
