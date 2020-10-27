@@ -74,10 +74,8 @@ export default function Login() {
         setError("No match found");
         setAlert(true);
         return;
-      }
-      console.log(data);
-      //updateContext({ user: data });
-
+      }     
+      
       let events = await (await fetch("/api/myEvents/" + data.id)).json();
       if (events.error) {
         events = [];

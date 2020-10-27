@@ -13,8 +13,7 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem,
-  CustomInput,
+  BreadcrumbItem
 } from "reactstrap";
 
 const NewEvent = () => {
@@ -144,9 +143,7 @@ const NewEvent = () => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className="event_label">
-          Title
-        </Label>
+        <Label for="eventTitle" className="event_label">Title</Label>
         <Input
           type="text"
           name="title"
