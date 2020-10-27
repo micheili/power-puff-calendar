@@ -1,10 +1,7 @@
-import React, {  useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
-import Select from 'react-select';
-
-
-
+import Select from "react-select";
 
 import {
   Col,
@@ -16,20 +13,18 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem, CustomInput
+  BreadcrumbItem,
+  CustomInput,
 } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
-  const [context] = useContext(Context); 
-  const [invitesList, setinvitesList] = useState([]);  
-  
+  const [context] = useContext(Context);
+  const [invitesList, setinvitesList] = useState([]);
+
   const userId = context.user.id;
-  const usersData = context.allUsers.filter(u => (u.id != userId));
-  
-   
-  
+  const usersData = context.allUsers.filter((u) => u.id != userId);
 
   const handleInputChange = (e) =>
     setFormData({
@@ -37,65 +32,55 @@ const NewEvent = () => {
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
+  const options = usersData.map((user) => ({
+    value: user.id,
+    label: user.email,
+  }));
 
-    
-    const options = usersData.map( user => ({
-      "value" : user.id,
-      "label" : user.email
-    }))
-    
+  const handleInvites = (e) => {
+    setinvitesList(e);
+  };
 
-    const handleInvites = (e) => {
-      setinvitesList(e);
+  console.log("Invitelist", invitesList);
+
+  let {
+    title,
+    description,
+    startDate,
+    stopDate,
+    startTime,
+    stopTime,
+  } = formData;
+
+  const getStart = new Date(startDate + " " + startTime);
+  const start = moment(getStart).format("YYYY-MM-DD HH:mm");
+
+  const getStop = new Date(stopDate + " " + stopTime);
+  const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+
+  console.log(userId);
+
+  const validate = () => {
+    let isValid = true;
+
+    if (start && stop !== undefined) {
+      console.log("start stop right");
+      let startParse = Date.parse(start);
+      let stopParse = Date.parse(stop);
+      let diff = (stopParse - startParse) / 1000;
+
+      if (!(diff >= 900 && diff < 604800)) {
+        isValid = false;
+        setAlert("Sorry, the date and time interval you entered is invalid!");
+      }
     }
 
-    console.log("Invitelist" , invitesList);
-   
-    
-    let {
-      title,
-      description,
-      startDate,
-      stopDate,
-      startTime,
-      stopTime,
-    } = formData;
-
-    const getStart = new Date(startDate + " " + startTime);
-    const start = moment(getStart).format("YYYY-MM-DD HH:mm");
-
-    const getStop = new Date(stopDate + " " + stopTime);
-    const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
-
-    
-
-    console.log(userId);
-
-    const validate = () => {
-      let isValid = true;
-
-      if (start && stop !== undefined) {
-        console.log("start stop right");
-        let startParse = Date.parse(start);
-        let stopParse = Date.parse(stop);
-        let diff = (stopParse - startParse) / 1000;
-
-        if (!(diff >= 900 && diff < 604800)) {
-          isValid = false;
-          setAlert("Sorry, the date and time interval you entered is invalid!");
-        }
-      }
-
-      return isValid;
-    };
-
-   
+    return isValid;
+  };
 
   async function save(e) {
     e.preventDefault();
     console.log(formData);
-
-    
 
     if (validate()) {
       let result = await (
@@ -106,7 +91,6 @@ const NewEvent = () => {
         })
       ).json();
 
-      
       //error msg handling
       if (result.error === 403) {
         setAlert("Sorry, the date and time interval you entered is invalid!");
@@ -117,12 +101,11 @@ const NewEvent = () => {
         console.log("error", result.error);
         return;
       }
-     
-      
-      if(!result.error && invitesList.length){
+
+      if (!result.error && invitesList.length) {
         const eventId = result.lastInsertRowid;
         for (var i = 0; i < invitesList.length; i++) {
-          const invitedUser = invitesList[i].value
+          const invitedUser = invitesList[i].value;
           let result = await (
             await fetch("/api/Invite", {
               method: "POST",
@@ -142,10 +125,9 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log("result",result.lastInsertRowid);
+      console.log("result", result.lastInsertRowid);
       return result;
     }
-    
   }
 
   return (
@@ -183,7 +165,6 @@ const NewEvent = () => {
           id="eventDescription"
           onChange={handleInputChange}
           value={description}
-          required
         />
       </FormGroup>
       <Row>
@@ -246,15 +227,11 @@ const NewEvent = () => {
             />
           </FormGroup>
         </Col>
-      </Row>  
+      </Row>
       <FormGroup>
-        <Select          
-          options={options}
-          onChange={handleInvites}          
-          isMulti
-        />
-      </FormGroup>   
-        
+        <Select options={options} onChange={handleInvites} isMulti />
+      </FormGroup>
+
       <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>
