@@ -6,13 +6,19 @@ import {
   Button,
   CardText,
 } from "reactstrap";
-import moment from 'moment';
+import moment from "moment";
 import {
   getDayWithoutZero,
   getReadableWeekday,
   getReadableMonth,
   getYear,
 } from "../calendar/utils/MomentUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPen,
+  faTrashAlt,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Event(props) {
   //let { id, title, eventCreator, description, start, stop } = props;
@@ -61,25 +67,34 @@ export default function Event(props) {
     <div className="sm-6">
       <CardTitle tag="h3">{title}</CardTitle>
       <CardSubtitle tag="h5">{description}</CardSubtitle>
-      <CardSubtitle className="mt-3">from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}</CardSubtitle>
+      <CardSubtitle className="mt-3">
+        from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
+      </CardSubtitle>
       <CardSubtitle>
         to {stopTime}
-        {startMoment.isSameOrAfter(stopMoment) ? null
-          : ' ' + stopWeekday + ", " + stopDateNr} 
-        {startMoment.isSameOrAfter(stopMoment, 'month') ? null : ' ' +
-          stopMonth + " "
-        }
-        {startMoment.isSameOrAfter(stopMoment, "year") ? null : + " " + stopYear}
+        {startMoment.isSameOrAfter(stopMoment)
+          ? null
+          : " " + stopWeekday + ", " + stopDateNr}
+        {startMoment.isSameOrAfter(stopMoment, "month")
+          ? null
+          : " " + stopMonth + " "}
+        {startMoment.isSameOrAfter(stopMoment, "year") ? null : +" " + stopYear}
       </CardSubtitle>
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
-      <ButtonToggle color="primary">Invite</ButtonToggle>{" "}
-      {/* edit if userId is mine, I created event */}
-      <ButtonToggle color="secondary">Edit</ButtonToggle>{" "}
-      {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
-      <Button outline color="primary">
-        Delete
-      </Button>{" "}
+      <div className="float-right">
+        <ButtonToggle outline color="lightpink" id="inviteButton">
+          <FontAwesomeIcon icon={faUserPlus}  />
+        </ButtonToggle>{" "}
+        {/* edit if userId is mine, I created event */}
+        <ButtonToggle outline color="lightpink" id="editButton" >
+          <FontAwesomeIcon icon={faPen} />
+        </ButtonToggle>{" "}
+        {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
+        <Button outline color="lightpink" id="deleteButton">
+          <FontAwesomeIcon icon={faTrashAlt}  />
+        </Button>{" "}
+      </div>
     </div>
   );
 }
