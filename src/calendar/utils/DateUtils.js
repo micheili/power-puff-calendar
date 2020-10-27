@@ -146,7 +146,7 @@ export const getWeekSet = (selectDate) => {
     return moment(
       `${month}-${year}`, 
       'MM-YYYY'
-    ).startOf('month').subtract(1, 'day').weekday()
+    ).startOf('month').weekday()
   }
 
     const getPrevMonthYear = (month, year) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import moment from 'moment';
+import moment from "moment-timezone";
 
 import CalendarHeader from './CalendarHeader';
 import WeekdayIndicator from './indicators/WeekdayIndicator';
