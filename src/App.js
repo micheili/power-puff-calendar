@@ -12,6 +12,7 @@ export default function App() {
     user: false,
     myEvents: [],
     invitedEvents: [],
+    allUsers: [],
   });
 
   const updateContext = (updates) =>
@@ -37,8 +38,13 @@ export default function App() {
         events = [];
       }
 
+      let users = await (await fetch("/api/user")).json();
+      if (users.error) {
+        users = [];
+      }
+
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + result.id + "?accepted=true")
+        await fetch("/api/invitedEvents/" + result.id)
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
@@ -48,9 +54,12 @@ export default function App() {
         user: result,
         myEvents: events,
         invitedEvents: invitedEvents,
+        allUsers: users,
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log("App users", contextVal.allUsers);
 
   async function logout() {
     const res = await fetch("/api/login", {

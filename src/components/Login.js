@@ -83,19 +83,23 @@ export default function Login() {
         events = [];
       }
 
+      let users = await (await fetch("/api/user")).json();
+      if (users.error) {
+        users = [];
+      }
+
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + data.id + "?accepted=true")
+        await fetch("/api/invitedEvents/" + data.id)
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
       }
 
-      console.log(events);
-
       updateContext({
         user: data,
         myEvents: events,
         invitedEvents: invitedEvents,
+        allUsers: users,
       });
 
       setRedirect(true);
