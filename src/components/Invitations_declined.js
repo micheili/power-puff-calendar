@@ -18,28 +18,33 @@ export default function Invitations_declined() {
   const [context] = useContext(Context);
 
   const userId = context.user.id;
+  const declinedInvitations = context.declinedInvitations;
 
-  async function fetchInvitations() {
-    if (!userId) {
-      return;
-    }
-    setInvitations(
-      await (await fetch(`api/invitedEvents/${userId}?accepted=false`)).json()
-    );
-  }
+  //   async function fetchInvitations() {
+  //     if (!userId) {
+  //       return;
+  //     }
+  //     setInvitations(
+  //       await (await fetch(`api/invitedEvents/${userId}?accepted=false`)).json()
+  //     );
+  //   }
 
-  const [allInvites, setInvitations] = useState([]);
+  //   const [allInvites, setInvitations] = useState([]);
 
-  useEffect(() => {
-    fetchInvitations();
-  }, [userId]);
+  //   useEffect(() => {
+  //     fetchInvitations();
+  //   }, [userId]);
 
   const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
       <hr></hr>
-      {allInvites.map((invite) => (
-        <MyDeclinedInvite key={invite.id} {...invite}></MyDeclinedInvite>
-      ))}
+      {declinedInvitations.length > 0 ? (
+        declinedInvitations.map((invite) => (
+          <MyDeclinedInvite key={invite.id} {...invite}></MyDeclinedInvite>
+        ))
+      ) : (
+        <div>You d</div>
+      )}
     </CardBody>,
     true
   );

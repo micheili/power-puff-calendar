@@ -94,6 +94,7 @@ export default function Login() {
       if (invitedEvents.error) {
         invitedEvents = [];
       }
+      console.log(invitedEvents);
 
       let allInvites = await (
         await fetch("/api/invitedEvents/" + data.id + "?accepted=null")
