@@ -24,8 +24,10 @@ const NewEvent = () => {
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context); 
   const [invitesList, setinvitesList] = useState([]);  
-
-  const usersData = context.allUsers;
+  
+  const userId = context.user.id;
+  const usersData = context.allUsers.filter(u => (u.id != userId));
+  
    
   
 
@@ -65,7 +67,7 @@ const NewEvent = () => {
     const getStop = new Date(stopDate + " " + stopTime);
     const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-    const userId = context.user.id;
+    
 
     console.log(userId);
 
@@ -115,11 +117,19 @@ const NewEvent = () => {
         console.log("error", result.error);
         return;
       }
-
-
-      if(invitesList.length){
+     
+      
+      if(!result.error && invitesList.length){
+        const eventId = result.lastInsertRowid;
         for (var i = 0; i < invitesList.length; i++) {
-
+          const invitedUser = invitesList[i].value
+          let result = await (
+            await fetch("/api/Invite", {
+              method: "POST",
+              body: JSON.stringify({ eventId, invitedUser }),
+              headers: { "Content-Type": "application/json" },
+            })
+          ).json();
         }
       }
 
@@ -132,7 +142,7 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log("result",result);
+      console.log("result",result.lastInsertRowid);
       return result;
     }
     
