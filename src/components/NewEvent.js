@@ -57,7 +57,6 @@ const NewEvent = () => {
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-  console.log(userId);
 
   const validate = () => {
     let isValid = true;
