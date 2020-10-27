@@ -131,7 +131,7 @@ const NewEvent = () => {
   }
 
   return (
-    <Form onSubmit={save}>
+    <Form ClassName="newEvent-form" onSubmit={save}>
       <Breadcrumb>
         <BreadcrumbItem active>New Event</BreadcrumbItem>
       </Breadcrumb>
