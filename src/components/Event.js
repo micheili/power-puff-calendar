@@ -5,10 +5,14 @@ import {
   ButtonToggle,
   Button,
   CardText,
+  Alert,
+  Toast,
+  ToastHeader,
+  ToastBody,
 } from "reactstrap";
 
 export default function Event(props) {
-  let { id, title, eventCreator, description, start, stop } = props;
+  //let { id, title, eventCreator, description, start, stop } = props;
 
   // if (invitedGuests === 0) {
   //   showInviteButton()
@@ -33,22 +37,34 @@ export default function Event(props) {
   // } else {
   //   invitees = null;
   // }
+  let { title, description, start, stop } = props.myEvent;
 
   return (
     <div className="sm-6">
       <CardTitle>{title}</CardTitle>
-      <CardSubtitle>
-        {description}
-        Starts: {start + " "}
-        Ends: {stop}
-      </CardSubtitle>
+      <CardSubtitle>{description}</CardSubtitle>
+      <CardSubtitle>Starts: {start}</CardSubtitle>
+      <CardSubtitle>Ends: {stop}</CardSubtitle>
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
       <ButtonToggle color="primary">Invite</ButtonToggle>{" "}
       {/* edit if userId is mine, I created event */}
       <ButtonToggle color="secondary">Edit</ButtonToggle>{" "}
       {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
-      <Button outline color="primary">Delete</Button>{" "}
+      <Button outline color="primary">
+        Delete
+      </Button>{" "}
+      <hr></hr>
+      <div className="p-3 bg-success my-2 rounded">
+        <Toast>
+          <ToastHeader>I am invited for:</ToastHeader>
+          <ToastBody>
+            {props.invitedEvents.map((event) => (
+              <Alert key={event.id}>{event.title}</Alert>
+            ))}
+          </ToastBody>
+        </Toast>
+      </div>
     </div>
   );
 }

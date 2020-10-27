@@ -1,9 +1,13 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import Infobox from './components/InfoBox';
+import React, { useContext, useEffect, useState } from "react";
+import { Container, Row, Col } from "reactstrap";
+import Infobox from "./components/InfoBox";
+import { Context } from "./App";
 
 export default function CalendarPage() {
-  
+  const [context, updateContext] = useContext(Context);
+  console.log(context.myEvents);
+  console.log(context.invitedEvents);
+
   return (
     <Container fluid={true}>
       <Row>
@@ -11,10 +15,12 @@ export default function CalendarPage() {
           {/*<CalenderView /> */}
         </Col>
         <Col sm="12 mt-2" lg="4">
-          <Infobox />
+          <Infobox
+            myEvents={context.myEvents}
+            invitedEvents={context.invitedEvents}
+          />
         </Col>
       </Row>
-  </Container>
-);
-
+    </Container>
+  );
 }

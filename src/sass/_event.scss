@@ -1,0 +1,127 @@
+.form-group>label {
+    top: 18px;
+    left: 6px;
+    position: relative;
+    color: $info;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    font-size: 0.9em;
+  }
+
+  .breadcrumb{
+      background-color: $lighterpink !important;
+      
+  }
+
+  .breadcrumb-item{
+    color: $info !important;
+    font-weight: 700;
+  }
+
+  
+    
+.form-control {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;	
+	border: 3px solid $lighterpink;	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin: 0 0 1em;
+    padding: 1em;
+    color: $lighterpink !important;
+    &:focus, &:hover{
+        border-color: $info;
+        color:$info !important;
+    }
+        
+}
+
+
+
+input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
+    background-color: $info !important;  
+}
+
+input[type=date]::-webkit-inner-spin-button,input[type=time]::-webkit-inner-spin-button {
+    color: white;
+    background-color: $lighterpink !important;    
+}
+
+
+
+.button-submit{
+    float: right;
+    background-color: $lighterpink;
+    text-decoration: none;
+    border-color: $lighterpink;
+    color: $info !important;
+    &:hover{
+        background-color: $info;
+        border-color: $info;
+        color: white !important;
+    }
+}
+
+$breakpoint-small: 991px;
+$breakpoint-medium: 1312px;
+$breakpoint-large: 1313px;
+
+@media (min-width: $breakpoint-large)  {
+    input[type=time]::-webkit-calendar-picker-indicator {
+        color: white;    
+        background-color: $lighterpink !important;    
+        padding: 10% !important;
+        margin-right: -19% !important;
+        -webkit-border-radius: 0px 5px 5px 0px;
+        -moz-border-radius: 0px 5px 5px 0px;
+        border-radius: 0px 5px 5px 0px;
+    }
+
+    input[type=date]::-webkit-calendar-picker-indicator  {
+        color: white;    
+        background-color: $lighterpink !important;    
+        padding: 6% !important;
+        margin-right: -15% !important;
+        -webkit-border-radius: 0px 5px 5px 0px;
+        -moz-border-radius: 0px 5px 5px 0px;
+        border-radius: 0px 5px 5px 0px;
+    }
+}
+
+@media (min-width: $breakpoint-small) and (max-width: $breakpoint-medium)  {
+    input[type=time]::-webkit-calendar-picker-indicator {
+        color: white;    
+        background-color: $lighterpink !important;    
+        padding: 5% !important;
+        margin-right: -10% !important;
+        -webkit-border-radius: 0px 2px 2px 0px;
+        -moz-border-radius: 0px 2px 2px 0px;
+        border-radius: 0px 2px 2px 0px;
+    }
+    
+    input[type=date]::-webkit-calendar-picker-indicator  {
+        color: white;    
+        background-color: $lighterpink !important;    
+        padding: 10% !important;
+        margin-right: -23% !important;
+        -webkit-border-radius: 0px 2px 2px 0px;
+        -moz-border-radius: 0px 2px 2px 0px;
+        border-radius: 0px 2px 2px 0px;
+    }
+}
+
+
+@media (max-width: $breakpoint-small)  {
+    
+    input[type=date]::-webkit-calendar-picker-indicator , input[type=time]::-webkit-calendar-picker-indicator {
+        color: white;    
+        background-color: $lighterpink !important;
+        padding: 1.5% !important;
+        margin-right: -3% !important;
+        -webkit-border-radius: 0px 10px 10px 0px;
+        -moz-border-radius: 0px 10px 10px 0px;
+        border-radius: 0px 10px 10px 0px;
+    }
+}
