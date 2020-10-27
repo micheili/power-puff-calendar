@@ -18,6 +18,9 @@ import {
 export default function Invitation(prop) {
     let {name} = prop;
 
+
+
+
     const [context] = useContext(Context);
 
     const userId =  context.user.id;
@@ -25,7 +28,7 @@ export default function Invitation(prop) {
     console.log('this is the currentuserID' + userId)
  
     async function fetchInvitations() {
-        if(!userId){return;}
+        //if(!userId){return;}
         setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
     }
     
@@ -42,9 +45,11 @@ export default function Invitation(prop) {
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
-        {(allInvites).map((invite) => 
-              <MyInvite key={invite.id} {...invite}></MyInvite>
-        )}
+        {allInvites.length> 0 ? (allInvites.map((invite) => 
+              <MyInvite key={invite.id} {...invite}></MyInvite>)) : <div>You dont have any invites</div>
+        }
+        
+   
                   
     </CardBody>, true
             

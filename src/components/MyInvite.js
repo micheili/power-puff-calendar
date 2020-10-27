@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Redirect} from 'react-router-dom';
 
     import {
@@ -16,6 +16,7 @@ export default function MyInvite (props){
   let {id, inviteId, title, description, start, stop} = props;
 
 
+
   async function Decline() {
     let result = await(await fetch("/api/invite/" + inviteId,  {
         method: "PUT",
@@ -27,6 +28,8 @@ export default function MyInvite (props){
       }))
     .json();
     console.log('result and id ' , result, inviteId)
+    window.location.reload();
+ 
     
   };
 
@@ -41,6 +44,7 @@ export default function MyInvite (props){
     }))
   .json();
   console.log('result and id ' , result, inviteId)
+  window.location.reload();
  
 };
           return (

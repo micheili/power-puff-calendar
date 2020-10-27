@@ -6,6 +6,7 @@ import "./sass/style.scss";
 
 // create and export the context
 export const Context = createContext();
+ 
 
 export default function App() {
   const [contextVal, setContext] = useState({ user: false });
