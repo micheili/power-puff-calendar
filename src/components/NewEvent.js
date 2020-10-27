@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
+import Select from "react-select";
 
 import {
   Col,
@@ -13,18 +14,32 @@ import {
   Alert,
   Breadcrumb,
   BreadcrumbItem,
+  CustomInput,
 } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context);
+  const [invitesList, setinvitesList] = useState([]);
+  const usersData = context.allUsers;
 
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+
+  const options = usersData.map((user) => ({
+    value: user.id,
+    label: user.email,
+  }));
+
+  const handleInvites = (e) => {
+    setinvitesList(e);
+  };
+
+  console.log("Invitelist", invitesList);
 
   let {
     title,
@@ -200,6 +215,10 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
       </Row>
+      <FormGroup>
+        <Select options={options} onChange={handleInvites} isMulti />
+      </FormGroup>
+
       <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>
