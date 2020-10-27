@@ -16,18 +16,18 @@ import {
 } from "reactstrap";
 
 const Infobox = (props) => {
-  props = [
-    {
-      id: "",
-      eventTitle: "",
-      eventDescription: "",
-      start: "",
-      ends: "",
-      invitedGuests: "",
-    },
-  ];
+  // props = [
+  //   {
+  //     id: "",
+  //     eventTitle: "",
+  //     eventDescription: "",
+  //     start: "",
+  //     ends: "",
+  //     invitedGuests: "",
+  //   },
+  // ];
 
-  let events = props;
+  let { myEvents, invitedEvents } = props;
   let date = "22/10";
   let year = "2020";
 
@@ -36,13 +36,16 @@ const Infobox = (props) => {
   let defaultText = null;
 
   //visa detaljvy om bara ett event finns vald dag
-  if (events === 1) {
-    eventDetails = <Event key={events.id} {...events} />;
+
+  if (myEvents.length === 1) {
+    eventDetails = (
+      <Event myEvent={myEvents[0]} invitedEvents={invitedEvents} />
+    );
   } //ifall det finns flera event
-  else if (events.val > 1) {
+  else if (myEvents.length > 1) {
     //skapa en komponent för att visa en lista
     //info för alla events eller id?
-    eventList = events.map((event) => <EventList key={event.id} {...event} />);
+    eventList = <EventList myEvents={myEvents} invitedEvents={invitedEvents} />;
   } else {
     defaultText = (
       <CardText>
@@ -64,13 +67,17 @@ const Infobox = (props) => {
   }
 
   //kanske formattera om date -> 10/7
-  let dateText = <div className="float-left" id="dateText">{date}</div>;
+  let dateText = (
+    <div className="float-left" id="dateText">
+      {date}
+    </div>
+  );
 
   return (
     <Row>
       <Col>
         <Card>
-          <CardHeader className="bg-secondary">
+          <CardHeader className="bg-info">
             {dateText}
             <div className="float-left ml-3" id="yearText">
               {year}
@@ -85,19 +92,18 @@ const Infobox = (props) => {
                   onClick={addNewEvent}
                 />
               </span>
-                <UncontrolledTooltip placement="right" target="addEventHover">
-                  Add new event
-                </UncontrolledTooltip>
+              <UncontrolledTooltip placement="right" target="addEventHover">
+                Add new event
+              </UncontrolledTooltip>
             </div>
           </CardHeader>
 
           <CardBody>
-            {/* ETT event, event-komponent */}
-            {eventDetails}
-            {/* en lista på olika events */}
-            {eventList}
-            {/* om det inte finns några events på vald dag */}
-            {defaultText}
+            {myEvents.length === 0
+              ? defaultText
+              : myEvents.length === 1
+              ? eventDetails
+              : eventList}
           </CardBody>
         </Card>
       </Col>

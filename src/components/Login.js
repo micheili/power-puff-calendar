@@ -26,13 +26,13 @@ export default function Login() {
   const onDismiss = () => setAlert(false);
 
   useEffect(() => {
-    // (async () => {
-    //   const data = await (await fetch("/api/login")).json();
-    //   if (data.error) {
-    setFormData({ email: "", password: "" });
-    setError("");
-    //   }
-    // })();
+    (async () => {
+      const data = await (await fetch("/api/login")).json();
+      if (data.error) {
+        setFormData({ email: "", password: "" });
+        setError("");
+      }
+    })();
   }, []);
 
   if (formData.error) {
@@ -40,7 +40,7 @@ export default function Login() {
   }
 
   if (redirect) {
-    return <Redirect to="/calendar" />;
+    return <Redirect to="/calendarpage" />;
   }
   if (formData.email === undefined) {
     return null;
@@ -75,11 +75,36 @@ export default function Login() {
         setAlert(true);
         return;
       }
-      updateContext({ user: data });
-      console.log(context.user);
+      console.log(data);
+      //updateContext({ user: data });
+
+      let events = await (await fetch("/api/myEvents/" + data.id)).json();
+      if (events.error) {
+        events = [];
+      }
+
+      let users = await (await fetch("/api/user")).json();
+      if(users.error){
+        users = [];      }
+
+      let invitedEvents = await (
+        await fetch("/api/invitedEvents/" + data.id + "?accepted=true")
+      ).json();
+      if (invitedEvents.error) {
+        invitedEvents = [];
+      }
+
+      
+
+      updateContext({
+        user: data,
+        myEvents: events,
+        invitedEvents: invitedEvents,
+        allUsers : users
+      });
+
       setRedirect(true);
       setFormData({ email: "", password: "" });
-      console.log(data);
 
       // return data;
     } catch (e) {

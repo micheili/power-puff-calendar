@@ -9,7 +9,12 @@ export const Context = createContext();
  
 
 export default function App() {
-  const [contextVal, setContext] = useState({ user: false });
+  const [contextVal, setContext] = useState({
+    user: false,
+    myEvents: [],
+    invitedEvents: [],
+    allUsers: []
+  });
 
   const updateContext = (updates) =>
     setContext({
@@ -24,15 +29,40 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let result = await (await fetch("/api/login")).json();
+      console.log(result);
       if (result.error) {
         updateContext({ user: false });
         return;
       }
+      let events = await (await fetch("/api/myEvents/" + result.id)).json();
+      if (events.error) {
+        events = [];
+      }
+
+      let users = await (await fetch("/api/user")).json();
+      if(users.error){
+        users = [];
+      }
+
+      
+      let invitedEvents = await (
+        await fetch("/api/invitedEvents/" + result.id)
+      ).json();
+      if (invitedEvents.error) {
+        invitedEvents = [];
+      }
       // add the user data to the context variable
-      updateContext({ user: result });
-      console.log(contextVal.user);
+      updateContext({
+        user: result,
+        myEvents: events,
+        invitedEvents: invitedEvents,
+        allUsers: users
+      });      
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  console.log("App users", contextVal.allUsers)
 
   async function logout() {
     const res = await fetch("/api/login", {
