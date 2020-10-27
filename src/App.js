@@ -52,12 +52,28 @@ export default function App() {
       if (invitedEvents.error) {
         invitedEvents = [];
       }
+
+      let declinedInvitations = await (
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=false")
+      ).json();
+      if (declinedInvitations.error) {
+        declinedInvitations = [];
+      }
+
+      let allInvites = await (
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=null")
+      ).json();
+      if (allInvites.error) {
+        allInvites = [];
+      }
       // add the user data to the context variable
       updateContext({
         user: result,
         myEvents: events,
         invitedEvents: invitedEvents,
         allUsers: users,
+        allInvites: allInvites,
+        declinedInvitations: declinedInvitations,
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

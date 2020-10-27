@@ -24,16 +24,6 @@ export default function Invitation(prop) {
 
   console.log("this is the currentuserID" + userId);
 
-  async function fetchInvitations() {
-    setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
-  }
-
-  const [allInvites, setInvitations] = useState([]);
-
-  useEffect(() => {
-    fetchInvitations();
-  }, [userId]);
-
   const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
       <hr></hr>

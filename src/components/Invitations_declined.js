@@ -28,7 +28,7 @@ export default function Invitations_declined() {
           <MyDeclinedInvite key={invite.id} {...invite}></MyDeclinedInvite>
         ))
       ) : (
-        <div>You d</div>
+        <div>You dont have any declined invitations</div>
       )}
     </CardBody>,
     true
@@ -40,9 +40,9 @@ export default function Invitations_declined() {
       <Row className="justify-content-center mt-4 mb-3">
         <h3>
           Declined invitation
-          {allInvites.length > 1
+          {declinedInvitations.length > 1
             ? "s"
-            : "" || allInvites.length === 0
+            : "" || declinedInvitations.length === 0
             ? "s"
             : ""}
         </h3>
@@ -50,10 +50,10 @@ export default function Invitations_declined() {
       <Row>
         <Col>
           <Card className="mb-4">
-            {allInvites.length > 0 ? (
+            {declinedInvitations.length > 0 ? (
               <CardBody>
                 <CardTitle className="font-weight-bold d-flex">
-                  {allInvites.map((invite) => (
+                  {declinedInvitations.map((invite) => (
                     <p key={invite.id}>
                       {invite.userId}
                       has sent you an invitation
