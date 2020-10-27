@@ -15,44 +15,30 @@ import {
      }
     from 'reactstrap';
 
-export default function Invitation(prop) {
-    let {name} = prop;
-
-
-
-
+export default function Invitation() {
     const [context] = useContext(Context);
 
     const userId =  context.user.id;
 
-    console.log('this is the currentuserID' + userId)
- 
     async function fetchInvitations() {
-        //if(!userId){return;}
         setInvitations(await (await fetch(`api/pendingEvents/${userId}`)).json());
     }
     
-    
     const [allInvites, setInvitations] = useState([]);
-    console.log('invitation' , allInvites)
-    
-    console.log('data' , allInvites)
-    
+   
     useEffect(() => {
         fetchInvitations(); 
     }, [userId]);
+
 
     const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
         <hr></hr>
         {allInvites.length> 0 ? (allInvites.map((invite) => 
               <MyInvite key={invite.id} {...invite}></MyInvite>)) : <div>You dont have any invites</div>
-        }
-        
-   
-                  
+        }             
     </CardBody>, true
-            
+         
     );
         return(
             <Container className="data" >
@@ -65,12 +51,16 @@ export default function Invitation(prop) {
                 <Row>
                     <Col>
                         <Card className="mb-4">
-                            <CardBody>
-                                <CardTitle className="font-weight-bold d-flex"> has sent you an invitation
+                        {allInvites.length > 0  ?  <CardBody>
+                                <CardTitle className="font-weight-bold d-flex">
+                                    {allInvites.map(invite=> (<p key={invite.id}>{invite.userId}
+                                     has sent you an invitation</p>
+                                    ))} 
                                 </CardTitle>
                                 <Button color="primary" onClick={toggleVisibility}> Read more </Button>
+                                {InvitationCardComponent}
                             </CardBody>
-                            {InvitationCardComponent}
+                             : <div></div> }    
                         </Card>
                     </Col>
                 </Row>

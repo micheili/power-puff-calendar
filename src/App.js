@@ -46,7 +46,7 @@ export default function App() {
 
       
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + result.id)
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=true")
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
