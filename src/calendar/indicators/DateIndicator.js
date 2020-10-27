@@ -5,7 +5,7 @@ import {
   getMonth,
   getYear,
 } from '../utils/MomentUtils';
-import { getDatesInMonthDisplay } from '../utils/DateUtils';
+import { getDatesInMonthDisplay, presetDateTracker } from '../utils/DateUtils';
 import {Context} from '../../App';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
@@ -67,14 +67,14 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     resetStartedPrinting();
 
       const monthDates = datesInMonth.map((item, key) => {
-        const selected =
+       const selected =
       getMonthDayYear(selectDate) === getMonthDayYear(item.date) ? 'selected' : '';
         const active =
       activeDates && activeDates[getMonthDayYear(item.date)] ? 'active' : '';
        
       return (
           <div
-            className={"date-icon"}
+            className={`date-icon  ${selected} ${active}`}
             data-active-month={item.currentMonth}
             data-date={item.date.toString()}
             key={key}
