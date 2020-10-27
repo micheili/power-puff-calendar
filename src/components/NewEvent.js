@@ -1,6 +1,10 @@
 import React, {  useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
+import Select from 'react-select';
+
+
+
 
 import {
   Col,
@@ -19,7 +23,9 @@ const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context); 
-  const [values, setValues] = useState([]);  
+  const [invitesList, setinvitesList] = useState([]);  
+  const usersData = context.allUsers;
+   
   
 
   const handleInputChange = (e) =>
@@ -30,56 +36,55 @@ const NewEvent = () => {
 
 
     
+    const options = usersData.map( user => ({
+      "value" : user.id,
+      "label" : user.email
+    }))
+    
 
     const handleInvites = (e) => {
-      setValues({...values,
-        values: Array.from(e.target.selectedOptions, (item) => item.value)})
+      setinvitesList(e);
     }
+
+    console.log("Invitelist" , invitesList);
+   
     
+    let {
+      title,
+      description,
+      startDate,
+      stopDate,
+      startTime,
+      stopTime,
+    } = formData;
 
-    let{ } = values;
-    console.log("arraylist", values)
+    const getStart = new Date(startDate + " " + startTime);
+    const start = moment(getStart).format("YYYY-MM-DD HH:mm");
 
-    
+    const getStop = new Date(stopDate + " " + stopTime);
+    const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-    
+    const userId = context.user.userId;
 
-  let {
-    title,
-    description,
-    startDate,
-    stopDate,
-    startTime,
-    stopTime,
-  } = formData;
+    const validate = () => {
+      let isValid = true;
 
-  const getStart = new Date(startDate + " " + startTime);
-  const start = moment(getStart).format("YYYY-MM-DD HH:mm");
+      if (start && stop !== undefined) {
+        console.log("start stop right");
+        let startParse = Date.parse(start);
+        let stopParse = Date.parse(stop);
+        let diff = (stopParse - startParse) / 1000;
 
-  const getStop = new Date(stopDate + " " + stopTime);
-  const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
-
-  const userId = context.user.userId;
-
-  const validate = () => {
-    let isValid = true;
-
-    if (start && stop !== undefined) {
-      console.log("start stop right");
-      let startParse = Date.parse(start);
-      let stopParse = Date.parse(stop);
-      let diff = (stopParse - startParse) / 1000;
-
-      if (!(diff >= 900 && diff < 604800)) {
-        isValid = false;
-        setAlert("Sorry, the date and time interval you entered is invalid!");
+        if (!(diff >= 900 && diff < 604800)) {
+          isValid = false;
+          setAlert("Sorry, the date and time interval you entered is invalid!");
+        }
       }
-    }
 
-    return isValid;
-  };
+      return isValid;
+    };
 
-  console.log("Context users" , context.allUsers)
+   
 
   async function save(e) {
     e.preventDefault();
@@ -219,16 +224,15 @@ const NewEvent = () => {
             />
           </FormGroup>
         </Col>
-      </Row>        
+      </Row>  
       <FormGroup>
-        <Label for="exampleCustomMutlipleSelect">Invite Friends To Your Event</Label>
-        <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" value={values} onChange={handleInvites} multiple>          
-          {context.allUsers.map(user => <option key={user.id} value={user.id} >{user.email}</option>)}
-
-        </CustomInput>
-      </FormGroup>
-      
-      
+        <Select          
+          options={options}
+          onChange={handleInvites}          
+          isMulti
+        />
+      </FormGroup>   
+        
       <Button className="button-submit" type="submit" value="save">
         Submit
       </Button>
