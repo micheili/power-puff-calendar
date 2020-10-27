@@ -13,8 +13,7 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem,
-  CustomInput,
+  BreadcrumbItem
 } from "reactstrap";
 
 const NewEvent = () => {
@@ -58,7 +57,6 @@ const NewEvent = () => {
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-  console.log(userId);
 
   const validate = () => {
     let isValid = true;
@@ -131,7 +129,7 @@ const NewEvent = () => {
   }
 
   return (
-    <Form onSubmit={save}>
+    <Form ClassName="newEvent-form" onSubmit={save}>
       <Breadcrumb>
         <BreadcrumbItem active>New Event</BreadcrumbItem>
       </Breadcrumb>
@@ -145,9 +143,7 @@ const NewEvent = () => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className="event_label">
-          Title
-        </Label>
+        <Label for="eventTitle" className="event_label">Title</Label>
         <Input
           type="text"
           name="title"

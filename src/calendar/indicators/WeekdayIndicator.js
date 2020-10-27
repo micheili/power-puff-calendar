@@ -3,7 +3,7 @@ import React from 'react';
 export default function WeekdayIndicator(){
 
 
-    const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const weekdays = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const weekdayIcons = weekdays.map((day, key) => {
         return (
