@@ -84,8 +84,9 @@ export default function Login() {
       }
 
       let users = await (await fetch("/api/user")).json();
-      if(users.error){
-        users = [];      }
+      if (users.error) {
+        users = [];
+      }
 
       let invitedEvents = await (
         await fetch("/api/invitedEvents/" + data.id + "?accepted=true")
@@ -94,13 +95,27 @@ export default function Login() {
         invitedEvents = [];
       }
 
-      
+      let allInvites = await (
+        await fetch("/api/invitedEvents/" + data.id + "?accepted=null")
+      ).json();
+      if (allInvites.error) {
+        allInvites = [];
+      }
+
+      let declinedInvitations = await (
+        await fetch("/api/invitedEvents/" + data.id + "?accepted=false")
+      ).json();
+      if (declinedInvitations.error) {
+        declinedInvitations = [];
+      }
 
       updateContext({
         user: data,
         myEvents: events,
         invitedEvents: invitedEvents,
-        allUsers : users
+        allInvites: allInvites,
+        declinedInvitations: declinedInvitations,
+        allUsers: users,
       });
 
       setRedirect(true);

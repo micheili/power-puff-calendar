@@ -75,7 +75,6 @@ module.exports = class RestApi {
 
     //get events created by (logged-in) userId
 
-    
     this.app.get(rp + "/myEvents/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
@@ -96,7 +95,7 @@ module.exports = class RestApi {
     this.app.get(rp + "/invitedEvents/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
-      SELECT e.* FROM Event e
+      SELECT e.*, i.id as inviteId FROM Event e
       INNER JOIN Invite i ON e.id = i.eventId 
       WHERE i.invitedUser = $userId AND accepted IS ${req.query.accepted}
       `,
@@ -110,11 +109,11 @@ module.exports = class RestApi {
       }
     });
 
-     //get events which i am invited to and have declined
-     this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
+    //get events which i am invited to and have declined
+    this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
-      SELECT e.* FROM Event e
+      SELECT e.*, i.id as inviteId FROM Event e
       INNER JOIN Invite i ON e.id = i.eventId 
       WHERE i.invitedUser = $userId AND accepted = false
       `,

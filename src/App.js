@@ -6,14 +6,17 @@ import "./sass/style.scss";
 
 // create and export the context
 export const Context = createContext();
- 
 
 export default function App() {
   const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
     invitedEvents: [],
-    allUsers: []
+    allInvites: [],
+
+    declinedInvitations: [],
+
+    allUsers: [],
   });
 
   const updateContext = (updates) =>
@@ -40,13 +43,12 @@ export default function App() {
       }
 
       let users = await (await fetch("/api/user")).json();
-      if(users.error){
+      if (users.error) {
         users = [];
       }
 
-      
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + result.id)
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=true")
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
@@ -56,13 +58,12 @@ export default function App() {
         user: result,
         myEvents: events,
         invitedEvents: invitedEvents,
-        allUsers: users
-      });      
+        allUsers: users,
+      });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-  console.log("App users", contextVal.allUsers)
+  console.log("App users", contextVal.allUsers);
 
   async function logout() {
     const res = await fetch("/api/login", {
@@ -82,11 +83,8 @@ export default function App() {
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
             logout={logout}
-            
           />
-          
         </div>
-        
       </Router>
     </Context.Provider>
   );
