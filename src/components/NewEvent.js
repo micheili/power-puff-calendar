@@ -24,6 +24,7 @@ const NewEvent = () => {
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context); 
   const [invitesList, setinvitesList] = useState([]);  
+
   const usersData = context.allUsers;
    
   
@@ -64,7 +65,9 @@ const NewEvent = () => {
     const getStop = new Date(stopDate + " " + stopTime);
     const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-    const userId = context.user.userId;
+    const userId = context.user.id;
+
+    console.log(userId);
 
     const validate = () => {
       let isValid = true;
@@ -90,17 +93,18 @@ const NewEvent = () => {
     e.preventDefault();
     console.log(formData);
 
+    
+
     if (validate()) {
       let result = await (
         await fetch("/api/Event", {
           method: "POST",
           body: JSON.stringify({ userId, title, description, start, stop }),
-
           headers: { "Content-Type": "application/json" },
         })
       ).json();
 
-      console.log("body", result.body);
+      
       //error msg handling
       if (result.error === 403) {
         setAlert("Sorry, the date and time interval you entered is invalid!");
@@ -112,6 +116,13 @@ const NewEvent = () => {
         return;
       }
 
+
+      if(invitesList.length){
+        for (var i = 0; i < invitesList.length; i++) {
+
+        }
+      }
+
       setFormData({
         title: "",
         description: "",
@@ -121,9 +132,10 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log(result);
+      console.log("result",result);
       return result;
     }
+    
   }
 
   return (
