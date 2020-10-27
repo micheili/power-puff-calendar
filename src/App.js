@@ -6,14 +6,17 @@ import "./sass/style.scss";
 
 // create and export the context
 export const Context = createContext();
- 
 
 export default function App() {
   const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
     invitedEvents: [],
-    allUsers: []
+    allInvites: [],
+
+    declinedInvitations: [],
+
+    allUsers: [],
   });
 
   const updateContext = (updates) =>
@@ -28,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      let result = await (await fetch("/api/login")).json();      
+      let result = await (await fetch("/api/login")).json();
       if (result.error) {
         updateContext({ user: false });
         return;
@@ -39,29 +42,41 @@ export default function App() {
       }
 
       let users = await (await fetch("/api/user")).json();
-      if(users.error){
+      if (users.error) {
         users = [];
       }
 
-      
       let invitedEvents = await (
-        await fetch("/api/invitedEvents/" + result.id)
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=true")
       ).json();
       if (invitedEvents.error) {
         invitedEvents = [];
+      }
+
+      let declinedInvitations = await (
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=false")
+      ).json();
+      if (declinedInvitations.error) {
+        declinedInvitations = [];
+      }
+
+      let allInvites = await (
+        await fetch("/api/invitedEvents/" + result.id + "?accepted=null")
+      ).json();
+      if (allInvites.error) {
+        allInvites = [];
       }
       // add the user data to the context variable
       updateContext({
         user: result,
         myEvents: events,
         invitedEvents: invitedEvents,
-        allUsers: users
-      });      
+        allUsers: users,
+        allInvites: allInvites,
+        declinedInvitations: declinedInvitations,
+      });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-  
 
   async function logout() {
     const res = await fetch("/api/login", {
@@ -69,7 +84,6 @@ export default function App() {
     });
     updateContext({ user: false });
     const result = await res.json();
-    
   }
 
   return (
@@ -81,11 +95,8 @@ export default function App() {
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
             logout={logout}
-            
           />
-          
         </div>
-        
       </Router>
     </Context.Provider>
   );
