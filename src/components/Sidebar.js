@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavItem, NavLink, Nav } from "reactstrap";
+import { NavItem, NavLink, Nav, Badge } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -50,6 +50,11 @@ export default function Sidebar({ isOpen, toggle }) {
             <NavLink tag={Link} to={"/invitation"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
               Invitation
+              {context.allInvites.length > 0 ? (
+                <Badge color="danger">{context.allInvites.length}</Badge>
+              ) : (
+                <></>
+              )}
             </NavLink>
           </NavItem>
           <NavItem>

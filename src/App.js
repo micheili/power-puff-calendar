@@ -82,7 +82,14 @@ export default function App() {
     const res = await fetch("/api/login", {
       method: "DELETE",
     });
-    updateContext({ user: false });
+    updateContext({
+      user: false,
+      allUsers: [],
+      allInvites: [],
+      myEvents: [],
+      invitedEvents: [],
+      declinedInvitations: [],
+    });
     const result = await res.json();
   }
 
