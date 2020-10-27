@@ -1,4 +1,4 @@
-.newEvent-form>label {
+.form-group>label {
     top: 18px;
     left: 6px;
     position: relative;
@@ -6,6 +6,7 @@
     background-color: white;
     padding: 0px 5px 0px 5px;
     font-size: 0.9em;
+    z-index: 500;
   }
 
   .breadcrumb{
@@ -20,7 +21,7 @@
 
   
     
-.newEvent-form >.form-control {
+.form-control {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;	
@@ -38,8 +39,6 @@
         
 }
 
-
-
 input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
     background-color: $info !important;  
 }
@@ -48,8 +47,6 @@ input[type=date]::-webkit-inner-spin-button,input[type=time]::-webkit-inner-spin
     color: white;
     background-color: $lighterpink !important;    
 }
-
-
 
 .button-submit{
     float: right;
