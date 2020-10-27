@@ -15,6 +15,17 @@ import { Redirect} from 'react-router-dom';
 export default function MyInvite (props){
   let {id, inviteId, title, description, start, stop} = props;
 
+  const [allGuests, setGuests] = useState([]);
+
+  async function fetchGuests() {
+    setGuests(await (await fetch("/invitedUsers/" + id)).json());  
+  }
+
+  console.log('all guests', allGuests)
+
+useEffect(() => {
+  fetchGuests(); 
+}, []);
 
 
   async function Decline() {
@@ -61,12 +72,12 @@ export default function MyInvite (props){
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="eventUserId">Going</Label>
+          <Label for="eventUserId">{}</Label>
                 <Input
                   type="text"
                   name="userId"
                   id="eventUserId"
-                  placeholder="invited users"
+                  placeholder={allGuests > 0 ? 'nrofguests' : 'No one is coming'} 
                   disabled
                 />
               </FormGroup>
