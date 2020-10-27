@@ -5,11 +5,14 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  Alert,
-  Toast,
-  ToastHeader,
-  ToastBody,
 } from "reactstrap";
+import moment from 'moment';
+import {
+  getDayWithoutZero,
+  getReadableWeekday,
+  getReadableMonth,
+  getYear,
+} from "../calendar/utils/MomentUtils";
 
 export default function Event(props) {
   //let { id, title, eventCreator, description, start, stop } = props;
@@ -39,12 +42,35 @@ export default function Event(props) {
   // }
   let { title, description, start, stop } = props.myEvent;
 
+  let startMoment = moment(start);
+  let stopMoment = moment(stop);
+
+  let startTime = start.split(" ")[1];
+  let weekDay = getReadableWeekday(start);
+  let startDateNr = getDayWithoutZero(start);
+  let startMonth = getReadableMonth(start);
+  let startYear = getYear(start);
+
+  let stopTime = stop.split(" ")[1];
+  let stopDateNr = getDayWithoutZero(stop);
+  let stopMonth = getReadableMonth(stop);
+  let stopWeekday = getReadableWeekday(stop);
+  let stopYear = getYear(stop);
+
   return (
     <div className="sm-6">
-      <CardTitle>{title}</CardTitle>
-      <CardSubtitle>{description}</CardSubtitle>
-      <CardSubtitle>Starts: {start}</CardSubtitle>
-      <CardSubtitle>Ends: {stop}</CardSubtitle>
+      <CardTitle tag="h3">{title}</CardTitle>
+      <CardSubtitle tag="h5">{description}</CardSubtitle>
+      <CardSubtitle className="mt-3">from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}</CardSubtitle>
+      <CardSubtitle>
+        to {stopTime}
+        {startMoment.isSameOrAfter(stopMoment) ? null
+          : ' ' + stopWeekday + ", " + stopDateNr} 
+        {startMoment.isSameOrAfter(stopMoment, 'month') ? null : ' ' +
+          stopMonth + " "
+        }
+        {startMoment.isSameOrAfter(stopMoment, "year") ? null : + " " + stopYear}
+      </CardSubtitle>
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
       <ButtonToggle color="primary">Invite</ButtonToggle>{" "}
@@ -54,17 +80,6 @@ export default function Event(props) {
       <Button outline color="primary">
         Delete
       </Button>{" "}
-      <hr></hr>
-      <div className="p-3 bg-success my-2 rounded">
-        <Toast>
-          <ToastHeader>I am invited for:</ToastHeader>
-          <ToastBody>
-            {props.invitedEvents.map((event) => (
-              <Alert key={event.id}>{event.title}</Alert>
-            ))}
-          </ToastBody>
-        </Toast>
-      </div>
     </div>
   );
 }
