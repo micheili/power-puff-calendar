@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { NavItem, NavLink, Nav } from "reactstrap";
+import { NavItem, NavLink, Nav, Badge } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faFemale,
+  faHome, 
   faCalendar,
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,32 +29,22 @@ export default function Sidebar({ isOpen, toggle }) {
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faHome} />
               Home
             </NavLink>
-          </NavItem>
+          </NavItem> 
           <NavItem>
-            <NavLink tag={Link} to={"/register"}>
-              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faFemale} />
-              Register
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/calendar"}>
-              <FontAwesomeIcon
-                className="sidebar-icon mr-2"
-                icon={faCalendar}
-              />
+            <NavLink tag={Link} to={"/calendarpage"}>
+              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faCalendar} />
               Calendar
             </NavLink>
-          </NavItem>
+          </NavItem>        
           <NavItem>
             <NavLink tag={Link} to={"/invitation"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
               Invitation
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/calendarbox"}>
-              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
-              CalendarBox
+              {context.allInvites.length > 0 ? (
+                <Badge color="danger">{context.allInvites.length}</Badge>
+              ) : (
+                <></>
+              )}
             </NavLink>
           </NavItem>
         </Nav>

@@ -16,14 +16,17 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 
-const NewEvent = () => {
+const NewEvent = params => {
   const [formData, setFormData] = useState({});
-  const [alert, setAlert] = useState(false);
-  const [context] = useContext(Context);
+  const [alert, setAlert] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
+  const [context, updateContext] = useContext(Context);
+
 
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id != userId);
+  
+  
 
   const handleInputChange = (e) =>
     setFormData({
@@ -40,7 +43,9 @@ const NewEvent = () => {
     setinvitesList(e);
   };
 
-  console.log("Invitelist", invitesList);
+  const cancel = () => {    
+    updateContext({ showNewEvent: false });
+  }
 
   let {
     title,
@@ -78,7 +83,7 @@ const NewEvent = () => {
 
   async function save(e) {
     e.preventDefault();
-    console.log(formData);
+    
 
     if (validate()) {
       let result = await (
@@ -91,12 +96,10 @@ const NewEvent = () => {
 
       //error msg handling
       if (result.error === 403) {
-        setAlert("Sorry, the date and time interval you entered is invalid!");
-        console.log("error" + result.error);
+        setAlert("Sorry, the date and time interval you entered is invalid!");        
         return;
       } else if (result.error) {
-        setAlert("You are not logged in ");
-        console.log("error", result.error);
+        setAlert("You are not logged in ");        
         return;
       }
 
@@ -104,16 +107,22 @@ const NewEvent = () => {
         const eventId = result.lastInsertRowid;
         for (var i = 0; i < invitesList.length; i++) {
           const invitedUser = invitesList[i].value;
-          let result = await (
+          let inviteresult = await (
             await fetch("/api/Invite", {
               method: "POST",
               body: JSON.stringify({ eventId, invitedUser }),
               headers: { "Content-Type": "application/json" },
             })
           ).json();
-        }
+        }        
       }
 
+      if(!result.error){
+        let events = await (await fetch("/api/myEvents/" + userId)).json();        
+        updateContext({ showNewEvent: false, myEvents: events });        
+      }
+      
+      setinvitesList("");
       setFormData({
         title: "",
         description: "",
@@ -123,13 +132,13 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log("result", result.lastInsertRowid);
+      
       return result;
     }
   }
 
   return (
-    <Form ClassName="newEvent-form" onSubmit={save}>
+    <Form onSubmit={save}>
       <Breadcrumb>
         <BreadcrumbItem active>New Event</BreadcrumbItem>
       </Breadcrumb>
@@ -229,6 +238,10 @@ const NewEvent = () => {
       <FormGroup>
         <Select options={options} onChange={handleInvites} isMulti />
       </FormGroup>
+
+      <Button color="danger" onClick={cancel}>
+        Cancel
+      </Button>
 
       <Button className="button-submit" type="submit" value="save">
         Submit

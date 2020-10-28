@@ -29,7 +29,7 @@ export default function Register() {
   let { firstName, lastName, email, password } = formData;
 
   if (formData.done) {
-    return <Redirect to="/calendar" />;
+    return <Redirect to="/calendarpage"/>;
   }
 
   if (firstName === undefined) {
@@ -113,8 +113,12 @@ export default function Register() {
         })
       ).json();
 
-      updateContext({ user: res });
+      let users = await (await fetch("/api/user")).json();
+      if (users.error) {
+        users = [];
+      }
 
+      updateContext({ user: res, allUsers: users, });
       setFormData({ done: true });
     }
   }

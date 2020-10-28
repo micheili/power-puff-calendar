@@ -22,8 +22,6 @@ export default function Invitation(prop) {
   const userId = context.user.id;
   const allInvites = context.allInvites;
 
-  console.log("this is the currentuserID" + userId);
-
   const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
     <CardBody>
       <hr></hr>
@@ -55,14 +53,12 @@ export default function Invitation(prop) {
           <Card className="mb-4">
             {allInvites.length > 0 ? (
               <CardBody>
-                <CardTitle className="font-weight-bold d-flex">
+                {/* <CardTitle className="font-weight-bold d-flex">
                   {allInvites.map((invite) => (
-                    <p key={invite.id}>
-                      {invite.userId}
-                      has sent you an invitation
-                    </p>
+                    <p key={invite.id}>{invite.userId},</p>
                   ))}
-                </CardTitle>
+                  has sent you an invitation
+                </CardTitle> */}
                 <Button color="primary" onClick={toggleVisibility}>
                   {" "}
                   Read more{" "}

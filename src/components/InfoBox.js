@@ -1,19 +1,21 @@
-import React from "react";
+import React, {useContext}  from "react";
 import Event from "./Event";
 import EventList from "./EventList";
+import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Context } from "../App";
 
 import {
   CardHeader,
   Card,
   CardText,
   CardBody,
-  Button,
   Row,
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+
 
 const Infobox = (props) => {
   // props = [
@@ -27,6 +29,9 @@ const Infobox = (props) => {
   //   },
   // ];
 
+  
+  const [context, updateContext] = useContext(Context);
+
   let { myEvents, invitedEvents } = props;
   let date = "22/10";
   let year = "2020";
@@ -34,6 +39,11 @@ const Infobox = (props) => {
   let eventDetails = null;
   let eventList = null;
   let defaultText = null;
+
+  const addNewEvent = () => {    
+    updateContext({ showNewEvent: true });
+  }
+
 
   //visa detaljvy om bara ett event finns vald dag
 
@@ -62,10 +72,7 @@ const Infobox = (props) => {
     );
   }
 
-  function addNewEvent() {
-    console.log("render add-new-event-form");
-  }
-
+  
   //kanske formattera om date -> 10/7
   let dateText = (
     <div className="float-left" id="dateText">
@@ -99,11 +106,11 @@ const Infobox = (props) => {
           </CardHeader>
 
           <CardBody>
-            {myEvents.length === 0
+          {context.showNewEvent ? <NewEvent showNewEvent/> : myEvents.length === 0
               ? defaultText
               : myEvents.length === 1
               ? eventDetails
-              : eventList}
+              : eventList}            
           </CardBody>
         </Card>
       </Col>

@@ -11,11 +11,10 @@ export default function App() {
   const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
-    invitedEvents: [],
-    allInvites: [],
-
-    declinedInvitations: [],
-
+    invitedEvents: [], //accepted = true
+    allInvites: [], // accepted = null
+    showNewEvent: false,
+    declinedInvitations: [], //accepted= false
     allUsers: [],
   });
 
@@ -27,7 +26,6 @@ export default function App() {
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
-  //const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -82,7 +80,14 @@ export default function App() {
     const res = await fetch("/api/login", {
       method: "DELETE",
     });
-    updateContext({ user: false });
+    updateContext({
+      user: false,
+      allUsers: [],
+      allInvites: [],
+      myEvents: [],
+      invitedEvents: [],
+      declinedInvitations: [],
+    });
     const result = await res.json();
   }
 
