@@ -51,14 +51,15 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       
       
       <Switch>
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login}/>
         <Route exact path="/register" component={Register} />
-        <ProtectedRoute exact path="/calendar" user={context.user}  component={CalendarMonth} />
-        <ProtectedRoute exact path="/calendarweek" user={context.user} component={CalendarWeek} />
-        <ProtectedRoute exact path="/calendarday" user={context.user} component={CalendarDay} />
-        <ProtectedRoute exact path="/invitation" user={context.user} component={Invitation} />
-        <ProtectedRoute exact path="/home" user={context.user} component={CalendarPage}/>        
-        <ProtectedRoute exact path="/invitations_declined" user={context.user} component={Invitations_declined}/>
+        <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />
+        <ProtectedRoute exact path="/calendarpage" component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
+        <ProtectedRoute exact path="/invitation"  component={Invitation} />
+        <ProtectedRoute exact path="/home"  component={CalendarPage}/>        
+        <ProtectedRoute exact path="/invitations_declined" component={Invitations_declined}/>        
       </Switch>
     </Container>
   );

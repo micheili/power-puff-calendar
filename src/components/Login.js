@@ -36,7 +36,7 @@ export default function Login() {
   }, []);
 
   if (formData.error) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   if (redirect) {
