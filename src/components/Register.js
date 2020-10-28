@@ -29,7 +29,7 @@ export default function Register() {
   let { firstName, lastName, email, password } = formData;
 
   if (formData.done) {
-    return <Redirect to="/calendarpage"/>;
+    return <Redirect to="/home"/>;
   }
 
   if (firstName === undefined) {

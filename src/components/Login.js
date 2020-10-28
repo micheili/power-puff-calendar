@@ -36,12 +36,15 @@ export default function Login() {
   }, []);
 
   if (formData.error) {
+    
     return <Redirect to="/" />;
   }
 
   if (redirect) {
-    return <Redirect to="/calendarpage" />;
+    
+    return <Redirect from="/" to="/home" />;
   }
+
   if (formData.email === undefined) {
     return null;
   }
@@ -119,6 +122,11 @@ export default function Login() {
 
       setRedirect(true);
       setFormData({ email: "", password: "" });
+
+      if(context.user){
+        return <Redirect from="/" to="/register" push={true}/>;
+      }
+      
 
       // return data;
     } catch (e) {

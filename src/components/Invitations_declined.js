@@ -52,14 +52,6 @@ export default function Invitations_declined() {
           <Card className="mb-4">
             {declinedInvitations.length > 0 ? (
               <CardBody>
-                <CardTitle className="font-weight-bold d-flex">
-                  {declinedInvitations.map((invite) => (
-                    <p key={invite.id}>
-                      {invite.userId}
-                      has sent you an invitation
-                    </p>
-                  ))}
-                </CardTitle>
                 <Button color="primary" onClick={toggleVisibility}>
                   {" "}
                   Read more{" "}

@@ -11,10 +11,10 @@ export default function App() {
   const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
-    invitedEvents: [],
-    allInvites: [],
+    invitedEvents: [], //accepted = true
+    allInvites: [], // accepted = null
     showNewEvent: false,
-    declinedInvitations: [],
+    declinedInvitations: [], //accepted= false
     allUsers: [],
   });
 
@@ -26,7 +26,6 @@ export default function App() {
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
-  //const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -95,14 +94,15 @@ export default function App() {
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
-        <div className="App wrapper">
-          <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
-          <Content
+      {contextVal.user ? <div className="App wrapper">          
+      <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+           <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
-            logout={logout}
-          />
-        </div>
+            logout={logout} />
+        </div> : <div className="App wrapper" >                
+           <Content/>
+        </div>}
       </Router>
     </Context.Provider>
   );

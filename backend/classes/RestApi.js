@@ -110,6 +110,26 @@ module.exports = class RestApi {
       }
     });
 
+     //get guests who have either accepted, declined or null
+     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId AND accepted IS ${req.query.accepted}
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+  
     // //get events which i am invited to and have declined
     // this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
     //   let result = this.db.select(
@@ -165,6 +185,8 @@ module.exports = class RestApi {
         res.json({ error: 404 });
       }
     });
+
+ 
   }
 
   setupPostRoute(table) {
@@ -236,5 +258,19 @@ module.exports = class RestApi {
         )
       );
     });
+
+    this.app.delete(
+      this.routePrefix + "/delete_invitations/:eventId",
+      (req, res) => {
+        res.json(
+          this.db.run(/*sql*/ `
+            DELETE FROM Invite
+            WHERE eventId = $eventId
+        `,req.params)
+        );
+      }
+    );
   }
+
 };
+

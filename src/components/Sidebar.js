@@ -25,17 +25,11 @@ export default function Sidebar({ isOpen, toggle }) {
           </h3>
 
           <NavItem>
-            <NavLink tag={Link} to={"/"}>
+            <NavLink tag={Link} to={"/home"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faHome} />
               Home
             </NavLink>
-          </NavItem> 
-          <NavItem>
-            <NavLink tag={Link} to={"/calendarpage"}>
-              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faCalendar} />
-              Calendar
-            </NavLink>
-          </NavItem>        
+          </NavItem>                   
           <NavItem>
             <NavLink tag={Link} to={"/invitation"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />

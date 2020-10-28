@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { Container, Row } from "reactstrap";
-import { Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link , Redirect } from "react-router-dom";
+import ProtectedRoute from '../ProtectedRoute';
 import Login from "./Login";
 import Register from "./Register";
 import CalendarMonth from "../calendar/CalendarMonth";
@@ -20,17 +21,18 @@ import { Context } from "../App";
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   const [context, updateContext] = useContext(Context);
 
-
+ 
   return (
     <Container
       fluid
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
-      <Row className="justify-content-between mb-3">
+      
+        {context.user ? (
+        <Row className="justify-content-between mb-3">
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-        {context.user ? (
           <Button
             tag={Link}
             to="/"
@@ -42,21 +44,22 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
               <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
               Logout
             </div>
-          </Button>
+          </Button></Row>
         ) : (
           <></>
         )}
-      </Row>
+      
       
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Login}> {context.user ? <Redirect to="/home" /> : <Login />}</Route>
         <Route exact path="/register" component={Register} />
-        <Route exact path="/calendar" component={CalendarMonth} />
-        <Route exact path="/calendarweek" component={CalendarWeek} />
-        <Route exact path="/calendarday" component={CalendarDay} />
-        <Route exact path="/invitation" component={Invitation} />
-        <Route path="/calendarpage" component={CalendarPage}/>        
-        <Route path="/invitations_declined" component={Invitations_declined}/>
+        <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />
+        <ProtectedRoute exact path="/calendarpage" component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
+        <ProtectedRoute exact path="/invitation"  component={Invitation} />
+        <ProtectedRoute exact path="/home"  component={CalendarPage}/>        
+        <ProtectedRoute exact path="/invitations_declined" component={Invitations_declined}/>        
       </Switch>
     </Container>
   );
