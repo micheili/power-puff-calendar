@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
 
 import {
   Col,
@@ -10,9 +9,8 @@ import {
   Input,
   Button,
   Collapse,
-  ToastBody,
-  ToastHeader,
-  Toast,
+  ListGroup, 
+
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -29,16 +27,32 @@ export default function MyInvite(props) {
   } = props;
   const [context, updateContext] = useContext(Context);
 
-  const [allGuests, setGuests] = useState([]);
+  const [allGuests, setInvitedUsers] = useState([]);
+  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [allGuestsDecline, setInvitedUsersDecline] = useState([]);
 
-  async function fetchGuests() {
-    setGuests(await (await fetch("/invitedUsers/" + id)).json());
+  async function fetchInvitedUsers() {
+    setInvitedUsers(await (await fetch("api/invitedUsers/" + id + "?accepted=null" )).json());
   }
 
-  console.log("all guests", allGuests);
+  async function fetchInvitedUsersAccepted() {
+    setInvitedUsersAccept(await (await fetch("api/invitedUsers/" + id + "?accepted=1")).json());
+  }
+
+  async function fetchInvitedUsersDecline() {
+    setInvitedUsersDecline(await (await fetch("api/invitedUsers/" + id + "?accepted=0")).json());
+  }
 
   useEffect(() => {
-    fetchGuests();
+    fetchInvitedUsers();
+  }, []);
+
+  useEffect(() => {
+    fetchInvitedUsersAccepted();
+  }, []);
+
+  useEffect(() => {
+    fetchInvitedUsersDecline();
   }, []);
 
   async function Decline() {
@@ -51,7 +65,6 @@ export default function MyInvite(props) {
         headers: { "Content-Type": "application/json" },
       })
     ).json();
-    console.log("result and id ", result, inviteId);
     fetchPendingEvents();
     //window.location.reload();
   }
@@ -66,7 +79,6 @@ export default function MyInvite(props) {
         headers: { "Content-Type": "application/json" },
       })
     ).json();
-    console.log("result and id ", result, inviteId);
     fetchPendingEvents();
     //window.location.reload();
   }
@@ -129,16 +141,29 @@ export default function MyInvite(props) {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="eventUserId">{}</Label>
-              <Input
-                type="text"
-                name="userId"
-                id="eventUserId"
-                placeholder={
-                  allGuests.length > 0 ? "nrofguests" : "No one is coming"
+            <ListGroup>
+              <h5>Invited</h5>
+              {allGuests.map((guest) => (
+                    <p key={guest.id}>{guest.firstName} {guest.lastName},</p>
+                  ))}
+            </ListGroup>
+            <ListGroup>
+              <h5>Going</h5>
+              {allGuestsAccept.length > 0 ? (
+              allGuestsAccept.map((guestAccept) => (
+                    <p key={guestAccept.id}>{guestAccept.firstName} {guestAccept.lastName},</p>
+                  )) ) : (<p>No one has accepted yet</p>)
                 }
-                disabled
-              />
+              
+            </ListGroup>
+            <ListGroup>
+              <h5>Declined</h5>
+              {allGuestsDecline.length > 0 ? (
+              allGuestsDecline.map((guestDecline) => (
+                    <p key={guestDecline.id}>{guestDecline.firstName} {guestDecline.lastName},</p>
+                  )) ) : (<p>No one has declined yet</p>)
+                }
+            </ListGroup>
             </FormGroup>
             <Label>Start:</Label>
             <Row>
@@ -178,24 +203,6 @@ export default function MyInvite(props) {
           </Form>
         </Collapse>
       </div>
-
-      {/* <div className="p-3 my-2 rounded bg-docs-transparent-grid">
-            <Toast>
-              <ToastHeader>{title}</ToastHeader>
-              <ToastBody>{description}</ToastBody>
-              <ToastBody>starts: {start}</ToastBody>
-              <ToastBody>ends: {stop}</ToastBody>
-              <ToastBody>
-                {allGuests.length > 0 ? "nrofguests" : "No one is coming"}
-              </ToastBody>
-              <Button onClick={Decline} color="danger" className="ml-2">
-                No, cant make it
-              </Button>
-              <Button onClick={Accept} color="primary" className="ml-2">
-                Yes, count me in!
-              </Button>
-            </Toast>
-          </div> */}
     </>
   );
 }

@@ -110,6 +110,62 @@ module.exports = class RestApi {
       }
     });
 
+     //get guests who have either accepted, declined or null
+     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId AND accepted IS ${req.query.accepted}
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+  
+    // //get events which i am invited to and have declined
+    // this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
+    //   let result = this.db.select(
+    //     /*sql*/ `
+    //   SELECT e.*, i.id as inviteId FROM Event e
+    //   INNER JOIN Invite i ON e.id = i.eventId
+    //   WHERE i.invitedUser = $userId AND accepted = false
+    //   `,
+    //     req.params
+    //   );
+    //   if (result.length > 0) {
+    //     res.json(result);
+    //   } else {
+    //     res.status(404);
+    //     res.json({ error: 404 });
+    //   }
+    // });
+
+    // //get invitation to an event
+    // this.app.get(rp + "/pendingEvents/:userId", (req, res) => {
+    //   let result = this.db.select(
+    //     /*sql*/ `
+    //   SELECT e.* , i.id as inviteId FROM Event e
+    //   INNER JOIN Invite i ON e.id = i.eventId
+    //   WHERE i.invitedUser = $userId AND accepted IS NULL
+    //   `,
+    //     req.params
+    //   );
+    //   if (result.length > 0) {
+    //     res.json(result);
+    //   } else {
+    //     res.status(404);
+    //     res.json({ error: 404 });
+    //   }
+    // });
+
     //get all invited users by event id
     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
       let result = this.db
@@ -129,6 +185,8 @@ module.exports = class RestApi {
         res.json({ error: 404 });
       }
     });
+
+ 
   }
 
   setupPostRoute(table) {
@@ -213,4 +271,6 @@ module.exports = class RestApi {
       }
     );
   }
+
 };
+

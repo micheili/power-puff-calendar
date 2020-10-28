@@ -94,14 +94,15 @@ export default function App() {
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
-        <div className="App wrapper">
-          <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
-          <Content
+      {contextVal.user ? <div className="App wrapper">          
+      <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+           <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}
-            logout={logout}
-          />
-        </div>
+            logout={logout} />
+        </div> : <div className="App wrapper" >                
+           <Content/>
+        </div>}
       </Router>
     </Context.Provider>
   );
