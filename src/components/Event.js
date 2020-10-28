@@ -5,6 +5,7 @@ import {
   ButtonToggle,
   Button,
   CardText,
+  UncontrolledTooltip,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -84,15 +85,24 @@ export default function Event(props) {
       {/* show if userId is mine, I created the event */}
       <div className="float-right">
         <ButtonToggle outline color="lightpink" id="inviteButton">
-          <FontAwesomeIcon icon={faUserPlus}  />
+          <FontAwesomeIcon icon={faUserPlus} />
+          <UncontrolledTooltip placement="bottom" target="inviteButton">
+            Invite people
+          </UncontrolledTooltip>
         </ButtonToggle>{" "}
         {/* edit if userId is mine, I created event */}
-        <ButtonToggle outline color="lightpink" id="editButton" >
+        <ButtonToggle outline color="lightpink" id="editButton">
           <FontAwesomeIcon icon={faPen} />
+          <UncontrolledTooltip placement="bottom" target="editButton">
+            Edit
+          </UncontrolledTooltip>
         </ButtonToggle>{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button outline color="lightpink" id="deleteButton">
-          <FontAwesomeIcon icon={faTrashAlt}  />
+          <FontAwesomeIcon icon={faTrashAlt} />
+          <UncontrolledTooltip placement="bottom" target="deleteButton">
+            Delete event
+          </UncontrolledTooltip>
         </Button>{" "}
       </div>
     </div>
