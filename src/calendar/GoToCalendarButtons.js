@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar, faCalendarWeek, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 
 export default function GoToCalendarButtons() {
 
 
     return (
-        <div className="container">
-            <div className="row justify-content-md-center bg-secondary">
+        <div className="calendar-buttons container">
+            <div className="row justify-content-md-center ">
                 <div className="col text-center">
                     <Link to="/calendarday">
-                        <button className="btn btn-primary btn-lg btn-block my-2" >Day</button>
+                        <a className="btn btn-lg btn-block my-2" >
+                        <FontAwesomeIcon className="facalendar text-white mr-2" icon={faCalendarDay} />
+                            Day
+                            </a>
                     </Link>
                 </div>
                 <div className="col text-center">
                     <Link to="/calendarweek">
-                        <button className="btn btn-primary btn-lg btn-block my-2" >Week</button>
+                        <a className="btn btn-lg btn-block my-2" >
+                        <FontAwesomeIcon className="facalendar text-white mr-2" icon={faCalendarWeek} />
+                            Week</a>
                     </Link>
                 </div>
                 <div className="col text-center">
                     <Link to="/calendar">
-                        <button className="btn btn-primary btn-lg btn-block my-2" >Month</button>
+                        <a className="btn btn-lg btn-block my-2" >
+                        <FontAwesomeIcon className="facalendar text-white mr-2" icon={faCalendar} />
+                            Month 
+                        </a>
                     </Link>
                 </div>
             </div>

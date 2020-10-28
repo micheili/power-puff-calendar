@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {
-  getMonthDayYear,
+  getMonthDayYearHour,
   getHourOfDay
 } from '../utils/MomentUtils';
 import { getHoursInDayDisplay } from '../utils/DateUtils';
@@ -75,13 +75,13 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
   const dayHours = hoursInDay.map((item, key) => {
     const selected =
-    getMonthDayYear(selectDate) === getMonthDayYear(item.date) ? 'selected' : '';
+    getMonthDayYearHour(selectDate) === getMonthDayYearHour(item.date) ? 'selected' : '';
       const active =
-    activeDates && activeDates[getMonthDayYear(item.date)] ? 'active' : '';
+    activeDates && activeDates[getMonthDayYearHour(item.date)] ? 'active' : '';
 
     return (
       <div
-        className={"date-day-icon"}
+        className={`date-day-icon ${selected} ${active}`}
         data-date={item.date.toString()}
         key={key}
         onClick={changeDate}

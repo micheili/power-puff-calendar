@@ -4,7 +4,7 @@ import WeekdayIndicator from './indicators/WeekdayIndicator';
 import DateIndicator from './indicators/DateIndicator';
 import MonthIndicator from './indicators/MonthIndicator';
 import GoToCalendarButtons from './GoToCalendarButtons';
-import moment from "moment-timezone";
+import moment, { locale } from "moment-timezone";
 import '../sass/_calendar.scss';
 
 
@@ -20,8 +20,11 @@ export default function CalendarMonth() {
 
     <div className="container">
       <GoToCalendarButtons />
-      <CalendarHeader selectDate={selectDate}/>
-     
+      <MonthIndicator 
+        selectDate={selectDate} 
+        setSelectDate={setSelectDate}
+      />
+    
       <div className="calendar-container">
       <WeekdayIndicator />
      
@@ -30,10 +33,7 @@ export default function CalendarMonth() {
         setSelectDate={setSelectDate}
       />
      </div>
-     <MonthIndicator 
-        selectDate={selectDate} 
-        setSelectDate={setSelectDate}
-      />
+     
     </div>
 
 

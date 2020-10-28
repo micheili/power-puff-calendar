@@ -1,11 +1,18 @@
-$secondaryColor: #ac2800;
-$primaryColor: #fa8072;
+
 
 .calendar-container{
     border-style: solid;
+    border-color:  #d27f78; 
  
     
 }
+
+.calendar-header{
+  background:  #d27f78; 
+  color:  #fbc5b8;
+}
+
+//weekday for dayView
 .weekday-indicator {
   display: grid;
   grid-template-columns: repeat(1, minmax(auto, 1fr));
@@ -22,17 +29,17 @@ $primaryColor: #fa8072;
   color: white;
 }
 
-
+//weekdays
 .weekday-indicators {
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
     grid-template-rows: 1;
     padding: 15px;
     border-style: solid;
-    border-color:  #d27f78; 
-    background-color: #d27f78; 
+    border-color: #d27f78; 
+    background:  #d27f78;
     color: white;
-   
+  
     .weekday-indicator-icon {
       height: 25px;
       width: 25px;
@@ -51,6 +58,7 @@ $primaryColor: #fa8072;
     }
   }
 
+  //day
   .date-day-indicator{
     display: grid;
     grid-template-columns: repeat(1, minmax(auto, 1fr));
@@ -74,12 +82,13 @@ $primaryColor: #fa8072;
       }
       &.active,
       &.selected {
-        border-radius: 50%;
+        border-radius: 5%;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
       }
     }
   }
 
+  //week
   .date-week-indicator{
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
@@ -107,6 +116,7 @@ $primaryColor: #fa8072;
     }
   }
 
+  //month
   .date-indicator {
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
@@ -121,7 +131,7 @@ $primaryColor: #fa8072;
       justify-self: center;
       align-items: center;
       height: 100px;
-      width: 25px;
+      width: 100px;
           
       cursor: pointer;
       &[data-active-month='false'] {
@@ -133,6 +143,29 @@ $primaryColor: #fa8072;
         box-shadow: 0 0 3px #834e4a;
         //background-color: gray;
         color:  blue;
+        font-weight: bold;
       }
     }
+  }
+
+  .month-indicator{
+    background: #d27f78; 
+    color: white;
+  }
+
+  .calendar-buttons{
+    background: #d27f78;
+  } 
+
+  .calendar-buttons a:link{ 
+    color:  #fbc5b8;
+    text-decoration: none;
+  }
+
+  .calendar-buttons a:hover{ 
+    color: white;
+  }
+  
+  .calendar-buttons > a:active { 
+    color: black;
   }

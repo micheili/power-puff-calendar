@@ -10,13 +10,8 @@ import {
 export default function CalendarHeader ({ selectDate }) {
 
   return (
-<div className="calendar-header">
-      <div className="left-container">
-        <h1>{getReadableMonthDate(selectDate)}</h1>
-      </div>
-      <div className="right-container">
-        <h3>{getYear(selectDate)}</h3>
-      </div>
+<div className="calendar-header text-center">
+        <h7>{getReadableMonthDate(selectDate)} {getYear(selectDate)}</h7>
     </div>
   );
 }
