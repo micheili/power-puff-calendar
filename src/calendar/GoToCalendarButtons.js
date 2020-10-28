@@ -23,7 +23,7 @@ export default function GoToCalendarButtons() {
                     </NavLink>
                 </div>
                 <div className="col text-center" >
-                    <NavLink to="/calendarpage" className="link-btn btn-lg btn-block my-2" activeClassName="link-btn-active">                     
+                    <NavLink to="/home" className="link-btn btn-lg btn-block my-2" activeClassName="link-btn-active">                     
                         <FontAwesomeIcon className="facalendar text-white mr-2" icon={faCalendar} />
                             Month                  
                     </NavLink>
