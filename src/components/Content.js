@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { Container, Row } from "reactstrap";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link , Redirect } from "react-router-dom";
 import ProtectedRoute from '../ProtectedRoute';
 import Login from "./Login";
 import Register from "./Register";
@@ -51,7 +51,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       
       
       <Switch>
-        <Route exact path="/" component={Login}/>
+        <Route exact path="/" component={Login}> {context.user ? <Redirect to="/home" /> : <Login />}</Route>
         <Route exact path="/register" component={Register} />
         <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
         <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />
