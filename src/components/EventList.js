@@ -29,7 +29,7 @@ export default function EventList(props) {
           <ToastHeader>My events:</ToastHeader>
           <ToastBody>
             {props.myEvents.map((event) => (
-              <Alert key={event.id}>{event.title}</Alert>
+              <Alert  key={event.id}>{event.title}</Alert>
             ))}
           </ToastBody>
         </Toast>

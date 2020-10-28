@@ -36,11 +36,11 @@ export default function Login() {
   }, []);
 
   if (formData.error) {
-    return <Redirect to="/" />;
+    return <Redirect to="/login" />;
   }
 
   if (redirect) {
-    return <Redirect to="/calendarpage" />;
+    return <Redirect to="/home" />;
   }
   if (formData.email === undefined) {
     return null;

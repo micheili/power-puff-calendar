@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { Container, Row } from "reactstrap";
-import { Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import ProtectedRoute from '../ProtectedRoute';
 import Login from "./Login";
 import Register from "./Register";
 import CalendarMonth from "../calendar/CalendarMonth";
@@ -20,7 +21,7 @@ import { Context } from "../App";
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   const [context, updateContext] = useContext(Context);
 
-
+ 
   return (
     <Container
       fluid
@@ -50,14 +51,14 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       
       
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/calendar" component={CalendarMonth} />
-        <Route exact path="/calendarweek" component={CalendarWeek} />
-        <Route exact path="/calendarday" component={CalendarDay} />
-        <Route exact path="/invitation" component={Invitation} />
-        <Route path="/calendarpage" component={CalendarPage}/>        
-        <Route path="/invitations_declined" component={Invitations_declined}/>
+        <ProtectedRoute exact path="/calendar" user={context.user}  component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarweek" user={context.user} component={CalendarWeek} />
+        <ProtectedRoute exact path="/calendarday" user={context.user} component={CalendarDay} />
+        <ProtectedRoute exact path="/invitation" user={context.user} component={Invitation} />
+        <ProtectedRoute exact path="/home" user={context.user} component={CalendarPage}/>        
+        <ProtectedRoute exact path="/invitations_declined" user={context.user} component={Invitations_declined}/>
       </Switch>
     </Container>
   );
