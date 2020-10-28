@@ -4,7 +4,7 @@ import WeekdayIndicator from './indicators/WeekdayIndicator';
 import DateIndicator from './indicators/DateIndicator';
 import MonthIndicator from './indicators/MonthIndicator';
 import GoToCalendarButtons from './GoToCalendarButtons';
-import moment, { locale } from "moment-timezone";
+import moment from "moment-timezone";
 import '../sass/_calendar.scss';
 
 

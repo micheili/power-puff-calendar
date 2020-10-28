@@ -3,6 +3,8 @@
 .calendar-container{
     border-style: solid;
     border-color:  #d27f78; 
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
  
     
 }
@@ -34,7 +36,8 @@
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
     grid-template-rows: 1;
-    padding: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
     border-style: solid;
     border-color: #d27f78; 
     background:  #d27f78;
@@ -49,7 +52,6 @@
       align-items: center;
       padding: 5px;
       font-weight: bold;
-      cursor: pointer;
       &.active,
       &.selected {
         border-radius: 50%;
@@ -126,7 +128,8 @@
     margin-bottom: 5px;
     
     .date-icon {
-      display: flex;
+      display: block;
+      text-align: center;
       justify-content: center;
       justify-self: center;
       align-items: center;
@@ -141,7 +144,6 @@
       &.selected {
         border-radius: 50%;
         box-shadow: 0 0 3px #834e4a;
-        //background-color: gray;
         color:  blue;
         font-weight: bold;
       }
@@ -150,22 +152,55 @@
 
   .month-indicator{
     background: #d27f78; 
+    border-top: solid;
+    border-color:  #fbc5b8;
+    color: white;
+    
+  }
+
+  .month-indicator .row .prev{
+    color:  #fbc5b8;
+    cursor: pointer;
+  }
+
+  .month-indicator .row .prev:hover{
     color: white;
   }
 
+  .month-indicator .row .next{
+    color:  #fbc5b8;
+    cursor: pointer;
+  }
+
+  .month-indicator .row .next:hover{
+    color: white;
+  }
+
+
+  //calendar buttons
   .calendar-buttons{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background: #d27f78;
   } 
 
-  .calendar-buttons a:link{ 
+  .calendar-buttons .row .col .link-btn{ 
     color:  #fbc5b8;
     text-decoration: none;
+ 
   }
 
-  .calendar-buttons a:hover{ 
+  .calendar-buttons .row .col .link-btn:hover{ 
     color: white;
   }
-  
-  .calendar-buttons > a:active { 
-    color: black;
+
+  .calendar-buttons .row .col .link-btn-active{ 
+    color:  white;
+  }
+
+
+  //events
+  .events{
+    font-size: 11px;
+    
   }

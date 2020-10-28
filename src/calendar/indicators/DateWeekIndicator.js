@@ -33,7 +33,10 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
   function checkEvent(date){
     let info = [];
     for(let event of events){
-      if(date >= event.start && date <= event.stop){
+      let start1Before = new Date(event.start.getTime());
+      start1Before.setHours(start1Before.getHours() -24);
+
+      if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
           <div data-date={date.toString()} key={event.id}>
             

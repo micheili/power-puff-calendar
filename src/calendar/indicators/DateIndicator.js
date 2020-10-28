@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import moment from 'moment';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -32,10 +33,16 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   
   function checkEvent(date){
     let info = [];
+
+
     for(let event of events){
-      if(date >= event.start && date <= event.stop){
+      
+    let start1Before = new Date(event.start.getTime());
+    start1Before.setHours(start1Before.getHours() -24);
+
+      if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div data-date={date.toString()} key={event.id}>
+          <div className="events" data-date={date.toString()} key={event.id}>
             
             {event.title}
         
@@ -74,7 +81,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
        
       return (
           <div
-            className={`date-icon  ${selected} ${active}`}
+            className={`date-icon ${selected} ${active}`}
             data-active-month={item.currentMonth}
             data-date={item.date.toString()}
             key={key}
