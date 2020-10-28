@@ -38,7 +38,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
       if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div data-date={date.toString()} key={event.id}>
+          <div className="events" data-date={date.toString()} key={event.id}>
             
             {event.title}
         
@@ -73,7 +73,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
     return (
       <div
-        className={"date-week-icon"}
+        className={`date-week-icon ${selected} ${active}`}
         data-date={item.date.toString()}
         key={key}
         data-active-month={item.currentMonth}

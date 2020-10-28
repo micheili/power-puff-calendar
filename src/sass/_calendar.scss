@@ -1,17 +1,14 @@
-
-
 .calendar-container{
     border-style: solid;
     border-color:  #d27f78; 
     border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
- 
-    
+    border-bottom-right-radius: 10px;   
 }
 
-.calendar-header{
+.calendar-date{
   background:  #d27f78; 
   color:  #fbc5b8;
+  font-size: small;
 }
 
 //weekday for dayView
@@ -24,11 +21,13 @@
   align-items: center;
   text-align: center;
   font-weight: bold;
-  padding: 15px;
+  padding-bottom: 5px;
+  padding-top: 15px;
   border-style: solid;
   border-color:  #d27f78; 
   background-color: #d27f78; 
   color: white;
+  font-weight: bold;
 }
 
 //weekdays
@@ -42,6 +41,7 @@
     border-color: #d27f78; 
     background:  #d27f78;
     color: white;
+    
   
     .weekday-indicator-icon {
       height: 25px;
@@ -99,12 +99,13 @@
     margin-bottom: 5px;
 
     .date-week-icon {
-      display: flex;
+      display: block;
+      text-align: center;
       justify-content: center;
       justify-self: center;
       align-items: center;
       height: 100px;
-      width: 25px;
+      width: 100px;
           
       cursor: pointer;
       &[data-active-month='false'] {
@@ -113,7 +114,9 @@
       &.active,
       &.selected {
         border-radius: 50%;
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 3px #834e4a;
+        color:  blue;
+        font-weight: bold;
       }
     }
   }
