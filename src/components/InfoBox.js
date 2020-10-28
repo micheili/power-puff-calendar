@@ -1,6 +1,7 @@
-import React from "react";
+import React, {  useState }  from "react";
 import Event from "./Event";
 import EventList from "./EventList";
+import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,6 +16,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
+
 const Infobox = (props) => {
   // props = [
   //   {
@@ -27,6 +29,8 @@ const Infobox = (props) => {
   //   },
   // ];
 
+  const [showNewEvent, setshowNewEvent] = useState(false);
+
   let { myEvents, invitedEvents } = props;
   let date = "22/10";
   let year = "2020";
@@ -34,6 +38,11 @@ const Infobox = (props) => {
   let eventDetails = null;
   let eventList = null;
   let defaultText = null;
+
+  const addNewEvent = (e) => {
+    setshowNewEvent(true);
+  }
+
 
   //visa detaljvy om bara ett event finns vald dag
 
@@ -62,10 +71,7 @@ const Infobox = (props) => {
     );
   }
 
-  function addNewEvent() {
-    console.log("render add-new-event-form");
-  }
-
+  
   //kanske formattera om date -> 10/7
   let dateText = (
     <div className="float-left" id="dateText">
@@ -99,11 +105,11 @@ const Infobox = (props) => {
           </CardHeader>
 
           <CardBody>
-            {myEvents.length === 0
+          {showNewEvent ? <NewEvent showNewEvent/> : myEvents.length === 0
               ? defaultText
               : myEvents.length === 1
               ? eventDetails
-              : eventList}
+              : eventList}            
           </CardBody>
         </Card>
       </Col>

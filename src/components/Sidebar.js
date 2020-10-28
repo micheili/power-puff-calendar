@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faFemale,
+  faHome, 
   faCalendar,
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,22 +29,13 @@ export default function Sidebar({ isOpen, toggle }) {
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faHome} />
               Home
             </NavLink>
-          </NavItem>
+          </NavItem> 
           <NavItem>
-            <NavLink tag={Link} to={"/register"}>
-              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faFemale} />
-              Register
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/calendar"}>
-              <FontAwesomeIcon
-                className="sidebar-icon mr-2"
-                icon={faCalendar}
-              />
+            <NavLink tag={Link} to={"/calendarpage"}>
+              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faCalendar} />
               Calendar
             </NavLink>
-          </NavItem>
+          </NavItem>        
           <NavItem>
             <NavLink tag={Link} to={"/invitation"}>
               <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
@@ -55,12 +45,6 @@ export default function Sidebar({ isOpen, toggle }) {
               ) : (
                 <></>
               )}
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/calendarbox"}>
-              <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
-              CalendarBox
             </NavLink>
           </NavItem>
         </Nav>

@@ -9,7 +9,6 @@ import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
 import CalendarPage from "../CalendarPage";
-import CalendarBox from "./CalendarBox";
 import Invitations_declined from "./Invitations_declined";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,8 +55,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Route exact path="/calendarweek" component={CalendarWeek} />
         <Route exact path="/calendarday" component={CalendarDay} />
         <Route exact path="/invitation" component={Invitation} />
-        <Route path="/calendarpage" component={CalendarPage}></Route>
-        <Route path="/calendarbox" component={CalendarBox}></Route>
+        <Route path="/calendarpage" component={CalendarPage}/>        
         <Route path="/invitations_declined" component={Invitations_declined}/>
       </Switch>
     </Container>

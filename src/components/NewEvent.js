@@ -16,7 +16,7 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 
-const NewEvent = () => {
+const NewEvent = params => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
   const [context] = useContext(Context);
@@ -24,6 +24,8 @@ const NewEvent = () => {
 
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id != userId);
+
+  
 
   const handleInputChange = (e) =>
     setFormData({
@@ -40,7 +42,7 @@ const NewEvent = () => {
     setinvitesList(e);
   };
 
-  console.log("Invitelist", invitesList);
+  
 
   let {
     title,
@@ -78,7 +80,7 @@ const NewEvent = () => {
 
   async function save(e) {
     e.preventDefault();
-    console.log(formData);
+    
 
     if (validate()) {
       let result = await (
@@ -91,12 +93,10 @@ const NewEvent = () => {
 
       //error msg handling
       if (result.error === 403) {
-        setAlert("Sorry, the date and time interval you entered is invalid!");
-        console.log("error" + result.error);
+        setAlert("Sorry, the date and time interval you entered is invalid!");        
         return;
       } else if (result.error) {
-        setAlert("You are not logged in ");
-        console.log("error", result.error);
+        setAlert("You are not logged in ");        
         return;
       }
 
@@ -123,7 +123,7 @@ const NewEvent = () => {
         stopTime: "",
       });
 
-      console.log("result", result.lastInsertRowid);
+      
       return result;
     }
   }
@@ -229,6 +229,10 @@ const NewEvent = () => {
       <FormGroup>
         <Select options={options} onChange={handleInvites} isMulti />
       </FormGroup>
+
+      <Button color="danger" onClick={() => params.setshowNewEvent(false)}>
+        Cancel
+      </Button>
 
       <Button className="button-submit" type="submit" value="save">
         Submit
