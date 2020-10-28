@@ -24,7 +24,7 @@ const NewEvent = params => {
 
 
   const userId = context.user.id;
-  const usersData = context.allUsers.filter((u) => u.id != userId);
+  const usersData = context.allUsers.filter((u) => u.id !== userId);
   
   
 
