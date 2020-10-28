@@ -115,7 +115,11 @@ const NewEvent = params => {
             })
           ).json();
         }
+        updateContext({ showNewEvent: false });
+        window.location.reload();
       }
+
+      setinvitesList("");
 
       setFormData({
         title: "",
@@ -132,7 +136,7 @@ const NewEvent = params => {
   }
 
   return (
-    <Form ClassName="newEvent-form" onSubmit={save}>
+    <Form onSubmit={save}>
       <Breadcrumb>
         <BreadcrumbItem active>New Event</BreadcrumbItem>
       </Breadcrumb>
