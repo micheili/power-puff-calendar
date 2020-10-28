@@ -1,4 +1,4 @@
-import React, {useContext}  from "react";
+import React, { useContext } from "react";
 import Event from "./Event";
 import EventList from "./EventList";
 import NewEvent from "./NewEvent";
@@ -16,7 +16,6 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-
 const Infobox = (props) => {
   // props = [
   //   {
@@ -29,7 +28,6 @@ const Infobox = (props) => {
   //   },
   // ];
 
-  
   const [context, updateContext] = useContext(Context);
 
   let { myEvents, invitedEvents } = props;
@@ -40,17 +38,14 @@ const Infobox = (props) => {
   let eventList = null;
   let defaultText = null;
 
-  const addNewEvent = () => {    
+  const addNewEvent = () => {
     updateContext({ showNewEvent: true });
-  }
-
+  };
 
   //visa detaljvy om bara ett event finns vald dag
 
   if (myEvents.length === 1) {
-    eventDetails = (
-      <Event myEvent={myEvents[0]} invitedEvents={invitedEvents} />
-    );
+    eventDetails = <Event myEvent={myEvents[0]} />;
   } //ifall det finns flera event
   else if (myEvents.length > 1) {
     //skapa en komponent för att visa en lista
@@ -72,7 +67,6 @@ const Infobox = (props) => {
     );
   }
 
-  
   //kanske formattera om date -> 10/7
   let dateText = (
     <div className="float-left" id="dateText">
@@ -106,11 +100,15 @@ const Infobox = (props) => {
           </CardHeader>
 
           <CardBody>
-          {context.showNewEvent ? <NewEvent showNewEvent/> : myEvents.length === 0
-              ? defaultText
-              : myEvents.length === 1
-              ? eventDetails
-              : eventList}            
+            {context.showNewEvent ? (
+              <NewEvent showNewEvent />
+            ) : myEvents.length === 0 ? (
+              defaultText
+            ) : myEvents.length === 1 ? (
+              eventDetails
+            ) : (
+              eventList
+            )}
           </CardBody>
         </Card>
       </Col>

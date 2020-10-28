@@ -200,5 +200,17 @@ module.exports = class RestApi {
         )
       );
     });
+
+    this.app.delete(
+      this.routePrefix + "/delete_invitations/:eventId",
+      (req, res) => {
+        res.json(
+          this.db.run(/*sql*/ `
+            DELETE FROM Invite
+            WHERE eventId = $eventId
+        `,req.params)
+        );
+      }
+    );
   }
 };
