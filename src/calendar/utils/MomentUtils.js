@@ -29,7 +29,9 @@ export const getWeek = (date) => moment(date).isoWeek();
 
 export const getYear = (date) => moment(date).year();
 
-export const getDay = (date) => moment(date).format('Do');
+export const getDay = (date) => moment(date).format('Do'); 
+
+export const getDayWithoutZero = (date) => moment(date).format('D');
 
 export const getToday = () => moment().toDate();
 
@@ -39,8 +41,10 @@ export const getReadableWeekdayAndDate = (date) => moment(date).format('dddd Do'
 
 export const getReadableMonthDate = (date) => moment(date).format('MMMM Do');
 
+export const getReadableMonth = (date) => moment(date).format('MMM');
+
 export const getMonthDayYear = (date) => moment(date).format('MM-DD-YYYY');
 
 export const getMonthDay = (date) => moment(date).format('MM-DD');
 
-export const getReadableDay = (date) => moment(date).format('DD');
+//export const getReadableMonth = (date) => moment(date).format('DD');

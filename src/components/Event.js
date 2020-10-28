@@ -5,11 +5,21 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  Alert,
-  Toast,
-  ToastHeader,
-  ToastBody,
+  UncontrolledTooltip,
 } from "reactstrap";
+import moment from "moment";
+import {
+  getDayWithoutZero,
+  getReadableWeekday,
+  getReadableMonth,
+  getYear,
+} from "../calendar/utils/MomentUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPen,
+  faTrashAlt,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Event(props) {
   //let { id, title, eventCreator, description, start, stop } = props;
@@ -39,31 +49,61 @@ export default function Event(props) {
   // }
   let { title, description, start, stop } = props.myEvent;
 
+  let startMoment = moment(start);
+  let stopMoment = moment(stop);
+
+  let startTime = start.split(" ")[1];
+  let weekDay = getReadableWeekday(start);
+  let startDateNr = getDayWithoutZero(start);
+  let startMonth = getReadableMonth(start);
+  let startYear = getYear(start);
+
+  let stopTime = stop.split(" ")[1];
+  let stopDateNr = getDayWithoutZero(stop);
+  let stopMonth = getReadableMonth(stop);
+  let stopWeekday = getReadableWeekday(stop);
+  let stopYear = getYear(stop);
+
   return (
     <div className="sm-6">
-      <CardTitle>{title}</CardTitle>
-      <CardSubtitle>{description}</CardSubtitle>
-      <CardSubtitle>Starts: {start}</CardSubtitle>
-      <CardSubtitle>Ends: {stop}</CardSubtitle>
+      <CardTitle tag="h3">{title}</CardTitle>
+      <CardSubtitle tag="h5">{description}</CardSubtitle>
+      <CardSubtitle className="mt-3">
+        from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
+      </CardSubtitle>
+      <CardSubtitle>
+        to {stopTime}
+        {startMoment.isSameOrAfter(stopMoment)
+          ? null
+          : " " + stopWeekday + ", " + stopDateNr}
+        {startMoment.isSameOrAfter(stopMoment, "month")
+          ? null
+          : " " + stopMonth + " "}
+        {startMoment.isSameOrAfter(stopMoment, "year") ? null : +" " + stopYear}
+      </CardSubtitle>
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
-      <ButtonToggle color="primary">Invite</ButtonToggle>{" "}
-      {/* edit if userId is mine, I created event */}
-      <ButtonToggle color="secondary">Edit</ButtonToggle>{" "}
-      {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
-      <Button outline color="primary">
-        Delete
-      </Button>{" "}
-      <hr></hr>
-      <div className="p-3 bg-success my-2 rounded">
-        <Toast>
-          <ToastHeader>I am invited for:</ToastHeader>
-          <ToastBody>
-            {props.invitedEvents.map((event) => (
-              <Alert key={event.id}>{event.title}</Alert>
-            ))}
-          </ToastBody>
-        </Toast>
+      <div className="float-right">
+        <ButtonToggle outline color="lightpink" id="inviteButton">
+          <FontAwesomeIcon icon={faUserPlus} />
+          <UncontrolledTooltip placement="bottom" target="inviteButton">
+            Invite people
+          </UncontrolledTooltip>
+        </ButtonToggle>{" "}
+        {/* edit if userId is mine, I created event */}
+        <ButtonToggle outline color="lightpink" id="editButton">
+          <FontAwesomeIcon icon={faPen} />
+          <UncontrolledTooltip placement="bottom" target="editButton">
+            Edit
+          </UncontrolledTooltip>
+        </ButtonToggle>{" "}
+        {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
+        <Button outline color="lightpink" id="deleteButton">
+          <FontAwesomeIcon icon={faTrashAlt} />
+          <UncontrolledTooltip placement="bottom" target="deleteButton">
+            Delete event
+          </UncontrolledTooltip>
+        </Button>{" "}
       </div>
     </div>
   );
