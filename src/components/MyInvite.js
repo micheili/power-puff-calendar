@@ -9,8 +9,7 @@ import {
   Input,
   Button,
   Collapse,
-  ListGroup, 
-
+  ListGroup,
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -32,15 +31,21 @@ export default function MyInvite(props) {
   const [allGuestsDecline, setInvitedUsersDecline] = useState([]);
 
   async function fetchInvitedUsers() {
-    setInvitedUsers(await (await fetch("api/invitedUsers/" + id + "?accepted=null" )).json());
+    setInvitedUsers(
+      await (await fetch("api/invitedUsers/" + id + "?accepted=null")).json()
+    );
   }
 
   async function fetchInvitedUsersAccepted() {
-    setInvitedUsersAccept(await (await fetch("api/invitedUsers/" + id + "?accepted=1")).json());
+    setInvitedUsersAccept(
+      await (await fetch("api/invitedUsers/" + id + "?accepted=1")).json()
+    );
   }
 
   async function fetchInvitedUsersDecline() {
-    setInvitedUsersDecline(await (await fetch("api/invitedUsers/" + id + "?accepted=0")).json());
+    setInvitedUsersDecline(
+      await (await fetch("api/invitedUsers/" + id + "?accepted=0")).json()
+    );
   }
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export default function MyInvite(props) {
         headers: { "Content-Type": "application/json" },
       })
     ).json();
-    fetchPendingEvents();
+    fetchEvents();
     //window.location.reload();
   }
 
@@ -79,11 +84,11 @@ export default function MyInvite(props) {
         headers: { "Content-Type": "application/json" },
       })
     ).json();
-    fetchPendingEvents();
+    fetchEvents();
     //window.location.reload();
   }
 
-  async function fetchPendingEvents() {
+  async function fetchEvents() {
     let allInvites = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=null")
     ).json();
@@ -141,29 +146,38 @@ export default function MyInvite(props) {
               />
             </FormGroup>
             <FormGroup>
-            <ListGroup>
-              <h5>Invited</h5>
-              {allGuests.map((guest) => (
-                    <p key={guest.id}>{guest.firstName} {guest.lastName},</p>
-                  ))}
-            </ListGroup>
-            <ListGroup>
-              <h5>Going</h5>
-              {allGuestsAccept.length > 0 ? (
-              allGuestsAccept.map((guestAccept) => (
-                    <p key={guestAccept.id}>{guestAccept.firstName} {guestAccept.lastName},</p>
-                  )) ) : (<p>No one has accepted yet</p>)
-                }
-              
-            </ListGroup>
-            <ListGroup>
-              <h5>Declined</h5>
-              {allGuestsDecline.length > 0 ? (
-              allGuestsDecline.map((guestDecline) => (
-                    <p key={guestDecline.id}>{guestDecline.firstName} {guestDecline.lastName},</p>
-                  )) ) : (<p>No one has declined yet</p>)
-                }
-            </ListGroup>
+              <ListGroup>
+                <h5>Invited</h5>
+                {allGuests.map((guest) => (
+                  <p key={guest.id}>
+                    {guest.firstName} {guest.lastName},
+                  </p>
+                ))}
+              </ListGroup>
+              <ListGroup>
+                <h5>Going</h5>
+                {allGuestsAccept.length > 0 ? (
+                  allGuestsAccept.map((guestAccept) => (
+                    <p key={guestAccept.id}>
+                      {guestAccept.firstName} {guestAccept.lastName},
+                    </p>
+                  ))
+                ) : (
+                  <p>No one has accepted yet</p>
+                )}
+              </ListGroup>
+              <ListGroup>
+                <h5>Declined</h5>
+                {allGuestsDecline.length > 0 ? (
+                  allGuestsDecline.map((guestDecline) => (
+                    <p key={guestDecline.id}>
+                      {guestDecline.firstName} {guestDecline.lastName},
+                    </p>
+                  ))
+                ) : (
+                  <p>No one has declined yet</p>
+                )}
+              </ListGroup>
             </FormGroup>
             <Label>Start:</Label>
             <Row>
