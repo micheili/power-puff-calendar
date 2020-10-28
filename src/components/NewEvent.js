@@ -107,20 +107,22 @@ const NewEvent = params => {
         const eventId = result.lastInsertRowid;
         for (var i = 0; i < invitesList.length; i++) {
           const invitedUser = invitesList[i].value;
-          let result = await (
+          let inviteresult = await (
             await fetch("/api/Invite", {
               method: "POST",
               body: JSON.stringify({ eventId, invitedUser }),
               headers: { "Content-Type": "application/json" },
             })
           ).json();
-        }
-        updateContext({ showNewEvent: false });
-        window.location.reload();
+        }        
       }
 
+      if(!result.error){
+        let events = await (await fetch("/api/myEvents/" + userId)).json();        
+        updateContext({ showNewEvent: false, myEvents: events });        
+      }
+      
       setinvitesList("");
-
       setFormData({
         title: "",
         description: "",
