@@ -26,11 +26,12 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       fluid
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
-      <Row className="justify-content-between mb-3">
+      
+        {context.user ? (
+        <Row className="justify-content-between mb-3">
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-        {context.user ? (
           <Button
             tag={Link}
             to="/"
@@ -42,11 +43,11 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
               <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
               Logout
             </div>
-          </Button>
+          </Button></Row>
         ) : (
           <></>
         )}
-      </Row>
+      
       
       <Switch>
         <Route exact path="/" component={Login} />
