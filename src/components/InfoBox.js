@@ -1,16 +1,16 @@
-import React, {  useState }  from "react";
+import React, {useContext}  from "react";
 import Event from "./Event";
 import EventList from "./EventList";
 import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Context } from "../App";
 
 import {
   CardHeader,
   Card,
   CardText,
   CardBody,
-  Button,
   Row,
   Col,
   UncontrolledTooltip,
@@ -29,7 +29,8 @@ const Infobox = (props) => {
   //   },
   // ];
 
-  const [showNewEvent, setshowNewEvent] = useState(false);
+  
+  const [context, updateContext] = useContext(Context);
 
   let { myEvents, invitedEvents } = props;
   let date = "22/10";
@@ -39,8 +40,8 @@ const Infobox = (props) => {
   let eventList = null;
   let defaultText = null;
 
-  const addNewEvent = (e) => {
-    setshowNewEvent(true);
+  const addNewEvent = () => {    
+    updateContext({ showNewEvent: true });
   }
 
 
@@ -105,7 +106,7 @@ const Infobox = (props) => {
           </CardHeader>
 
           <CardBody>
-          {showNewEvent ? <NewEvent showNewEvent/> : myEvents.length === 0
+          {context.showNewEvent ? <NewEvent showNewEvent/> : myEvents.length === 0
               ? defaultText
               : myEvents.length === 1
               ? eventDetails

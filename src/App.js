@@ -13,9 +13,8 @@ export default function App() {
     myEvents: [],
     invitedEvents: [],
     allInvites: [],
-
+    showNewEvent: false,
     declinedInvitations: [],
-
     allUsers: [],
   });
 

@@ -18,13 +18,14 @@ import {
 
 const NewEvent = params => {
   const [formData, setFormData] = useState({});
-  const [alert, setAlert] = useState(false);
-  const [context] = useContext(Context);
+  const [alert, setAlert] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
+  const [context, updateContext] = useContext(Context);
+
 
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id != userId);
-
+  
   
 
   const handleInputChange = (e) =>
@@ -42,7 +43,9 @@ const NewEvent = params => {
     setinvitesList(e);
   };
 
-  
+  const cancel = () => {    
+    updateContext({ showNewEvent: false });
+  }
 
   let {
     title,
@@ -230,7 +233,7 @@ const NewEvent = params => {
         <Select options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 
-      <Button color="danger" onClick={() => params.setshowNewEvent(false)}>
+      <Button color="danger" onClick={cancel}>
         Cancel
       </Button>
 
