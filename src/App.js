@@ -11,10 +11,10 @@ export default function App() {
   const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
-    invitedEvents: [],
-    allInvites: [],
+    invitedEvents: [], //accepted = true
+    allInvites: [], // accepted = null
     showNewEvent: false,
-    declinedInvitations: [],
+    declinedInvitations: [], //accepted= false
     allUsers: [],
   });
 
@@ -26,7 +26,6 @@ export default function App() {
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
-  //const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
     (async () => {

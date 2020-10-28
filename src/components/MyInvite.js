@@ -78,7 +78,26 @@ export default function MyInvite(props) {
     if (allInvites.error) {
       allInvites = [];
     }
-    updateContext({ allInvites: allInvites });
+
+    let invitedEvents = await (
+      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
+    ).json();
+    if (invitedEvents.error) {
+      invitedEvents = [];
+    }
+
+    let declinedInvitations = await (
+      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=false")
+    ).json();
+    if (declinedInvitations.error) {
+      declinedInvitations = [];
+    }
+
+    updateContext({
+      allInvites: allInvites,
+      invitedEvents: invitedEvents,
+      declinedInvitations: declinedInvitations,
+    });
   }
 
   const [isOpen, setIsOpen] = useState(false);
