@@ -110,42 +110,6 @@ module.exports = class RestApi {
       }
     });
 
-    // //get events which i am invited to and have declined
-    // this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
-    //   let result = this.db.select(
-    //     /*sql*/ `
-    //   SELECT e.*, i.id as inviteId FROM Event e
-    //   INNER JOIN Invite i ON e.id = i.eventId
-    //   WHERE i.invitedUser = $userId AND accepted = false
-    //   `,
-    //     req.params
-    //   );
-    //   if (result.length > 0) {
-    //     res.json(result);
-    //   } else {
-    //     res.status(404);
-    //     res.json({ error: 404 });
-    //   }
-    // });
-
-    // //get invitation to an event
-    // this.app.get(rp + "/pendingEvents/:userId", (req, res) => {
-    //   let result = this.db.select(
-    //     /*sql*/ `
-    //   SELECT e.* , i.id as inviteId FROM Event e
-    //   INNER JOIN Invite i ON e.id = i.eventId
-    //   WHERE i.invitedUser = $userId AND accepted IS NULL
-    //   `,
-    //     req.params
-    //   );
-    //   if (result.length > 0) {
-    //     res.json(result);
-    //   } else {
-    //     res.status(404);
-    //     res.json({ error: 404 });
-    //   }
-    // });
-
     //get all invited users by event id
     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
       let result = this.db
