@@ -28,17 +28,13 @@ const Infobox = (props) => {
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
   };
-
-  let events = [...context.myEvents, ...context.invitedEvents];
-  events = events.map((x) => ({
-    ...x,
-    start: new Date(x.start),
-    stop: new Date(x.stop),
-  }));
-
-  //if(events.start === new Date(selectDate)){}
+  
 
   let combinedEvents = [...myEvents, ...invitedEvents];
+
+  let filterCombindEvents = combinedEvents.filter((t) => moment(t.start).format("YYYY-MM-DD") === moment(selectDate).format("YYYY-MM-DD"));
+
+  combinedEvents = filterCombindEvents;
 
   let eventDetails = (
     <Event combinedEvents={combinedEvents[0]} />
