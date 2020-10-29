@@ -8,6 +8,7 @@ import {
   ToastHeader,
   Collapse,
   Button,
+  UncontrolledCollapse
 } from "reactstrap";
 
 import Event from "./Event";
@@ -27,15 +28,15 @@ export default function EventList(props) {
           <div key={event.id} className="pb-3">
             <Button              
               color="secondary"
-              className="w-100 eventList-Button"
-              onClick={() => setIsOpen(!isOpen)}
+              id={`my${event.id}`}
+              className="w-100 eventList-Button"              
               style={{ marginBottom: "1rem" }}
             >
               {event.title}
             </Button>
-            <Collapse isOpen={isOpen}>
-              <Event combinedEvents={event}></Event>
-            </Collapse>
+            <UncontrolledCollapse toggler={`#my${event.id}`}>
+              <Event combinedEvents={event} ></Event>
+            </UncontrolledCollapse>
           </div>
         ))}
       </div>
