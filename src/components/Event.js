@@ -30,8 +30,6 @@ export default function Event(props) {
 
   const loggedInUser = context.user.id;
 
-  console.log('I EVENT ', props);
-
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite
   }
@@ -90,7 +88,7 @@ export default function Event(props) {
     }
 
     updateContext({
-      oneEvent: events,
+      myEvents: events,
       invitedEvents: invitedEvents,
       declinedInvitations: declinedInvitations
     });
@@ -116,7 +114,7 @@ export default function Event(props) {
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
       <div className="float-right">
-        <ButtonToggle outline color="lightpink" id="inviteButton">
+        '<ButtonToggle outline color="lightpink" id="inviteButton">
           <FontAwesomeIcon icon={faUserPlus} />
           <UncontrolledTooltip placement="bottom" target="inviteButton">
             Invite people
