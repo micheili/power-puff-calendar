@@ -40,7 +40,9 @@ const Infobox = (props) => {
 
   let eventDetails = (
     <>
-      <CardTitle tag="h3">{combinedEvents[0].title}</CardTitle>
+      <CardTitle tag="h3">
+        {combinedEvents.length ? combinedEvents[0].title : ""}
+      </CardTitle>
       <Event combinedEvents={combinedEvents[0]} />
     </>
   );
