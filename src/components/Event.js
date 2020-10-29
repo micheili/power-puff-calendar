@@ -20,38 +20,22 @@ import {
   faTrashAlt,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { Context } from "../App";
 
 export default function Event(props) {
+ 
+  let { id, userId, title, description, start, stop } = props.combinedEvents;
+
   let [context, updateContext] = useContext(Context);
-  //let { id, title, eventCreator, description, start, stop } = props;
 
-  // if (invitedGuests === 0) {
-  //   showInviteButton()
-  // }
+  const loggedInUser = context.user.id;
 
-  // let loggedInUser;
+  console.log('I EVENT ', props);
 
-  // let hostName;
-  // if (eventCreator !== loggedInUser) {
-  //   hostName = <p>{eventCreator}</p>;
-  // }
-
-  //gör fetch från en view eller invite?
-  // async function fetchInvitees() {
-  //   const data = await fetch('api/invite' + id);  men eventId?
-  //   setInvitees(await data.json());
-
-  // if (invitedPeople > 0) {
-  //   //skapa en komponent med en lista
-  //   //på invited people som visar accepted-status
-  //   invitees = <InvitedList key="" />;
-  // } else {
-  //   invitees = null;
-  // }
-  let { id, title, description, start, stop } = props.myEvent;
-
+  if (!loggedInUser === userId) {
+    //hide buttons for edit & invite
+  }
+  
   let startMoment = moment(start);
   let stopMoment = moment(stop);
 
@@ -82,6 +66,10 @@ export default function Event(props) {
     ).json();
     console.log("delete from Event: ", deleteEvent);
 
+    //if you're not creator of event
+    //and you delete the event you're invited for
+    //put -> accepted: false
+
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];
@@ -101,18 +89,10 @@ export default function Event(props) {
       declinedInvitations = [];
     }
 
-    let allInvites = await (
-      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=null")
-    ).json();
-    if (allInvites.error) {
-      allInvites = [];
-    }
-
     updateContext({
-      myEvents: events,
+      oneEvent: events,
       invitedEvents: invitedEvents,
-      allInvites: allInvites,
-      declinedInvitations: declinedInvitations,
+      declinedInvitations: declinedInvitations
     });
   }
 

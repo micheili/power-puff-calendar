@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import GoToCalendarButtons from './GoToCalendarButtons';
 import DateDayIndicator from './indicators/DateDayIndicator';
@@ -8,14 +8,21 @@ import {
   getReadableMonthDate,
   getYear,
 } from './utils/MomentUtils';
+import { Context } from "../App";
+import Infobox from "../components/InfoBox";
+import { Container, Row, Col } from "reactstrap";
 import '../sass/_calendar.scss';
 
 
 export default function CalendarDay() {
 
+  const [context, updateContext] = useContext(Context);
   const [selectDate, setSelectDate] = useState(moment().toDate());
 
   return (
+    <Container fluid={true}>
+    <Row>
+      <Col sm="12" lg="8">
     <div className="container">
       <GoToCalendarButtons />
       <DayIndicator 
@@ -32,8 +39,17 @@ export default function CalendarDay() {
         setSelectDate={setSelectDate}
       />
       </div>
-     
-     
     </div>
+    </Col>
+    <Col sm="12" lg="4">
+    <Infobox
+            myEvents={context.myEvents}
+            invitedEvents={context.invitedEvents}
+            selectDate={selectDate}
+            setSelectDate={setSelectDate}
+          />
+    </Col> 
+    </Row>
+    </Container>
   );
 }

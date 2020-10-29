@@ -6,11 +6,13 @@ import {
   getMonth,
   getYear,
 } from '../utils/MomentUtils';
-import { getDatesInMonthDisplay, presetDateTracker } from '../utils/DateUtils';
+import { getDatesInMonthDisplay } from '../utils/DateUtils';
 import {Context} from '../../App';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context, updateContext] = useContext(Context);
+
+
 
   let events = [
     ...context.myEvents,...context.invitedEvents
@@ -21,7 +23,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     ...x, 
     start: new Date(x.start), 
     stop: new Date(x.stop),
-    length: Math.ceil ((new Date(x.stop).getTime() - new Date(x.start).getTime()) / (60 * 60 * 1000))
+    length: Math.ceil ((new Date(x.stop).getDate() - new Date(x.start).getDate()))
   }));
 
 
@@ -42,10 +44,10 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
 
       if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div className="events" data-date={date.toString()} key={event.id}>
+          <div className="events" data-date={date.toString()} key={event.id} >
             
-            {event.title}
-        
+          *{event.title.substr(0,10) + '...'}
+           
           </div>
         );
         
