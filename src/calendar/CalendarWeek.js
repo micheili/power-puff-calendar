@@ -18,7 +18,7 @@ export default function CalendarWeek() {
   return (
     <Container fluid={true}>
     <Row>
-      <Col sm="12" lg="8">
+      <Col className="mb-5" sm="12" lg="8">
     <div className="container">
       <GoToCalendarButtons />
       <WeekIndicator
