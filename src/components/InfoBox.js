@@ -31,10 +31,8 @@ const Infobox = (props) => {
   
 
   let combinedEvents = [...myEvents, ...invitedEvents];
-
-  let filterCombindEvents = combinedEvents.filter((t) => moment(t.start).format("YYYY-MM-DD") === moment(selectDate).format("YYYY-MM-DD"));
-
-  combinedEvents = filterCombindEvents;
+  let filterCombinedEvents = combinedEvents.filter((t) => moment(t.start).format("YYYY-MM-DD") === moment(selectDate).format("YYYY-MM-DD"));
+  combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
     <Event combinedEvents={combinedEvents[0]} />
@@ -91,7 +89,7 @@ const Infobox = (props) => {
           <CardBody>
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
-            ) : myEvents.length === 0 ? (
+            ) : combinedEvents.length === 0 ? (
               defaultText
             ) : combinedEvents.length === 1 ? (
               eventDetails
