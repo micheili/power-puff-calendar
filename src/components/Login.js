@@ -132,9 +132,14 @@ export default function Login() {
   }
 
   return (
+    <div>
+      <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+    
     <Container className="mt-5">
       <Row className="justify-content-center">
-        <Form onSubmit={login}>
+        <Form onSubmit={login} className="login-container">
           <Col xs="12">
             <h3 className="mb-4 text-info ">Welcome back</h3>
           </Col>
@@ -187,5 +192,6 @@ export default function Login() {
         </Form>
       </Row>
     </Container>
+    </div>
   );
 }
