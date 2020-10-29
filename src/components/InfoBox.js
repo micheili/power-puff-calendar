@@ -44,7 +44,7 @@ const Infobox = (props) => {
     <Event combinedEvents={combinedEvents[0]} />
   );  
   let eventList = (
-    <EventList myEvents={myEvents} invitedEvents={invitedEvents} />
+    <EventList combinedEvents={combinedEvents} />
   );
   let defaultText = (
     <CardText>
