@@ -25,7 +25,7 @@ export default function EventList(props) {
         {props.myEvents.map((event) => (
           <div key={event.id} className="pb-3">
             <Button
-              className="text-info"
+              className={event.id}
               color="secondary"
               onClick={() => setIsOpen(!isOpen)}
               style={{ marginBottom: "1rem" }}

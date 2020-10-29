@@ -23,8 +23,8 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
 
  
   return (
-    <Container
-      fluid
+    <Container fluid={true}
+      
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
       
