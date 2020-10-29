@@ -5,6 +5,9 @@ import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
+import { getMonthDay, getDayOfMonth } from "../calendar/utils/MomentUtils";
+import moment from "moment";
+
 import {
   CardHeader,
   Card,
@@ -16,29 +19,32 @@ import {
 } from "reactstrap";
 
 const Infobox = (props) => {
-
   const [context, updateContext] = useContext(Context);
 
-  let { myEvents, acceptedEvents } = props;
-  let combined = { ...myEvents, ...acceptedEvents };
-  let eventDetails;
-
-  if (combined.length === 1) {
-    eventDetails = (
-      <Event oneEvent={combined[0]} />
-    );
-  }
-
-  let date = "22/10";
-  let year = "2020";
+  let { myEvents, invitedEvents, selectDate } = props;
+  let date = moment(selectDate).format("DD/MM");
+  let year = moment(selectDate).format("YYYY");
 
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
   };
 
-   
+  let events = [...context.myEvents, ...context.invitedEvents];
+  events = events.map((x) => ({
+    ...x,
+    start: new Date(x.start),
+    stop: new Date(x.stop),
+  }));
+
+  //if(events.start === new Date(selectDate)){}
+
+  let combinedEvents = [...myEvents, ...invitedEvents];
+
+  let eventDetails = (
+    <Event combinedEvents={combinedEvents[0]} />
+  );  
   let eventList = (
-    <EventList myEvents={myEvents} acceptedEvents={acceptedEvents} />
+    <EventList myEvents={myEvents} invitedEvents={invitedEvents} />
   );
   let defaultText = (
     <CardText>
@@ -91,7 +97,7 @@ const Infobox = (props) => {
               <NewEvent showNewEvent />
             ) : myEvents.length === 0 ? (
               defaultText
-            ) : myEvents.length === 1 ? (
+            ) : combinedEvents.length === 1 ? (
               eventDetails
             ) : (
               eventList

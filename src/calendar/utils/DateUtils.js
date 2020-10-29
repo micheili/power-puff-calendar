@@ -64,6 +64,7 @@ export const getWeekSet = (selectDate) => {
    let prev = new Date(thisMonday.getTime() - dayInMs * 7);
    // prev -> next Monday at midnight
    let next = new Date(thisMonday.getTime() + dayInMs * 7);
+   
    return { current: thisMonday, prev, next };
   
 };
@@ -111,14 +112,14 @@ export const getWeekSet = (selectDate) => {
         })
       }
     }
-
+    
     //result is an array of date objects
     return result;
   }
 
  export const getMonthSet = (selectDate) => {
     const month = getMonth(selectDate) + 1;
-    
+  
     const result = {
       current: selectDate,
       prev: getSpecificDate(month - 1, 1, getYear(selectDate)),

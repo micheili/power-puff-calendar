@@ -24,11 +24,13 @@ import { Context } from "../App";
 
 export default function Event(props) {
  
-  let { id, userId, title, description, start, stop } = props;
+  let { id, userId, title, description, start, stop } = props.combinedEvents;
 
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
+
+  console.log('I EVENT ', props);
 
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite
