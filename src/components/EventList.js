@@ -37,7 +37,7 @@ export default function EventList(props) {
         {props.myEvents.map((event) => (
           <div key={event.id} className="pb-3">
             <Button
-              className={event.id}
+              className="text-info"
               color="secondary"
               onClick={toggle}
               style={{ marginBottom: "1rem" }}
