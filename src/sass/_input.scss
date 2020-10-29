@@ -1,7 +1,30 @@
+
+$info: #d27f78;
+$lighterpink: #fbc5b8;
+
 .password-toggle-icon{    
     cursor: pointer;
 }
 
 .password-toggle-icon-register{
     cursor: pointer;
+}
+
+
+.input-group-text {
+    background-color: $lighterpink !important;
+    color: $info !important;  
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;	
+	border: 1px solid $lighterpink;	 
+}
+
+.input-group:hover .input-group-append .input-group-text{
+    color: $lighterpink !important;
+    background-color: $info !important;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;	
+	border: 1px solid $info;	
 }
