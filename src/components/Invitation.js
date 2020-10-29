@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import useVisibilityToggler from "../hooks/useVisibilityToggler";
+import React, { useContext } from "react";
 import MyInvite from "./MyInvite";
 import NavInvites from "./NavInvites";
 import { Context } from "../App";
@@ -10,8 +9,7 @@ import {
   Col,
   Card,
   CardBody,
-  Button,
-  CardTitle,
+ 
 } from "reactstrap";
 
 export default function Invitation(prop) {
@@ -19,7 +17,7 @@ export default function Invitation(prop) {
 
   const [context] = useContext(Context);
 
-  const userId = context.user.id;
+ 
   const allInvites = context.allInvites;
 
   
@@ -36,8 +34,7 @@ export default function Invitation(prop) {
             : ""}
         </h3>      
         
-          <Card className="mb-4">
-            
+          <Card className="mb-4">            
               <CardBody>
                 {/* <CardTitle className="font-weight-bold d-flex">
                   {allInvites.map((invite) => (

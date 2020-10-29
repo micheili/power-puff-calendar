@@ -27,15 +27,15 @@ export default function MyDeclinedInvite(props) {
   return (
     <div className="mt-4">
       <Button
-        className="text-white"
-        color="danger"
+        className="text-white w-100 text-left"
+        color="info"
         onClick={toggle}
         style={{ marginBottom: "1rem" }}
       >
         {ownerFirstName} {ownerLastName} had sent you an invitation
       </Button>
-      <Collapse isOpen={isOpen}>
-        <Form className="p-3 my-2 rounded bg-docs-transparent-grid">
+      <Collapse isOpen={isOpen} className="invite-card-body">
+        <Form className="mb-2 rounded bg-docs-transparent-grid">
           <h3>{title}</h3>
           <FormGroup>
             <Label for="eventDescription"></Label>
@@ -83,8 +83,6 @@ export default function MyDeclinedInvite(props) {
               </FormGroup>
             </Col>
           </Row>
-
-          <hr></hr>
         </Form>
       </Collapse>
     </div>
