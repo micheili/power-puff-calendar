@@ -11,7 +11,7 @@ export default function CalendarPage() {
   return (
     <Container fluid={true}>
       <Row>
-        <Col sm="12" lg="8">
+        <Col sm="12" lg="8" className="pb-5">
           <CalendarMonth/>
         </Col>
         <Col sm="12" lg="4">

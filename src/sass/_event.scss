@@ -93,6 +93,10 @@
     }    
 }
 
+input[type=date],input[type=time] {
+    overflow: hidden;
+}
+
 
 input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
     background-color: $info !important;  
@@ -123,9 +127,9 @@ $breakpoint-large: 1313px;
 @media (min-width: $breakpoint-large)  {
     input[type=time]::-webkit-calendar-picker-indicator {
         color: white;    
-        background-color: $lighterpink !important;    
+        background-color: $lighterpink !important;          
         padding: 10% !important;
-        margin-right: -19% !important;
+        margin-right: -12% !important;
         -webkit-border-radius: 0px 5px 5px 0px;
         -moz-border-radius: 0px 5px 5px 0px;
         border-radius: 0px 5px 5px 0px;
@@ -135,7 +139,7 @@ $breakpoint-large: 1313px;
         color: white;    
         background-color: $lighterpink !important;    
         padding: 6% !important;
-        margin-right: -15% !important;
+        margin-right: -8% !important;
         -webkit-border-radius: 0px 5px 5px 0px;
         -moz-border-radius: 0px 5px 5px 0px;
         border-radius: 0px 5px 5px 0px;
