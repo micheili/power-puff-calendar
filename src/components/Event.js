@@ -99,8 +99,10 @@ export default function Event(props) {
   return (
     <div className="mb-3 pb-5 sm-6"> 
       <CardBody className="event-card-body">
-      <CardSubtitle tag="h5"><span className="mr-1"><strong>Description:</strong> </span>{description}</CardSubtitle>
-      <CardSubtitle className="mt-3">
+      <CardSubtitle tag="h5"><span className="mr-1"><strong>Description:</strong> </span></CardSubtitle>
+      <CardSubtitle tag="h5" className="mt-1">{description}</CardSubtitle>
+      <span className="mt-5 p-5"></span>
+      <CardSubtitle className="mt-3 ">
        <strong>from</strong> {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
       </CardSubtitle>
       <CardSubtitle>
