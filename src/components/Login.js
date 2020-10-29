@@ -123,10 +123,7 @@ export default function Login() {
       setRedirect(true);
       setFormData({ email: "", password: "" });
 
-      if(context.user){
-        return <Redirect from="/" to="/register" push={true}/>;
-      }
-      
+            
 
       // return data;
     } catch (e) {

@@ -24,7 +24,7 @@ const NewEvent = params => {
 
 
   const userId = context.user.id;
-  const usersData = context.allUsers.filter((u) => u.id != userId);
+  const usersData = context.allUsers.filter((u) => u.id !== userId);
   
   
 
@@ -137,6 +137,8 @@ const NewEvent = params => {
     }
   }
 
+  
+
   return (
     <Form onSubmit={save}>
       <Breadcrumb>
@@ -236,7 +238,8 @@ const NewEvent = params => {
         </Col>
       </Row>
       <FormGroup>
-        <Select options={options} onChange={handleInvites} isMulti />
+      
+        <Select  options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 
       <Button color="danger" onClick={cancel}>
