@@ -137,6 +137,8 @@ const NewEvent = params => {
     }
   }
 
+  
+
   return (
     <Form onSubmit={save}>
       <Breadcrumb>
@@ -236,7 +238,8 @@ const NewEvent = params => {
         </Col>
       </Row>
       <FormGroup>
-        <Select options={options} onChange={handleInvites} isMulti />
+      
+        <Select  options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 
       <Button color="danger" onClick={cancel}>
