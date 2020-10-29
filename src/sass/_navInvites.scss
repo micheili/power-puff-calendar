@@ -1,11 +1,11 @@
 
 .navLinks{
-    color: $info;
+    color: $info !important;
     font-weight: bold;
 }
 
-.navLinks .active{
-    color: blue;
+.navLinks-nav .active{
+    color: rgb(143, 84, 117) !important;
     font-weight: bold;
 }
 

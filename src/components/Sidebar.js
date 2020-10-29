@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavItem, NavLink, Nav, Badge } from "reactstrap";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { NavLink as RRNavLink, Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,13 +24,13 @@ export default function Sidebar({ logout, isOpen}) {
               {context.user ? `Welcome ${context.user.firstName}` : "Calendar"}
             </h3>
             <NavItem>
-              <NavLink tag={Link} to={"/home"}>
+              <NavLink tag={RRNavLink} activeClassName="active" to={"/home"}>
                 <FontAwesomeIcon className="sidebar-icon mr-2" icon={faHome} />
                 <strong>Home</strong>
               </NavLink>
             </NavItem>                   
             <NavItem>
-              <NavLink tag={Link} to={"/invitation"}>
+              <NavLink tag={RRNavLink} activeClassName="active" to={"/invitation"}>
                 <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
                 <strong>Invitation</strong>
                 {context.allInvites.length > 0 ? (
