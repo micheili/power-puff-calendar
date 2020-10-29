@@ -6,11 +6,13 @@ import {
   getMonth,
   getYear,
 } from '../utils/MomentUtils';
-import { getDatesInMonthDisplay, presetDateTracker } from '../utils/DateUtils';
+import { getDatesInMonthDisplay } from '../utils/DateUtils';
 import {Context} from '../../App';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context, updateContext] = useContext(Context);
+
+
 
   let events = [
     ...context.myEvents,...context.invitedEvents

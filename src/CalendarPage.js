@@ -10,17 +10,12 @@ export default function CalendarPage() {
 
   return (
     <Container fluid={true}>
-      <Row>
-        <Col sm="12" lg="8">
+      
+       
           <CalendarMonth/>
-        </Col>
-        <Col sm="12" lg="4">
-          <Infobox
-            myEvents={context.myEvents}
-            invitedEvents={context.invitedEvents}
-          />
-        </Col>
-      </Row>
+     
+      
+      
     </Container>
   );
 }

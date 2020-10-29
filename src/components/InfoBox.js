@@ -5,6 +5,11 @@ import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
+import {
+  getMonthDay,
+  getDayOfMonth
+} from '../calendar/utils/MomentUtils';
+import moment from 'moment';
 
 import {
   CardHeader,
@@ -27,12 +32,12 @@ const Infobox = (props) => {
   //     invitedGuests: "",
   //   },
   // ];
-
+  
   const [context, updateContext] = useContext(Context);
 
-  let { myEvents, invitedEvents } = props;
-  let date = "22/10";
-  let year = "2020";
+  let { myEvents, invitedEvents, selectDate } = props;
+  let date = moment(selectDate).format('DD/MM');
+  let year =  moment(selectDate).format('YYYY');
 
   let eventDetails = null;
   let eventList = null;
@@ -43,6 +48,17 @@ const Infobox = (props) => {
   };
 
   //visa detaljvy om bara ett event finns vald dag
+
+  let events = [
+    ...context.myEvents,...context.invitedEvents
+  ]
+  events =events.map(x => ({
+    ...x, 
+    start: new Date(x.start), 
+    stop: new Date(x.stop),
+  }));
+   
+  if(events.start === new Date(selectDate)){
 
   if (myEvents.length === 1) {
     eventDetails = <Event myEvent={myEvents[0]} />;
@@ -66,6 +82,8 @@ const Infobox = (props) => {
       </CardText>
     );
   }
+}
+
 
   //kanske formattera om date -> 10/7
   let dateText = (
@@ -79,7 +97,7 @@ const Infobox = (props) => {
       <Col>
         <Card>
           <CardHeader className="bg-info">
-            {dateText}
+              {dateText}
             <div className="float-left ml-3" id="yearText">
               {year}
             </div>
