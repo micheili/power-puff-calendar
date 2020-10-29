@@ -40,7 +40,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
         !event.startedPrinting && info.push(
           <div className="events" data-date={date.toString()} key={event.id}>
             
-            {event.title}
+            *{event.title.substr(0,10) + '...'}
         
           </div>
         );

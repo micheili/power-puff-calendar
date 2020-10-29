@@ -48,7 +48,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
           <div className="events ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
             <div className="m-0 " style={{position: 'absolute', top: 0, left: 0, 
               borderLeft:'3px solid #999', height: (event.length + 1) * 100 + 'px'}}></div>
-              {event.title}
+              *{event.title}
         
           </div>
         );

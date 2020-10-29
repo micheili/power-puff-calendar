@@ -32,6 +32,8 @@ const Infobox = (props) => {
     updateContext({ showNewEvent: true });
   };
 
+
+
   let events = [
     ...context.myEvents,...context.invitedEvents
   ]
@@ -42,6 +44,8 @@ const Infobox = (props) => {
   }));
    
   //if(events.start === new Date(selectDate)){}
+
+  
 
   let eventDetails = (
     <Event myEvent={myEvents[0]} invitedEvents={invitedEvents} />
