@@ -21,13 +21,11 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
+import GuestList from "./GuestList";
 
 export default function Event(props) {
  
-  let { id, userId, title, description, start, stop } = props.combinedEvents;
-
-  console.log('I EVENT ', props.combinedEvents);
-  
+  let { id, userId, title, description, start, stop } = props.combinedEvents;  
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
@@ -105,7 +103,7 @@ export default function Event(props) {
       </CardSubtitle>
       <CardSubtitle>
         <strong>to</strong> {stopTime}
-        {startMoment.isSameOrAfter(stopMoment)
+        {startMoment.isBefore(stopMoment)
           ? null
           : " " + stopWeekday + ", " + stopDateNr}
         {startMoment.isSameOrAfter(stopMoment, "month")
@@ -113,8 +111,7 @@ export default function Event(props) {
           : " " + stopMonth + " "}
         {startMoment.isSameOrAfter(stopMoment, "year") ? null : +" " + stopYear}
       </CardSubtitle>
-      <CardText>{/** invitees **/}</CardText>
-      {/* show if userId is mine, I created the event */}
+        {loggedInUser !== userId ? <GuestList id={id} /> : null}
       </CardBody>
       <CardFooter>      
         {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="inviteButton">
@@ -123,7 +120,6 @@ export default function Event(props) {
             Invite people
           </UncontrolledTooltip>
         </ButtonToggle>: null}{" "}
-        {/* edit if userId is mine, I created event */}
         {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="editButton">
           <FontAwesomeIcon icon={faPen} />
           <UncontrolledTooltip placement="bottom" target="editButton">
