@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  CardText,
-  Row,
-  Toast,
-  ToastBody,
-  ToastHeader,
-  Collapse,
+import React from "react";
+import {  
   Button,
   UncontrolledCollapse
 } from "reactstrap";
@@ -14,12 +7,10 @@ import {
 import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
-  let { id, title } = props.combinedEvents;
+  
   console.log("list page", props.combinedEvents);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  //const toggle = () => setIsOpen(!isOpen);
+  
 
   return (
     <>

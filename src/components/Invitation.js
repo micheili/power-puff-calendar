@@ -22,36 +22,22 @@ export default function Invitation(prop) {
   const userId = context.user.id;
   const allInvites = context.allInvites;
 
-  const [InvitationCardComponent, toggleVisibility] = useVisibilityToggler(
-    <CardBody>
-      <hr></hr>
-      {allInvites.length > 0 ? (
-        allInvites.map((invite) => (
-          <MyInvite key={invite.id} {...invite}></MyInvite>
-        ))
-      ) : (
-        <div>You dont have any invites</div>
-      )}
-    </CardBody>,
-    true
-  );
+  
   return (
     <Container className="data">
       <NavInvites />
-      <Row className="justify-content-center mt-4 mb-3">
-        <h3>
+      <Col className="justify-content-center mt-4">
+        <h3 className="invite-header">
           {allInvites.length} New invitation
           {allInvites.length > 1
             ? "s"
             : "" || allInvites.length === 0
             ? "s"
             : ""}
-        </h3>
-      </Row>
-      <Row>
-        <Col>
+        </h3>      
+        
           <Card className="mb-4">
-            {allInvites.length > 0 ? (
+            
               <CardBody>
                 {/* <CardTitle className="font-weight-bold d-flex">
                   {allInvites.map((invite) => (
@@ -59,18 +45,18 @@ export default function Invitation(prop) {
                   ))}
                   has sent you an invitation
                 </CardTitle> */}
-                <Button color="primary" onClick={toggleVisibility}>
-                  {" "}
-                  Read more{" "}
-                </Button>
-                {InvitationCardComponent}
+                               
+                {allInvites.length > 0 ? (
+                  allInvites.map((invite) => (
+                    <MyInvite key={invite.id} {...invite}></MyInvite>
+                  ))
+                ) : (
+                  <h5 className="text-center">You dont have any invites</h5>
+                )}
               </CardBody>
-            ) : (
-              <div></div>
-            )}
+              
           </Card>
-        </Col>
-      </Row>
+        </Col>      
     </Container>
   );
 }

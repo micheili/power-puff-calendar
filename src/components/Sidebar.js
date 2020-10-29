@@ -26,13 +26,13 @@ export default function Sidebar({ logout, isOpen}) {
             <NavItem>
               <NavLink tag={Link} to={"/home"}>
                 <FontAwesomeIcon className="sidebar-icon mr-2" icon={faHome} />
-                Home
+                <strong>Home</strong>
               </NavLink>
             </NavItem>                   
             <NavItem>
               <NavLink tag={Link} to={"/invitation"}>
                 <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
-                Invitation
+                <strong>Invitation</strong>
                 {context.allInvites.length > 0 ? (
                   <Badge className="ml-2" color="danger">{context.allInvites.length}</Badge>
                 ) : (
@@ -45,7 +45,7 @@ export default function Sidebar({ logout, isOpen}) {
             to="/"
             onClick={logout}>    
             <FontAwesomeIcon className="sidebar-icon mr-2" icon={faSignOutAlt}/>            
-                LogOut               
+                <strong>LogOut</strong>               
               </NavLink>
             </NavItem>           
           </Nav>
