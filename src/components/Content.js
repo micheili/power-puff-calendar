@@ -23,8 +23,8 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
 
  
   return (
-    <Container
-      fluid
+    <Container fluid={true}
+      
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
       
@@ -55,10 +55,10 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         <Route exact path="/register" component={Register} />
         <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
         <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />
-        <ProtectedRoute exact path="/calendarpage" component={CalendarMonth} />
+       
         <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
         <ProtectedRoute exact path="/invitation"  component={Invitation} />
-        <ProtectedRoute exact path="/home"  component={CalendarPage}/>        
+        <ProtectedRoute exact path="/home"  component={CalendarMonth}/>        
         <ProtectedRoute exact path="/invitations_declined" component={Invitations_declined}/>        
       </Switch>
     </Container>

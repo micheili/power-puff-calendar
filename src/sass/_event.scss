@@ -39,6 +39,61 @@
         
 }
 
+
+
+.css-yk16xz-control{
+    border: 3px solid $lighterpink !important;	
+    color: $lighterpink !important;
+    -webkit-border-radius: 10px !important;
+	-moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+    &:focus, &:hover{
+        border-color: $info !important;
+        color:$info !important;
+    }
+}
+
+.css-1rhbuit-multiValue{
+    background-color: $lighterpink !important;
+}
+
+
+
+.css-1hb7zxy-IndicatorsContainer:hover .css-tlfecz-indicatorContainer .css-6q0nyr-Svg{
+    background-color:$info !important;
+    color:$lighterpink !important; 
+}
+
+.css-tlfecz-indicatorContainer:hover .css-6q0nyr-Svg {
+    background-color:$info !important;
+    color:$lighterpink !important; 
+}
+
+.css-1hb7zxy-IndicatorsContainer{
+    background-color: $lighterpink !important;
+    &:focus, &:hover{        
+        background-color:$info !important;
+        color:$lighterpink !important;
+    }    
+}
+
+.css-tlfecz-indicatorContainer {
+    background-color: $lighterpink !important;    
+    &:focus, &:hover{
+        border-color: $info !important;
+        background-color:$info !important;
+        color:$lighterpink !important;
+    }  
+}
+
+.css-6q0nyr-Svg{
+    color: $info !important;
+    &:focus, &:hover{        
+        color:$lighterpink !important;
+    }    
+}
+
+
 input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
     background-color: $info !important;  
 }
