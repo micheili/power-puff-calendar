@@ -39,7 +39,7 @@ export const getDaySet = (selectDate) => {
 export const getDatesInWeekDisplay = (selectDate) =>{
 
   const days = [];
-  const weekStart = moment(selectDate).startOf('week');
+  const weekStart = moment(selectDate).startOf('isoWeek');
   for (let i = 0; i <= 6; i++) {
     days.push({
       date:moment(weekStart).add(i, 'days').toDate(),
@@ -81,7 +81,7 @@ export const getWeekSet = (selectDate) => {
       prev.year
     );
     // Add prev overflow dates... 
-    for (let j = firstWeekday - 1; j >= 0; j--) {
+    for (let j = firstWeekday -2; j >= 0; j--) {
       result.push({
         date: moment(
           `${prev.month}-${prevDaysInMonth - j}-${prev.year}`, 
@@ -146,7 +146,7 @@ export const getWeekSet = (selectDate) => {
     return moment(
       `${month}-${year}`, 
       'MM-YYYY'
-    ).startOf('month').weekday()
+    ).startOf('month').isoWeekday();
   }
 
     const getPrevMonthYear = (month, year) => {

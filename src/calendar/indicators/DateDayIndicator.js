@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {
-  getMonthDayYear,
+  getMonthDayYearHour,
   getHourOfDay
 } from '../utils/MomentUtils';
 import { getHoursInDayDisplay } from '../utils/DateUtils';
@@ -45,8 +45,8 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
       if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-            <div style={{position: 'absolute', top: 0, left: 0, 
+          <div className="events ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+            <div className="m-0 " style={{position: 'absolute', top: 0, left: 0, 
               borderLeft:'3px solid #999', height: (event.length + 1) * 100 + 'px'}}></div>
               {event.title}
         
@@ -75,13 +75,13 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
   const dayHours = hoursInDay.map((item, key) => {
     const selected =
-    getMonthDayYear(selectDate) === getMonthDayYear(item.date) ? 'selected' : '';
+    getMonthDayYearHour(selectDate) === getMonthDayYearHour(item.date) ? 'selected' : '';
       const active =
-    activeDates && activeDates[getMonthDayYear(item.date)] ? 'active' : '';
+    activeDates && activeDates[getMonthDayYearHour(item.date)] ? 'active' : '';
 
     return (
       <div
-        className={"date-day-icon"}
+        className={`date-day-icon ${selected} ${active}`}
         data-date={item.date.toString()}
         key={key}
         onClick={changeDate}

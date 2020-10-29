@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CalendarHeader from './CalendarHeader';
 import WeekdayIndicator from './indicators/WeekdayIndicator';
 import DateIndicator from './indicators/DateIndicator';
 import MonthIndicator from './indicators/MonthIndicator';
@@ -20,8 +19,11 @@ export default function CalendarMonth() {
 
     <div className="container">
       <GoToCalendarButtons />
-      <CalendarHeader selectDate={selectDate}/>
-     
+      <MonthIndicator 
+        selectDate={selectDate} 
+        setSelectDate={setSelectDate}
+      />
+    
       <div className="calendar-container">
       <WeekdayIndicator />
      
@@ -30,10 +32,7 @@ export default function CalendarMonth() {
         setSelectDate={setSelectDate}
       />
      </div>
-     <MonthIndicator 
-        selectDate={selectDate} 
-        setSelectDate={setSelectDate}
-      />
+     
     </div>
 
 

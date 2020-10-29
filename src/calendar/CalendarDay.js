@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import CalendarHeader from './CalendarHeader';
 import GoToCalendarButtons from './GoToCalendarButtons';
 import DateDayIndicator from './indicators/DateDayIndicator';
 import DayIndicator from './indicators/DayIndicator';
 import {
   getReadableWeekday,
+  getReadableMonthDate,
+  getYear,
 } from './utils/MomentUtils';
 import '../sass/_calendar.scss';
 
@@ -17,8 +18,10 @@ export default function CalendarDay() {
   return (
     <div className="container">
       <GoToCalendarButtons />
-      <CalendarHeader selectDate={selectDate} />
-
+      <DayIndicator 
+        selectDate={selectDate}
+        setSelectDate={setSelectDate}
+      />
       <div className="calendar-container">
         <div className="weekday-indicator">
         {getReadableWeekday(selectDate)}
@@ -29,10 +32,7 @@ export default function CalendarDay() {
         setSelectDate={setSelectDate}
       />
       </div>
-      <DayIndicator 
-        selectDate={selectDate}
-        setSelectDate={setSelectDate}
-      />
+     
      
     </div>
   );

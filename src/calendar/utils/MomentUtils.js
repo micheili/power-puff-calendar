@@ -45,6 +45,8 @@ export const getReadableMonth = (date) => moment(date).format('MMM');
 
 export const getMonthDayYear = (date) => moment(date).format('MM-DD-YYYY');
 
+export const getMonthDayYearHour = (date) => moment(date).format('MM-DD-YYYY HH');
+
 export const getMonthDay = (date) => moment(date).format('MM-DD');
 
 //export const getReadableMonth = (date) => moment(date).format('DD');

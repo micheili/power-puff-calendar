@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import moment from "moment-timezone";
-
-import CalendarHeader from './CalendarHeader';
+import moment from "moment";
 import WeekdayIndicator from './indicators/WeekdayIndicator';
 import DateWeekIndicator from './indicators/DateWeekIndicator';
 import GoToCalendarButtons from './GoToCalendarButtons';
@@ -16,7 +14,10 @@ export default function CalendarWeek() {
   return (
     <div className="container">
       <GoToCalendarButtons />
-      <CalendarHeader selectDate={selectDate} />
+      <WeekIndicator
+        selectDate={selectDate}
+        setSelectDate={setSelectDate}
+      />
 
       <div className="calendar-container">
         <WeekdayIndicator />
@@ -26,10 +27,7 @@ export default function CalendarWeek() {
           setSelectDate={setSelectDate}
         />
       </div>
-      <WeekIndicator
-        selectDate={selectDate}
-        setSelectDate={setSelectDate}
-      />
+    
     </div>
   );
 }

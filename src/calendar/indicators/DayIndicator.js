@@ -11,14 +11,16 @@ export default function DayIndicator({ selectDate, setSelectDate }){
       const daySet = getDaySet(selectDate);
 
       return (
-        <div className="month-indicator">
-          <h4 data-date={daySet.prev} onClick={changeDay}>
-          {[getDay(daySet.prev)]}
-          </h4>
-          <h3>  {[getDay(daySet.current)]}</h3>
-          <h4 data-date={daySet.next} onClick={changeDay}>
-          {[getDay(daySet.next)]}
-          </h4>
+        <div className="month-indicator container">
+           <div className="row  ">
+          <h5 className="col prev p-0 m-0 text-right align-self-center " data-date={daySet.prev} onClick={changeDay}>
+          {String.fromCharCode(171)} {[getDay(daySet.prev)]}
+          </h5>
+          <h1 className="col text-center font-weight-bold">  {[getDay(daySet.current)]}</h1>
+          <h5 className="col next p-0 m-0 text-left align-self-center" data-date={daySet.next} onClick={changeDay}>
+          {[getDay(daySet.next)]} {String.fromCharCode(187)}
+          </h5>
+          </div>
         </div>
       );
 }
