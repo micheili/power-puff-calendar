@@ -1,4 +1,5 @@
 const DbHandler = require("./DbHandler");
+const { allowed } = require('./ACL');
 
 module.exports = class RestApi {
   constructor(app, dbPath, routePrefix = "/api") {
@@ -18,6 +19,7 @@ module.exports = class RestApi {
       // we will write methods that setup
       // put, post and delete routes too later!
     }
+    this.setupRoute();
   }
 
   getAllTables() {
@@ -46,6 +48,7 @@ module.exports = class RestApi {
     let rp = this.routePrefix;
     // get all posts
     this.app.get(rp + "/" + table, (req, res) => {
+      if (!allowed(table, req, res)) { return; }
       res.json(
         this.db
           .select("SELECT * FROM " + table)
@@ -75,116 +78,9 @@ module.exports = class RestApi {
 
     //get events created by (logged-in) userId
 
-    this.app.get(rp + "/myEvents/:userId", (req, res) => {
-      let result = this.db.select(
-        /*sql*/ `
-      SELECT * FROM Event 
-      WHERE userId = $userId
-      `,
-        req.params
-      );
-      if (result.length > 0) {
-        res.json(result);
-      } else {
-        res.status(404);
-        res.json({ error: 404 });
-      }
-    });
+   
 
-    //get events which i am invited for and have accepted
-    this.app.get(rp + "/invitedEvents/:userId", (req, res) => {
-      let result = this.db.select(
-        /*sql*/ `
-      SELECT e.*,u.firstName as ownerFirstName,u.lastName as ownerLastName, i.id as inviteId 
-      FROM User u INNER JOIN Event e ON u.id= e.userId
-      INNER JOIN Invite i ON e.id = i.eventId 
-      WHERE i.invitedUser = $userId AND accepted IS ${req.query.accepted}
-      `,
-        req.params
-      );
-      if (result.length > 0) {
-        res.json(result);
-      } else {
-        res.status(404);
-        res.json({ error: 404 });
-      }
-    });
-
-     //get guests who have either accepted, declined or null
-     this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
-      let result = this.db
-        .select(
-          /*sql*/ `
-      SELECT u.* FROM User u
-      INNER JOIN Invite i ON u.id = i.invitedUser
-      WHERE i.eventId = $eventId AND accepted IS ${req.query.accepted}
-      `,
-          req.params
-        )
-        .map((x) => ({ ...x, password: undefined }));
-      if (result.length > 0) {
-        res.json(result);
-      } else {
-        res.status(404);
-        res.json({ error: 404 });
-      }
-    });
-  
-    // //get events which i am invited to and have declined
-    // this.app.get(rp + "/declinedEvents/:userId", (req, res) => {
-    //   let result = this.db.select(
-    //     /*sql*/ `
-    //   SELECT e.*, i.id as inviteId FROM Event e
-    //   INNER JOIN Invite i ON e.id = i.eventId
-    //   WHERE i.invitedUser = $userId AND accepted = false
-    //   `,
-    //     req.params
-    //   );
-    //   if (result.length > 0) {
-    //     res.json(result);
-    //   } else {
-    //     res.status(404);
-    //     res.json({ error: 404 });
-    //   }
-    // });
-
-    // //get invitation to an event
-    // this.app.get(rp + "/pendingEvents/:userId", (req, res) => {
-    //   let result = this.db.select(
-    //     /*sql*/ `
-    //   SELECT e.* , i.id as inviteId FROM Event e
-    //   INNER JOIN Invite i ON e.id = i.eventId
-    //   WHERE i.invitedUser = $userId AND accepted IS NULL
-    //   `,
-    //     req.params
-    //   );
-    //   if (result.length > 0) {
-    //     res.json(result);
-    //   } else {
-    //     res.status(404);
-    //     res.json({ error: 404 });
-    //   }
-    // });
-
-    //get all invited users by event id
-    this.app.get(rp + "/invitedUsers/:eventId", (req, res) => {
-      let result = this.db
-        .select(
-          /*sql*/ `
-      SELECT u.* FROM User u
-      INNER JOIN Invite i ON u.id = i.invitedUser
-      WHERE i.eventId = $eventId
-      `,
-          req.params
-        )
-        .map((x) => ({ ...x, password: undefined }));
-      if (result.length > 0) {
-        res.json(result);
-      } else {
-        res.status(404);
-        res.json({ error: 404 });
-      }
-    });
+    
 
  
   }
@@ -193,6 +89,7 @@ module.exports = class RestApi {
     // create a post
 
     this.app.post(this.routePrefix + "/" + table, (req, res) => {
+      if (!allowed(table, req, res)) { return; }
       // if the Table name is  "Event", then check for the start and stop time,
       // check if the time duration is min 15 minutes (900 sec) and max 7 days (604800 sec)
       // otherwise forbidden to post
@@ -233,6 +130,7 @@ module.exports = class RestApi {
   setupPutRoute(table) {
     // update a post
     this.app.put(this.routePrefix + "/" + table + "/:id", (req, res) => {
+      if (!allowed(table, req, res)) { return; }
       res.json(
         this.db.run(
           /*sql*/ `
@@ -249,6 +147,7 @@ module.exports = class RestApi {
   setupDeleteRoute(table) {
     // delete a post
     this.app.delete(this.routePrefix + "/" + table + "/:id", (req, res) => {
+      if (!allowed(table, req, res)) { return; }
       res.json(
         this.db.run(
           /*sql*/ `
@@ -271,6 +170,69 @@ module.exports = class RestApi {
       }
     );
   }
+
+  setupRoute(){
+    //get events which i am invited for and have accepted
+    this.app.get(this.routePrefix + "/invitedEvents/:userId", (req, res) => {
+      let result = this.db.select(
+        /*sql*/ `
+      SELECT e.*,u.firstName as ownerFirstName,u.lastName as ownerLastName, i.id as inviteId 
+      FROM User u INNER JOIN Event e ON u.id= e.userId
+      INNER JOIN Invite i ON e.id = i.eventId 
+      WHERE i.invitedUser = $userId AND accepted IS ${req.query.accepted}
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
+     //get guests who have either accepted, declined or null
+     this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId AND accepted IS ${req.query.accepted}
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
+    //get all invited users by event id
+    this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+  }
+
+  
 
 };
 
