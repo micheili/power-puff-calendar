@@ -5,7 +5,9 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  UncontrolledTooltip, CardFooter, CardBody
+  UncontrolledTooltip,
+  CardFooter,
+  CardBody,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -24,8 +26,7 @@ import { Context } from "../App";
 import GuestList from "./GuestList";
 
 export default function Event(props) {
- 
-  let { id, userId, title, description, start, stop } = props.combinedEvents;  
+  let { id, userId, title, description, start, stop } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
@@ -33,7 +34,7 @@ export default function Event(props) {
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite
   }
-  
+
   let startMoment = moment(start);
   let stopMoment = moment(stop);
 
@@ -55,14 +56,12 @@ export default function Event(props) {
         method: "DELETE",
       })
     ).json();
-    console.log("delete from Invite: ", deleteInvitations);
 
     const deleteEvent = await (
       await fetch("/api/Event/" + id, {
         method: "DELETE",
       })
     ).json();
-    console.log("delete from Event: ", deleteEvent);
 
     //if you're not creator of event
     //and you delete the event you're invited for
@@ -90,49 +89,61 @@ export default function Event(props) {
     updateContext({
       myEvents: events,
       invitedEvents: invitedEvents,
-      declinedInvitations: declinedInvitations
+      declinedInvitations: declinedInvitations,
     });
   }
 
   return (
-    <div className="mb-3 pb-5 sm-6"> 
+    <div className="mb-3 pb-5 sm-6">
       <CardBody className="event-card-body">
-      <CardSubtitle tag="h5"><span className="mr-1"><strong>Description:</strong> </span></CardSubtitle>
-      <CardSubtitle tag="h5" className="mt-1">{description}</CardSubtitle>
-      <span className="mt-5 p-5"></span>
-      <CardSubtitle className="mt-3 ">
-       <strong>from</strong> {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
-      </CardSubtitle>
-      <CardSubtitle>
-        <strong>to</strong> {stopTime}
-        {startMoment.isBefore(stopMoment)
-          ? null
-          : " " + stopWeekday + ", " + stopDateNr}
-        {startMoment.isSameOrAfter(stopMoment, "month")
-          ? null
-          : " " + stopMonth + " "}
-        {startMoment.isSameOrAfter(stopMoment, "year") ? null : +" " + stopYear}
-      </CardSubtitle>
+        <CardSubtitle tag="h5">
+          <span className="mr-1">
+            <strong>Description:</strong>{" "}
+          </span>
+        </CardSubtitle>
+        <CardSubtitle tag="h5" className="mt-1">
+          {description}
+        </CardSubtitle>
+        <span className="mt-5 p-5"></span>
+        <CardSubtitle className="mt-3 ">
+          <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
+          {startMonth} {startYear}
+        </CardSubtitle>
+        <CardSubtitle>
+          <strong>to</strong> {stopTime}
+          {startMoment.isBefore(stopMoment)
+            ? null
+            : " " + stopWeekday + ", " + stopDateNr}
+          {startMoment.isSameOrAfter(stopMoment, "month")
+            ? null
+            : " " + stopMonth + " "}
+          {startMoment.isSameOrAfter(stopMoment, "year")
+            ? null
+            : +" " + stopYear}
+        </CardSubtitle>
         {loggedInUser !== userId ? <GuestList id={id} /> : null}
       </CardBody>
-      <CardFooter>      
-        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="inviteButton">
-          <FontAwesomeIcon icon={faUserPlus} />
-          <UncontrolledTooltip placement="bottom" target="inviteButton">
-            Invite people
-          </UncontrolledTooltip>
-        </ButtonToggle>: null}{" "}
-        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="editButton">
-          <FontAwesomeIcon icon={faPen} />
-          <UncontrolledTooltip placement="bottom" target="editButton">
-            Edit
-          </UncontrolledTooltip>
-        </ButtonToggle>
-          : null}{" "}
+      <CardFooter>
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="inviteButton">
+            <FontAwesomeIcon icon={faUserPlus} />
+            <UncontrolledTooltip placement="bottom" target="inviteButton">
+              Invite people
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="editButton">
+            <FontAwesomeIcon icon={faPen} />
+            <UncontrolledTooltip placement="bottom" target="editButton">
+              Edit
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
           onClick={deleteEvent}
-          outline          
+          outline
           color="lightpink"
           id="deleteButton"
         >
@@ -141,7 +152,6 @@ export default function Event(props) {
             Delete event
           </UncontrolledTooltip>
         </Button>{" "}
-        
       </CardFooter>
     </div>
   );

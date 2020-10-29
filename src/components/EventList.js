@@ -15,7 +15,6 @@ import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
   let { id, title } = props.combinedEvents;
-  console.log("list page", props.combinedEvents);
 
   const [isOpen, setIsOpen] = useState(false);
 
