@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavItem, NavLink, Nav, Badge, Collapse, Navbar, NavbarToggler, NavbarBrand } from "reactstrap";
+import { NavItem, NavLink, Nav, Badge } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -12,9 +12,9 @@ import {
 
 import { Context } from "../App";
 
-export default function Sidebar({ isOpen, toggle, logout }) {
+export default function Sidebar({ logout, isOpen}) {
   const [context] = useContext(Context);
-  console.log("sidebar: ", context.user);
+  
 
   return (    
       <div className={classNames("sidebar", { "is-open": isOpen })}>
@@ -34,21 +34,20 @@ export default function Sidebar({ isOpen, toggle, logout }) {
                 <FontAwesomeIcon className="sidebar-icon mr-2" icon={faInbox} />
                 Invitation
                 {context.allInvites.length > 0 ? (
-                  <Badge color="danger">{context.allInvites.length}</Badge>
+                  <Badge className="ml-2" color="danger">{context.allInvites.length}</Badge>
                 ) : (
                   <></>
                 )}
               </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink            
-                tag={Link}
-                to="/"                    
-                onClick={logout}>                
-                  <FontAwesomeIcon className="sidebar-icon mr-2" icon={faSignOutAlt} />                  Logout
-                
-                </NavLink>
-            </NavItem>
+              <NavLink tag={Link}
+            to="/"
+            onClick={logout}>    
+            <FontAwesomeIcon className="sidebar-icon mr-2" icon={faSignOutAlt}/>            
+                LogOut               
+              </NavLink>
+            </NavItem>           
           </Nav>
         </div>      
       </div>    

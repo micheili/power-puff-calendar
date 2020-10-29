@@ -23,17 +23,19 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
 
  
   return (
-    <Container fluid={true}
-      
+    <Container fluid={true}      
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
       
-        
+      
         <Row className="justify-content-between mb-3">
+          {context.user ? (
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-
+        ) : (
+          <></>
+        )}
         </Row>
              
       

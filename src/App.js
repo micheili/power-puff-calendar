@@ -99,7 +99,7 @@ export default function App() {
       <Router>
       {contextVal.user ? <div className="App wrapper">  
       <TopBar logout={logout}/>        
-      <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+      <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />
            <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}

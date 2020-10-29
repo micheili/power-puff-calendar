@@ -27,7 +27,7 @@ export default function EventList(props) {
           <div key={event.id} className="pb-3">
             <Button              
               color="secondary"
-              className="w-100"
+              className="w-100 eventList-Button"
               onClick={() => setIsOpen(!isOpen)}
               style={{ marginBottom: "1rem" }}
             >

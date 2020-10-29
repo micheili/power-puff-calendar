@@ -5,7 +5,7 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  UncontrolledTooltip,
+  UncontrolledTooltip, CardFooter, CardBody
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -97,14 +97,14 @@ export default function Event(props) {
   }
 
   return (
-    <div className="mb-3 pb-5 sm-6">
-      <CardTitle tag="h3">{title}</CardTitle>
-      <CardSubtitle tag="h5">{description}</CardSubtitle>
+    <div className="mb-3 pb-5 sm-6"> 
+      <CardBody className="event-card-body">
+      <CardSubtitle tag="h5"><span className="mr-1"><strong>Description:</strong> </span>{description}</CardSubtitle>
       <CardSubtitle className="mt-3">
-        from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
+       <strong>from</strong> {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
       </CardSubtitle>
       <CardSubtitle>
-        to {stopTime}
+        <strong>to</strong> {stopTime}
         {startMoment.isSameOrAfter(stopMoment)
           ? null
           : " " + stopWeekday + ", " + stopDateNr}
@@ -115,7 +115,8 @@ export default function Event(props) {
       </CardSubtitle>
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
-      <div className="float-right">
+      </CardBody>
+      <CardFooter>      
         {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="inviteButton">
           <FontAwesomeIcon icon={faUserPlus} />
           <UncontrolledTooltip placement="bottom" target="inviteButton">
@@ -133,7 +134,7 @@ export default function Event(props) {
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
           onClick={deleteEvent}
-          outline
+          outline          
           color="lightpink"
           id="deleteButton"
         >
@@ -142,7 +143,8 @@ export default function Event(props) {
             Delete event
           </UncontrolledTooltip>
         </Button>{" "}
-      </div>
+        
+      </CardFooter>
     </div>
   );
 }

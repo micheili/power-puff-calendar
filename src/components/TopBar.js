@@ -1,16 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState , useContext } from "react";
 import {  Collapse,
     Navbar,
     NavbarToggler,    
     Nav,
     NavItem,
-    NavLink, Button } from "reactstrap";
+    NavLink, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Context } from "../App";
 export default function TopBar({logout}) {
-
     
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+    const [context] = useContext(Context);
     
 
   return (
@@ -27,7 +28,12 @@ export default function TopBar({logout}) {
         </NavItem>
         <NavItem>
               <NavLink tag={Link} to={"/invitation"}>                
-                Invitation                
+                Invitation                  
+                {context.allInvites.length > 0 ? (
+                  <Badge className="ml-2" color="danger">{context.allInvites.length}</Badge>
+                ) : (
+                  <></>
+                )}              
               </NavLink>
         </NavItem>         
         <NavItem>
