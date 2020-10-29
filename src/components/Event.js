@@ -5,7 +5,7 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -23,16 +23,17 @@ import {
 import { Context } from "../App";
 
 export default function Event(props) {
-  let {id, userId, title, description, start, stop } = props.myEvent;
+ 
+  let { id, userId, title, description, start, stop } = props;
+
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
 
   if (!loggedInUser === userId) {
-    //hide edit and invite from event
-    console.log('hAAAAAAAAAj', loggedInUser, userId);
-  };
-
+    //hide buttons for edit & invite
+  }
+  
   let startMoment = moment(start);
   let stopMoment = moment(stop);
 
@@ -63,6 +64,10 @@ export default function Event(props) {
     ).json();
     console.log("delete from Event: ", deleteEvent);
 
+    //if you're not creator of event
+    //and you delete the event you're invited for
+    //put -> accepted: false
+
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];
@@ -82,18 +87,10 @@ export default function Event(props) {
       declinedInvitations = [];
     }
 
-    let allInvites = await (
-      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=null")
-    ).json();
-    if (allInvites.error) {
-      allInvites = [];
-    }
-
     updateContext({
-      myEvents: events,
+      oneEvent: events,
       invitedEvents: invitedEvents,
-      allInvites: allInvites,
-      declinedInvitations: declinedInvitations,
+      declinedInvitations: declinedInvitations
     });
   }
 

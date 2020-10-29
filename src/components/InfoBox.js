@@ -24,9 +24,20 @@ import {
 const Infobox = (props) => {
   const [context, updateContext] = useContext(Context);
 
-  let { myEvents, invitedEvents, selectDate } = props;
+  let { myEvents, acceptedEvents, selectDate } = props;
   let date = moment(selectDate).format('DD/MM');
   let year =  moment(selectDate).format('YYYY');
+
+  let combined = { ...myEvents, ...acceptedEvents };
+  let eventDetails;
+
+  if (combined.length === 1) {
+    eventDetails = (
+      <Event oneEvent={combined[0]} />
+    );
+  }
+
+ 
 
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
@@ -47,11 +58,8 @@ const Infobox = (props) => {
 
   
 
-  let eventDetails = (
-    <Event myEvent={myEvents[0]} invitedEvents={invitedEvents} />
-  );
   let eventList = (
-    <EventList myEvents={myEvents} invitedEvents={invitedEvents} />
+    <EventList myEvents={myEvents} acceptedEvents={acceptedEvents} />
   );
   let defaultText = (
     <CardText>
