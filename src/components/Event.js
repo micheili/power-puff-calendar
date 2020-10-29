@@ -114,19 +114,20 @@ export default function Event(props) {
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
       <div className="float-right">
-        '<ButtonToggle outline color="lightpink" id="inviteButton">
+        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="inviteButton">
           <FontAwesomeIcon icon={faUserPlus} />
           <UncontrolledTooltip placement="bottom" target="inviteButton">
             Invite people
           </UncontrolledTooltip>
-        </ButtonToggle>{" "}
+        </ButtonToggle>: null}{" "}
         {/* edit if userId is mine, I created event */}
-        <ButtonToggle outline color="lightpink" id="editButton">
+        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="editButton">
           <FontAwesomeIcon icon={faPen} />
           <UncontrolledTooltip placement="bottom" target="editButton">
             Edit
           </UncontrolledTooltip>
-        </ButtonToggle>{" "}
+        </ButtonToggle>
+          : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
           onClick={deleteEvent}
