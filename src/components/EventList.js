@@ -13,7 +13,8 @@ import {
 import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
-  console.log("list page", props.myEvents);
+  let { id, title } = props.combinedEvents;
+  console.log("list page", props.combinedEvents);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +23,7 @@ export default function EventList(props) {
   return (
     <>
       <div className="p-3 rounded">
-        {props.myEvents.map((event) => (
+        {props.combinedEvents.map((event) => (
           <div key={event.id} className="pb-3">
             <Button
               className={event.id}
@@ -33,29 +34,11 @@ export default function EventList(props) {
               {event.title}
             </Button>
             <Collapse isOpen={isOpen}>
-              <Event myEvent={event}></Event>
+              <Event combinedEvents={event}></Event>
             </Collapse>
           </div>
         ))}
       </div>
-      {/* <div className="p-3 my-2 rounded">
-        <div>Invited events</div>
-        {props.invitedEvents.map((event) => (
-          <div key={event.id} className="mb-3 pb-3">
-            <Button
-              className="text-white"
-              color="danger"
-              onClick={() => setIsOpen(!isOpen)}
-              style={{ marginBottom: "1rem" }}
-            >
-              {event.title}
-            </Button>
-            <Collapse isOpen={isOpen}>
-              <Event myEvent={event}></Event>
-            </Collapse>
-          </div>
-        ))}
-      </div> */}
     </>
   );
 }
