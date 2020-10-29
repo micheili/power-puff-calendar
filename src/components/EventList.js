@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Alert, CardText, Row, Collapse, Button } from "reactstrap";
+import {
+  Alert,
+  CardText,
+  Row,
+  Collapse,
+  Button,
+  UncontrolledCollapse,
+  Card,
+  CardBody,
+} from "reactstrap";
 
 import Event from "./Event";
 /*eslint-disable*/
@@ -16,18 +25,21 @@ export default function EventList(props) {
     <>
       <div className="p-3 rounded">
         {props.combinedEvents.map((event) => (
-          <div key={event.id} className="pb-3">
+          <div>
             <Button
-              className="text-info"
               color="secondary"
-              onClick={toggle}
+              id={`my${event.id}`}
               style={{ marginBottom: "1rem" }}
             >
               {event.title}
             </Button>
-            <Collapse isOpen={isOpen}>
-              <Event combinedEvents={event}></Event>
-            </Collapse>
+            <UncontrolledCollapse toggler={`#my${event.id}`}>
+              <Card>
+                <CardBody>
+                  <Event combinedEvents={event}></Event>
+                </CardBody>
+              </Card>
+            </UncontrolledCollapse>
           </div>
         ))}
       </div>

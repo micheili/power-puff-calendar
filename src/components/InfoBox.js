@@ -7,6 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import { getMonthDay, getDayOfMonth } from "../calendar/utils/MomentUtils";
 import moment from "moment";
+import { CardTitle } from "reactstrap";
 
 import {
   CardHeader,
@@ -28,18 +29,22 @@ const Infobox = (props) => {
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
   };
-  
 
   let combinedEvents = [...myEvents, ...invitedEvents];
-  let filterCombinedEvents = combinedEvents.filter((t) => moment(t.start).format("YYYY-MM-DD") === moment(selectDate).format("YYYY-MM-DD"));
+  let filterCombinedEvents = combinedEvents.filter(
+    (t) =>
+      moment(t.start).format("YYYY-MM-DD") ===
+      moment(selectDate).format("YYYY-MM-DD")
+  );
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
-    <Event combinedEvents={combinedEvents[0]} />
-  );  
-  let eventList = (
-    <EventList combinedEvents={combinedEvents} />
+    <>
+      <CardTitle tag="h3">{combinedEvents[0].title}</CardTitle>
+      <Event combinedEvents={combinedEvents[0]} />
+    </>
   );
+  let eventList = <EventList combinedEvents={combinedEvents} />;
   let defaultText = (
     <CardText>
       You have no events this day! <br></br>

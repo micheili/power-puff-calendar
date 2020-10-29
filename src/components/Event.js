@@ -23,11 +23,10 @@ import {
 import { Context } from "../App";
 
 export default function Event(props) {
- 
   let { id, userId, title, description, start, stop } = props.combinedEvents;
 
-  console.log('I EVENT ', props.combinedEvents);
-  
+  console.log("I EVENT ", props.combinedEvents);
+
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
@@ -35,7 +34,7 @@ export default function Event(props) {
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite
   }
-  
+
   let startMoment = moment(start);
   let stopMoment = moment(stop);
 
@@ -52,6 +51,9 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
+    if (!loggedInUser == userId) {
+    }
+
     const deleteInvitations = await (
       await fetch("/api/delete_invitations/" + id, {
         method: "DELETE",
@@ -92,7 +94,7 @@ export default function Event(props) {
     updateContext({
       myEvents: events,
       invitedEvents: invitedEvents,
-      declinedInvitations: declinedInvitations
+      declinedInvitations: declinedInvitations,
     });
   }
 
@@ -116,20 +118,23 @@ export default function Event(props) {
       <CardText>{/** invitees **/}</CardText>
       {/* show if userId is mine, I created the event */}
       <div className="float-right">
-        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="inviteButton">
-          <FontAwesomeIcon icon={faUserPlus} />
-          <UncontrolledTooltip placement="bottom" target="inviteButton">
-            Invite people
-          </UncontrolledTooltip>
-        </ButtonToggle>: null}{" "}
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="inviteButton">
+            <FontAwesomeIcon icon={faUserPlus} />
+            <UncontrolledTooltip placement="bottom" target="inviteButton">
+              Invite people
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
         {/* edit if userId is mine, I created event */}
-        {loggedInUser === userId ? <ButtonToggle outline color="lightpink" id="editButton">
-          <FontAwesomeIcon icon={faPen} />
-          <UncontrolledTooltip placement="bottom" target="editButton">
-            Edit
-          </UncontrolledTooltip>
-        </ButtonToggle>
-          : null}{" "}
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="editButton">
+            <FontAwesomeIcon icon={faPen} />
+            <UncontrolledTooltip placement="bottom" target="editButton">
+              Edit
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
           onClick={deleteEvent}
