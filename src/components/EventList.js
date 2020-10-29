@@ -25,9 +25,9 @@ export default function EventList(props) {
       <div className="p-3 rounded">
         {props.combinedEvents.map((event) => (
           <div key={event.id} className="pb-3">
-            <Button
-              className={event.id}
+            <Button              
               color="secondary"
+              className="w-100"
               onClick={() => setIsOpen(!isOpen)}
               style={{ marginBottom: "1rem" }}
             >
