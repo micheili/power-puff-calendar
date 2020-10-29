@@ -7,8 +7,9 @@ import {
 import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
-  
-  console.log("list page", props.combinedEvents);
+
+  let { id, title } = props.combinedEvents;
+
 
   
 

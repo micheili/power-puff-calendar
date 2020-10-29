@@ -14,7 +14,6 @@ import {
 
 export default function Invitation(prop) {
 
-
   const [context] = useContext(Context);
 
  
