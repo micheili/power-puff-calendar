@@ -55,19 +55,8 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-    //change accepted to false if invited
-    if (!loggedInUser === userId) {
-      let result = await (
-        await fetch("/api/invite/" + inviteId, {
-          method: "PUT",
-          body: JSON.stringify({
-            accepted: 0,
-          }),
-          headers: { "Content-Type": "application/json" },
-        })
-      ).json();
-    } else {
-      //delete if it's your event
+    //delete if it's your event
+    if (loggedInUser === userId) {
       const deleteInvitations = await (
         await fetch("/api/delete_invitations/" + id, {
           method: "DELETE",
@@ -78,7 +67,23 @@ export default function Event(props) {
           method: "DELETE",
         })
       ).json();
+      fetchAndUpdate();
+    } else {
+      declineEvent();
     }
+  }
+  //decline if invited to event
+  async function declineEvent() {
+    let result = await (
+      await fetch("/api/invite/" + inviteId, {
+        method: "PUT",
+        body: JSON.stringify({
+          accepted: 0,
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+    ).json();
+    console.log("FETCH & UPDATE IN DECLINE ");
     fetchAndUpdate();
   }
 
