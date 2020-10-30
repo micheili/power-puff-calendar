@@ -5,7 +5,6 @@ import { Context } from "../App";
 
 import {
   Container,
-  Row,
   Col,
   Card,
   CardBody,
@@ -40,7 +39,6 @@ export default function Invitations_declined() {
       )}
                 
               </CardBody>           
-           
           </Card>
         </Col>      
     </Container>

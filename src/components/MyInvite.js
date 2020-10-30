@@ -154,7 +154,7 @@ export default function MyInvite(props) {
               </ListGroup>
               <ListGroup>
                 <h5>Going</h5>
-                {allGuestsAccept.length > 0 ? (
+               {allGuestsAccept.length > 0 ? (
                   allGuestsAccept.map((guestAccept) => (
                     <p key={guestAccept.id}>
                       {guestAccept.firstName} {guestAccept.lastName},
