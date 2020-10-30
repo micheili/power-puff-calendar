@@ -39,6 +39,19 @@
         
 }
 
+.button-submit{
+    float: right;
+    background-color: $lighterpink;
+    text-decoration: none;
+    border-color: $lighterpink;
+    color: $info !important;
+    &:hover{
+        background-color: $info;
+        border-color: $info;
+        color: white !important;
+    }
+}
+
 
 
 .css-yk16xz-control{
@@ -53,13 +66,31 @@
     }
 }
 
+.css-1pahdxg-control{
+    border: 3px solid $info !important;	    
+    color:$info !important;
+}
+
+.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer{
+    color: $lighterpink !important;
+    background-color:$info !important;
+}
+
+.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer svg{
+    color: $lighterpink !important;
+    background-color:$info !important;
+    &:hover{
+        color: white !important;
+    }
+}
+
+
 .css-1rhbuit-multiValue{
     background-color: $lighterpink !important;
 }
 
 
-
-.css-1hb7zxy-IndicatorsContainer:hover .css-tlfecz-indicatorContainer .css-6q0nyr-Svg{
+.css-2b097c-container:hover .css-tlfecz-indicatorContainer .css-6q0nyr-Svg, .css-2b097c-container:hover .css-tlfecz-indicatorContainer {
     background-color:$info !important;
     color:$lighterpink !important; 
 }
@@ -102,82 +133,34 @@ input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hove
     background-color: $info !important;  
 }
 
+
+
+
+
 input[type=date]::-webkit-inner-spin-button,input[type=time]::-webkit-inner-spin-button {
     color: white;
+    background-color: $lighterpink !important;   
+    float: right !important;
+}
+
+input[type=time]::-webkit-calendar-picker-indicator {
+    color: white;    
+    background-color: $lighterpink !important;          
+    padding: 10px !important;    
+    margin-right: -18px !important;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    -moz-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator  {
+    color: white;    
     background-color: $lighterpink !important;    
-}
-
-.button-submit{
+    padding: 10px !important;
+    margin-right: -18px !important;    
     float: right;
-    background-color: $lighterpink;
-    text-decoration: none;
-    border-color: $lighterpink;
-    color: $info !important;
-    &:hover{
-        background-color: $info;
-        border-color: $info;
-        color: white !important;
-    }
+    -webkit-border-radius: 0px 5px 5px 0px;
+    -moz-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
 }
 
-$breakpoint-small: 991px;
-$breakpoint-medium: 1312px;
-$breakpoint-large: 1313px;
-
-@media (min-width: $breakpoint-large)  {
-    input[type=time]::-webkit-calendar-picker-indicator {
-        color: white;    
-        background-color: $lighterpink !important;          
-        padding: 10% !important;
-        margin-right: -12% !important;
-        -webkit-border-radius: 0px 5px 5px 0px;
-        -moz-border-radius: 0px 5px 5px 0px;
-        border-radius: 0px 5px 5px 0px;
-    }
-
-    input[type=date]::-webkit-calendar-picker-indicator  {
-        color: white;    
-        background-color: $lighterpink !important;    
-        padding: 6% !important;
-        margin-right: -8% !important;
-        -webkit-border-radius: 0px 5px 5px 0px;
-        -moz-border-radius: 0px 5px 5px 0px;
-        border-radius: 0px 5px 5px 0px;
-    }
-}
-
-@media (min-width: $breakpoint-small) and (max-width: $breakpoint-medium)  {
-    input[type=time]::-webkit-calendar-picker-indicator {
-        color: white;    
-        background-color: $lighterpink !important;    
-        padding: 5% !important;
-        margin-right: -10% !important;
-        -webkit-border-radius: 0px 2px 2px 0px;
-        -moz-border-radius: 0px 2px 2px 0px;
-        border-radius: 0px 2px 2px 0px;
-    }
-    
-    input[type=date]::-webkit-calendar-picker-indicator  {
-        color: white;    
-        background-color: $lighterpink !important;    
-        padding: 10% !important;
-        margin-right: -23% !important;
-        -webkit-border-radius: 0px 2px 2px 0px;
-        -moz-border-radius: 0px 2px 2px 0px;
-        border-radius: 0px 2px 2px 0px;
-    }
-}
-
-
-@media (max-width: $breakpoint-small)  {
-    
-    input[type=date]::-webkit-calendar-picker-indicator , input[type=time]::-webkit-calendar-picker-indicator {
-        color: white;    
-        background-color: $lighterpink !important;
-        padding: 1.5% !important;
-        margin-right: -3% !important;
-        -webkit-border-radius: 0px 10px 10px 0px;
-        -moz-border-radius: 0px 10px 10px 0px;
-        border-radius: 0px 10px 10px 0px;
-    }
-}
