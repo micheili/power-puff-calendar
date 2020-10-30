@@ -16,12 +16,13 @@ body {
 .toogleSidebarButton {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
+  border-radius: 50%;  
   position: relative;
-  left: -4%;
+  left: -65px;
   .icon {
     margin-right: -30px;
     font-size: 18px;
+    color: white;
   }
   & {
     background: transparent;
