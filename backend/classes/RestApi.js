@@ -1,5 +1,5 @@
 const DbHandler = require("./DbHandler");
-const { allowed } = require('./ACL');
+const { allowed } = require("./ACL");
 
 module.exports = class RestApi {
   constructor(app, dbPath, routePrefix = "/api") {
@@ -48,7 +48,9 @@ module.exports = class RestApi {
     let rp = this.routePrefix;
     // get all posts
     this.app.get(rp + "/" + table, (req, res) => {
-      if (!allowed(table, req, res)) { return; }
+      if (!allowed(table, req, res)) {
+        return;
+      }
       res.json(
         this.db
           .select("SELECT * FROM " + table)
@@ -57,6 +59,9 @@ module.exports = class RestApi {
     });
     // get a post by id
     this.app.get(rp + "/" + table + "/:id", (req, res) => {
+      if (!allowed(table, req, res)) {
+        return;
+      }
       let result = this.db
         .select(
           "SELECT * FROM " + table + " WHERE id = $id",
@@ -76,13 +81,16 @@ module.exports = class RestApi {
       }
     });
 
+    //get events created by (logged-in) userId
   }
 
   setupPostRoute(table) {
     // create a post
 
     this.app.post(this.routePrefix + "/" + table, (req, res) => {
-      if (!allowed(table, req, res)) { return; }
+      if (!allowed(table, req, res)) {
+        return;
+      }
       // if the Table name is  "Event", then check for the start and stop time,
       // check if the time duration is min 15 minutes (900 sec) and max 7 days (604800 sec)
       // otherwise forbidden to post
@@ -123,7 +131,9 @@ module.exports = class RestApi {
   setupPutRoute(table) {
     // update a post
     this.app.put(this.routePrefix + "/" + table + "/:id", (req, res) => {
-      if (!allowed(table, req, res)) { return; }
+      if (!allowed(table, req, res)) {
+        return;
+      }
       res.json(
         this.db.run(
           /*sql*/ `
@@ -140,7 +150,9 @@ module.exports = class RestApi {
   setupDeleteRoute(table) {
     // delete a post
     this.app.delete(this.routePrefix + "/" + table + "/:id", (req, res) => {
-      if (!allowed(table, req, res)) { return; }
+      if (!allowed(table, req, res)) {
+        return;
+      }
       res.json(
         this.db.run(
           /*sql*/ `
@@ -155,16 +167,19 @@ module.exports = class RestApi {
       this.routePrefix + "/delete_invitations/:eventId",
       (req, res) => {
         res.json(
-          this.db.run(/*sql*/ `
+          this.db.run(
+            /*sql*/ `
             DELETE FROM Invite
             WHERE eventId = $eventId
-        `,req.params)
+        `,
+            req.params
+          )
         );
       }
     );
   }
 
-  setupRoute(){
+  setupRoute() {
     //get events which i am invited for and have accepted
     this.app.get(this.routePrefix + "/invitedEvents/:userId", (req, res) => {
       let result = this.db.select(
@@ -184,8 +199,8 @@ module.exports = class RestApi {
       }
     });
 
-     //get guests who have either accepted, declined or null
-     this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
+    //get guests who have either accepted, declined or null
+    this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
       let result = this.db
         .select(
           /*sql*/ `
@@ -225,4 +240,3 @@ module.exports = class RestApi {
     });
   }
 };
-
