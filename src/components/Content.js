@@ -43,7 +43,7 @@ console.log("user fetch", window.userFetch);
       
       <Switch>
         <Route exact path="/" component={Login}>{context.user ? <Redirect to="/home" /> : <Login />}</Route>
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/register" component={Register}> {context.user ? <Redirect to="/home" /> : <Register />}</Route>
         <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
         <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />       
         <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
