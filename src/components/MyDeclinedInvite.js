@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import {
   Col,
   Row,
@@ -8,10 +8,14 @@ import {
   Input,
   Button,
   Collapse,
+  ListGroup
 } from "reactstrap";
+
+import { Context } from "../App";
 
 export default function MyDeclinedInvite(props) {
   let {
+    id,
     title,
     description,
     start,
@@ -21,8 +25,35 @@ export default function MyDeclinedInvite(props) {
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [context, updateContext] = useContext(Context);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  async function fetchInvitedUsersAccepted() {
+    setInvitedUsersAccept(
+      await (await fetch("api/invitedUsers/" + id + "?accepted=1")).json()
+    );
+  }
+
+
+  useEffect(() => {
+    fetchInvitedUsersAccepted();
+  }, []);
+
+  async function fetchEvents() {
+    let invitedEvents = await (
+      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
+    ).json();
+    if (invitedEvents.error) {
+      invitedEvents = [];
+    }
+
+
+    updateContext({
+      invitedEvents: invitedEvents
+    });
+  }
 
   return (
     <div className="mt-4">
@@ -32,7 +63,7 @@ export default function MyDeclinedInvite(props) {
         onClick={toggle}
         style={{ marginBottom: "1rem" }}
       >
-        {ownerFirstName} {ownerLastName} had sent you an invitation
+        {ownerFirstName} {ownerLastName} sent you an invitation
       </Button>
       <Collapse isOpen={isOpen} className="invite-card-body">
         <Form className="mb-2 rounded bg-docs-transparent-grid">
@@ -48,14 +79,18 @@ export default function MyDeclinedInvite(props) {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="eventUserId">{}</Label>
-            <Input
-              type="text"
-              name="userId"
-              id="eventUserId"
-              placeholder="going"
-              disabled
-            />
+          <ListGroup>
+          <h5>These have accepted the event</h5>
+                {allGuestsAccept.length > 0 ? (
+                  allGuestsAccept.map((guestAccept) => (
+                    <p key={guestAccept.id}>
+                      {guestAccept.firstName} {guestAccept.lastName},
+                    </p>
+                  ))
+                ) : (
+                  <p>No one has accepted yet</p>
+                )}
+              </ListGroup>
           </FormGroup>
           <Label>Start:</Label>
           <Row>

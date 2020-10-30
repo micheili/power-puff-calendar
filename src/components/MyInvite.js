@@ -71,7 +71,6 @@ export default function MyInvite(props) {
       })
     ).json();
     fetchEvents();
-    //window.location.reload();
   }
 
   async function Accept() {
@@ -85,7 +84,6 @@ export default function MyInvite(props) {
       })
     ).json();
     fetchEvents();
-    //window.location.reload();
   }
 
   async function fetchEvents() {
