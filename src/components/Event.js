@@ -26,7 +26,15 @@ import { Context } from "../App";
 import GuestList from "./GuestList";
 
 export default function Event(props) {
-  let { id, userId, title, description, start, stop } = props.combinedEvents;
+  let {
+    id,
+    userId,
+    title,
+    description,
+    start,
+    stop,
+    inviteId,
+  } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
@@ -51,17 +59,29 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-    const deleteInvitations = await (
-      await fetch("/api/delete_invitations/" + id, {
-        method: "DELETE",
-      })
-    ).json();
+    if (!loggedInUser === userId) {
+      let result = await (
+        await fetch("/api/invite/" + inviteId, {
+          method: "PUT",
+          body: JSON.stringify({
+            accepted: 0,
+          }),
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+    } else {
+      const deleteInvitations = await (
+        await fetch("/api/delete_invitations/" + id, {
+          method: "DELETE",
+        })
+      ).json();
 
-    const deleteEvent = await (
-      await fetch("/api/Event/" + id, {
-        method: "DELETE",
-      })
-    ).json();
+      const deleteEvent = await (
+        await fetch("/api/Event/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+    }
 
     //if you're not creator of event
     //and you delete the event you're invited for
