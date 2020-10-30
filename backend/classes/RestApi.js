@@ -76,13 +76,6 @@ module.exports = class RestApi {
       }
     });
 
-    //get events created by (logged-in) userId
-
-   
-
-    
-
- 
   }
 
   setupPostRoute(table) {
@@ -231,8 +224,5 @@ module.exports = class RestApi {
       }
     });
   }
-
-  
-
 };
 

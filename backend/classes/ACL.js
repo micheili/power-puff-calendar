@@ -2,8 +2,10 @@ module.exports = class ACL {
 
     
     static allowed(table, req, res) {
+        console.log('req.session', req.session)
         let { user } = req.session;
         let { method } = req;
+       
 
         // Allow all logged in users to see a list of other users
         if (table === 'User') {
@@ -23,7 +25,6 @@ module.exports = class ACL {
         if (table === 'Event') {
             // Allow everyone to create an event
             if (method === 'POST') { return true; }
-
         }
 
          //allow everyone to send invitation
@@ -32,7 +33,19 @@ module.exports = class ACL {
             if (method === 'POST') { return true; }
         }
 
-     
+
+        res.status(403);
+        res.json({ error: 'Not allowed' });
+        return false;
+
+    }
+
+    // method for our own rest-apis
+    static allowed( req, res) {
+        console.log('req.session', req.session)
+        let { user } = req.session;
+        let { method } = req;
+             
         //only allow users that created the event see their own events
 
         //only allow the user that created the event to delete the event
@@ -42,10 +55,6 @@ module.exports = class ACL {
         //only allow the user that created the event to invite other users
 
         //only allow users that have accepted the event to see it in the calendar
-
-        res.status(403);
-        res.json({ error: 'Not allowed' });
-        return false;
 
     }
 }
