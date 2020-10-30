@@ -13,41 +13,31 @@ import Invitation from "./Invitation";
 import Invitations_declined from "./Invitations_declined";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "reactstrap";
 import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
 
  
   return (
-    <Container fluid={true}
-      
+    <Container fluid={true}      
       className={classNames("content", { "is-open": sidebarIsOpen })}
     >
       
-        {context.user ? (
+      
         <Row className="justify-content-between mb-3">
+          {context.user ? (
         <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
           <FontAwesomeIcon className="icon" icon={faBars} />
         </Button>
-          <Button
-            tag={Link}
-            to="/"
-            color="info"
-            className="text-light"
-            onClick={logout}
-          >
-            <div className="mt-2">
-              <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
-              Logout
-            </div>
-          </Button></Row>
         ) : (
           <></>
         )}
+        </Row>
+             
       
       
       <Switch>

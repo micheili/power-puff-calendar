@@ -1,6 +1,7 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext} from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import TopBar from "./components/TopBar";
 import Content from "./components/Content";
 import "./sass/style.scss";
 
@@ -91,11 +92,14 @@ export default function App() {
     const result = await res.json();
   }
 
+
+
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
-      {contextVal.user ? <div className="App wrapper">          
-      <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+      {contextVal.user ? <div className="App wrapper">  
+      <TopBar logout={logout}/>        
+      <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />
            <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}

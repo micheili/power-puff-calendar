@@ -3,6 +3,7 @@
     border-color:  #d27f78; 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;   
+    
 }
 
 .calendar-date{
@@ -64,6 +65,7 @@
   .date-day-indicator{
     display: grid;
     grid-template-columns: repeat(1, minmax(auto, 1fr));
+    
     grid-gap: 1px;
     margin-top: 5px;
     margin-bottom: 5px;  
@@ -130,14 +132,14 @@
     margin-top: 5px;
     margin-bottom: 5px;
     
+    
     .date-icon {
       display: block;
       text-align: center;
       justify-content: center;
       justify-self: center;
       align-items: center;
-      height: 100px;
-      width: 100px;
+      
           
       cursor: pointer;
       &[data-active-month='false'] {
@@ -146,9 +148,11 @@
       &.active,
       &.selected {
         border-radius: 50%;
-        box-shadow: 0 0 3px #834e4a;
+        box-shadow: 0 0 3px #834e4a;        
         color:  blue;
-        font-weight: bold;
+        font-weight: bold;        
+        height: 70px;
+        width: 70px;
       }
     }
   }
