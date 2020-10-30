@@ -30,6 +30,8 @@ export default function Event(props) {
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
+  const invitations = context.invitedEvents;
+
 
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite
@@ -51,22 +53,46 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-    const deleteInvitations = await (
-      await fetch("/api/delete_invitations/" + id, {
-        method: "DELETE",
+    if (loggedInUser === userId) {
+      const deleteInvitations = await (
+        await fetch("/api/delete_invitations/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+      console.log("delete from Invite: ", deleteInvitations);
+
+      const deleteEvent = await (
+        await fetch("/api/Event/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+      fetchAndUpdate();
+    } else {
+      declineInvite();
+    }
+  }
+
+  //if not creator of event & you delete
+  //you change accepted = false
+  async function declineInvite() {
+
+    let inviteId = invitations.map((inv) => {
+      return inv.id === id ? inv.inviteId : null;
+    });
+
+    let result = await (
+      await fetch("/api/invite/" + inviteId, {
+        method: "PUT",
+        body: JSON.stringify({
+          accepted: 0,
+        }),
+        headers: { "Content-Type": "application/json" },
       })
     ).json();
+    fetchAndUpdate();
+  }
 
-    const deleteEvent = await (
-      await fetch("/api/Event/" + id, {
-        method: "DELETE",
-      })
-    ).json();
-
-    //if you're not creator of event
-    //and you delete the event you're invited for
-    //put -> accepted: false
-
+  async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];
