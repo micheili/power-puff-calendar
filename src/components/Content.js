@@ -20,7 +20,8 @@ import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   const [context] = useContext(Context);
-
+console.log("user fetch", window.userFetch);
+ if(!window.userFetch){ return null}
  
   return (
     <Container fluid={true}      
@@ -41,16 +42,15 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
       
       
       <Switch>
-        <Route exact path="/" component={Login}> {context.user ? <Redirect to="/home" /> : <Login />}</Route>
+        <Route exact path="/" component={Login}>{context.user ? <Redirect to="/home" /> : <Login />}</Route>
         <Route exact path="/register" component={Register} />
         <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
-        <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />
-       
+        <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />       
         <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
         <ProtectedRoute exact path="/invitation"  component={Invitation} />
         <ProtectedRoute exact path="/home"  component={CalendarMonth}/>        
         <ProtectedRoute exact path="/invitations_declined" component={Invitations_declined}/>        
-      </Switch>
+      </Switch> 
     </Container>
   );
 }
