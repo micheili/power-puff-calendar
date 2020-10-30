@@ -26,14 +26,18 @@ import { Context } from "../App";
 import GuestList from "./GuestList";
 
 export default function Event(props) {
-  let { id, userId, title, description, start, stop } = props.combinedEvents;
+  let {
+    id,
+    userId,
+    inviteId,
+    title,
+    description,
+    start,
+    stop,
+  } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
-
-  if (!loggedInUser === userId) {
-    //hide buttons for edit & invite
-  }
 
   let startMoment = moment(start);
   let stopMoment = moment(stop);
@@ -51,7 +55,6 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-<<<<<<< HEAD
     //delete if it's your event
     if (loggedInUser === userId) {
       const deleteInvitations = await (
@@ -83,24 +86,8 @@ export default function Event(props) {
     console.log("FETCH & UPDATE IN DECLINE ");
     fetchAndUpdate();
   }
-=======
-    const deleteInvitations = await (
-      await fetch("/api/delete_invitations/" + id, {
-        method: "DELETE",
-      })
-    ).json();
 
-    const deleteEvent = await (
-      await fetch("/api/Event/" + id, {
-        method: "DELETE",
-      })
-    ).json();
-
-    //if you're not creator of event
-    //and you delete the event you're invited for
-    //put -> accepted: false
->>>>>>> parent of bfdcd93... Merge branch 'dev' of https://github.com/micheili/power-puff-calendar into dev
-
+  async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];

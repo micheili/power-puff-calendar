@@ -76,7 +76,9 @@
       justify-content: left;
       justify-self: left;
       align-items: center;
-      margin-left: 20px;      
+      margin-left: 20px;
+      height: 100px;
+      width: 100px;
           
       cursor: pointer;
       &[data-active-month='false'] {
