@@ -26,14 +26,18 @@ import { Context } from "../App";
 import GuestList from "./GuestList";
 
 export default function Event(props) {
-  let { id, userId, title, description, start, stop } = props.combinedEvents;
+  let {
+    id,
+    userId,
+    inviteId,
+    title,
+    description,
+    start,
+    stop,
+  } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
-
-  if (!loggedInUser === userId) {
-    //hide buttons for edit & invite
-  }
 
   let startMoment = moment(start);
   let stopMoment = moment(stop);
@@ -51,22 +55,34 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-    const deleteInvitations = await (
-      await fetch("/api/delete_invitations/" + id, {
-        method: "DELETE",
-      })
-    ).json();
+    //change accepted to false if invited
+    if (!loggedInUser === userId) {
+      let result = await (
+        await fetch("/api/invite/" + inviteId, {
+          method: "PUT",
+          body: JSON.stringify({
+            accepted: 0,
+          }),
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+    } else {
+      //delete if it's your event
+      const deleteInvitations = await (
+        await fetch("/api/delete_invitations/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+      const deleteEvent = await (
+        await fetch("/api/Event/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+    }
+    fetchAndUpdate();
+  }
 
-    const deleteEvent = await (
-      await fetch("/api/Event/" + id, {
-        method: "DELETE",
-      })
-    ).json();
-
-    //if you're not creator of event
-    //and you delete the event you're invited for
-    //put -> accepted: false
-
+  async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];
