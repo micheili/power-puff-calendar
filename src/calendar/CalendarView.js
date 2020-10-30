@@ -34,7 +34,6 @@ export default function CalendarView() {
 
   return (
     <div>
-
     <div className="container">
       <div className="row justify-content-md-center bg-secondary">
         <div className="col text-center">
@@ -55,7 +54,7 @@ export default function CalendarView() {
 
         <div className="border border-dark">
 
-          <div className="container ">
+          <div className="container">
 
             <div className="row">
 
@@ -125,6 +124,8 @@ export default function CalendarView() {
         </div>
       </div>
     </div>
+    
+  
   );
 
 

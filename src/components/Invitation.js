@@ -23,7 +23,7 @@ const Invitation = (props) => {
     </CardBody>, true
     );
         return(
-            <Container className="container-invites">
+            <Container className="data">
                 <Row className="justify-content-center mt-4 mb-3">
                     <h3>New invitations</h3>
                 </Row>
