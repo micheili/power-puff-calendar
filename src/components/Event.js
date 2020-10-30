@@ -56,18 +56,9 @@ export default function Event(props) {
 
   async function deleteEvent() {
     //change accepted to false if invited
-    if (!loggedInUser === userId) {
-      let result = await (
-        await fetch("/api/invite/" + inviteId, {
-          method: "PUT",
-          body: JSON.stringify({
-            accepted: 0,
-          }),
-          headers: { "Content-Type": "application/json" },
-        })
-      ).json();
-    } else {
+    if (loggedInUser === userId) {
       //delete if it's your event
+      console.log("in delete  ");
       const deleteInvitations = await (
         await fetch("/api/delete_invitations/" + id, {
           method: "DELETE",
@@ -78,7 +69,23 @@ export default function Event(props) {
           method: "DELETE",
         })
       ).json();
+      fetchAndUpdate();
     }
+    else { declineEvent(); }
+  }
+
+  async function declineEvent() {
+    console.log("in decline event ");
+    let result = await (
+      await fetch("/api/invite/" + inviteId, {
+        method: "PUT",
+        body: JSON.stringify({
+          accepted: 0,
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+    ).json();
+    console.log("FETCH & UPDATE IN DECLINE ");
     fetchAndUpdate();
   }
 
