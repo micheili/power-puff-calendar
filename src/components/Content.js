@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
-import { Container } from "reactstrap";
-import { Switch, Route } from "react-router-dom";
+import { Container, Row } from "reactstrap";
+import { Switch, Route, Link , Redirect } from "react-router-dom";
+import ProtectedRoute from '../ProtectedRoute';
 import Login from "./Login";
 import Register from "./Register";
 import CalendarMonth from "../calendar/CalendarMonth";
@@ -9,31 +10,47 @@ import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Invitations_declined from "./Invitations_declined";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import {
-    Button    
-  } from "reactstrap";
+import { Button } from "reactstrap";
+import { Context } from "../App";
 
-
-const Content = ({ sidebarIsOpen, toggleSidebar }) => (
-  <Container
-    fluid
-    className={classNames("content", { "is-open": sidebarIsOpen })}
-  >
-   <Button className="toogleSidebarButton" onClick={toggleSidebar}>
-   <FontAwesomeIcon  className="icon" icon={faBars} />
-    </Button>
-    <Switch>
-      <Route exact path="/" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/calendar" component={CalendarMonth} />
-      <Route exact path="/calendarweek" component={CalendarWeek} />
-      <Route exact path="/calendarday" component={CalendarDay} />
-      <Route exact path="/invitation" component={Invitation} />
-    </Switch>
-  </Container>
-);
-
-export default Content;
+export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
+  const [context] = useContext(Context);
+console.log("user fetch", window.userFetch);
+ if(!window.userFetch){ return null}
+ 
+  return (
+    <Container fluid={true}      
+      className={classNames("content", { "is-open": sidebarIsOpen })}
+    >
+      
+      
+        <Row className="justify-content-between mb-3">
+          {context.user ? (
+        <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
+          <FontAwesomeIcon className="icon" icon={faBars} />
+        </Button>
+        ) : (
+          <></>
+        )}
+        </Row>
+             
+      
+      
+      <Switch>
+        <Route exact path="/" component={Login}>{context.user ? <Redirect to="/home" /> : <Login />}</Route>
+        <Route exact path="/register" component={Register}> {context.user ? <Redirect to="/home" /> : <Register />}</Route>
+        <ProtectedRoute exact path="/calendar" component={CalendarMonth} />
+        <ProtectedRoute exact path="/calendarweek" component={CalendarWeek} />       
+        <ProtectedRoute exact path="/calendarday"  component={CalendarDay} />
+        <ProtectedRoute exact path="/invitation"  component={Invitation} />
+        <ProtectedRoute exact path="/home"  component={CalendarMonth}/>        
+        <ProtectedRoute exact path="/invitations_declined" component={Invitations_declined}/>        
+      </Switch> 
+    </Container>
+  );
+}

@@ -1,27 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
-import usePassWordToggler from '../hooks/usePasswordToggler';
+import usePassWordToggler from "../hooks/usePasswordToggler";
 
 import {
-  Container, 
-  Row, 
+  Container,
+  Row,
   Col,
   Form,
-  FormGroup    
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Alert,InputGroup, InputGroupAddon,InputGroupText
 } from "reactstrap";
+import { Context } from "../App";
 
 export default function Register() {
   const [formData, setFormData] = useState({});
-  const [errors, setErrors] = useState({});
   const [PasswordInputType, ToggleIcon] = usePassWordToggler();
+  const [alert, setAlert] = useState(false);
+  const [context, updateContext] = useContext(Context);
 
   useEffect(() => {
     setFormData({ firstName: "", lastName: "", email: "", password: "" });
-    setErrors({ emailError: "", passwordError: "" });
   }, []);
 
   let { firstName, lastName, email, password } = formData;
-  let { emailError, passwordError } = errors;
+
+  if (formData.done) {
+    return <Redirect to="/home"/>;
+  }
+
+  if (firstName === undefined) {
+    return null;
+  }
 
   const handleInputChange = (e) => {
     setFormData({
@@ -30,13 +43,9 @@ export default function Register() {
     });
   };
 
-  if (firstName === undefined) {
-    return null;
-  }
-
   const validate = () => {
     let isValid = true;
-    const errorClone = {};
+
     if (email !== undefined) {
       //var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
       /* An email address must have 
@@ -49,8 +58,7 @@ export default function Register() {
       );
       if (!pattern.test(email)) {
         isValid = false;
-        errorClone.emailError = "Invalid Email";
-        //setErrors({ ...errors, emailError: "Invalid email" });
+        setAlert("Invalid Email");
       }
     }
 
@@ -66,12 +74,9 @@ export default function Register() {
       );
       if (!pattern.test(password)) {
         isValid = false;
-        errorClone.passwordError = "Invalid Password";
-
-        //setErrors({ ...errors, passwordError: "Invalid password" });
+        setAlert("Invalid Password");
       }
     }
-    setErrors(errorClone);
 
     return isValid;
   };
@@ -90,83 +95,121 @@ export default function Register() {
           headers: { "Content-Type": "application/json" },
         })
       ).json();
+
+      if (result.error) {
+        setAlert("The email you chose already exists!");
+
+        return;
+      }
+
+      let res = await (
+        await fetch("/api/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+
+      let users = await (await fetch("/api/user")).json();
+      if (users.error) {
+        users = [];
+      }
+
+      updateContext({ user: res, allUsers: users, });
+      setFormData({ done: true });
     }
   }
 
   return (
+    <div>
+      <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+    
     <Container className="data" fluid={true}>
       <Row className="justify-content-center">
-        <Form onSubmit={save}><h3 className="row justify-content-center mb-5">Create account</h3>
+        <Form onSubmit={save} className="reg-container">
+          <h3 className="row justify-content-center mb-3 text-info">
+            Create account
+          </h3>
+          <Alert
+            color="warning"
+            isOpen={alert}
+            toggle={() => {
+              setAlert(false);
+            }}
+          >
+            {alert}
+          </Alert>
           <Col>
             <FormGroup>
-              <label>
-                Firstname
-                <input
+              <Label className="text-info">
+                Firstname</Label>
+                <Input
                   name="firstName"
                   type="text"
-                  className="form-control"
                   onChange={handleInputChange}
                   value={firstName}
                   required
-                />
-              </label>
+                />              
             </FormGroup>
             <FormGroup>
-              <label>
-                Lastname
-                <input
+              <Label className="text-info">
+                Lastname</Label>
+                <Input
                   name="lastName"
                   type="text"
-                  className="form-control"
                   onChange={handleInputChange}
                   value={lastName}
                   required
-                />
-              </label>
+                />              
             </FormGroup>
             <FormGroup>
-              <label>
-                Email address
-                <input
+              <Label className="text-info">
+                Email address</Label>
+                <Input
                   name="email"
                   type="email"
-                  className="form-control"
                   onChange={handleInputChange}
                   aria-describedby="emailHelp"
                   value={email}
                   required
-                />
-              </label>
-              <div className="text-danger">{emailError}</div>
+                />              
             </FormGroup>
             <FormGroup>
-              <label>
-                Password
-                <input
-                  name="password"
-                  type={PasswordInputType}
-                  className="form-control"
-                  onChange={handleInputChange}
-                  value={password}
-                  required
-                />
-              </label>
-              <span className="password-toggle-icon-register">{ToggleIcon}</span>
-              <div className="text-danger"> {passwordError}</div>
-            </FormGroup>
+            <Label className="text-info">
+                Password</Label>
+              <InputGroup>
+                    <Input name="password"
+                    type={PasswordInputType}
+                    onChange={handleInputChange}
+                    value={password}
+                    required/>
+                    <InputGroupAddon addonType="append">
+                    <InputGroupText><span className="password-toggle-icon-register">
+                  {ToggleIcon}
+                </span></InputGroupText>
+                    </InputGroupAddon>
+                </InputGroup>
+            </FormGroup>            
             <Link to="/">
-              <p className="row justify-content-center">
+              <p className="row justify-content-center text-info">
                 Already have an account?
               </p>
             </Link>
-            <input
+            <Button
+              color="info"
               type="submit"
-              className="btn btn-primary btn-block"
-              value="Sign up"
-            />
+              className="btn-block text-light mt-2"
+            >
+              Sign up
+            </Button>
           </Col>
         </Form>
       </Row>
-    </Container>
+    </Container></div>
   );
 }
