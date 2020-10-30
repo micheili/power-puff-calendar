@@ -33,21 +33,32 @@ module.exports = class ACL {
     }
 
     // method for our own rest-apis
-    static allowed( req, res) {
-        console.log('req.session', req.session)
+    static allowedOwnApi( req, res) {
         let { user } = req.session;
         let { method } = req;
 
     //only allow users that created the event see their own events
+    
 
+    
+ 
     //only allow the user that created the event to delete the event
-
+   
     //only allow the user that created the event to edit it
 
-    //only allow the user that created the event to invite other users
 
-    }
+    //only allow the user that created the event to invite other users
+  
+      res.status(403);
+        res.json({ error: 'Not allowed' });
+        return false;
              
+    }
+
+
+
+    
 
 
 }
+
