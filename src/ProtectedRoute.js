@@ -6,12 +6,13 @@ import { Context } from "./App";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     const [context] = useContext(Context);
+    
   return (
     <Route {...rest} render={
-      props =>{  if (context.user) {
+      props =>{  if (context.user) { 
         return <Component {...rest} {...props} />
       } else {
-        return <Redirect to={
+        return <Redirect to={           
           {
             pathname: '/',
             state: {
