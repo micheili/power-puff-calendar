@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDayOfMonth, getReadableWeekdayAndDate, getDay, getToday, getReadableWeekday } from '../utils/MomentUtils';
+import { getDay } from '../utils/MomentUtils';
 import { getDaySet } from '../utils/DateUtils';
 
 export default function DayIndicator({ selectDate, setSelectDate }){

@@ -11,7 +11,7 @@ import {Context} from '../../App';
 
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
 
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
 
 
 

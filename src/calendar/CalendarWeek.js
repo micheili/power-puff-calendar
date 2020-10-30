@@ -12,7 +12,7 @@ import '../sass/_calendar.scss';
 
 export default function CalendarWeek() {
 
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
   const [selectDate, setSelectDate] = useState(moment().toDate());
 
   return (

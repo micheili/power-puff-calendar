@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { Container, Row } from "reactstrap";
-import { BrowserRouter, Switch, Route, Link , Redirect } from "react-router-dom";
+import { Switch, Route, Link , Redirect } from "react-router-dom";
 import ProtectedRoute from '../ProtectedRoute';
 import Login from "./Login";
 import Register from "./Register";
@@ -9,7 +9,7 @@ import CalendarMonth from "../calendar/CalendarMonth";
 import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
-import CalendarPage from "../CalendarPage";
+
 import Invitations_declined from "./Invitations_declined";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -30,7 +30,6 @@ export default function Event(props) {
 
   const loggedInUser = context.user.id;
 
-  console.log('I EVENT ', props);
 
   if (!loggedInUser === userId) {
     //hide buttons for edit & invite

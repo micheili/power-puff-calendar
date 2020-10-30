@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import moment from 'moment';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -9,7 +8,7 @@ import {Context} from '../../App';
 
 
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
 
   let events = [
     ...context.myEvents,...context.invitedEvents
