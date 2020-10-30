@@ -9,7 +9,8 @@ import "./sass/style.scss";
 export const Context = createContext();
 
 export default function App() {
-  const [contextVal, setContext] = useState({
+window.userFetch = window.userFetch || false;
+  const [contextVal, setContext] = useState({    
     user: false,
     myEvents: [],
     invitedEvents: [], //accepted = true
@@ -31,6 +32,8 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let result = await (await fetch("/api/login")).json();
+      window.userFetch = true;
+      console.log("window user fetch", window.userFetch)
       if (result.error) {
         updateContext({ user: false });
         return;
