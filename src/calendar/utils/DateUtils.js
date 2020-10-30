@@ -25,7 +25,7 @@ export const getDaySet = (selectDate) => {
 
    // today -> this day at midnight 
    let today = new Date(selectDate);
-   today.setHours(0,0,0,0);
+   today.setHours(1,0,0,0);
 
    let prev = new Date(today.getTime() - dayInMs);
    // prev -> next Monday at midnight
@@ -55,7 +55,7 @@ export const getWeekSet = (selectDate) => {
    let dayInMs = 24 * 60 * 60 * 1000;
    // thisMonday -> this Monday at midnight 
    let thisMonday = new Date(selectDate);
-   thisMonday.setHours(0,0,0,0);
+   thisMonday.setHours(1,0,0,0);
    
    while (thisMonday.getDay() !== 1) {
      thisMonday = new Date(thisMonday.getTime() - dayInMs);
