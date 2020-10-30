@@ -139,10 +139,7 @@
       text-align: center;
       justify-content: center;
       justify-self: center;
-      align-items: center;
-      height: 100px;
-      width: 100px;
-      
+      align-items: center;      
           
       cursor: pointer;
       &[data-active-month='false'] {
@@ -296,7 +293,6 @@
     color:  #fbc5b8;
     text-decoration: none;
     font-size: 15px;
- 
   }
 
 

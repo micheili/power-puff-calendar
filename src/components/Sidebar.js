@@ -45,7 +45,7 @@ export default function Sidebar({ logout, isOpen}) {
             to="/"
             onClick={logout}>    
             <FontAwesomeIcon className="sidebar-icon mr-2" icon={faSignOutAlt}/>            
-                <strong>LogOut</strong>               
+                <strong>Log Out</strong>               
               </NavLink>
             </NavItem>           
           </Nav>
