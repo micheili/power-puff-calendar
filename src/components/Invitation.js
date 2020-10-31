@@ -5,7 +5,6 @@ import { Context } from "../App";
 
 import {
   Container,
-  Row,
   Col,
   Card,
   CardBody,
@@ -32,16 +31,8 @@ export default function Invitation(prop) {
             ? "s"
             : ""}
         </h3>      
-        
           <Card className="mb-4">            
-              <CardBody>
-                {/* <CardTitle className="font-weight-bold d-flex">
-                  {allInvites.map((invite) => (
-                    <p key={invite.id}>{invite.userId},</p>
-                  ))}
-                  has sent you an invitation
-                </CardTitle> */}
-                               
+              <CardBody>             
                 {allInvites.length > 0 ? (
                   allInvites.map((invite) => (
                     <MyInvite key={invite.id} {...invite}></MyInvite>
@@ -50,7 +41,6 @@ export default function Invitation(prop) {
                   <h5 className="text-center">You dont have any invites</h5>
                 )}
               </CardBody>
-              
           </Card>
         </Col>      
     </Container>
