@@ -18,12 +18,20 @@ export default function GuestList(props) {
 
   return (
     <div className="mt-3">
-      <CardText>{allGuestsAccept.length} attending: </CardText>
+      <CardText>
+        {allGuestsAccept.length ? allGuestsAccept.length + 1 : 1} attending:{" "}
+      </CardText>
+      <CardText>
+        <FontAwesomeIcon className="text-success" icon={faCheck} />
+        {props.ownerFirstName} {props.ownerLastName}{" "}
+        <span className="text-muted"> (Organizer)</span>
+      </CardText>
+
       {allGuestsAccept.length > 0 ? (
         allGuestsAccept.map((guestAccept) => (
           <CardText key={guestAccept.id}>
-            <FontAwesomeIcon icon={faCheck} /> {guestAccept.firstName}{" "}
-            {guestAccept.lastName}
+            <FontAwesomeIcon className="text-success" icon={faCheck} />{" "}
+            {guestAccept.firstName} {guestAccept.lastName}
           </CardText>
         ))
       ) : (

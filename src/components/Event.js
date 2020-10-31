@@ -34,6 +34,8 @@ export default function Event(props) {
     description,
     start,
     stop,
+    ownerFirstName,
+    ownerLastName,
   } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
@@ -142,7 +144,15 @@ export default function Event(props) {
             ? null
             : +" " + stopYear}
         </CardSubtitle>
-        {loggedInUser !== userId ? <GuestList id={id} /> : null}
+        <GuestList
+          id={id}
+          ownerFirstName={
+            loggedInUser === userId ? context.user.firstName : ownerFirstName
+          }
+          ownerLastName={
+            loggedInUser === userId ? context.user.lastName : ownerLastName
+          }
+        />
       </CardBody>
       <CardFooter>
         {loggedInUser === userId ? (
