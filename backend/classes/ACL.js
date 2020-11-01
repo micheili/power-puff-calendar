@@ -26,39 +26,41 @@ module.exports = class ACL {
       }
     }
 
-        res.status(403);
-        res.json({ error: 'Not allowed' });
-        return false;
+    res.status(403);
+    res.json({ error: "Not allowed" });
+    return false;
+  }
 
-    }
-
-    // method for our own rest-apis
-    static allowedOwnApi( req, res) {
-        let { user } = req.session;
-        let { method } = req;
+  // method for our own rest-apis
+  static allowedOwnApi(db, req, res) {
+    let { user } = req.session;
+    let { method } = req;
 
     //only allow users that created the event see their own events
-    
+    if (req.params.eventId) {
+      let result = db.select("SELECT userId FROM Event WHERE id = $id", {
+        id: req.params.eventId,
+      });
 
-    
- 
-    //only allow the user that created the event to delete the event
-   
-    //only allow the user that created the event to edit it
-
-
-    //only allow the user that created the event to invite other users
-  
-      res.status(403);
-        res.json({ error: 'Not allowed' });
-        return false;
-             
+      if (user && result[0].userId == user.id) {
+        return true;
+      }
     }
 
+    if (req.params.userId) {
+      if (user && req.params.userId == user.id) {
+        return true;
+      }
+    }
 
+    //only allow the user that created the event to delete the event
 
-    
+    //only allow the user that created the event to edit it
 
+    //only allow the user that created the event to invite other users
 
-}
-
+    res.status(403);
+    res.json({ error: "Not allowed" });
+    return false;
+  }
+};
