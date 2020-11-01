@@ -36,14 +36,30 @@ module.exports = class ACL {
     let { user } = req.session;
     let { method } = req;
 
-    //only allow users that created the event see their own events
     if (req.params.eventId) {
-      let result = db.select("SELECT userId FROM Event WHERE id = $id", {
+      //allow event-owner to see the guest list
+      let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
         id: req.params.eventId,
       });
 
-      if (user && result[0].userId == user.id) {
-        return true;
+      //also allow invitees to see the guest list
+      let invitees = db.select(
+        "SELECT invitedUser FROM Invite WHERE eventId = $id",
+        { id: req.params.eventId }
+      );
+
+      //check if logged-in user is a owner or a invitee, if yes then allow
+      if (user) {
+        console.log(user);
+        let invitee = invitees.filter(
+          (invitee) => invitee.invitedUser === user.id
+        );
+
+        console.log("invitee", invitee);
+
+        if (owner[0].userId === user.id || invitee.length === 1) {
+          return true;
+        }
       }
     }
 
