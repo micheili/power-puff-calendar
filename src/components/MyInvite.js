@@ -71,7 +71,6 @@ export default function MyInvite(props) {
       })
     ).json();
     fetchEvents();
-    //window.location.reload();
   }
 
   async function Accept() {
@@ -85,7 +84,6 @@ export default function MyInvite(props) {
       })
     ).json();
     fetchEvents();
-    //window.location.reload();
   }
 
   async function fetchEvents() {
@@ -125,14 +123,14 @@ export default function MyInvite(props) {
     <>
       <div className="mt-4">
         <Button
-          className="text-white"
-          color="danger"
+          className="text-white w-100 text-left"
+          color="info"
           onClick={toggle}
           style={{ marginBottom: "1rem" }}
         >
           {ownerFirstName} {ownerLastName} has sent you an invitation
         </Button>
-        <Collapse isOpen={isOpen}>
+        <Collapse isOpen={isOpen} className="invite-card-body">
           <Form className="p-3 my-2 rounded bg-docs-transparent-grid">
             <h3>{title}</h3>
             <FormGroup>
@@ -156,7 +154,7 @@ export default function MyInvite(props) {
               </ListGroup>
               <ListGroup>
                 <h5>Going</h5>
-                {allGuestsAccept.length > 0 ? (
+               {allGuestsAccept.length > 0 ? (
                   allGuestsAccept.map((guestAccept) => (
                     <p key={guestAccept.id}>
                       {guestAccept.firstName} {guestAccept.lastName},
@@ -205,6 +203,7 @@ export default function MyInvite(props) {
                 </FormGroup>
               </Col>
             </Row>
+            <hr></hr>
             <Row>
               <Button onClick={Decline} color="danger" className="ml-2">
                 No, cant make it
@@ -213,7 +212,7 @@ export default function MyInvite(props) {
                 Yes, count me in!
               </Button>
             </Row>
-            <hr></hr>
+            
           </Form>
         </Collapse>
       </div>

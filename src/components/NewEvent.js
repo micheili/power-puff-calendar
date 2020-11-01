@@ -67,7 +67,6 @@ const NewEvent = params => {
     let isValid = true;
 
     if (start && stop !== undefined) {
-      console.log("start stop right");
       let startParse = Date.parse(start);
       let stopParse = Date.parse(stop);
       let diff = (stopParse - startParse) / 1000;

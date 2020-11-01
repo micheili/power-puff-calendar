@@ -8,4 +8,34 @@ outline-color: lightpink;
 
 button:hover{
 background-color: lightpink;
+
+}
+
+.eventList-Button{
+    color: $info !important;
+    text-align: left;
+    font-size: 22px !important;
+    &:hover{
+        background-color: $info !important;
+        color: white!important;
+    }
+}
+
+.event-card-body{
+    border: 1px solid rgb(235, 220, 220) !important;
+    padding: 5%;
+    
+}
+
+.card-footer{
+    background-color: rgba(224, 193, 210, 0.5) !important;    
+}
+
+.single-event{
+    background-color: #fbc5b8 !important;
+    color: $info !important;
+}
+
+h5{
+    font-size: 18px;
 }

@@ -124,9 +124,14 @@ export default function Register() {
   }
 
   return (
+    <div>
+      <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+    
     <Container className="data" fluid={true}>
       <Row className="justify-content-center">
-        <Form onSubmit={save}>
+        <Form onSubmit={save} className="reg-container">
           <h3 className="row justify-content-center mb-3 text-info">
             Create account
           </h3>
@@ -205,6 +210,6 @@ export default function Register() {
           </Col>
         </Form>
       </Row>
-    </Container>
+    </Container></div>
   );
 }

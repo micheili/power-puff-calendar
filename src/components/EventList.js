@@ -1,61 +1,37 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  CardText,
-  Row,
-  Toast,
-  ToastBody,
-  ToastHeader,
-  Collapse,
+import React from "react";
+import {  
   Button,
+  UncontrolledCollapse
 } from "reactstrap";
 
 import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
-  console.log("list page", props.myEvents);
 
-  const [isOpen, setIsOpen] = useState(false);
+  let { id, title } = props.combinedEvents;
 
-  //const toggle = () => setIsOpen(!isOpen);
+
+  
 
   return (
     <>
       <div className="p-3 rounded">
-        {props.myEvents.map((event) => (
+        {props.combinedEvents.map((event) => (
           <div key={event.id} className="pb-3">
-            <Button
-              className={event.id}
+            <Button              
               color="secondary"
-              onClick={() => setIsOpen(!isOpen)}
+              id={`my${event.id}`}
+              className="w-100 eventList-Button"              
               style={{ marginBottom: "1rem" }}
             >
               {event.title}
             </Button>
-            <Collapse isOpen={isOpen}>
-              <Event myEvent={event}></Event>
-            </Collapse>
+            <UncontrolledCollapse toggler={`#my${event.id}`}>
+              <Event combinedEvents={event} ></Event>
+            </UncontrolledCollapse>
           </div>
         ))}
       </div>
-      {/* <div className="p-3 my-2 rounded">
-        <div>Invited events</div>
-        {props.invitedEvents.map((event) => (
-          <div key={event.id} className="mb-3 pb-3">
-            <Button
-              className="text-white"
-              color="danger"
-              onClick={() => setIsOpen(!isOpen)}
-              style={{ marginBottom: "1rem" }}
-            >
-              {event.title}
-            </Button>
-            <Collapse isOpen={isOpen}>
-              <Event myEvent={event}></Event>
-            </Collapse>
-          </div>
-        ))}
-      </div> */}
     </>
   );
 }

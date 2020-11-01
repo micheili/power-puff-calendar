@@ -3,6 +3,7 @@
     border-color:  #d27f78; 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;   
+    
 }
 
 .calendar-date{
@@ -64,6 +65,7 @@
   .date-day-indicator{
     display: grid;
     grid-template-columns: repeat(1, minmax(auto, 1fr));
+    
     grid-gap: 1px;
     margin-top: 5px;
     margin-bottom: 5px;  
@@ -129,15 +131,15 @@
     grid-gap: 1px;
     margin-top: 5px;
     margin-bottom: 5px;
+  
+    
     
     .date-icon {
       display: block;
       text-align: center;
       justify-content: center;
       justify-self: center;
-      align-items: center;
-      height: 100px;
-      width: 100px;
+      align-items: center;      
           
       cursor: pointer;
       &[data-active-month='false'] {
@@ -146,9 +148,11 @@
       &.active,
       &.selected {
         border-radius: 50%;
-        box-shadow: 0 0 3px #834e4a;
+        box-shadow: 0 0 3px #834e4a;        
         color:  blue;
-        font-weight: bold;
+        font-weight: bold;        
+        height: 100px;
+        width: 100px;
       }
     }
   }
@@ -208,3 +212,155 @@
     font-size: 11px;
     
   }
+
+  @media only screen and (max-width: 500px) {
+
+    .date-indicator {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(auto, 1fr));
+      grid-template-rows: repeat(6, minmax(35px, 1fr));
+      grid-gap: 1px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      
+      
+      .date-icon {
+        display: block;
+        text-align: center;
+        justify-content: center;
+        justify-self: center;
+        align-items: center;
+        height: 75px;
+        width: 15px;
+        
+            
+        cursor: pointer;
+        &[data-active-month='false'] {
+          color: rgba(0, 0, 0, 0.3);
+        }
+        &.active,
+        &.selected {
+          border-radius: 50%;
+          box-shadow: 0 0 3px #834e4a;        
+          color:  blue;
+          font-weight: bold;        
+          height: 25px;
+          width: 25px;
+        }
+      }
+    }
+  
+    .month-indicator{
+      background: #d27f78; 
+      border-top: solid;
+      border-color:  #fbc5b8;
+      color: white;
+      padding-top: 15px;
+      
+    }
+
+    .month-indicator .row .current{
+      font-size: 20px;
+    }
+  
+    .month-indicator .row .prev{
+      color:  #fbc5b8;
+      cursor: pointer;
+      font-size: 10px;
+    }
+  
+    .month-indicator .row .prev:hover{
+      color: white;
+    }
+  
+    .month-indicator .row .next{
+      color:  #fbc5b8;
+      cursor: pointer;
+      font-size: 10px;
+    }
+  
+    .month-indicator .row .next:hover{
+      color: white;
+    }
+
+    //events
+  .events{
+    font-size: 8px;
+    
+  }
+
+  .calendar-buttons .row .col .link-btn{ 
+    color:  #fbc5b8;
+    text-decoration: none;
+    font-size: 15px;
+  }
+
+
+  //week
+  .date-week-indicator{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(auto, 1fr));
+    grid-gap: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    .date-week-icon {
+      display: block;
+      text-align: center;
+      justify-content: center;
+      justify-self: center;
+      align-items: center;
+      height: 75px;
+      width: 15px;
+          
+      cursor: pointer;
+      &[data-active-month='false'] {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      &.active,
+      &.selected {
+        border-radius: 50%;
+        box-shadow: 0 0 3px #834e4a;        
+        color:  blue;
+        font-weight: bold;        
+        height: 25px;
+        width: 25px;
+       
+      }
+    }
+  }
+
+  //day
+  .date-day-indicator{
+    display: grid;
+    grid-template-columns: repeat(1, minmax(auto, 1fr));
+    
+    grid-gap: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;  
+  
+
+    .date-day-icon {
+      display: flex;
+      justify-content: left;
+      justify-self: left;
+      align-items: center;
+      margin-left: 20px;
+      height: 50px;
+      width: 100px;
+          
+      cursor: pointer;
+      &[data-active-month='false'] {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      &.active,
+      &.selected {
+        color:  blue;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  }
+
+  

@@ -12,13 +12,13 @@ import '../sass/_calendar.scss';
 
 export default function CalendarWeek() {
 
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
   const [selectDate, setSelectDate] = useState(moment().toDate());
 
   return (
     <Container fluid={true}>
     <Row>
-      <Col sm="12" lg="8">
+      <Col className="mb-5" sm="12" lg="8">
     <div className="container">
       <GoToCalendarButtons />
       <WeekIndicator

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext} from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import TopBar from "./components/TopBar";
 import Content from "./components/Content";
 import "./sass/style.scss";
 
@@ -8,7 +9,8 @@ import "./sass/style.scss";
 export const Context = createContext();
 
 export default function App() {
-  const [contextVal, setContext] = useState({
+window.userFetch = window.userFetch || false;
+  const [contextVal, setContext] = useState({    
     user: false,
     myEvents: [],
     invitedEvents: [], //accepted = true
@@ -30,6 +32,8 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let result = await (await fetch("/api/login")).json();
+      window.userFetch = true;
+      console.log("window user fetch", window.userFetch)
       if (result.error) {
         updateContext({ user: false });
         return;
@@ -91,11 +95,14 @@ export default function App() {
     const result = await res.json();
   }
 
+
+
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
-      {contextVal.user ? <div className="App wrapper">          
-      <Sidebar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+      {contextVal.user ? <div className="App wrapper">  
+      <TopBar logout={logout}/>        
+      <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />
            <Content
             toggleSidebar={toggleSidebar}
             sidebarIsOpen={sidebarIsOpen}

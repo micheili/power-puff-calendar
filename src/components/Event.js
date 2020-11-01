@@ -5,7 +5,9 @@ import {
   ButtonToggle,
   Button,
   CardText,
-  UncontrolledTooltip
+  UncontrolledTooltip,
+  CardFooter,
+  CardBody,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -21,17 +23,23 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
+import GuestList from "./GuestList";
 
 export default function Event(props) {
-  let {id, userId, title, description, start, stop } = props.myEvent;
+  let {
+    id,
+    userId,
+    inviteId,
+    title,
+    description,
+    start,
+    stop,
+    ownerFirstName,
+    ownerLastName,
+  } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
 
   const loggedInUser = context.user.id;
-
-  if (!loggedInUser === userId) {
-    //hide edit and invite from event
-    console.log('hAAAAAAAAAj', loggedInUser, userId);
-  };
 
   let startMoment = moment(start);
   let stopMoment = moment(stop);
@@ -49,20 +57,39 @@ export default function Event(props) {
   let stopYear = getYear(stop);
 
   async function deleteEvent() {
-    const deleteInvitations = await (
-      await fetch("/api/delete_invitations/" + id, {
-        method: "DELETE",
+    //delete if it's your event
+    if (loggedInUser === userId) {
+      const deleteInvitations = await (
+        await fetch("/api/delete_invitations/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+      const deleteEvent = await (
+        await fetch("/api/Event/" + id, {
+          method: "DELETE",
+        })
+      ).json();
+      fetchAndUpdate();
+    } else {
+      declineEvent();
+    }
+  }
+  //decline if invited to event
+  async function declineEvent() {
+    let result = await (
+      await fetch("/api/invite/" + inviteId, {
+        method: "PUT",
+        body: JSON.stringify({
+          accepted: 0,
+        }),
+        headers: { "Content-Type": "application/json" },
       })
     ).json();
-    console.log("delete from Invite: ", deleteInvitations);
+    console.log("FETCH & UPDATE IN DECLINE ");
+    fetchAndUpdate();
+  }
 
-    const deleteEvent = await (
-      await fetch("/api/Event/" + id, {
-        method: "DELETE",
-      })
-    ).json();
-    console.log("delete from Event: ", deleteEvent);
-
+  async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
     if (events.error) {
       events = [];
@@ -82,54 +109,68 @@ export default function Event(props) {
       declinedInvitations = [];
     }
 
-    let allInvites = await (
-      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=null")
-    ).json();
-    if (allInvites.error) {
-      allInvites = [];
-    }
-
     updateContext({
       myEvents: events,
       invitedEvents: invitedEvents,
-      allInvites: allInvites,
       declinedInvitations: declinedInvitations,
     });
   }
 
   return (
     <div className="mb-3 pb-5 sm-6">
-      <CardTitle tag="h3">{title}</CardTitle>
-      <CardSubtitle tag="h5">{description}</CardSubtitle>
-      <CardSubtitle className="mt-3">
-        from {startTime} {weekDay}, {startDateNr} {startMonth} {startYear}
-      </CardSubtitle>
-      <CardSubtitle>
-        to {stopTime}
-        {startMoment.isSameOrAfter(stopMoment)
-          ? null
-          : " " + stopWeekday + ", " + stopDateNr}
-        {startMoment.isSameOrAfter(stopMoment, "month")
-          ? null
-          : " " + stopMonth + " "}
-        {startMoment.isSameOrAfter(stopMoment, "year") ? null : +" " + stopYear}
-      </CardSubtitle>
-      <CardText>{/** invitees **/}</CardText>
-      {/* show if userId is mine, I created the event */}
-      <div className="float-right">
-        <ButtonToggle outline color="lightpink" id="inviteButton">
-          <FontAwesomeIcon icon={faUserPlus} />
-          <UncontrolledTooltip placement="bottom" target="inviteButton">
-            Invite people
-          </UncontrolledTooltip>
-        </ButtonToggle>{" "}
-        {/* edit if userId is mine, I created event */}
-        <ButtonToggle outline color="lightpink" id="editButton">
-          <FontAwesomeIcon icon={faPen} />
-          <UncontrolledTooltip placement="bottom" target="editButton">
-            Edit
-          </UncontrolledTooltip>
-        </ButtonToggle>{" "}
+      <CardBody className="event-card-body">
+        <CardSubtitle tag="h5">
+          <span className="mr-1">
+            <strong>Description:</strong>{" "}
+          </span>
+        </CardSubtitle>
+        <CardSubtitle tag="h5" className="mt-1">
+          {description}
+        </CardSubtitle>
+        <span className="mt-5 p-5"></span>
+        <CardSubtitle className="mt-3 ">
+          <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
+          {startMonth} {startYear}
+        </CardSubtitle>
+        <CardSubtitle>
+          <strong>to</strong> {stopTime}
+          {startMoment.isBefore(stopMoment)
+            ? null
+            : " " + stopWeekday + ", " + stopDateNr}
+          {startMoment.isSameOrAfter(stopMoment, "month")
+            ? null
+            : " " + stopMonth + " "}
+          {startMoment.isSameOrAfter(stopMoment, "year")
+            ? null
+            : +" " + stopYear}
+        </CardSubtitle>
+        <GuestList
+          id={id}
+          ownerFirstName={
+            loggedInUser === userId ? context.user.firstName : ownerFirstName
+          }
+          ownerLastName={
+            loggedInUser === userId ? context.user.lastName : ownerLastName
+          }
+        />
+      </CardBody>
+      <CardFooter>
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="inviteButton">
+            <FontAwesomeIcon icon={faUserPlus} />
+            <UncontrolledTooltip placement="bottom" target="inviteButton">
+              Invite people
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
+        {loggedInUser === userId ? (
+          <ButtonToggle outline color="lightpink" id="editButton">
+            <FontAwesomeIcon icon={faPen} />
+            <UncontrolledTooltip placement="bottom" target="editButton">
+              Edit
+            </UncontrolledTooltip>
+          </ButtonToggle>
+        ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
           onClick={deleteEvent}
@@ -142,7 +183,7 @@ export default function Event(props) {
             Delete event
           </UncontrolledTooltip>
         </Button>{" "}
-      </div>
+      </CardFooter>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import moment from 'moment';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -10,7 +9,7 @@ import { getDatesInMonthDisplay } from '../utils/DateUtils';
 import {Context} from '../../App';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
-  const [context, updateContext] = useContext(Context);
+  const [context] = useContext(Context);
 
 
 
