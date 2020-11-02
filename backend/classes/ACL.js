@@ -27,23 +27,19 @@ module.exports = class ACL {
     }
 
     // Allow everyone to create an event
-      if (table === "event") {
-        if (method === "POST") {
-          //to do 
-          return true;
-        }
-      
+    if (table === "event") {
+      if (method === "POST") {
+        //to do
+        return true;
       }
+    }
 
-      if (table === "invite") {
-        // Allow everyone to create a user
-        if (method === "POST") {
-
-          return true;
-        }
+    if (table === "invite") {
+      // Allow everyone to create a user
+      if (method === "POST") {
+        return true;
       }
-
-     
+    }
 
     res.status(403);
     res.json({ error: "Not allowed" });
@@ -55,11 +51,13 @@ module.exports = class ACL {
     let { user } = req.session;
     let { method } = req;
 
-    if (method === "GET" && req.params.eventId) {
+    if (req.params.eventId) {
       //allow event-owner to see the guest list
       let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
         id: req.params.eventId,
       });
+
+      //console.log("owner", owner);
 
       //also allow invitees to see the guest list
       let invitees = db.select(
@@ -75,35 +73,38 @@ module.exports = class ACL {
         );
 
         console.log("invitee", invitee);
-        console.log('owner', owner)
 
-        if (owner[0].userId === user.id || invitee.length === 1) {
+        if (
+          method === "GET" &&
+          (owner[0].userId === user.id || invitee.length === 1)
+        ) {
           return true;
         }
       }
     }
 
-    if (method === 'GET' && req.params.userId) {
+    if (method === "GET" && req.params.userId) {
       if (user && req.params.userId == user.id) {
         return true;
       }
     }
 
     //only allow the user that created the event to delete the event
-    if (method === 'DELETE'){
-      let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
-        id: req.params.eventId,
-      });
-   
-      if (user && owner[0].userId === user.id ) {
-        return true;
-      }
-    }
-    
-    console.log('owner', owner)
+    // if (method === "DELETE") {
+    //   let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
+    //     id: req.params.eventId,
+    //   });
+
+    //   console.log("owner from delete", owner);
+
+    //   if (owner[0].userId === user.id) {
+    //     return true;
+    //   }
+    // }
+
+    //console.log('owner', owner)
     //only allow the user that created the event to edit it
 
-   
     res.status(403);
     res.json({ error: "Not allowed" });
     return false;
