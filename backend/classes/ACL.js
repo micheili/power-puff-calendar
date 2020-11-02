@@ -4,7 +4,7 @@ module.exports = class ACL {
     let { method } = req;
 
     // Allow all logged in users to see a list of other users
-    if (table === "user") {
+    if (table === "User") {
       // Allow everyone to create a user
       if (method === "POST") {
         return true;
@@ -27,14 +27,14 @@ module.exports = class ACL {
     }
 
     // Allow everyone to create an event
-    if (table === "event") {
+    if (table === "Event") {
       if (method === "POST") {
         //to do
         return true;
       }
     }
 
-    if (table === "invite") {
+    if (table === "Invite") {
       // Allow everyone to create a user
       if (method === "POST") {
         return true;
