@@ -5,7 +5,7 @@ import DateWeekIndicator from "./indicators/DateWeekIndicator";
 import GoToCalendarButtons from "./GoToCalendarButtons";
 import WeekIndicator from "./indicators/WeekIndicator";
 import { Context } from "../App";
-import Infobox from "../components/Infobox";
+import Infobox from "../components/InfoBox";
 import { Container, Row, Col } from "reactstrap";
 import "../sass/_calendar.scss";
 

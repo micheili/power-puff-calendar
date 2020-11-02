@@ -5,7 +5,7 @@ import DateDayIndicator from "./indicators/DateDayIndicator";
 import DayIndicator from "./indicators/DayIndicator";
 import { getReadableWeekday } from "./utils/MomentUtils";
 import { Context } from "../App";
-import Infobox from "../components/Infobox";
+import Infobox from "../components/InfoBox";
 import { Container, Row, Col } from "reactstrap";
 import "../sass/_calendar.scss";
 
