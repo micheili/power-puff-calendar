@@ -161,21 +161,6 @@ module.exports = class RestApi {
         )
       );
     });
-
-    this.app.delete(
-      this.routePrefix + "/delete_invitations/:eventId",
-      (req, res) => {
-        res.json(
-          this.db.run(
-            /*sql*/ `
-            DELETE FROM Invite
-            WHERE eventId = $eventId
-        `,
-            req.params
-          )
-        );
-      }
-    );
   }
 
   setupRoute() {
@@ -245,45 +230,22 @@ module.exports = class RestApi {
       }
     });
 
-    //get all invited users by event id
-    // this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
-    //   if (!allowedOwnApi(this.db, req, res)) {
-    //     return;
+    // this.app.delete(
+    //   this.routePrefix + "/delete_invitations/:eventId",
+    //   (req, res) => {
+    //     if (!allowedOwnApi(this.db, req, res)) {
+    //       return;
+    //     }
+    //     res.json(
+    //       this.db.run(
+    //         /*sql*/ `
+    //         DELETE FROM Invite
+    //         WHERE eventId = $eventId
+    //     `,
+    //         req.params
+    //       )
+    //     );
     //   }
-    //   let result = this.db
-    //     .select(
-    //       /*sql*/ `
-    //   SELECT u.* FROM User u
-    //   INNER JOIN Invite i ON u.id = i.invitedUser
-    //   WHERE i.eventId = $eventId
-    //   `,
-    //       { eventId: req.params.eventId }
-    //     )
-    //     .map((x) => ({ ...x, password: undefined }));
-    //   if (result.length > 0) {
-    //     res.json(result);
-    //   } else {
-    //     res.status(404);
-    //     res.json({ error: 404 });
-    //   }
-    // });
-
-    this.app.delete(
-      this.routePrefix + "/delete_invitations/:eventId",
-      (req, res) => {
-        if (!allowedOwnApi(this.db, req, res)) {
-          return;
-        }
-        res.json(
-          this.db.run(
-            /*sql*/ `
-            DELETE FROM Invite
-            WHERE eventId = $eventId
-        `,
-            req.params
-          )
-        );
-      }
-    );
+    // );
   }
 };
