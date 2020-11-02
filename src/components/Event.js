@@ -56,11 +56,11 @@ export default function Event(props) {
   async function deleteEvent() {
     //delete if it's your event
     if (loggedInUser === userId) {
-      const deleteInvitations = await (
-        await fetch("/api/delete_invitations/" + id, {
-          method: "DELETE",
-        })
-      ).json();
+      // const deleteInvitations = await (
+      //   await fetch("/api/delete_invitations/" + id, {
+      //     method: "DELETE",
+      //   })
+      // ).json();
       const deleteEvent = await (
         await fetch("/api/Event/" + id, {
           method: "DELETE",
@@ -170,7 +170,10 @@ export default function Event(props) {
         ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
-          onClick={e => window.confirm("Are you sure you want to delete the event?") && deleteEvent()}
+          onClick={(e) =>
+            window.confirm("Are you sure you want to delete the event?") &&
+            deleteEvent()
+          }
           outline
           color="lightpink"
           id="deleteButton"
