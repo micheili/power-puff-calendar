@@ -44,7 +44,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
      start1Before.setMinutes(start1Before.getMinutes() - 59);
         
       if(date >= start1Before && date <= event.stop){
-        
+        console.log("dayindicator event length", event.length)
         for (var i = 0; i < event.length; i++) {        
          info.push(
           <div className="events w-100" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>

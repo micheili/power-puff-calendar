@@ -7,6 +7,7 @@ import { getDatesInWeekDisplay } from '../utils/DateUtils';
 import {Context} from '../../App';
 
 
+
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
   const [context] = useContext(Context);
 
@@ -19,7 +20,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
     ...x, 
     start: new Date(x.start), 
     stop: new Date(x.stop),
-    length: Math.ceil ((new Date(x.stop).getTime() - new Date(x.start).getTime()) / (60 * 60 * 1000))
+    length: Math.ceil ((new Date(x.stop).getTime() - new Date(x.start).getTime()) / (60 * 60 * 1000 *24))
   }));
 
 
@@ -32,23 +33,26 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
   function checkEvent(date){
     let info = [];
     for(let event of events){
+
       let start1Before = new Date(event.start.getTime());
-      start1Before.setHours(start1Before.getHours() -24);
+      start1Before.setHours(start1Before.getHours() -24);      
 
       if(date >= start1Before && date <= event.stop){
-        !event.startedPrinting && info.push(
-          <div className="events" data-date={date.toString()} key={event.id}>
-            
-            *{event.title.substr(0,10) + '...'}
-        
-          </div>
-        );
-        
-        event.startedPrinting = true;
+        console.log("dateweek event length", event.length)
+        for (var i = 0; i < event.length; i++) {        
+          info.push(
+           <div className="events" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+                {event.title.substr(0,10) + '...'}
+           </div>
+         );
+         return  <>{info}</> ; 
+         }
+         
+         }  
       }
-    }
-    return info.length ? <>{info}</> : null;
-  }
+     
+     
+   }
 
   //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
   //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}
