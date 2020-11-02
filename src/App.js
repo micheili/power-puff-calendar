@@ -16,6 +16,7 @@ window.userFetch = window.userFetch || false;
     invitedEvents: [], //accepted = true
     allInvites: [], // accepted = null
     showNewEvent: false,
+    showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
   });
@@ -100,6 +101,7 @@ window.userFetch = window.userFetch || false;
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
+      
       {contextVal.user ? <div className="App wrapper">  
       <TopBar logout={logout}/>        
       <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />

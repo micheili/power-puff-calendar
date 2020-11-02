@@ -24,6 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import GuestList from "./GuestList";
+import EditEvent from './EditEvent'
 
 export default function Event(props) {
   let {
@@ -37,9 +38,16 @@ export default function Event(props) {
     ownerFirstName,
     ownerLastName,
   } = props.combinedEvents;
-  let [context, updateContext] = useContext(Context);
 
+
+  let [context, updateContext] = useContext(Context);
+ 
   const loggedInUser = context.user.id;
+
+  const editEvent = () => {
+    console.log('EDIT CLICKED');
+    updateContext({ showEditEvent: true });
+  };
 
   let startMoment = moment(start);
   let stopMoment = moment(stop);
@@ -80,7 +88,7 @@ export default function Event(props) {
       await fetch("/api/invite/" + inviteId, {
         method: "PUT",
         body: JSON.stringify({
-          accepted: 0,
+        accepted: 0,
         }),
         headers: { "Content-Type": "application/json" },
       })
@@ -118,42 +126,46 @@ export default function Event(props) {
 
   return (
     <div className="mb-3 pb-5 sm-6">
-      <CardBody className="event-card-body">
-        <CardSubtitle tag="h5">
-          <span className="mr-1">
-            <strong>Description:</strong>{" "}
-          </span>
-        </CardSubtitle>
-        <CardSubtitle tag="h5" className="mt-1">
-          {description}
-        </CardSubtitle>
-        <span className="mt-5 p-5"></span>
-        <CardSubtitle className="mt-3 ">
-          <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
-          {startMonth} {startYear}
-        </CardSubtitle>
-        <CardSubtitle>
-          <strong>to</strong> {stopTime}
-          {startMoment.isBefore(stopMoment)
-            ? null
-            : " " + stopWeekday + ", " + stopDateNr}
-          {startMoment.isSameOrAfter(stopMoment, "month")
-            ? null
-            : " " + stopMonth + " "}
-          {startMoment.isSameOrAfter(stopMoment, "year")
-            ? null
-            : +" " + stopYear}
-        </CardSubtitle>
-        <GuestList
-          id={id}
-          ownerFirstName={
-            loggedInUser === userId ? context.user.firstName : ownerFirstName
-          }
-          ownerLastName={
-            loggedInUser === userId ? context.user.lastName : ownerLastName
-          }
-        />
-      </CardBody>
+      {context.showEditEvent ?
+        <EditEvent showEditEvent={id} /> :
+        <CardBody className="event-card-body">
+          <CardSubtitle tag="h5">
+            <span className="mr-1">
+              <strong>Description:</strong>{" "}
+            </span>
+          </CardSubtitle>
+          <CardSubtitle tag="h5" className="mt-1">
+            {description}
+          </CardSubtitle>
+          <span className="mt-5 p-5"></span>
+          <CardSubtitle className="mt-3 ">
+            <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
+            {startMonth} {startYear}
+          </CardSubtitle>
+          <CardSubtitle>
+            <strong>to</strong> {stopTime}
+            {startMoment.isBefore(stopMoment)
+              ? null
+              : " " + stopWeekday + ", " + stopDateNr}
+            {startMoment.isSameOrAfter(stopMoment, "month")
+              ? null
+              : " " + stopMonth + " "}
+            {startMoment.isSameOrAfter(stopMoment, "year")
+              ? null
+              : +" " + stopYear}
+          </CardSubtitle>
+          <GuestList
+            id={id}
+            ownerFirstName={
+              loggedInUser === userId ? context.user.firstName : ownerFirstName
+            }
+            ownerLastName={
+              loggedInUser === userId ? context.user.lastName : ownerLastName
+            }
+          />
+        </CardBody>
+      }
+    
       <CardFooter>
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="inviteButton">
@@ -164,12 +176,12 @@ export default function Event(props) {
           </ButtonToggle>
         ) : null}{" "}
         {loggedInUser === userId ? (
-          <ButtonToggle outline color="lightpink" id="editButton">
+          <Button outline color="lightpink" id="editButton" onclick={editEvent}>
             <FontAwesomeIcon icon={faPen} />
             <UncontrolledTooltip placement="bottom" target="editButton">
               Edit
             </UncontrolledTooltip>
-          </ButtonToggle>
+          </Button>
         ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
@@ -185,5 +197,6 @@ export default function Event(props) {
         </Button>{" "}
       </CardFooter>
     </div>
+  
   );
 }
