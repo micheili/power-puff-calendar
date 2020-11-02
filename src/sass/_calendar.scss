@@ -378,7 +378,20 @@
       }
     }
   }
-  
+  }
+
+  .image-header{
+    position: relative;
+   max-width: 100%;
+  }
+
+  .title-header{
+    position: absolute;
+    font-weight: bolder;
+    color: white;
+    justify-content: center;
+    top: 25%;
+   
   }
 
   
