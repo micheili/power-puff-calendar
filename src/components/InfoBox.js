@@ -72,7 +72,7 @@ const Infobox = (props) => {
     <Row>
       <Col>
         <Card>
-          <CardHeader className="bg-info">
+          <CardHeader className={`bg-info ${context.colorTheme}`}>
             {dateText}
             <div className="float-left ml-3" id="yearText">
               {year}

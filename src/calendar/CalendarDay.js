@@ -27,11 +27,11 @@ export default function CalendarDay() {
         selectDate={selectDate}
         setSelectDate={setSelectDate}
       />
-      <div className="calendar-container">
-        <div className="weekday-indicator">
+      <div className={`calendar-container ${context.colorTheme}`}>
+        <div className={`weekday-indicator ${context.colorTheme}`}>
         {getReadableWeekday(selectDate)}
         </div>
-
+        
         <DateDayIndicator 
         selectDate={selectDate}
         setSelectDate={setSelectDate}

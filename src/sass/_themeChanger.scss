@@ -20,22 +20,188 @@
         background-color:  #d27f78;
     }
     #theme-blue{
-        background-color:  blue;
+        background-color:  #3C69E7;
     }
     #theme-black{
         background-color:  black;
     }
+    #theme-neon{
+        background-color:  #66FF00;
+    }
+
 
 }
 
+//calendar container-border
 .calendar-container.theme-pink{
     border-color:  #d27f78;
 }
-
 .calendar-container.theme-blue{
-    border-color:  blue;
+    border-color:  #3C69E7;
 }
-
 .calendar-container.theme-black{
     border-color:  black;
 }
+.calendar-container.theme-neon{
+    border-color:  #66FF00;
+}
+
+//weekdayIndicator
+.weekday-indicators.theme-pink{
+    border-color:  #d27f78; 
+    background-color: #d27f78; 
+}
+.weekday-indicators.theme-blue{
+    border-color:  #3C69E7; 
+    background-color:#3C69E7; 
+}
+.weekday-indicators.theme-black{
+    border-color:  black; 
+    background-color: black; 
+}
+.weekday-indicators.theme-neon{
+    border-color: #66FF00;
+    background-color: #66FF00;
+}
+
+.weekday-indicator.theme-pink{
+    border-color:  #d27f78; 
+    background-color: #d27f78; 
+}
+.weekday-indicator.theme-blue{
+    border-color:  #3C69E7; 
+    background-color:#3C69E7; 
+}
+.weekday-indicator.theme-black{
+    border-color:  black; 
+    background-color: black; 
+}
+.weekday-indicator.theme-neon{
+    border-color: #66FF00;
+    background-color: #66FF00;
+}
+
+//month,week,day indicator
+.month-indicator.theme-pink{
+    border-color:  #d27f78; 
+    background-color: #d27f78; 
+    border-top: solid;
+    border-color:  #fbc5b8;
+    color: #ffffff;
+}
+.month-indicator .row .prev.theme-pink{
+    color: #fbc5b8;
+}
+.month-indicator .row .next.theme-pink{
+    color: #fbc5b8;
+}
+
+.month-indicator.theme-blue{
+    border-color:  #3C69E7; 
+    background-color:#3C69E7; 
+    border-top: solid;
+    border-color:  #92a4d6; 
+    color: #ffffff;
+}
+.month-indicator .row .prev.theme-blue{
+    color: #92a4d6; 
+}
+.month-indicator .row .next.theme-blue{
+    color: #92a4d6; 
+}
+
+.month-indicator.theme-black{
+    border-color:  black; 
+    background-color: black;
+    border-top: solid;
+    border-color:  rgb(110, 110, 110); 
+    color:  #ffffff;
+}
+.month-indicator .row .prev.theme-black{
+    color: rgb(110, 110, 110); 
+}
+.month-indicator .row .next.theme-black{
+    color: rgb(110, 110, 110); 
+}
+
+.month-indicator.theme-neon{
+    border-color: #66FF00;
+    background-color: #66FF00;
+    border-top: solid;
+    border-color:  #ffffff;
+    color:  #ffffff;
+}
+.month-indicator .row .prev.theme-neon{
+    color: #ffffff;
+}
+.month-indicator .row .next.theme-neon{
+    color: #ffffff; 
+}
+
+//Calendar buttons
+.calendar-buttons.theme-pink{
+    background-color: #d27f78; 
+}
+.calendar-buttons .row .col .link-btn.theme-pink{
+    color:  #fbc5b8;
+}
+.calendar-buttons .row .col .link-btn.theme-pink:hover{ 
+    color: white;
+}
+.calendar-buttons .row .col .link-btn-active.theme-pink{ 
+    color:  white;
+}
+
+.calendar-buttons.theme-blue{
+    background-color: #3C69E7;
+}
+.calendar-buttons .row .col .link-btn.theme-blue{
+    color: #92a4d6; 
+}
+.calendar-buttons .row .col .link-btn.theme-blue:hover{ 
+    color: white;
+}
+.calendar-buttons .row .col .link-btn-active.theme-blue{ 
+    color:  white;
+}
+
+.calendar-buttons.theme-black{
+    background-color: black; 
+}
+.calendar-buttons .row .col .link-btn.theme-black{
+    color: rgb(110, 110, 110); 
+}
+.calendar-buttons .row .col .link-btn.theme-black:hover{ 
+    color: white;
+}
+.calendar-buttons .row .col .link-btn-active.theme-black{ 
+    color:  white;
+}
+
+.calendar-buttons.theme-neon{
+    background-color:#66FF00; 
+}
+.calendar-buttons .row .col .link-btn.theme-neon{
+    color: #ffffff; 
+}
+.calendar-buttons .row .col .link-btn.theme-neon:hover{ 
+    color: #06963d; 
+}
+.calendar-buttons .row .col .link-btn-active.theme-neon{ 
+    color:  #06963d; 
+}
+
+//infoBox
+.col .row .col .card .card-header .bg-info.theme-pink{
+    background-color: #d27f78; 
+}
+.col .row .col .card .card-header .bg-info.theme-blue{
+    background-color: #3C69E7;
+}
+.bg-info.theme-black{
+    background-color: black; 
+}
+.bg-info.theme-neon{
+    background-color: #66FF00; 
+}
+

@@ -3,7 +3,6 @@ import React, { useEffect, useContext } from "react";
 import { Context } from "../App";
 
 export default function ThemeChanger() {
-  //const [colorTheme, setColorTheme] = useState('');
   const [context, updateContext] = useContext(Context);
 
   useEffect(() => {
@@ -38,6 +37,11 @@ export default function ThemeChanger() {
         id="theme-black"
         onClick={() => handleClick("theme-black")}
         className={`${context.colorTheme === "theme-black" ? "active" : ""}`}
+      ></div>
+       <div
+        id="theme-neon"
+        onClick={() => handleClick("theme-neon")}
+        className={`${context.colorTheme === "theme-neon" ? "active" : ""}`}
       ></div>
     </div>
   );
