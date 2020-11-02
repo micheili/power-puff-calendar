@@ -80,7 +80,7 @@ module.exports = class ACL {
 
       console.log("invitee", invitee);
 
-      if (user && (owner[0].userId === user.id || invitee.length === 1)) {
+      if (user && (owner[0].userId == user.id || invitee.length > 0)) {
         return true;
       }
     }
