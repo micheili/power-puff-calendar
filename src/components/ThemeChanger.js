@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import themeChanger from '../sass/_themeChanger.scss';
 
 
-export default function ThemeChanger ({colorTheme, setColorTheme}) {
 
+export default function ThemeChanger ({colorTheme, setColorTheme}) {
+    const [colorTheme, setColorTheme] = useState('');
 
     useEffect(() => {
         const currentThemeColor = localStorage.getItem('theme-color');

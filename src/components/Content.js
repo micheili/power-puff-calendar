@@ -9,6 +9,7 @@ import CalendarMonth from "../calendar/CalendarMonth";
 import CalendarWeek from "../calendar/CalendarWeek";
 import CalendarDay from "../calendar/CalendarDay";
 import Invitation from "./Invitation";
+import ThemeChanger from './ThemeChanger';
 
 import Invitations_declined from "./Invitations_declined";
 
@@ -38,6 +39,11 @@ console.log("user fetch", window.userFetch);
           <></>
         )}
         </Row>
+
+        <ThemeChanger 
+            colorTheme = {context.colorTheme}
+            setColorTheme = {context.setColorTheme}
+            /> 
              
       
       
