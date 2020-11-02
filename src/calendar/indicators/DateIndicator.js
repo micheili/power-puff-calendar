@@ -7,6 +7,9 @@ import {
 } from '../utils/MomentUtils';
 import { getDatesInMonthDisplay } from '../utils/DateUtils';
 import {Context} from '../../App';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faAlgolia, faCalendarPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context] = useContext(Context);
@@ -43,10 +46,8 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
 
       if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div className="events" data-date={date.toString()} key={event.id} >
-            
+          <div className="events" data-date={date.toString()} key={event.id} >     
           *{event.title.substr(0,10) + '...'}
-           
           </div>
         );
         
