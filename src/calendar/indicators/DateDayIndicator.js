@@ -19,7 +19,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
     ...context.myEvents,...context.invitedEvents
   ]
   
-  
+    
   
   // map start and stop to real date objects
   events =events.map(x => ({
@@ -42,20 +42,22 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
     let start1Before = new Date(event.start.getTime());
      start1Before.setMinutes(start1Before.getMinutes() - 59);
-
-      if(date >= start1Before && date <= event.stop){
-        !event.startedPrinting && info.push(
-          <div className="events ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-           
-              *{event.title}
         
+      if(date >= start1Before && date <= event.stop){
+        
+        for (var i = 0; i < event.length; i++) {
+         info.push(
+          <div className="events w-100" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+              *{event.title}
           </div>
         );
+        console.log("event lenght", event.length); return  <>{info}</> ; 
+        }
         
-        event.startedPrinting = true;
-      }
+        }  
     }
-    return info.length ? <>{info}</> : null;
+    
+    
   }
 
   // <div className="m-0 " style={{position: 'absolute', top: 0, left: 0, 
@@ -93,10 +95,8 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
       </div>
     );
   });
+  
 
   return <div className="date-day-indicator">{dayHours}</div>;
-
-
-
 
 }
