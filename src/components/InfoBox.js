@@ -1,108 +1,50 @@
-import React, { useContext } from "react";
-import Event from "./Event";
-import EventList from "./EventList";
-import NewEvent from "./NewEvent";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Context } from "../App";
-import { getMonthDay, getDayOfMonth } from "../calendar/utils/MomentUtils";
-import moment from "moment";
-import { CardTitle } from "reactstrap";
-
+import React from "react";
 import {
   CardHeader,
   Card,
   CardText,
   CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
   Row,
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
 
 const Infobox = (props) => {
-  const [context, updateContext] = useContext(Context);
-
-  let { myEvents, invitedEvents, selectDate } = props;
-  let date = moment(selectDate).format("DD/MM");
-  let year = moment(selectDate).format("YYYY");
-
-  const addNewEvent = () => {
-    updateContext({ showNewEvent: true });
-  };
-
-  let combinedEvents = [...myEvents, ...invitedEvents];
-  let filterCombinedEvents = combinedEvents.filter(
-    (t) =>
-      moment(t.start).format("YYYY-MM-DD") ===
-      moment(selectDate).format("YYYY-MM-DD")
-  );
-  combinedEvents = filterCombinedEvents;
-
-  let eventDetails = (
-    <>
-      <CardHeader className="single-event" tag="h3">
-        {combinedEvents.length ? combinedEvents[0].title : ""}
-      </CardHeader>
-      <Event combinedEvents={combinedEvents[0]} />
-    </>
-  );
-  let eventList = <EventList combinedEvents={combinedEvents} />;
-  let defaultText = (
-    <CardText>
-      You have no events this day! <br></br>
-      Do you want to{" "}
-      <a
-        href="#"
-        onClick={addNewEvent}
-        className="text-dark font-weight-bolder link"
-      >
-        add a new event?
-      </a>
-    </CardText>
-  );
-
-  //kanske formattera om date -> 10/7
-  let dateText = (
-    <div className="float-left" id="dateText">
-      {date}
-    </div>
-  );
+  // const props = { date, title, invitedGuests };
 
   return (
     <Row>
-      <Col>
+      <Col sm="6" lg="3">
         <Card>
-          <CardHeader className="bg-info">
-            {dateText}
-            <div className="float-left ml-3" id="yearText">
-              {year}
-            </div>
+          <CardHeader>
+            <div className="float-left">The Date You've chosen</div>
             <div>
-              <span id="addEventHover">
-                <FontAwesomeIcon
-                  className="sidebar-icon mr-1 float-right link"
-                  id="addEventPlus"
-                  icon={faPlus}
-                  size="2x"
-                  onClick={addNewEvent}
-                />
+              <span href="#" id="addEventHover">
+                <Button className="float-right" color="warning">
+                  +
+                  <UncontrolledTooltip
+                    placement="right"
+                    target="addEventHover"
+                  >
+                    Add new event
+                  </UncontrolledTooltip>
+                </Button>{" "}
               </span>
-              <UncontrolledTooltip placement="right" target="addEventHover">
-                Add new event
-              </UncontrolledTooltip>
             </div>
           </CardHeader>
-
           <CardBody>
-            {context.showNewEvent ? (
-              <NewEvent showNewEvent />
-            ) : combinedEvents.length === 0 ? (
-              defaultText
-            ) : combinedEvents.length === 1 ? (
-              eventDetails
-            ) : (
-              eventList
-            )}
+            <CardTitle>Here you can see events and stuff</CardTitle>
+            <CardSubtitle>
+              maybe create your own event and invite people?
+            </CardSubtitle>
+            <CardText>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </CardText>
+            <Button>Button</Button>
           </CardBody>
         </Card>
       </Col>
