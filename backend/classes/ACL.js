@@ -26,6 +26,25 @@ module.exports = class ACL {
       }
     }
 
+    // Allow everyone to create an event
+      if (table === "event") {
+        if (method === "POST") {
+          //to do 
+          return true;
+        }
+      
+      }
+
+      if (table === "invite") {
+        // Allow everyone to create a user
+        if (method === "POST") {
+
+          return true;
+        }
+      }
+
+     
+
     res.status(403);
     res.json({ error: "Not allowed" });
     return false;
@@ -36,7 +55,7 @@ module.exports = class ACL {
     let { user } = req.session;
     let { method } = req;
 
-    if (req.params.eventId) {
+    if (method === "GET" && req.params.eventId) {
       //allow event-owner to see the guest list
       let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
         id: req.params.eventId,
@@ -56,6 +75,7 @@ module.exports = class ACL {
         );
 
         console.log("invitee", invitee);
+        console.log('owner', owner)
 
         if (owner[0].userId === user.id || invitee.length === 1) {
           return true;
@@ -63,18 +83,27 @@ module.exports = class ACL {
       }
     }
 
-    if (req.params.userId) {
+    if (method === 'GET' && req.params.userId) {
       if (user && req.params.userId == user.id) {
         return true;
       }
     }
 
     //only allow the user that created the event to delete the event
-
+    if (method === 'DELETE'){
+      let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
+        id: req.params.eventId,
+      });
+   
+      if (user && owner[0].userId === user.id ) {
+        return true;
+      }
+    }
+    
+    console.log('owner', owner)
     //only allow the user that created the event to edit it
 
-    //only allow the user that created the event to invite other users
-
+   
     res.status(403);
     res.json({ error: "Not allowed" });
     return false;
