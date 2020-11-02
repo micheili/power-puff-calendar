@@ -49,7 +49,7 @@ module.exports = class RestApi {
     let rp = this.routePrefix;
     // get all posts
     this.app.get(rp + "/" + table, (req, res) => {
-      if (!allowed(table, req, res)) {
+      if (!allowed(table, req, res, this.db)) {
         return;
       }
       res.json(
@@ -60,7 +60,7 @@ module.exports = class RestApi {
     });
     // get a post by id
     this.app.get(rp + "/" + table + "/:id", (req, res) => {
-      if (!allowed(table, req, res)) {
+      if (!allowed(table, req, res, this.db)) {
         return;
       }
       let result = this.db
@@ -87,7 +87,7 @@ module.exports = class RestApi {
     // create a post
 
     this.app.post(this.routePrefix + "/" + table, (req, res) => {
-      if (!allowed(table, req, res)) {
+      if (!allowed(table, req, res, this.db)) {
         return;
       }
       // if the Table name is  "Event", then check for the start and stop time,
@@ -130,7 +130,7 @@ module.exports = class RestApi {
   setupPutRoute(table) {
     // update a post
     this.app.put(this.routePrefix + "/" + table + "/:id", (req, res) => {
-      if (!allowed(table, req, res)) {
+      if (!allowed(table, req, res, this.db)) {
         return;
       }
       res.json(
@@ -149,7 +149,7 @@ module.exports = class RestApi {
   setupDeleteRoute(table) {
     // delete a post
     this.app.delete(this.routePrefix + "/" + table + "/:id", (req, res) => {
-      if (!allowed(table, req, res)) {
+      if (!allowed(table, req, res, this.db)) {
         return;
       }
       res.json(
@@ -167,7 +167,7 @@ module.exports = class RestApi {
     //get events created by (logged-in) userId
 
     this.app.get(this.routePrefix + "/myEvents/:userId", (req, res) => {
-      if (!allowedOwnApi(this.db, req, res)) {
+      if (!allowed("", req, res, this.db)) {
         return;
       }
       let result = this.db.select(
@@ -187,7 +187,7 @@ module.exports = class RestApi {
 
     //get events which i am invited for and have accepted
     this.app.get(this.routePrefix + "/invitedEvents/:userId", (req, res) => {
-      if (!allowedOwnApi(this.db, req, res)) {
+      if (!allowed("", req, res, this.db)) {
         return;
       }
       let result = this.db.select(
@@ -209,7 +209,7 @@ module.exports = class RestApi {
 
     //get guests who have either accepted, declined or null
     this.app.get(this.routePrefix + "/invitedUsers/:eventId", (req, res) => {
-      if (!allowedOwnApi(this.db, req, res)) {
+      if (!allowed("", req, res, this.db)) {
         return;
       }
       let result = this.db

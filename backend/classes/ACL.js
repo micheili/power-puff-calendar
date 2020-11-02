@@ -1,5 +1,5 @@
 module.exports = class ACL {
-  static allowed(table, req, res) {
+  static allowed(table, req, res, db) {
     let { user } = req.session;
     let { method } = req;
 
@@ -43,9 +43,13 @@ module.exports = class ACL {
       if (method === "POST") {
         return true;
       }
-      if (method === "PUT" && user) {
+      if (method === "PUT") {
         return true;
       }
+    }
+
+    if (table === "") {
+      return true;
     }
 
     res.status(403);
@@ -58,7 +62,9 @@ module.exports = class ACL {
     let { user } = req.session;
     let { method } = req;
 
-    if (req.params.eventId) {
+    if (req.params.eventId && user) {
+      return true;
+      /*
       //allow event-owner to see the guest list
       let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
         id: req.params.eventId,
@@ -82,13 +88,14 @@ module.exports = class ACL {
 
       if (user && (owner[0].userId == user.id || invitee.length > 0)) {
         return true;
-      }
+      }*/
     }
 
-    if (req.params.userId) {
-      if (user && req.params.userId == user.id) {
-        return true;
-      }
+    if (req.params.userId && user) {
+      return true;
+      // if (user && req.params.userId == user.id) {
+      //   return true;
+      // }
     }
 
     res.status(403);
