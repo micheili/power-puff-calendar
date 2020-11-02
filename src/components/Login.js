@@ -67,7 +67,7 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
       });
       const data = await result.json();
-      if (data.error == "Already logged in!") {
+      if (data.error === "Already logged in!") {
         setError("Someone is already logged-in");
         setFormData({ email: "", password: "" });
         setAlert(true);
@@ -132,9 +132,9 @@ export default function Login() {
 
   return (
     <div>
-      <div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div>
+      <div className="bg"></div>
+<div className="bg bg2"></div>
+<div className="bg bg3"></div>
     
     <Container className="mt-5">
       <Row className="justify-content-center">

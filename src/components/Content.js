@@ -20,7 +20,6 @@ import { Context } from "../App";
 
 export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
   const [context] = useContext(Context);
-console.log("user fetch", window.userFetch);
  if(!window.userFetch){ return null}
  
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
@@ -33,7 +33,6 @@ export default function App() {
     (async () => {
       let result = await (await fetch("/api/login")).json();
       window.userFetch = true;
-      console.log("window user fetch", window.userFetch);
       if (result.error) {
         updateContext({ user: false });
         return;

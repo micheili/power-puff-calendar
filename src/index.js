@@ -7,9 +7,9 @@ import './sass/style.scss';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <App />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.querySelector('#root')
 );
 

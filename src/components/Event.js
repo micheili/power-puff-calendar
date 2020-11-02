@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import {
-  CardTitle,
   CardSubtitle,
   ButtonToggle,
   Button,
-  CardText,
   UncontrolledTooltip,
   CardFooter,
   CardBody,
@@ -30,7 +28,6 @@ export default function Event(props) {
     id,
     userId,
     inviteId,
-    title,
     description,
     start,
     stop,
