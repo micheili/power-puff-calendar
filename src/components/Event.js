@@ -173,7 +173,7 @@ export default function Event(props) {
         ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
-          onClick={deleteEvent}
+          onClick={e => window.confirm("Are you sure you want to delete the event?") && deleteEvent()}
           outline
           color="lightpink"
           id="deleteButton"

@@ -5,7 +5,7 @@ import MonthIndicator from "./indicators/MonthIndicator";
 import GoToCalendarButtons from "./GoToCalendarButtons";
 import moment from "moment";
 import { Context } from "../App";
-import Infobox from "../components/Infobox";
+import Infobox from "../components/InfoBox";
 import { Container, Row, Col } from "reactstrap";
 import "../sass/_calendar.scss";
 
@@ -16,7 +16,7 @@ export default function CalendarMonth() {
   return (
     <Container fluid={true}>
       <Row>
-        <Col className="mb-5" sm="12" lg="8">
+        <Col className="month-container mb-5" sm="12" lg="8">
           <div className="container month-container">
             <GoToCalendarButtons />
             <MonthIndicator
