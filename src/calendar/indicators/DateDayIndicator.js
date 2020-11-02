@@ -9,6 +9,7 @@ import {Context} from '../../App';
 
 
 
+
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
 
   const [context] = useContext(Context);
@@ -45,11 +46,10 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
       if(date >= start1Before && date <= event.stop){
         !event.startedPrinting && info.push(
-          <div className="events ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-           
-              *{event.title}
-        
+          <div className="events-day ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+              *{event.title}      
           </div>
+
         );
         
         event.startedPrinting = true;
