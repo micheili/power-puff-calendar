@@ -7,7 +7,7 @@ import SummerImage from "./images/summer.jpg";
 
 
 export default function Header(){
-    const [background, setBackground] = useState([]);
+    const [background, setBackground] = useState("");
     const [font, setFont] = useState("");
 
     const setHeader = (background, font) =>{
@@ -15,26 +15,20 @@ export default function Header(){
         setFont(font);
     };
 
-    
-
     return(
         <div>
             <Container className="">
                 <Row className="justify-content-center">
-                    <img className="image-header" src={FallImage} alt="Header"></img>
+                    <img className="image-header" src={background} ></img>
                     <h1 className="title-header">{font}</h1>
                 </Row>
-                <Row className="justify-content-center ">
-                        <Button onClick={()=> setHeader({FallImage}, "Fall")} color="secondary">Fall</Button>{' '}
-
-                        <Button onClick={()=> setHeader({WinterImage}, "Winter")} color="secondary">Winter</Button>{' '}
-                   
-                        <Button onClick={()=> setHeader({SpringImage}, "Spring")} color="success">Spring</Button>{' '}
-                   
-                        <Button onClick={()=> setHeader({SummerImage}, "Summer")} color="success">Summer</Button>{' '}     
+                <Row className="button-container justify-content-center justify-content-between ">
+                        <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
+                        <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>{' '}
+                        <Button onClick={()=> setHeader(SpringImage, "Spring")} color="success">Spring</Button>{' '}
+                        <Button onClick={()=> setHeader(SummerImage, "Summer")} color="success">Summer</Button>{' '}     
                 </Row>
             </Container>
-         
         </div>
     )
 }
