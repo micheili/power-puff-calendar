@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
+import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
 
 // create and export the context
@@ -101,7 +102,7 @@ window.userFetch = window.userFetch || false;
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
       {contextVal.user ? <div className="App wrapper">  
-      <TopBar logout={logout}/>        
+      <TopBar logout={logout}/>         
       <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />
            <Content
             toggleSidebar={toggleSidebar}
@@ -109,8 +110,11 @@ window.userFetch = window.userFetch || false;
             logout={logout} />
         </div> : <div className="App wrapper" >                
            <Content/>
+           
         </div>}
+        
       </Router>
     </Context.Provider>
+  
   );
 }

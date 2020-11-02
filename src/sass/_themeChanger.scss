@@ -1,0 +1,41 @@
+
+
+.theme-options{
+    text-align: center;
+    div{
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        margin: 2px 10px;
+        border: 1px solid #fff;
+        display: inline-block;
+        opacity: 0.5;
+        &.active {
+            opacity: 1;
+        }
+    }
+
+    #theme-pink{
+        background-color:  #d27f78;
+    }
+    #theme-blue{
+        background-color:  blue;
+    }
+    #theme-black{
+        background-color:  black;
+    }
+
+}
+
+.calendar-container.theme-pink{
+    border-color:  #d27f78;
+}
+
+.calendar-container.theme-blue{
+    border-color:  blue;
+}
+
+.calendar-container.theme-black{
+    border-color:  black;
+}

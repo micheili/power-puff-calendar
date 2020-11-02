@@ -7,13 +7,16 @@ import moment from "moment";
 import { Context } from "../App";
 import Infobox from "../components/InfoBox";
 import { Container, Row, Col } from "reactstrap";
+import ThemeChanger from '../components/ThemeChanger';
 import '../sass/_calendar.scss';
+
 
 
 export default function CalendarMonth() {
 
     const [context] = useContext(Context);
     const [selectDate, setSelectDate] = useState(moment().toDate());
+    const [colorTheme, setColorTheme] = useState('');
     
    
    
@@ -21,7 +24,12 @@ export default function CalendarMonth() {
   return (
     
     <Container fluid={true}>
+            <ThemeChanger 
+            colorTheme = {colorTheme}
+            setColorTheme = {setColorTheme}
+            /> 
       <Row>
+
         <Col className="month-container mb-5" sm="12" lg="8">
     <div className="container month-container">
       <GoToCalendarButtons />
@@ -29,7 +37,7 @@ export default function CalendarMonth() {
         selectDate={selectDate} 
         setSelectDate={setSelectDate}
       />  
-      <div className="calendar-container">
+      <div className={`calendar-container ${colorTheme} `}>
       <WeekdayIndicator />   
       <DateIndicator
         selectDate={selectDate}
