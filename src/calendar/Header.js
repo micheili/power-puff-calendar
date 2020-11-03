@@ -29,11 +29,7 @@ export default function Header(){
           });
           localStorage.setItem("header", JSON.stringify(header) );
     };
-
-     console.log('context', context.header)
   
-
-
     return(
         <div>
             <Container className="">
@@ -42,10 +38,10 @@ export default function Header(){
                     <h1 className="title-header">{context.header.font}</h1>
                 </Row>
                 <Row className="button-container justify-content-center justify-content-between ">
-                        <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
-                        <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>{' '}
-                        <Button onClick={()=> setHeader(SpringImage, "Spring")} color="success">Spring</Button>{' '}
-                        <Button onClick={()=> setHeader(SummerImage, "Summer")} color="success">Summer</Button>{' '}     
+                    <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
+                    <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>{' '}
+                    <Button onClick={()=> setHeader(SpringImage, "Spring")} color="secondary">Spring</Button>{' '}
+                    <Button onClick={()=> setHeader(SummerImage, "Summer")} color="secondary">Summer</Button>{' '}     
                 </Row>
             </Container>
         </div>
