@@ -88,21 +88,21 @@ export default function Event(props) {
 
   async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
-    if (events.error) {
+    if (events.error == 404) {
       events = [];
     }
 
     let invitedEvents = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
     ).json();
-    if (invitedEvents.error) {
+    if (invitedEvents.error == 404) {
       invitedEvents = [];
     }
 
     let declinedInvitations = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=false")
     ).json();
-    if (declinedInvitations.error) {
+    if (declinedInvitations.error == 404) {
       declinedInvitations = [];
     }
 

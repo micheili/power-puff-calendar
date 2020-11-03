@@ -1,6 +1,5 @@
 const DbHandler = require("./DbHandler");
 const { allowed } = require("./ACL");
-const { allowedOwnApi } = require("./ACL");
 
 module.exports = class RestApi {
   constructor(app, dbPath, routePrefix = "/api") {
