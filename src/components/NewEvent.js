@@ -3,7 +3,7 @@ import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTimes,  faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Col,
@@ -23,6 +23,7 @@ const NewEvent = params => {
   const [alert, setAlert] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [catName, setCatName] = useState([]);
   const [listOfColor, setListOfColor] = useState([]);
   const [context, updateContext] = useContext(Context);
 
@@ -35,6 +36,12 @@ const NewEvent = params => {
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+
+    const   handleCatChange = (e) =>
+    setCatName({
+      ...catName,
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
@@ -141,15 +148,27 @@ const NewEvent = params => {
     stopTime,
   } = formData;
 
+  let {
+    name
+  } = catName;
+
   const getStart = new Date(startDate + " " + startTime);
   const start = moment(getStart).format("YYYY-MM-DD HH:mm");
 
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-  //get category from selectlist
-  const categoryId = categoryList.value;
+  
 
+  //get category from selectlist
+  const categoryId = () => {   
+     if(!categoryList){
+       return null} else {
+         return categoryList.value
+       }
+  };
+
+  console.log("CategoryID", categoryId());
 
   const validate = () => {
     let isValid = true;
@@ -168,6 +187,26 @@ const NewEvent = params => {
     return isValid;
   };
 
+  async function createCategory(e) {
+    e.preventDefault();
+    
+
+    
+      let result = await (
+        await fetch("/api/Category", {
+          method: "POST",
+          body: JSON.stringify({ name, color: listOfColor.color, className: listOfColor.value}),
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+
+     
+      
+      return result;
+    
+  }
+
+
   async function save(e) {
     e.preventDefault();
     
@@ -176,7 +215,7 @@ const NewEvent = params => {
       let result = await (
         await fetch("/api/Event", {
           method: "POST",
-          body: JSON.stringify({ userId, title, description, start, stop, categoryId }),
+          body: JSON.stringify({ userId, title, description, start, stop, categoryId:categoryId() }),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
@@ -328,34 +367,43 @@ const NewEvent = params => {
         <Col xs="10" md="8" lg="10" className="align-self-end">
           <FormGroup>
             <Label>Category:</Label>
-            <Select  options={allCategories} styles={customStyles} onChange={handleCategories}/>
+            <Select isClearable options={allCategories} styles={customStyles} onChange={handleCategories}/>
           </FormGroup>
         </Col>
         <Col xs="2" md="4" lg="2" className="align-self-end">                 
            <Button color="danger" className="newCategory float-right"><FontAwesomeIcon icon={faPlus}/></Button>
         </Col>
-      </Row>      
-      <Row className="d-flex justify-content-end">
-        <Col xs="12" lg="5">
-          <FormGroup>
-            <Label for="category-name">Category Name</Label>
-            <Input
-              type="text"
-              name="name"
-              id="category-name"              
-            />
-          </FormGroup>
-        </Col>
-        <Col>
-          <FormGroup xs="12" lg="5">          
-            <Label>Color:</Label>
-            <Select  options={colorList} styles={customStyles} />          
-          </FormGroup>
-        </Col>
-        <Col xs="2" md="4" lg="2" className="align-self-end">                 
-           <Button color="danger" className="newCategory float-right"><FontAwesomeIcon icon={faTimes}/></Button>
-        </Col>
       </Row>     
+      <hr></hr>
+      <Row>        
+          <Col xs="12" md="12" lg="6">
+            <FormGroup>
+              <Label for="category-name">Category Name</Label>
+              <Input
+                type="text"
+                name="name"
+                id="catName"
+                onChange={handleCatChange}
+                value={name}                       
+              />
+            </FormGroup>
+          </Col>
+          <Col xs="12" md="12" lg="6">
+            <FormGroup >          
+              <Label>Color:</Label>
+              <Select isClearable options={colorList} styles={customStyles} onChange={handleColorList}/>          
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+        <Col xs="6"  lg="6" >                 
+            <Button color="success" className="w-100" type="submit" onClick={createCategory}><FontAwesomeIcon icon={faCheck}/> Create Category</Button>
+          </Col>
+          <Col xs="6"  lg="6">                 
+            <Button color="danger" className="w-100"><FontAwesomeIcon icon={faTimes}/> Cancel</Button>
+          </Col>
+      </Row> 
+      <hr></hr>    
       <FormGroup>
         <Label>Invite:</Label>
         <Select  options={options} onChange={handleInvites} isMulti />
