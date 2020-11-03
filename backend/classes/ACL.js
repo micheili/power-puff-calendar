@@ -13,7 +13,6 @@ module.exports = class ACL {
 
       // Allow all logged in users to see a list of other users
       if (method === "GET" && user) {
-        console.log("user get", user);
         return true;
       }
 
@@ -31,36 +30,38 @@ module.exports = class ACL {
     // Allow everyone to create an event
     if (table === "Event") {
       if (method === "POST") {
-        //console.log("event post", loggedInId);
-
-        //to do
         return true;
       }
-      if (method === "PUT") {
-        //console.log("event put", loggedInId);
-
-        //to do
+      if (
+        method === "PUT" &&
+        module.exports.isOwner(db, loggedInId, req.params.id)
+      ) {
         return true;
       }
-      if (method === "DELETE") {
-        //console.log("event delete", loggedInId);
-
-        //to do
+      if (
+        method === "DELETE" &&
+        module.exports.isOwner(db, loggedInId, req.params.id)
+      ) {
         return true;
       }
     }
 
     if (table === "Invite") {
-      // Allow everyone to create a user
-      if (method === "POST") {
-        //console.log("invite post", loggedInId);
-
+      if (method === "POST" && user) {
         return true;
       }
       if (method === "PUT") {
-        //console.log("invite put", loggedInId);
-
-        return true;
+        let invite = db.select("SELECT * FROM Invite WHERE id=$id", {
+          id: req.params.id,
+        });
+        console.log("invite", invite);
+        if (
+          !invite.error &&
+          (module.exports.isOwner(db, loggedInId, invite[0].eventId) ||
+            invite[0].invitedUser === loggedInId)
+        ) {
+          return true;
+        }
       }
     }
 
@@ -71,7 +72,7 @@ module.exports = class ACL {
       }
 
       if (req.params.eventId) {
-        let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
+        /*  let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
           id: req.params.eventId,
         });
         let invitee = db
@@ -82,6 +83,13 @@ module.exports = class ACL {
 
         if (owner[0].userId === loggedInId || invitee.length) {
           return true;
+        }*/
+
+        if (
+          module.exports.isOwner(db, loggedInId, req.params.eventId) ||
+          module.exports.isInvitee(db, loggedInId, req.params.eventId)
+        ) {
+          return true;
         }
       }
     }
@@ -90,4 +98,26 @@ module.exports = class ACL {
     res.json({ error: "Not allowed" });
     return false;
   }
+
+  static isOwner = function (db, uId, eId) {
+    let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
+      id: eId,
+    });
+    if (owner[0].userId === uId) {
+      return true;
+    }
+    return false;
+  };
+
+  static isInvitee = function (db, uId, eId) {
+    let invitee = db
+      .select("SELECT invitedUser FROM Invite WHERE eventId = $id", {
+        id: eId,
+      })
+      .filter((i) => i.invitedUser === uId);
+    if (invitee.length) {
+      return true;
+    }
+    return false;
+  };
 };
