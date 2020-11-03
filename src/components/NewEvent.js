@@ -21,6 +21,7 @@ import {
 const NewEvent = params => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false); 
+  const [alertCategory, setAlertCategory] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [catName, setCatName] = useState([]);
@@ -168,8 +169,7 @@ const NewEvent = params => {
        }
   };
 
-  console.log("CategoryID", categoryId());
-
+ 
   const validate = () => {
     let isValid = true;
 
@@ -187,11 +187,32 @@ const NewEvent = params => {
     return isValid;
   };
 
+  
+
+  const validateCategory = () => {
+    let isValid = true;
+
+    if (name && listOfColor.color  == undefined) {      
+        isValid = false;        
+        setAlertCategory("The name and the color are required");      
+    }
+
+    const categoryName = allCategories.filter((c) => c.label === name);
+    console.log("catName", categoryName);
+    
+    if (categoryName.length > 0) {      
+      isValid = false;        
+      setAlertCategory("The name: " + name + " already exists.");      
+  }
+
+    return isValid;
+  };
+
   async function createCategory(e) {
     e.preventDefault();
     
 
-    
+    if (validateCategory()) {
       let result = await (
         await fetch("/api/Category", {
           method: "POST",
@@ -203,6 +224,8 @@ const NewEvent = params => {
      
       
       return result;
+
+    }
     
   }
 
@@ -375,6 +398,15 @@ const NewEvent = params => {
         </Col>
       </Row>     
       <hr></hr>
+      <Alert
+        color="danger"
+        isOpen={alertCategory}
+        toggle={() => {
+          setAlertCategory(false);
+        }}
+      >
+        {alertCategory}
+      </Alert>
       <Row>        
           <Col xs="12" md="12" lg="6">
             <FormGroup>
