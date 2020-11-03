@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   CardSubtitle,
   ButtonToggle,
@@ -6,6 +6,10 @@ import {
   UncontrolledTooltip,
   CardFooter,
   CardBody,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -22,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import GuestList from "./GuestList";
+import Select from "react-select";
 
 export default function Event(props) {
   let {
@@ -107,6 +112,45 @@ export default function Event(props) {
       declinedInvitations: declinedInvitations,
     });
   }
+  //const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [inviteList, setInviteList] = useState([]);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+  const handleInvites = (e) => {
+    setInviteList(e);
+  };
+
+  useEffect(() => {
+    fetchInvitedUsersAccepted();
+    console.log(context.allGuestsAccept);
+  }, [id]);
+
+  async function fetchInvitedUsersAccepted() {
+    let guest = await (
+      await fetch("api/invitedUsers/" + id + "?accepted=1")
+    ).json();
+    if (guest.length) {
+      updateContext({ allGuestsAccept: guest });
+    }
+  }
+
+  const usersData = context.allUsers.filter((u) => u.id !== context.user.id);
+  // const filteredUserData = [];
+
+  // for (let u in usersData) {
+  //   for (let a in context.allGuestsAccept) {
+  //     if (u.id !== a.id) {
+  //       filteredUserData.push(u);
+  //     }
+  //   }
+  // }
+  // console.log("filtered", filteredUserData);
+
+  const options = usersData.map((user) => ({
+    value: user.id,
+    label: user.email,
+  }));
 
   return (
     <div className="mb-3 pb-5 sm-6">
@@ -138,7 +182,7 @@ export default function Event(props) {
         </CardSubtitle>
         <GuestList
           id={id}
-          //GuestList={context.allGuestsAccept}
+          allGuestsAccept={context.allGuestsAccept}
           ownerFirstName={
             loggedInUser === userId ? context.user.firstName : ownerFirstName
           }
@@ -149,12 +193,33 @@ export default function Event(props) {
       </CardBody>
       <CardFooter>
         {loggedInUser === userId ? (
-          <ButtonToggle outline color="lightpink" id="inviteButton">
-            <FontAwesomeIcon icon={faUserPlus} />
-            <UncontrolledTooltip placement="bottom" target="inviteButton">
-              Invite people
-            </UncontrolledTooltip>
-          </ButtonToggle>
+          <>
+            <ButtonToggle
+              onClick={toggle}
+              outline
+              color="lightpink"
+              id="inviteButton"
+            >
+              <FontAwesomeIcon icon={faUserPlus} />
+              {/* <Select options={options} onChange={handleInvites} isMulti /> */}
+              <UncontrolledTooltip placement="bottom" target="inviteButton">
+                Invite people
+              </UncontrolledTooltip>
+            </ButtonToggle>
+            <Modal isOpen={modal} toggle={toggle}>
+              <ModalHeader toggle={toggle}>
+                Select friends to invite
+              </ModalHeader>
+              <ModalBody>
+                <Select options={options} onChange={handleInvites} isMulti />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="info" onClick={toggle}>
+                  Invite
+                </Button>{" "}
+              </ModalFooter>
+            </Modal>
+          </>
         ) : null}{" "}
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="editButton">
