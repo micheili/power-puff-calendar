@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import { Button, Container, Row } from 'reactstrap';
 import FallImage from "./images/fall.jpg";
 import WinterImage from "./images/winter.jpg";
@@ -8,31 +8,38 @@ import { Context } from "../App";
 
 
 export default function Header(){
-    const [background, setBackground] = useState("");
-    const [font, setFont] = useState("");
     const [context, updateContext] = useContext(Context);
+    const header = context.header;
 
-    const setHeader = (background, font) =>{
-        setBackground(background);
-        setFont(font);
-    };
-  
+    
   useEffect(() => {
     const currentHeader = localStorage.getItem("header");
-    if (currentTHeader) {
+    let currentHeaderJson = JSON.parse(currentHeader)
+
+    if (currentHeaderJson) {
       updateContext({
-        header: currentHeader,
+        header: currentHeaderJson,
       });
     }
   }, []);
+
+    const setHeader = (background, font) =>{
+        updateContext({
+            header:{background : background, font : font }
+          });
+          localStorage.setItem("header", JSON.stringify(header) );
+    };
+
+     console.log('context', context.header)
+  
 
 
     return(
         <div>
             <Container className="">
                 <Row className="justify-content-center">
-                    <img className="image-header" src={background} ></img>
-                    <h1 className="title-header">{font}</h1>
+                    <img className="image-header" src={context.header.background} ></img>
+                    <h1 className="title-header">{context.header.font}</h1>
                 </Row>
                 <Row className="button-container justify-content-center justify-content-between ">
                         <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
