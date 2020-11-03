@@ -8,7 +8,7 @@ export default function GuestList(props) {
 
   useEffect(() => {
     fetchInvitedUsersAccepted();
-  }, []);
+  }, [props.id]);
 
   async function fetchInvitedUsersAccepted() {
     setInvitedUsersAccept(

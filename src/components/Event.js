@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   CardSubtitle,
   ButtonToggle,
@@ -56,11 +56,6 @@ export default function Event(props) {
   async function deleteEvent() {
     //delete if it's your event
     if (loggedInUser === userId) {
-      // const deleteInvitations = await (
-      //   await fetch("/api/delete_invitations/" + id, {
-      //     method: "DELETE",
-      //   })
-      // ).json();
       const deleteEvent = await (
         await fetch("/api/Event/" + id, {
           method: "DELETE",
@@ -143,6 +138,7 @@ export default function Event(props) {
         </CardSubtitle>
         <GuestList
           id={id}
+          //GuestList={context.allGuestsAccept}
           ownerFirstName={
             loggedInUser === userId ? context.user.firstName : ownerFirstName
           }
