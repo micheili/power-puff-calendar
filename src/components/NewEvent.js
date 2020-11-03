@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Col,
@@ -20,12 +22,13 @@ const NewEvent = params => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [context, updateContext] = useContext(Context);
 
 
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
-  
+  const categories = context.myCategories;
   
 
   const handleInputChange = (e) =>
@@ -39,10 +42,27 @@ const NewEvent = params => {
     label: user.email,
   }));
 
+  const allCategories = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }));
+
+
+  const handleCategories = (e) => {
+    setCategoryList(e);
+  };
+
   const handleInvites = (e) => {
     setinvitesList(e);
   };
 
+ 
+
+  const categoryId = categoryList.value;
+
+  console.log("categoryList", categoryId)
+ 
+ 
   const cancel = () => {    
     updateContext({ showNewEvent: false });
   }
@@ -88,7 +108,7 @@ const NewEvent = params => {
       let result = await (
         await fetch("/api/Event", {
           method: "POST",
-          body: JSON.stringify({ userId, title, description, start, stop }),
+          body: JSON.stringify({ userId, title, description, start, stop, categoryId }),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
@@ -121,14 +141,14 @@ const NewEvent = params => {
         updateContext({ showNewEvent: false, myEvents: events });        
       }
       
-      setinvitesList("");
+      setinvitesList('');
       setFormData({
-        title: "",
-        description: "",
-        startDate: "",
-        stopDate: "",
-        startTime: "",
-        stopTime: "",
+        title: '',
+        description: '',
+        startDate: '',
+        stopDate: '',
+        startTime: '',
+        stopTime: '',
       });
 
       
@@ -235,9 +255,41 @@ const NewEvent = params => {
             />
           </FormGroup>
         </Col>
-      </Row>
+      </Row>      
+      <Row className="d-flex justify-content-end">
+        <Col xs="10" md="8" lg="10" className="align-self-end">
+          <FormGroup>
+            <Label>Category:</Label>
+            <Select  options={allCategories} onChange={handleCategories}/>
+          </FormGroup>
+        </Col>
+        <Col xs="2" md="4" lg="2" className="align-self-end">                 
+           <Button color="danger" className="newCategory float-right"><FontAwesomeIcon icon={faPlus}/></Button>
+        </Col>
+      </Row>      
+      <Row className="d-flex justify-content-end">
+        <Col xs="12" lg="5">
+          <FormGroup>
+            <Label for="category-name">Category Name</Label>
+            <Input
+              type="text"
+              name="name"
+              id="category-name"              
+            />
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup xs="12" lg="5">          
+            <Label>Color:</Label>
+            <Select  options={allCategories} onChange={handleCategories}/>          
+          </FormGroup>
+        </Col>
+        <Col xs="2" md="4" lg="2" className="align-self-end">                 
+           <Button color="danger" className="newCategory float-right"><FontAwesomeIcon icon={faTimes}/></Button>
+        </Col>
+      </Row>     
       <FormGroup>
-      
+        <Label>Invite:</Label>
         <Select  options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 

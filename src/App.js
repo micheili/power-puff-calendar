@@ -15,7 +15,7 @@ window.userFetch = window.userFetch || false;
     myEvents: [],
     invitedEvents: [], //accepted = true
     allInvites: [], // accepted = null
-    showNewEvent: false,
+    showNewEvent: true,
     declinedInvitations: [], //accepted= false
     allUsers: [],
     myCategories: [] 
@@ -58,6 +58,11 @@ window.userFetch = window.userFetch || false;
         invitedEvents = [];
       }
 
+      let categories = await (await fetch("/api/myCategories/" + result.id)).json();
+      if (categories.error) {
+        categories = [];
+      }
+
       let declinedInvitations = await (
         await fetch("/api/invitedEvents/" + result.id + "?accepted=false")
       ).json();
@@ -79,6 +84,7 @@ window.userFetch = window.userFetch || false;
         allUsers: users,
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
+        myCategories: categories
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -94,6 +100,7 @@ window.userFetch = window.userFetch || false;
       myEvents: [],
       invitedEvents: [],
       declinedInvitations: [],
+      myCategories: [],
     });
     const result = await res.json();
   }

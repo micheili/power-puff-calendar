@@ -6,7 +6,7 @@
     background-color: white;
     padding: 0px 5px 0px 5px;
     font-size: 0.9em;
-    z-index: 500;
+    z-index: 1;
   }
 
   .breadcrumb{
@@ -39,6 +39,10 @@
         
 }
 
+.newCategory{
+    margin: 0 0 1.2em;
+}
+
 .button-submit{
     float: right;
     background-color: $lighterpink;
@@ -53,6 +57,10 @@
 }
 
 
+
+.css-26l3qy-menu{
+    z-index: 5 !important;
+}
 
 .css-yk16xz-control{
     border: 3px solid $lighterpink !important;	
