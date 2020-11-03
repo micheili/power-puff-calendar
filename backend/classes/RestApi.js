@@ -91,6 +91,25 @@ module.exports = class RestApi {
       }
     });
 
+    //get all category created by (logged-in) userId
+
+    this.app.get(rp + "/myCategories/:userId", (req, res) => {
+      let result = this.db.select(
+        /*sql*/ `
+        SELECT DISTINCT c.id,c.name, c.color FROM Category c
+        INNER JOIN Event e ON c.id = e.categoryId 
+        WHERE userId = $userId
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
     //get events which i am invited for and have accepted
     this.app.get(rp + "/invitedEvents/:userId", (req, res) => {
       let result = this.db.select(

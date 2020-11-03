@@ -18,6 +18,7 @@ window.userFetch = window.userFetch || false;
     showNewEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
+    myCategories: [] 
   });
 
   const updateContext = (updates) =>
@@ -25,6 +26,8 @@ window.userFetch = window.userFetch || false;
       ...contextVal,
       ...updates,
     });
+
+    console.log("my cat" , contextVal.myCategories)
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
