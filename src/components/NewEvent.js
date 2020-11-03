@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext , useMemo } from "react";
 import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
@@ -23,6 +23,7 @@ const NewEvent = params => {
   const [alert, setAlert] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [listOfColor, setListOfColor] = useState([]);
   const [context, updateContext] = useContext(Context);
 
 
@@ -42,10 +43,75 @@ const NewEvent = params => {
     label: user.email,
   }));
 
-  const allCategories = categories.map((category) => ({
-    value: category.id,
-    label: category.name,
-  }));
+ 
+  const allCategories = useMemo(() => (
+    categories.map((category) => ({
+      value: category.id,
+      label: category.name,
+      color: category.color
+    })) 
+  ),[]);
+
+  
+
+  /*  $blue: #3C69E7;
+      $green: #5AC18E;
+      $purple: #8A2BE2;
+      $yellow: #FFFF66;
+      $orange: #FFA500;
+      $red: #FF4040;
+      $pink: #F7347A;
+      $burgundy: #420420;
+      $turquoise: #008080;
+      $grey: #808080;*/
+
+    const colorList = useMemo(() => [
+    { value: "blue", label: "Blue", color: '#3C69E7' },
+    { value: "green", label: "Green", color: '#5AC18E' },
+    { value: "purple", label: "Purple", color: "#8A2BE2" },
+    { value: "yellow", label: "Yellow", color: "#FFFF66" },
+    { value: "orange", label: "Orange", color: "#FFA500" },
+    { value: "red", label: "Red", color: "#FF4040" },
+    { value: "pink", label: "Pink", color: "#F7347A" },
+    { value: "burgundy", label: "Burgundy", color: "#420420" },
+    { value: "turquoise", label: "Turquoise", color: "#008080" },
+    { value: "grey", label: "Grey", color: "#808080" }    
+  ],[]);
+
+ 
+  const customStyles = useMemo(
+    () => ({
+      option: (provided, state) => ({
+        ...provided,      
+        color: "white" ,
+        fontWeigth: "bold", 
+        padding: 10,
+        background: state.data.color,  
+        	     
+      }),
+      control: (provided) => ({
+        ...provided,  
+        color: "white" ,
+        fontWeigth: "bold",  
+        background: "white",
+        border: "3px solid #fbc5b8",
+        borderRadius: "10px",
+      }),
+      singleValue: (provided, state) => ({
+        ...provided,
+        color: "white" ,
+        fontWeigth: "bold", 
+        width: "80%",
+        padding: 2, 
+        textAlign: "center",       
+        height: "80%",
+        borderRadius: "10px",
+        background: state.data.color,
+      }),
+    }),
+    []
+  );
+  
 
 
   const handleCategories = (e) => {
@@ -56,12 +122,11 @@ const NewEvent = params => {
     setinvitesList(e);
   };
 
- 
+  const handleColorList = (e) => {
+    setListOfColor(e);
+  };
 
-  const categoryId = categoryList.value;
 
-  console.log("categoryList", categoryId)
- 
  
   const cancel = () => {    
     updateContext({ showNewEvent: false });
@@ -81,6 +146,9 @@ const NewEvent = params => {
 
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
+
+  //get category from selectlist
+  const categoryId = categoryList.value;
 
 
   const validate = () => {
@@ -260,7 +328,7 @@ const NewEvent = params => {
         <Col xs="10" md="8" lg="10" className="align-self-end">
           <FormGroup>
             <Label>Category:</Label>
-            <Select  options={allCategories} onChange={handleCategories}/>
+            <Select  options={allCategories} styles={customStyles} onChange={handleCategories}/>
           </FormGroup>
         </Col>
         <Col xs="2" md="4" lg="2" className="align-self-end">                 
@@ -281,7 +349,7 @@ const NewEvent = params => {
         <Col>
           <FormGroup xs="12" lg="5">          
             <Label>Color:</Label>
-            <Select  options={allCategories} onChange={handleCategories}/>          
+            <Select  options={colorList} styles={customStyles} />          
           </FormGroup>
         </Col>
         <Col xs="2" md="4" lg="2" className="align-self-end">                 
