@@ -18,6 +18,7 @@ window.userFetch = window.userFetch || false;
     showNewEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
+    header: ''
   });
 
   const updateContext = (updates) =>

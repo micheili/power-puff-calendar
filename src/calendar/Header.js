@@ -1,19 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Button, Container, Row } from 'reactstrap';
 import FallImage from "./images/fall.jpg";
 import WinterImage from "./images/winter.jpg";
 import SpringImage from "./images/spring.jpg";
 import SummerImage from "./images/summer.jpg";
+import { Context } from "../App";
 
 
 export default function Header(){
     const [background, setBackground] = useState("");
     const [font, setFont] = useState("");
+    const [context, updateContext] = useContext(Context);
 
     const setHeader = (background, font) =>{
         setBackground(background);
         setFont(font);
     };
+  
+  useEffect(() => {
+    const currentHeader = localStorage.getItem("header");
+    if (currentTHeader) {
+      updateContext({
+        header: currentHeader,
+      });
+    }
+  }, []);
+
 
     return(
         <div>
