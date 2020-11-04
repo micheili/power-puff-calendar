@@ -133,8 +133,8 @@ export default function Login() {
   return (
     <div>
       <div class={`bg ${context.colorTheme}`}></div>
-    <div class="bg bg2"></div>
-  <div class="bg bg3"></div>
+    <div class={`bg  bg2 ${context.colorTheme}`}></div>
+  <div class={`bg  bg3 ${context.colorTheme}`}></div>
     
     <Container className="mt-5">
       <Row className="justify-content-center">
