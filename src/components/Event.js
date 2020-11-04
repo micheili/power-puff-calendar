@@ -4,8 +4,9 @@ import {
   ButtonToggle,
   Button,
   UncontrolledTooltip,
-  CardFooter,
+  CardFooter,  
   CardBody,
+  Badge
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -31,6 +32,8 @@ export default function Event(props) {
     description,
     start,
     stop,
+    className,
+    name,
     ownerFirstName,
     ownerLastName,
   } = props.combinedEvents;
@@ -135,7 +138,7 @@ export default function Event(props) {
           {startMoment.isSameOrAfter(stopMoment, "year")
             ? null
             : +" " + stopYear}
-        </CardSubtitle>
+        </CardSubtitle>        
         <GuestList
           id={id}
           //GuestList={context.allGuestsAccept}
@@ -179,6 +182,7 @@ export default function Event(props) {
             Delete event
           </UncontrolledTooltip>
         </Button>{" "}
+        <Badge pill className={`${className ? `p-2 mt-1 float-right category-box ${className}` : ""}`}>{name}</Badge>   
       </CardFooter>
     </div>
   );
