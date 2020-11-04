@@ -117,14 +117,6 @@ export default function Event(props) {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-  const handleInvites = (e) => {
-    setInviteList(e);
-  };
-
-  useEffect(() => {
-    fetchInvitedUsersAccepted();
-    console.log(allGuestsAccept);
-  }, [id]);
 
   async function fetchInvitedUsersAccepted() {
     let guest = await (
@@ -134,27 +126,50 @@ export default function Event(props) {
   }
 
   const usersData = context.allUsers.filter((u) => u.id !== context.user.id);
-
-  function filter() {
-    const filteredUserData = [];
-    for (let u in usersData) {
-      for (let a in allGuestsAccept) {
-        if (u.id !== a.id) {
-          filteredUserData.push(u);
-        }
-      }
-    }
-    console.log("filtered", filteredUserData);
-  }
+  const filteredUserData = [];
 
   useEffect(() => {
-    filter();
-  }, [allGuestsAccept]);
+    fetchInvitedUsersAccepted();
+    console.log(allGuestsAccept);
+    // if (allGuestsAccept.length) {
+    //   for (let u in usersData) {
+    //     for (let a in allGuestsAccept) {
+    //       if (u.id !== a.id) {
+    //         filteredUserData.push(u);
+    //       }
+    //     }
+    //   }
+    // }
+  }, [id]);
+  //console.log("filtered", filteredUserData);
 
   const options = usersData.map((user) => ({
     value: user.id,
     label: user.email,
   }));
+
+  const handleInvites = (e) => {
+    setInviteList(e);
+  };
+
+  async function invite(e) {
+    e.preventDefault();
+    console.log("invitedList", inviteList);
+    if (inviteList.length) {
+      for (let i in inviteList) {
+        let invitedUser = i.value;
+        console.log("invitedUser", invitedUser);
+        let res = await (
+          await fetch("/api/Invite", {
+            method: "POST",
+            body: JSON.stringify({ eventId: id, invitedUser }),
+            headers: { "Content-Type": "application/json" },
+          })
+        ).json();
+      }
+    }
+    //toggle();
+  }
 
   return (
     <div className="mb-3 pb-5 sm-6">
@@ -218,7 +233,7 @@ export default function Event(props) {
                 <Select options={options} onChange={handleInvites} isMulti />
               </ModalBody>
               <ModalFooter>
-                <Button color="info" onClick={toggle}>
+                <Button color="info" onClick={invite}>
                   Invite
                 </Button>{" "}
               </ModalFooter>
