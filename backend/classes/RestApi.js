@@ -96,8 +96,7 @@ module.exports = class RestApi {
     this.app.get(rp + "/myCategories/:userId", (req, res) => {
       let result = this.db.select(
         /*sql*/ `
-        SELECT DISTINCT c.id,c.name, c.color FROM Category c
-        INNER JOIN Event e ON c.id = e.categoryId 
+        SELECT * FROM Category
         WHERE userId = $userId
       `,
         req.params

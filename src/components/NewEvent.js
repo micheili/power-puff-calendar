@@ -1,4 +1,4 @@
-import React, { useState, useContext , useMemo } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
@@ -18,7 +18,7 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 
-const NewEvent = params => {
+const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false); 
   const [alertCategory, setAlertCategory] = useState(false); 
@@ -32,6 +32,8 @@ const NewEvent = params => {
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
   const categories = context.myCategories;
+
+  console.log("Categories", categories);
   
 
   const handleInputChange = (e) =>
@@ -52,13 +54,14 @@ const NewEvent = params => {
   }));
 
  
-  const allCategories = useMemo(() => (
+ const allCategories = useMemo(() => (
     categories.map((category) => ({
       value: category.id,
       label: category.name,
       color: category.color
     })) 
-  ),[]);
+  ),[categories]);
+
 
   
 
@@ -203,7 +206,9 @@ const NewEvent = params => {
     if (categoryName.length > 0) {      
       isValid = false;        
       setAlertCategory("The name: " + name + " already exists.");      
-  }
+    }
+
+       
 
     return isValid;
   };
@@ -216,13 +221,16 @@ const NewEvent = params => {
       let result = await (
         await fetch("/api/Category", {
           method: "POST",
-          body: JSON.stringify({ name, color: listOfColor.color, className: listOfColor.value}),
+          body: JSON.stringify({ name, color: listOfColor.color, className: listOfColor.value, userId,}),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
 
-     
-      
+      let fetchCategories = await (await fetch("/api/myCategories/" + userId)).json();
+      updateContext({        
+        myCategories: fetchCategories
+      });
+
       return result;
 
     }
