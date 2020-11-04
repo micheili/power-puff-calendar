@@ -137,21 +137,12 @@ export default function Event(props) {
       allInvited = [];
     }
     setAllGuests(allInvited);
-    //console.log("allInvited", allInvited);
   }
 
   useEffect(() => {
     fetchInvitedUsersAccepted();
     fetchAllInvited();
   }, [id]);
-
-  console.log("id: ", id, "  allGuests: ", allGuests);
-  console.log("id: ", id, "userDataBeforeFilter: ", usersData);
-
-  // let options = usersData.map((user) => ({
-  //   value: user.id,
-  //   label: user.email,
-  // }));
 
   function openModal(e) {
     e.preventDefault();
@@ -168,10 +159,6 @@ export default function Event(props) {
     }));
     setOptions(o);
   }
-  // let options = usersData.map((u) => ({
-  //   value: u.id,
-  //   label: u.email,
-  // }));
 
   const handleInvites = (e) => {
     setInviteList(e);
@@ -179,11 +166,9 @@ export default function Event(props) {
 
   async function invite(e) {
     e.preventDefault();
-    console.log("invitedList", inviteList);
     if (inviteList.length) {
       for (let i in inviteList) {
         let invitedUser = inviteList[i].value;
-        console.log("invitedUser", invitedUser);
         let res = await (
           await fetch("/api/Invite", {
             method: "POST",
@@ -193,7 +178,7 @@ export default function Event(props) {
         ).json();
       }
     }
-    fetchInvitedUsersAccepted();
+    fetchAllInvited();
     toggle();
   }
 
