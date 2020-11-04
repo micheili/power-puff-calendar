@@ -38,30 +38,24 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   function checkEvent(date){
     let info = [];
 
-
+    
     for(let event of events){
       let start1Before = new Date(event.start.getTime());
       start1Before.setHours(start1Before.getHours() -24);
-      
-      if(date >= start1Before && date <= event.stop){        
-        console.log("dateindicator event length", event.title, " ", event.length)
-        for (var i = 0; i < event.length; i++) {        
+     
+      if(date >= start1Before && date <= event.stop){   
           info.push(
            <div className="events" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
                 {event.title.substr(0,10) + '...'}
            </div>
          ); 
-         return  <>{info}</> ; 
-         }
-         
-         }  
-      }
+      } 
+
     }
+    
+    return  <>{info}</> ; 
+  }
      
-
-  //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
-  //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}
-
 
   //------------------------------------
 

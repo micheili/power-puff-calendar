@@ -89,7 +89,6 @@ export default function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log("det brinner", contextVal.myCategories)
 
   async function logout() {
     const res = await fetch("/api/login", {

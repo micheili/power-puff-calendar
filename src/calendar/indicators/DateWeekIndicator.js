@@ -37,22 +37,18 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
       let start1Before = new Date(event.start.getTime());
       start1Before.setHours(start1Before.getHours() -24);      
 
-      if(date >= start1Before && date <= event.stop){
-        console.log("dateweek event length", event.length)
-        for (var i = 0; i < event.length; i++) {        
-          info.push(
-           <div className="events" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-                {event.title.substr(0,10) + '...'}
-           </div>
-         );
-         return  <>{info}</> ; 
-         }
-         
-         }  
-      }
-     
-     
-   }
+      if(date >= start1Before && date <= event.stop){   
+        info.push(
+         <div className="events" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+              {event.title.substr(0,10) + '...'}
+         </div>
+       ); 
+    } 
+
+  }
+  
+  return  <>{info}</> ; 
+}
 
   //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
   //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}

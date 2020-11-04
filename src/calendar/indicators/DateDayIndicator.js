@@ -44,28 +44,16 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
     let start1Before = new Date(event.start.getTime());
      start1Before.setMinutes(start1Before.getMinutes() - 59);
         
-      if(date >= start1Before && date <= event.stop){
-        console.log("dayindicator event length", event.length)
-        for (var i = 0; i < event.length; i++) {        
-         info.push(
-          <div className="events w-100" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-               {event.title}
-          </div>
-        );
-        return  <>{info}</> ; 
-        }
-        
-        }  
-    }
-    
-    
+     if(date >= start1Before && date <= event.stop){   
+        info.push(
+        <div className="events w-100" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+              {event.title.substr(0,10) + '...'}
+        </div>
+      ); 
+    } 
   }
-
-  // <div className="m-0 " style={{position: 'absolute', top: 0, left: 0, 
-  //borderLeft:'3px solid #999', height: (event.length + 1) * 100 + 'px'}}></div>
-  
-  //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
-  //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}
+  return  <>{info}</> ; 
+  }
 
 
   //------------------------------------
