@@ -240,6 +240,7 @@ const NewEvent = () => {
         myCategories: fetchCategories
       });
 
+      setshowaddCategory(false);
       return result;
 
     }
