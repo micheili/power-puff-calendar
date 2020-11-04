@@ -28,6 +28,8 @@ export default function App() {
       ...updates,
     });
 
+    
+
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
 
@@ -82,10 +84,12 @@ export default function App() {
         allUsers: users,
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
-        myCategories: allCategories
+        myCategories: allCategories,
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log("det brinner", contextVal.myCategories)
 
   async function logout() {
     const res = await fetch("/api/login", {

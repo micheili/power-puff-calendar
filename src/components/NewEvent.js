@@ -21,6 +21,7 @@ import {
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false); 
+  const [showAddCategory, setshowaddCategory] = useState(false); 
   const [alertCategory, setAlertCategory] = useState(false); 
   const [invitesList, setinvitesList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -129,6 +130,14 @@ const NewEvent = () => {
     setCategoryList(e);
   };
 
+  const handleAddCategory = () => {
+    setshowaddCategory(true);
+  };
+
+  const cancelCreateCategory =() => {
+    setshowaddCategory(false);
+  };
+  
   const handleInvites = (e) => {
     setinvitesList(e);
   };
@@ -402,9 +411,12 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
         <Col xs="2" md="4" lg="2" className="align-self-end">                 
-           <Button color="danger" className="newCategory float-right"><FontAwesomeIcon icon={faPlus}/></Button>
+           <Button color="danger" onClick={handleAddCategory} className="newCategory float-right"><FontAwesomeIcon icon={faPlus}/></Button>
         </Col>
-      </Row>     
+      </Row>   
+      <div>
+      {showAddCategory ? (  
+        <div>
       <hr></hr>
       <Alert
         color="danger"
@@ -440,10 +452,12 @@ const NewEvent = () => {
             <Button color="success" className="w-100" type="submit" onClick={createCategory}><FontAwesomeIcon icon={faCheck}/> Create Category</Button>
           </Col>
           <Col xs="6"  lg="6">                 
-            <Button color="danger" className="w-100"><FontAwesomeIcon icon={faTimes}/> Cancel</Button>
+            <Button color="danger" onClick={cancelCreateCategory} className="w-100"><FontAwesomeIcon icon={faTimes}/> Cancel</Button>
           </Col>
-      </Row> 
-      <hr></hr>    
+      </Row>  
+      
+      <hr></hr> </div> ) : null}{" "} </div>
+     
       <FormGroup>
         <Label>Invite:</Label>
         <Select  options={options} onChange={handleInvites} isMulti />
