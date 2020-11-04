@@ -8,7 +8,7 @@ import {Context} from '../../App';
 
 
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
-  const [context] = useContext(Context);
+  const [context, updateContext] = useContext(Context);
 
   let events = [
     ...context.myEvents,...context.invitedEvents
@@ -58,6 +58,7 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
   // EVENT HANDLING CALLBACK
   const changeDate = (e) => {
     setSelectDate(e.target.getAttribute('data-date'));
+    updateContext({ showEditEvent: false  });
   };
 
   const datesInWeek = getDatesInWeekDisplay(selectDate);
