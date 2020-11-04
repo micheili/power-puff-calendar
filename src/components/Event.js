@@ -42,7 +42,6 @@ export default function Event(props) {
   const loggedInUser = context.user.id;
 
   const editEvent = () => {
-    console.log('EDIT CLICKED');
     updateContext({ showEditEvent: true });
   };
 
@@ -119,7 +118,8 @@ export default function Event(props) {
   return (
     <div className="mb-3 pb-5 sm-6">
       {context.showEditEvent ?
-        <EditEvent showEditEvent={id} /> :
+        <EditEvent editEvent={props.combinedEvents} /> :
+        <div>
         <CardBody className="event-card-body">
           <CardSubtitle tag="h5">
             <span className="mr-1">
@@ -156,22 +156,22 @@ export default function Event(props) {
             }
           />
         </CardBody>
-      }
+      
     
       <CardFooter>
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="inviteButton">
             <FontAwesomeIcon icon={faUserPlus} />
             <UncontrolledTooltip placement="bottom" target="inviteButton">
-              Invite people
+                Invite people
             </UncontrolledTooltip>
           </ButtonToggle>
         ) : null}{" "}
         {loggedInUser === userId ? (
-          <Button outline color="lightpink" id="editButton" onclick={editEvent}>
+          <Button outline color="lightpink" id="editButton" onClick={editEvent}>
             <FontAwesomeIcon icon={faPen} />
             <UncontrolledTooltip placement="bottom" target="editButton">
-              Edit
+                Edit
             </UncontrolledTooltip>
           </Button>
         ) : null}{" "}
@@ -187,10 +187,12 @@ export default function Event(props) {
         >
           <FontAwesomeIcon icon={faTrashAlt} />
           <UncontrolledTooltip placement="bottom" target="deleteButton">
-            Delete event
+              Delete event
           </UncontrolledTooltip>
         </Button>{" "}
-      </CardFooter>
+          </CardFooter>
+          </div>
+      }
     </div>
   
   );
