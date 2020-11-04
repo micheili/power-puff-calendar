@@ -12,7 +12,10 @@ import {
   Label,
   Input,
   Button,
-  Alert,InputGroup, InputGroupAddon,InputGroupText
+  Alert,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
 } from "reactstrap";
 import { Context } from "../App";
 
@@ -29,7 +32,7 @@ export default function Register() {
   let { firstName, lastName, email, password } = formData;
 
   if (formData.done) {
-    return <Redirect to="/home"/>;
+    return <Redirect to="/home" />;
   }
 
   if (firstName === undefined) {
@@ -118,7 +121,7 @@ export default function Register() {
         users = [];
       }
 
-      updateContext({ user: res, allUsers: users, });
+      updateContext({ user: res, allUsers: users });
       setFormData({ done: true });
     }
   }
@@ -126,50 +129,47 @@ export default function Register() {
   return (
     <div>
       <div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div>
-    
-    <Container className="data" fluid={true}>
-      <Row className="justify-content-center">
-        <Form onSubmit={save} className="reg-container">
-          <h3 className="row justify-content-center mb-3 text-info">
-            Create account
-          </h3>
-          <Alert
-            color="warning"
-            isOpen={alert}
-            toggle={() => {
-              setAlert(false);
-            }}
-          >
-            {alert}
-          </Alert>
-          <Col>
-            <FormGroup>
-              <Label className="text-info">
-                Firstname</Label>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
+
+      <Container className="data" fluid={true}>
+        <Row className="justify-content-center">
+          <Form onSubmit={save} className="reg-container">
+            <h3 className="row justify-content-center mb-3 text-info">
+              Create account
+            </h3>
+            <Alert
+              color="warning"
+              isOpen={alert}
+              toggle={() => {
+                setAlert(false);
+              }}
+            >
+              {alert}
+            </Alert>
+            <Col>
+              <FormGroup>
+                <Label className="text-info">Firstname</Label>
                 <Input
                   name="firstName"
                   type="text"
                   onChange={handleInputChange}
                   value={firstName}
                   required
-                />              
-            </FormGroup>
-            <FormGroup>
-              <Label className="text-info">
-                Lastname</Label>
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label className="text-info">Lastname</Label>
                 <Input
                   name="lastName"
                   type="text"
                   onChange={handleInputChange}
                   value={lastName}
                   required
-                />              
-            </FormGroup>
-            <FormGroup>
-              <Label className="text-info">
-                Email address</Label>
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label className="text-info">Email address</Label>
                 <Input
                   name="email"
                   type="email"
@@ -177,39 +177,43 @@ export default function Register() {
                   aria-describedby="emailHelp"
                   value={email}
                   required
-                />              
-            </FormGroup>
-            <FormGroup>
-            <Label className="text-info">
-                Password</Label>
-              <InputGroup>
-                    <Input name="password"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label className="text-info">Password</Label>
+                <InputGroup>
+                  <Input
+                    name="password"
                     type={PasswordInputType}
                     onChange={handleInputChange}
                     value={password}
-                    required/>
-                    <InputGroupAddon addonType="append">
-                    <InputGroupText><span className="password-toggle-icon-register">
-                  {ToggleIcon}
-                </span></InputGroupText>
-                    </InputGroupAddon>
+                    required
+                  />
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText>
+                      <span className="password-toggle-icon-register">
+                        {ToggleIcon}
+                      </span>
+                    </InputGroupText>
+                  </InputGroupAddon>
                 </InputGroup>
-            </FormGroup>            
-            <Link to="/">
-              <p className="row justify-content-center text-info">
-                Already have an account?
-              </p>
-            </Link>
-            <Button
-              color="info"
-              type="submit"
-              className="btn-block text-light mt-2"
-            >
-              Sign up
-            </Button>
-          </Col>
-        </Form>
-      </Row>
-    </Container></div>
+              </FormGroup>
+              <Link to="/">
+                <p className="row justify-content-center text-info">
+                  Already have an account?
+                </p>
+              </Link>
+              <Button
+                color="info"
+                type="submit"
+                className="btn-block text-light mt-2"
+              >
+                Sign up
+              </Button>
+            </Col>
+          </Form>
+        </Row>
+      </Container>
+    </div>
   );
 }
