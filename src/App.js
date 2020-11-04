@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
 import "./sass/style.scss";
+import DateIndicator from "./calendar/indicators/DateIndicator";
 
 // create and export the context
 export const Context = createContext();
@@ -94,6 +95,13 @@ export default function App() {
       declinedInvitations: [],
     });
     const result = await res.json();
+
+
+   
+ 
+
+
+
   }
 
   return (

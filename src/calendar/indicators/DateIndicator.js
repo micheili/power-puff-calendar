@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -10,12 +10,33 @@ import {Context} from '../../App';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAlgolia, faCalendarPlus
 } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context] = useContext(Context);
+  const [info, setInfo] = useState([]);
 
+  const getdayInfo = async() =>{
+    const response = await fetch
+    (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
+    const data = await response.json();
+    setInfo(data);
+    console.log('data from api', data)
+  };
 
+  const dateQuery = moment(selectDate).format("MM/D")
+  new Date(dateQuery)
 
+  console.log('date query', dateQuery)
+  console.log('selected day', selectDate)
+
+  useEffect(()=>{
+    getdayInfo();
+  }, []);
+
+  console.log('the day', info.date, 'info', info.data)
+
+  
   let events = [
     ...context.myEvents,...context.invitedEvents
   ]
@@ -33,6 +54,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     for(let event of events){
       event.startedPrinting = false;
     }
+    
   }
   
   function checkEvent(date){
