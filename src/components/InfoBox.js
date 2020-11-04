@@ -40,7 +40,7 @@ const Infobox = (props) => {
 
   let eventDetails = (
     <>
-      <CardHeader className="single-event" tag="h3">
+      <CardHeader className={`single-event ${context.colorTheme}`} tag="h3">
         {combinedEvents.length ? combinedEvents[0].title : ""}
       </CardHeader>
       <Event combinedEvents={combinedEvents[0]} />

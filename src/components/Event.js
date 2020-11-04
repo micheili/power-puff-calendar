@@ -25,6 +25,7 @@ import {
 import { Context } from "../App";
 import GuestList from "./GuestList";
 
+
 export default function Event(props) {
   let {
     id,
@@ -38,6 +39,7 @@ export default function Event(props) {
     ownerLastName,
   } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
+
 
   const loggedInUser = context.user.id;
 
@@ -154,10 +156,10 @@ export default function Event(props) {
           }
         />
       </CardBody>
-      <CardFooter>
+      <CardFooter className={`card-footer ${context.colorTheme} `}>
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="inviteButton">
-            <FontAwesomeIcon icon={faUserPlus} />
+            <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
             <UncontrolledTooltip placement="bottom" target="inviteButton">
               Invite people
             </UncontrolledTooltip>
@@ -165,7 +167,7 @@ export default function Event(props) {
         ) : null}{" "}
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="editButton">
-            <FontAwesomeIcon icon={faPen} />
+            <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faPen} />
             <UncontrolledTooltip placement="bottom" target="editButton">
               Edit
             </UncontrolledTooltip>
@@ -178,7 +180,7 @@ export default function Event(props) {
           color="lightpink"
           id="deleteButton"
         >
-          <FontAwesomeIcon icon={faTrashAlt} />
+          <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faTrashAlt} />
           <UncontrolledTooltip placement="bottom" target="deleteButton">
             Delete event
           </UncontrolledTooltip>

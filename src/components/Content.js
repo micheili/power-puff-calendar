@@ -33,7 +33,7 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
     >
       <Row className="justify-content-between mb-3">
         {context.user ? (
-          <Button className="toogleSidebarButton ml-4" onClick={toggleSidebar}>
+          <Button className={`toogleSidebarButton ${context.colorTheme} ml-4`} onClick={toggleSidebar}>
             <FontAwesomeIcon className="icon" icon={faBars} />
           </Button>
         ) : (
