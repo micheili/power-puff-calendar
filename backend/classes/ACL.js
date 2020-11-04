@@ -65,6 +65,10 @@ module.exports = class ACL {
       }
     }
 
+    if (table === "Category") {
+      return true;
+    }
+
     if (table == "") {
       console.log("own api", user);
       if (req.params.userId && req.params.userId == loggedInId) {
