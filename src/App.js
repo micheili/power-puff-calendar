@@ -18,6 +18,8 @@ export default function App() {
     showNewEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
+    
+    header: {background:"", font: ""}
   });
 
   const updateContext = (updates) =>

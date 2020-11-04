@@ -1,16 +1,17 @@
 module.exports = class ACL {
   static allowed(table, req, res, db) {
-    let { user } = req.session;
     let { method } = req;
+
+    // Allow everyone to create a user
+    if (table === "User" && method === "POST") {
+      return true;
+    }
+
+    let { user } = req.session;
     let loggedInId = user.id;
 
     // Allow all logged in users to see a list of other users
     if (table === "User") {
-      // Allow everyone to create a user
-      if (method === "POST") {
-        return true;
-      }
-
       // Allow all logged in users to see a list of other users
       if (method === "GET" && user) {
         return true;
