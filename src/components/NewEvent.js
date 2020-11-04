@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
@@ -136,6 +136,7 @@ const NewEvent = () => {
 
   const cancelCreateCategory =() => {
     setshowaddCategory(false);
+    setCatName('');
   };
   
   const handleInvites = (e) => {
@@ -235,12 +236,14 @@ const NewEvent = () => {
         })
       ).json();
 
-      let fetchCategories = await (await fetch("/api/myCategories/" + userId)).json();
-      updateContext({        
-        myCategories: fetchCategories
-      });
+      if(!result.error){
+        let fetchCategories = await (await fetch("/api/myCategories/" + userId)).json();
+          updateContext({        
+            myCategories: fetchCategories
+          });      
+        setshowaddCategory(false);
+      }
 
-      setshowaddCategory(false);
       return result;
 
     }
