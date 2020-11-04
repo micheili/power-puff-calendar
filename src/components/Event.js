@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
-  CardTitle,
   CardSubtitle,
   ButtonToggle,
   Button,
-  CardText,
   UncontrolledTooltip,
   CardFooter,
   CardBody,
@@ -31,7 +29,6 @@ export default function Event(props) {
     id,
     userId,
     inviteId,
-    title,
     description,
     start,
     stop,
@@ -67,11 +64,6 @@ export default function Event(props) {
   async function deleteEvent() {
     //delete if it's your event
     if (loggedInUser === userId) {
-      const deleteInvitations = await (
-        await fetch("/api/delete_invitations/" + id, {
-          method: "DELETE",
-        })
-      ).json();
       const deleteEvent = await (
         await fetch("/api/Event/" + id, {
           method: "DELETE",
@@ -99,21 +91,21 @@ export default function Event(props) {
 
   async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
-    if (events.error) {
+    if (events.error == 404) {
       events = [];
     }
 
     let invitedEvents = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
     ).json();
-    if (invitedEvents.error) {
+    if (invitedEvents.error == 404) {
       invitedEvents = [];
     }
 
     let declinedInvitations = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=false")
     ).json();
-    if (declinedInvitations.error) {
+    if (declinedInvitations.error == 404) {
       declinedInvitations = [];
     }
 
@@ -185,7 +177,10 @@ export default function Event(props) {
         ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
-          onClick={e => window.confirm("Are you sure you want to delete the event?") && deleteEvent()}
+          onClick={(e) =>
+            window.confirm("Are you sure you want to delete the event?") &&
+            deleteEvent()
+          }
           outline
           color="lightpink"
           id="deleteButton"

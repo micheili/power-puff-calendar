@@ -378,7 +378,25 @@
       }
     }
   }
-  
   }
+
+  .image-header{
+    position: relative;
+   width: 100%;
+   height: 30vh;
+   object-fit: cover;
+
+  }
+
+  .title-header{
+    position: absolute;
+    font-weight: bolder;
+    color: black;
+    padding-top: 10%;
+ 
+  }
+
+
+
 
   
