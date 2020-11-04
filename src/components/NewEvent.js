@@ -3,7 +3,7 @@ import moment from "moment";
 import { Context } from "../App";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes,  faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Col,
@@ -15,27 +15,26 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
 } from "reactstrap";
 
 const NewEvent = () => {
   const [formData, setFormData] = useState({});
-  const [alert, setAlert] = useState(false); 
-  const [showAddCategory, setshowaddCategory] = useState(false); 
-  const [alertCategory, setAlertCategory] = useState(false); 
+  const [alert, setAlert] = useState(false);
+  const [showAddCategory, setshowaddCategory] = useState(false);
+  const [alertCategory, setAlertCategory] = useState(false);
   const [invitesList, setinvitesList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [catName, setCatName] = useState([]);
   const [listOfColor, setListOfColor] = useState([]);
   const [context, updateContext] = useContext(Context);
 
-
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
   const categories = context.myCategories;
 
   console.log("Categories", categories);
-  console.log("context categories", context.myCategories)
+  console.log("context categories", context.myCategories);
 
   const handleInputChange = (e) =>
     setFormData({
@@ -43,7 +42,7 @@ const NewEvent = () => {
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
-    const   handleCatChange = (e) =>
+  const handleCatChange = (e) =>
     setCatName({
       ...catName,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -54,17 +53,15 @@ const NewEvent = () => {
     label: user.email,
   }));
 
- 
- const allCategories = useMemo(() => (    
-    categories.map((category) => ({
-      value: category.id,
-      label: category.name,
-      color: category.color
-    })) 
-),[categories]);
-
-
-  
+  const allCategories = useMemo(
+    () =>
+      categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+        color: category.color,
+      })),
+    [categories]
+  );
 
   /*  $blue: #3C69E7;
       $green: #5AC18E;
@@ -77,45 +74,46 @@ const NewEvent = () => {
       $turquoise: #008080;
       $grey: #808080;*/
 
-    const colorList = useMemo(() => [
-    { value: "blue", label: "Blue", color: '#3C69E7' },
-    { value: "green", label: "Green", color: '#5AC18E' },
-    { value: "purple", label: "Purple", color: "#8A2BE2" },
-    { value: "yellow", label: "Yellow", color: "#FFFF66" },
-    { value: "orange", label: "Orange", color: "#FFA500" },
-    { value: "red", label: "Red", color: "#FF4040" },
-    { value: "pink", label: "Pink", color: "#F7347A" },
-    { value: "burgundy", label: "Burgundy", color: "#420420" },
-    { value: "turquoise", label: "Turquoise", color: "#008080" },
-    { value: "grey", label: "Grey", color: "#808080" }    
-  ],[]);
+  const colorList = useMemo(
+    () => [
+      { value: "blue", label: "Blue", color: "#3C69E7" },
+      { value: "green", label: "Green", color: "#5AC18E" },
+      { value: "purple", label: "Purple", color: "#8A2BE2" },
+      { value: "yellow", label: "Yellow", color: "#FFFF66" },
+      { value: "orange", label: "Orange", color: "#FFA500" },
+      { value: "red", label: "Red", color: "#FF4040" },
+      { value: "pink", label: "Pink", color: "#F7347A" },
+      { value: "burgundy", label: "Burgundy", color: "#420420" },
+      { value: "turquoise", label: "Turquoise", color: "#008080" },
+      { value: "grey", label: "Grey", color: "#808080" },
+    ],
+    []
+  );
 
- 
   const customStyles = useMemo(
     () => ({
       option: (provided, state) => ({
-        ...provided,      
-        color: "white" ,
-        fontWeigth: "bold", 
+        ...provided,
+        color: "white",
+        fontWeigth: "bold",
         padding: 10,
-        background: state.data.color,  
-        	     
+        background: state.data.color,
       }),
       control: (provided) => ({
-        ...provided,  
-        color: "white" ,
-        fontWeigth: "bold",  
+        ...provided,
+        color: "white",
+        fontWeigth: "bold",
         background: "white",
         border: "3px solid #fbc5b8",
         borderRadius: "10px",
       }),
       singleValue: (provided, state) => ({
         ...provided,
-        color: "white" ,
-        fontWeigth: "bold", 
+        color: "white",
+        fontWeigth: "bold",
         width: "80%",
-        padding: 2, 
-        textAlign: "center",       
+        padding: 2,
+        textAlign: "center",
         height: "80%",
         borderRadius: "10px",
         background: state.data.color,
@@ -123,8 +121,6 @@ const NewEvent = () => {
     }),
     []
   );
-  
-
 
   const handleCategories = (e) => {
     setCategoryList(e);
@@ -134,11 +130,11 @@ const NewEvent = () => {
     setshowaddCategory(true);
   };
 
-  const cancelCreateCategory =() => {
+  const cancelCreateCategory = () => {
     setshowaddCategory(false);
-    setCatName('');
+    setCatName("");
   };
-  
+
   const handleInvites = (e) => {
     setinvitesList(e);
   };
@@ -147,11 +143,9 @@ const NewEvent = () => {
     setListOfColor(e);
   };
 
-
- 
-  const cancel = () => {    
+  const cancel = () => {
     updateContext({ showNewEvent: false });
-  }
+  };
 
   let {
     title,
@@ -162,9 +156,7 @@ const NewEvent = () => {
     stopTime,
   } = formData;
 
-  let {
-    name
-  } = catName;
+  let { name } = catName;
 
   const getStart = new Date(startDate + " " + startTime);
   const start = moment(getStart).format("YYYY-MM-DD HH:mm");
@@ -172,17 +164,15 @@ const NewEvent = () => {
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
 
-  
-
   //get category from selectlist
-  const categoryId = () => {   
-     if(!categoryList){
-       return null} else {
-         return categoryList.value
-       }
+  const categoryId = () => {
+    if (!categoryList) {
+      return null;
+    } else {
+      return categoryList.value;
+    }
   };
 
- 
   const validate = () => {
     let isValid = true;
 
@@ -200,76 +190,81 @@ const NewEvent = () => {
     return isValid;
   };
 
-  
-
   const validateCategory = () => {
     let isValid = true;
 
-    if (name && listOfColor.color  == undefined) {      
-        isValid = false;        
-        setAlertCategory("The name and the color are required");      
+    if (name && listOfColor.color == undefined) {
+      isValid = false;
+      setAlertCategory("The name and the color are required");
     }
 
     const categoryName = allCategories.filter((c) => c.label === name);
     console.log("catName", categoryName);
-    
-    if (categoryName.length > 0) {      
-      isValid = false;        
-      setAlertCategory("The name: " + name + " already exists.");      
-    }
 
-       
+    if (categoryName.length > 0) {
+      isValid = false;
+      setAlertCategory("The name: " + name + " already exists.");
+    }
 
     return isValid;
   };
 
   async function createCategory(e) {
     e.preventDefault();
-    
 
     if (validateCategory()) {
       let result = await (
         await fetch("/api/Category", {
           method: "POST",
-          body: JSON.stringify({ name, color: listOfColor.color, className: listOfColor.value, userId,}),
+          body: JSON.stringify({
+            name,
+            color: listOfColor.color,
+            className: listOfColor.value,
+            userId,
+          }),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
 
-      if(!result.error){
-        let fetchCategories = await (await fetch("/api/myCategories/" + userId)).json();
-          updateContext({        
-            myCategories: fetchCategories
-          });      
+      if (!result.error) {
+        let fetchCategories = await (
+          await fetch("/api/myCategories/" + userId)
+        ).json();
+        updateContext({
+          myCategories: fetchCategories,
+        });
         setshowaddCategory(false);
       }
 
       return result;
-
     }
-    
   }
-
 
   async function save(e) {
     e.preventDefault();
-    
 
     if (validate()) {
       let result = await (
         await fetch("/api/Event", {
           method: "POST",
-          body: JSON.stringify({ userId, title, description, start, stop, categoryId:categoryId() }),
+          body: JSON.stringify({
+            userId,
+            title,
+            description,
+            start,
+            stop,
+            categoryId: categoryId(),
+          }),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
 
       //error msg handling
       if (result.error === 403) {
-        setAlert("Sorry, the date and time interval you entered is invalid!");        
+        setAlert("Sorry, the date and time interval you entered is invalid!");
         return;
       } else if (result.error) {
-        setAlert("You are not logged in ");        
+        setAlert("You are not logged in ");
         return;
       }
 
@@ -284,30 +279,27 @@ const NewEvent = () => {
               headers: { "Content-Type": "application/json" },
             })
           ).json();
-        }        
+        }
       }
 
-      if(!result.error){
-        let events = await (await fetch("/api/myEvents/" + userId)).json();        
-        updateContext({ showNewEvent: false, myEvents: events });        
+      if (!result.error) {
+        let events = await (await fetch("/api/myEvents/" + userId)).json();
+        updateContext({ showNewEvent: false, myEvents: events });
       }
-      
-      setinvitesList('');
+
+      setinvitesList("");
       setFormData({
-        title: '',
-        description: '',
-        startDate: '',
-        stopDate: '',
-        startTime: '',
-        stopTime: '',
+        title: "",
+        description: "",
+        startDate: "",
+        stopDate: "",
+        startTime: "",
+        stopTime: "",
       });
 
-      
       return result;
     }
   }
-
-  
 
   return (
     <Form onSubmit={save}>
@@ -324,7 +316,9 @@ const NewEvent = () => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className="event_label">Title</Label>
+        <Label for="eventTitle" className="event_label">
+          Title
+        </Label>
         <Input
           type="text"
           name="title"
@@ -406,65 +400,96 @@ const NewEvent = () => {
             />
           </FormGroup>
         </Col>
-      </Row>      
+      </Row>
       <Row className="d-flex justify-content-end">
         <Col xs="10" md="8" lg="10" className="align-self-end">
           <FormGroup>
             <Label>Category:</Label>
-            <Select isClearable options={allCategories} styles={customStyles} onChange={handleCategories}/>
+            <Select
+              isClearable
+              options={allCategories}
+              styles={customStyles}
+              onChange={handleCategories}
+            />
           </FormGroup>
         </Col>
-        <Col xs="2" md="4" lg="2" className="align-self-end">                 
-           <Button color="danger" onClick={handleAddCategory} className="newCategory float-right"><FontAwesomeIcon icon={faPlus}/></Button>
+        <Col xs="2" md="4" lg="2" className="align-self-end">
+          <Button
+            color="danger"
+            onClick={handleAddCategory}
+            className="newCategory float-right"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
         </Col>
-      </Row>   
+      </Row>
       <div>
-      {showAddCategory ? (  
-        <div>
-      <hr></hr>
-      <Alert
-        color="danger"
-        isOpen={alertCategory}
-        toggle={() => {
-          setAlertCategory(false);
-        }}
-      >
-        {alertCategory}
-      </Alert>
-      <Row>        
-          <Col xs="12" md="12" lg="6">
-            <FormGroup>
-              <Label for="category-name">Category Name</Label>
-              <Input
-                type="text"
-                name="name"
-                id="catName"
-                onChange={handleCatChange}
-                value={name}                       
-              />
-            </FormGroup>
-          </Col>
-          <Col xs="12" md="12" lg="6">
-            <FormGroup >          
-              <Label>Color:</Label>
-              <Select isClearable options={colorList} styles={customStyles} onChange={handleColorList}/>          
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-        <Col xs="6"  lg="6" >                 
-            <Button color="success" className="w-100" type="submit" onClick={createCategory}><FontAwesomeIcon icon={faCheck}/> Create Category</Button>
-          </Col>
-          <Col xs="6"  lg="6">                 
-            <Button color="danger" onClick={cancelCreateCategory} className="w-100"><FontAwesomeIcon icon={faTimes}/> Cancel</Button>
-          </Col>
-      </Row>  
-      
-      <hr></hr> </div> ) : null}{" "} </div>
-     
+        {showAddCategory ? (
+          <div>
+            <hr></hr>
+            <Alert
+              color="danger"
+              isOpen={alertCategory}
+              toggle={() => {
+                setAlertCategory(false);
+              }}
+            >
+              {alertCategory}
+            </Alert>
+            <Row>
+              <Col xs="12" md="12" lg="6">
+                <FormGroup>
+                  <Label for="category-name">Category Name</Label>
+                  <Input
+                    type="text"
+                    name="name"
+                    id="catName"
+                    onChange={handleCatChange}
+                    value={name}
+                  />
+                </FormGroup>
+              </Col>
+              <Col xs="12" md="12" lg="6">
+                <FormGroup>
+                  <Label>Color:</Label>
+                  <Select
+                    isClearable
+                    options={colorList}
+                    styles={customStyles}
+                    onChange={handleColorList}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="6" lg="6">
+                <Button
+                  color="success"
+                  className="w-100"
+                  type="submit"
+                  onClick={createCategory}
+                >
+                  <FontAwesomeIcon icon={faCheck} /> Create Category
+                </Button>
+              </Col>
+              <Col xs="6" lg="6">
+                <Button
+                  color="danger"
+                  onClick={cancelCreateCategory}
+                  className="w-100"
+                >
+                  <FontAwesomeIcon icon={faTimes} /> Cancel
+                </Button>
+              </Col>
+            </Row>
+            <hr></hr>{" "}
+          </div>
+        ) : null}{" "}
+      </div>
+
       <FormGroup>
         <Label>Invite:</Label>
-        <Select  options={options} onChange={handleInvites} isMulti />
+        <Select options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 
       <Button color="danger" onClick={cancel}>

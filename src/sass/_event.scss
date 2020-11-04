@@ -1,174 +1,169 @@
-.form-group>label {
-    top: 18px;
-    left: 6px;
-    position: relative;
-    color: $info;
-    background-color: white;
-    padding: 0px 5px 0px 5px;
-    font-size: 0.9em;
-    z-index: 1;
-  }
+.form-group > label {
+  top: 18px;
+  left: 6px;
+  position: relative;
+  color: $info;
+  background-color: white;
+  padding: 0px 5px 0px 5px;
+  font-size: 0.9em;
+  z-index: 1;
+}
 
-  .breadcrumb{
-      background-color: $lighterpink !important;
-      
-  }
+.breadcrumb {
+  background-color: $lighterpink !important;
+}
 
-  .breadcrumb-item{
-    color: $info !important;
-    font-weight: 700;
-  }
+.breadcrumb-item {
+  color: $info !important;
+  font-weight: 700;
+}
 
-  
-    
 .form-control {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;	
-	border: 3px solid $lighterpink;	
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	margin: 0 0 1em;
-    padding: 1em;
-    color: $lighterpink !important;
-    &:focus, &:hover{
-        border-color: $info;
-        color:$info !important;
-    }
-        
-}
-
-.newCategory{
-    margin: 0 0 1.2em;
-}
-
-.button-submit{
-    float: right;
-    background-color: $lighterpink;
-    text-decoration: none;
-    border-color: $lighterpink;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 3px solid $lighterpink;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 0 1em;
+  padding: 1em;
+  color: $lighterpink !important;
+  &:focus,
+  &:hover {
+    border-color: $info;
     color: $info !important;
-    &:hover{
-        background-color: $info;
-        border-color: $info;
-        color: white !important;
-    }
+  }
 }
 
-
-
-.css-26l3qy-menu{
-    z-index: 5 !important;
+.newCategory {
+  margin: 0 0 1.2em;
 }
 
-.css-yk16xz-control{
-    border: 3px solid $lighterpink !important;	
-    color: $lighterpink !important;
-    -webkit-border-radius: 10px !important;
-	-moz-border-radius: 10px !important;
-    border-radius: 10px !important;
-    &:focus, &:hover{
-        border-color: $info !important;
-        color:$info !important;
-    }
+.button-submit {
+  float: right;
+  background-color: $lighterpink;
+  text-decoration: none;
+  border-color: $lighterpink;
+  color: $info !important;
+  &:hover {
+    background-color: $info;
+    border-color: $info;
+    color: white !important;
+  }
 }
 
-.css-1pahdxg-control{
-    border: 3px solid $info !important;	    
-    color:$info !important;
+.css-26l3qy-menu {
+  z-index: 5 !important;
 }
 
-.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer{
-    color: $lighterpink !important;
-    background-color:$info !important;
+.css-yk16xz-control {
+  border: 3px solid $lighterpink !important;
+  color: $lighterpink !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  border-radius: 10px !important;
+  &:focus,
+  &:hover {
+    border-color: $info !important;
+    color: $info !important;
+  }
 }
 
-.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer svg{
-    color: $lighterpink !important;
-    background-color:$info !important;
-    &:hover{
-        color: white !important;
-    }
+.css-1pahdxg-control {
+  border: 3px solid $info !important;
+  color: $info !important;
 }
 
-
-.css-1rhbuit-multiValue{
-    background-color: $lighterpink !important;
+.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer {
+  color: $lighterpink !important;
+  background-color: $info !important;
 }
 
+.css-1pahdxg-control .css-1hb7zxy-IndicatorsContainer svg {
+  color: $lighterpink !important;
+  background-color: $info !important;
+  &:hover {
+    color: white !important;
+  }
+}
 
-.css-2b097c-container:hover .css-tlfecz-indicatorContainer .css-6q0nyr-Svg, .css-2b097c-container:hover .css-tlfecz-indicatorContainer {
-    background-color:$info !important;
-    color:$lighterpink !important; 
+.css-1rhbuit-multiValue {
+  background-color: $lighterpink !important;
+}
+
+.css-2b097c-container:hover .css-tlfecz-indicatorContainer .css-6q0nyr-Svg,
+.css-2b097c-container:hover .css-tlfecz-indicatorContainer {
+  background-color: $info !important;
+  color: $lighterpink !important;
 }
 
 .css-tlfecz-indicatorContainer:hover .css-6q0nyr-Svg {
-    background-color:$info !important;
-    color:$lighterpink !important; 
+  background-color: $info !important;
+  color: $lighterpink !important;
 }
 
-.css-1hb7zxy-IndicatorsContainer{
-    background-color: $lighterpink !important;
-    &:focus, &:hover{        
-        background-color:$info !important;
-        color:$lighterpink !important;
-    }    
+.css-1hb7zxy-IndicatorsContainer {
+  background-color: $lighterpink !important;
+  &:focus,
+  &:hover {
+    background-color: $info !important;
+    color: $lighterpink !important;
+  }
 }
 
 .css-tlfecz-indicatorContainer {
-    background-color: $lighterpink !important;    
-    &:focus, &:hover{
-        border-color: $info !important;
-        background-color:$info !important;
-        color:$lighterpink !important;
-    }  
+  background-color: $lighterpink !important;
+  &:focus,
+  &:hover {
+    border-color: $info !important;
+    background-color: $info !important;
+    color: $lighterpink !important;
+  }
 }
 
-.css-6q0nyr-Svg{
-    color: $info !important;
-    &:focus, &:hover{        
-        color:$lighterpink !important;
-    }    
+.css-6q0nyr-Svg {
+  color: $info !important;
+  &:focus,
+  &:hover {
+    color: $lighterpink !important;
+  }
 }
 
-input[type=date],input[type=time] {
-    overflow: hidden;
+input[type="date"],
+input[type="time"] {
+  overflow: hidden;
 }
 
-
-input[type=date]:hover::-webkit-calendar-picker-indicator, input[type=time]:hover::-webkit-calendar-picker-indicator{
-    background-color: $info !important;  
+input[type="date"]:hover::-webkit-calendar-picker-indicator,
+input[type="time"]:hover::-webkit-calendar-picker-indicator {
+  background-color: $info !important;
 }
 
-
-
-
-
-input[type=date]::-webkit-inner-spin-button,input[type=time]::-webkit-inner-spin-button {
-    color: white;
-    background-color: $lighterpink !important;   
-    float: right !important;
+input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-inner-spin-button {
+  color: white;
+  background-color: $lighterpink !important;
+  float: right !important;
 }
 
-input[type=time]::-webkit-calendar-picker-indicator {
-    color: white;    
-    background-color: $lighterpink !important;          
-    padding: 10px !important;    
-    margin-right: -18px !important;
-    -webkit-border-radius: 0px 5px 5px 0px;
-    -moz-border-radius: 0px 5px 5px 0px;
-    border-radius: 0px 5px 5px 0px;
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: white;
+  background-color: $lighterpink !important;
+  padding: 10px !important;
+  margin-right: -18px !important;
+  -webkit-border-radius: 0px 5px 5px 0px;
+  -moz-border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
 }
 
-input[type=date]::-webkit-calendar-picker-indicator  {
-    color: white;    
-    background-color: $lighterpink !important;    
-    padding: 10px !important;
-    margin-right: -18px !important;    
-    float: right;
-    -webkit-border-radius: 0px 5px 5px 0px;
-    -moz-border-radius: 0px 5px 5px 0px;
-    border-radius: 0px 5px 5px 0px;
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: white;
+  background-color: $lighterpink !important;
+  padding: 10px !important;
+  margin-right: -18px !important;
+  float: right;
+  -webkit-border-radius: 0px 5px 5px 0px;
+  -moz-border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
 }
-
