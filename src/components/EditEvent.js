@@ -25,22 +25,22 @@ const EditEvent = (props) => {
 
   useEffect(() => {
     setFormData({
-      editTitle: title,
-      editDescription: description,
-      editStartDate: start.split(" ")[0],
-      editStartTime: start.split(" ")[1],
-      editStopDate: stop.split(" ")[0],
-      editStopTime: stop.split(" ")[1],
+      editedTitle: title,
+      editedDescription: description,
+      editedStartDate: start.split(" ")[0],
+      editedStartTime: start.split(" ")[1],
+      editedStopDate: stop.split(" ")[0],
+      editedStopTime: stop.split(" ")[1],
     });
   }, []);
 
   let {
-    editTitle,
-    editDescription,
-    editStartDate,
-    editStartTime,
-    editStopDate,
-    editStopTime,
+    editedTitle,
+    editedDescription,
+    editedStartDate,
+    editedStartTime,
+    editedStopDate,
+    editedStopTime,
   } = formData;
 
   const loggedInUser = context.user.id;
@@ -65,18 +65,19 @@ const EditEvent = (props) => {
     updateContext({ showEditEvent: false });
   };
 
-  const getStart = new Date(editStartDate + " " + editStartTime);
-  const newStart = moment(getStart).format("YYYY-MM-DD HH:mm");
+  const getStart = new Date(editedStartDate + " " + editedStartTime);
+  const editedStart = moment(getStart).format("YYYY-MM-DD HH:mm");
 
-  const getStop = new Date(editStopDate + " " + editStopTime);
-  const newStop = moment(getStop).format("YYYY-MM-DD HH:mm");
+  const getStop = new Date(editedStopDate + " " + editedStopTime);
+  const editedStop = moment(getStop).format("YYYY-MM-DD HH:mm");
+
 
   const validate = () => {
     let isValid = true;
 
-    if (newStart && newStop !== undefined) {
-      let startParse = Date.parse(newStart);
-      let stopParse = Date.parse(newStop);
+    if (editedStart && editedStop !== undefined) {
+      let startParse = Date.parse(editedStart);
+      let stopParse = Date.parse(editedStop);
       let diff = (stopParse - startParse) / 1000;
 
       if (!(diff >= 900 && diff < 604800)) {
@@ -93,9 +94,14 @@ const EditEvent = (props) => {
 
     if (validate()) {
       let result = await (
-        await fetch("/api/Event" + id, {
+        await fetch("/api/Event/" + id, {
           method: "PUT",
-          body: JSON.stringify({ userId, title, description, start, stop }),
+          body: JSON.stringify({
+            title: editedTitle,
+            description: editedDescription,
+            start: editedStart,
+            stop: editedStop
+          }),
           headers: { "Content-Type": "application/json" },
         })
       ).json();
@@ -151,10 +157,10 @@ const EditEvent = (props) => {
         </Label>
         <Input
           type="text"
-          name="editTitle"
+          name="editedTitle"
           id="eventTitle"
           onChange={handleInputChange}
-          value={editTitle}
+          value={editedTitle}
           required
           placeholder="Title"
         />
@@ -163,10 +169,10 @@ const EditEvent = (props) => {
         <Label for="eventDescription">Description</Label>
         <Input
           type="textarea"
-          name="editDescription"
+          name="editedDescription"
           id="eventDescription"
           onChange={handleInputChange}
-          value={editDescription}
+          value={editedDescription}
           placeholder="Description"
         />
       </FormGroup>
@@ -177,12 +183,12 @@ const EditEvent = (props) => {
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
-              name="editStartDate"
+              name="editedStartDate"
               id="eventStartDate"
               placeholder="date placeholder"
               format="yyyy/MM/dd"
               onChange={handleInputChange}
-              value={editStartDate}
+              value={editedStartDate}
               required
               placeholder="start date"
             />
@@ -193,11 +199,11 @@ const EditEvent = (props) => {
             <Label for="eventStartTime">Start Time:</Label>
             <Input
               type="time"
-              name="editStartTime"
+              name="editedStartTime"
               id="eventStartTime"
               placeholder="startTime"
               onChange={handleInputChange}
-              value={editStartTime}
+              value={editedStartTime}
               required
             />
           </FormGroup>
@@ -210,11 +216,11 @@ const EditEvent = (props) => {
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
-              name="editStopDate"
+              name="editedStopDate"
               id="eventEndDate"
               placeholder="date placeholder"
               onChange={handleInputChange}
-              value={editStopDate}
+              value={editedStopDate}
               required
               placeholder="stop date"
             />
@@ -225,11 +231,11 @@ const EditEvent = (props) => {
             <Label for="eventEndTime">End Time:</Label>
             <Input
               type="time"
-              name="editStopTime"
+              name="editedStopTime"
               id="eventEndTime"
               placeholder="time placeholder"
               onChange={handleInputChange}
-              value={editStopTime}
+              value={editedStopTime}
               required
               placeholder="stoptime"
             />
@@ -237,6 +243,7 @@ const EditEvent = (props) => {
         </Col>
       </Row>
       <FormGroup>
+      <Label for="eventEndTime">Invite:</Label>
         <Select options={options} onChange={handleInvites} isMulti />
       </FormGroup>
 
@@ -244,7 +251,7 @@ const EditEvent = (props) => {
         Cancel
       </Button>
 
-      <Button className="button-submit" type="submit" value="save">
+      <Button className="button-submit" type="submit" value="save" >
         Submit
       </Button>
     </Form>
