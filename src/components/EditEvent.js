@@ -18,38 +18,20 @@ const EditEvent = (props) => {
   let { id, userId, title, description, start, stop } = props.editEvent;
 
   const [formData, setFormData] = useState({});
-  const [placeHolderData, setPlaceHolders] = useState([""]);
   const [alert, setAlert] = useState(false);
   const [invitesList, setinvitesList] = useState([]);
   const [context, updateContext] = useContext(Context);
 
-  console.log('i edit event ', props.editEvent);
-  console.log(id, title, description);
-
-  let {
-    eventTitle= '',
-    eventDescription= '',
-    eventStartDate= '',
-    eventStartTime='',
-    eventStopDate='',
-    eventStopTime='',
-  } = placeHolderData;
-
   useEffect(() => {
-    setPlaceHolders(
-      title,
-      description,
-      moment(start).format("YYYY-MM-DD"),
-      start.split(" ")[1],
-      moment(stop).format("YYYY-MM-DD"),
-      stop.split(" ")[1]
-    );
+    setFormData({
+      editTitle: title,
+      editDescription: description,
+      editStartDate: moment(start).format("YYYY-MM-DD"),
+      editStopDate: moment(stop).format("YYYY-MM-DD"),
+      editStartTime: start.split(" ")[1],
+      editStopTime: stop.split(" ")[1],
+    });
   }, [props.editEvent]);
-
-
-  //får bara ut title
-  console.log('plaece holderss ', placeHolderData);
-
 
   const loggedInUser = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== loggedInUser);
@@ -173,7 +155,6 @@ const EditEvent = (props) => {
           onChange={handleInputChange}
           value={editTitle}
           required
-          placeholder={eventTitle}
         />
       </FormGroup>
       <FormGroup>
@@ -184,7 +165,6 @@ const EditEvent = (props) => {
           id="eventDescription"
           onChange={handleInputChange}
           value={editDescription}
-          placeholder={eventDescription}
         />
       </FormGroup>
       <Row>
@@ -201,7 +181,6 @@ const EditEvent = (props) => {
               onChange={handleInputChange}
               value={editStartDate}
               required
-              placeholder={eventStartDate}
             />
           </FormGroup>
         </Col>
@@ -212,7 +191,6 @@ const EditEvent = (props) => {
               type="time"
               name="startTime"
               id="eventStartTime"
-              placeholder={eventStartTime}
               onChange={handleInputChange}
               value={editStartTime}
               required
@@ -233,7 +211,6 @@ const EditEvent = (props) => {
               onChange={handleInputChange}
               value={editStopDate}
               required
-              placeholder={eventStopDate}
             />
           </FormGroup>
         </Col>
@@ -248,7 +225,6 @@ const EditEvent = (props) => {
               onChange={handleInputChange}
               value={editStopTime}
               required
-              placeholder={eventStopTime}
             />
           </FormGroup>
         </Col>
