@@ -1,35 +1,36 @@
-.calendar-container{
+@import "variable-overrides";
+
+.calendar-container {
   border-style: solid;
-  border-color:  #d27f78; 
+  border-color: #d27f78;
   border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;   
+  border-bottom-right-radius: 10px;
   width: 100%;
-  
 }
 
-.calendar-date{
-background:  #d27f78; 
-color:  #fbc5b8;
-font-size: small;
+.calendar-date {
+  background: #d27f78;
+  color: #fbc5b8;
+  font-size: small;
 }
 
 //weekday for dayView
 .weekday-indicator {
-display: grid;
-grid-template-columns: repeat(1, minmax(auto, 1fr));
-grid-template-rows: 1;
-justify-self: center;
-justify-content: center;
-align-items: center;
-text-align: center;
-font-weight: bold;
-padding-bottom: 15px;
-padding-top: 15px;
-border-style: solid;
-border-color:  #d27f78; 
-background-color: #d27f78; 
-color: white;
-font-weight: bold;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(auto, 1fr));
+  grid-template-rows: 1;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-style: solid;
+  border-color: #d27f78;
+  background-color: #d27f78;
+  color: white;
+  font-weight: bold;
 }
 
 //weekdays
@@ -40,10 +41,9 @@ font-weight: bold;
   padding-bottom: 15px;
   padding-top: 15px;
   border-style: solid;
-  border-color: #d27f78; 
-  background:  #d27f78;
+  border-color: #d27f78;
+  background: #d27f78;
   color: white;
-  
 
   .weekday-indicator-icon {
     height: 25px;
@@ -63,14 +63,12 @@ font-weight: bold;
 }
 
 //day
-.date-day-indicator{
+.date-day-indicator {
   display: grid;
-  grid-template-columns: repeat(1, minmax(auto, 1fr));    
+  grid-template-columns: repeat(1, minmax(auto, 1fr));
   grid-gap: 1px;
   margin-top: 5px;
   margin-bottom: 5px;
- 
-  
 
   .date-day-icon {
     display: flex;
@@ -78,30 +76,30 @@ font-weight: bold;
     justify-self: left;
     align-items: center;
     padding-left: 20px;
-    height: 100px;  
-    width: 100%;  
-        
+    height: 100px;
+    width: 100%;
+
     cursor: pointer;
-    &[data-active-month='false'] {
+    &[data-active-month="false"] {
       color: rgba(0, 0, 0, 0.3);
     }
     &.active,
     &.selected {
-      color:  blue;
+      color: blue;
       font-weight: bold;
     }
 
-    .events{
+    .events {
       background-color: #d27f78;
-      padding: 2%; 
-      margin-left: 10px;       
+      padding: 2%;
+      margin-left: 10px;
       color: white !important;
     }
   }
 }
 
 //week
-.date-week-indicator{
+.date-week-indicator {
   display: grid;
   grid-template-columns: repeat(7, minmax(auto, 1fr));
   grid-gap: 1px;
@@ -115,18 +113,28 @@ font-weight: bold;
     justify-self: center;
     align-items: center;
     height: 100px;
-   
-        
+    width: 100%;
+
     cursor: pointer;
-    &[data-active-month='false'] {
+    &[data-active-month="false"] {
       color: rgba(0, 0, 0, 0.3);
     }
     &.active,
     &.selected {
-      border-radius: 50%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
       box-shadow: 0 0 3px #834e4a;
-      color:  blue;
+      color: blue;
       font-weight: bold;
+    }
+
+    .events {
+      background-color: #d27f78;
+      color: white !important;
     }
   }
 }
@@ -140,93 +148,95 @@ font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
 
-  
-  
   .date-icon {
     display: block;
     text-align: center;
     justify-content: center;
     justify-self: center;
-    align-items: center;      
-        
+    align-items: center;
+    width: 100%;
+
     cursor: pointer;
-    &[data-active-month='false'] {
+    &[data-active-month="false"] {
       color: rgba(0, 0, 0, 0.3);
     }
     &.active,
     &.selected {
-      border-radius: 50%;
-      box-shadow: 0 0 3px #834e4a;        
-      color:  blue;
-      font-weight: bold;        
-      height: 100px;
-      width: 100px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 3px #834e4a;
+      color: blue;
+      font-weight: bold;
+      
+    }
+
+    .events {
+      background-color: #d27f78;
+      color: white !important;
     }
   }
 }
 
-.month-container{
+.month-container {
   padding: 0%;
 }
 
-.month-indicator{
-  background: #d27f78; 
+.month-indicator {
+  background: #d27f78;
   border-top: solid;
-  border-color:  #fbc5b8;
+  border-color: #fbc5b8;
   color: white;
   padding-top: 15px;
-  
 }
 
-.month-indicator .row .prev{
-  color:  #fbc5b8;
+.month-indicator .row .prev {
+  color: #fbc5b8;
   cursor: pointer;
 }
 
-.month-indicator .row .prev:hover{
+.month-indicator .row .prev:hover {
   color: white;
 }
 
-.month-indicator .row .next{
-  color:  #fbc5b8;
+.month-indicator .row .next {
+  color: #fbc5b8;
   cursor: pointer;
 }
 
-.month-indicator .row .next:hover{
+.month-indicator .row .next:hover {
   color: white;
 }
-
 
 //calendar buttons
-.calendar-buttons{
+.calendar-buttons {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background: #d27f78;
-} 
-
-.calendar-buttons .row .col .link-btn{ 
-  color:  #fbc5b8;
-  text-decoration: none;
-
 }
 
-.calendar-buttons .row .col .link-btn:hover{ 
+.calendar-buttons .row .col .link-btn {
+  color: #fbc5b8;
+  text-decoration: none;
+}
+
+.calendar-buttons .row .col .link-btn:hover {
   color: white;
 }
 
-.calendar-buttons .row .col .link-btn-active{ 
-  color:  white;
+.calendar-buttons .row .col .link-btn-active {
+  color: white;
 }
 
-
 //events
-.events{
+.events {
   font-size: 11px;
-  
 }
 
 @media only screen and (max-width: 500px) {
-
   .date-indicator {
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
@@ -234,8 +244,7 @@ font-weight: bold;
     grid-gap: 1px;
     margin-top: 5px;
     margin-bottom: 5px;
-    
-    
+
     .date-icon {
       display: block;
       text-align: center;
@@ -244,189 +253,209 @@ font-weight: bold;
       align-items: center;
       height: 75px;
       width: 15px;
-      
-          
+
       cursor: pointer;
-      &[data-active-month='false'] {
+      &[data-active-month="false"] {
         color: rgba(0, 0, 0, 0.3);
       }
       &.active,
       &.selected {
         border-radius: 50%;
-        box-shadow: 0 0 3px #834e4a;        
-        color:  blue;
-        font-weight: bold;        
+        box-shadow: 0 0 3px #834e4a;
+        color: blue;
+        font-weight: bold;
         height: 25px;
         width: 25px;
       }
     }
   }
 
-  .month-indicator{
-    background: #d27f78; 
+  .month-indicator {
+    background: #d27f78;
     border-top: solid;
-    border-color:  #fbc5b8;
+    border-color: #fbc5b8;
     color: white;
     padding-top: 15px;
-    
   }
 
-  .month-indicator .row .current{
+  .month-indicator .row .current {
     font-size: 20px;
   }
 
-  .month-indicator .row .prev{
-    color:  #fbc5b8;
+  .month-indicator .row .prev {
+    color: #fbc5b8;
     cursor: pointer;
     font-size: 10px;
   }
 
-  .month-indicator .row .prev:hover{
+  .month-indicator .row .prev:hover {
     color: white;
   }
 
-  .month-indicator .row .next{
-    color:  #fbc5b8;
+  .month-indicator .row .next {
+    color: #fbc5b8;
     cursor: pointer;
     font-size: 10px;
   }
 
-  .month-indicator .row .next:hover{
+  .month-indicator .row .next:hover {
     color: white;
   }
 
   //events
-.events{
-  font-size: 8px;
-  
-}
+  .events {
+    font-size: 8px;
+  }
 
-.calendar-buttons .row .col .link-btn{ 
-  color:  #fbc5b8;
-  text-decoration: none;
-  font-size: 15px;
-}
+  .calendar-buttons .row .col .link-btn {
+    color: #fbc5b8;
+    text-decoration: none;
+    font-size: 15px;
+  }
 
+  //week
+  .date-week-indicator {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(auto, 1fr));
+    grid-gap: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 
-//week
-.date-week-indicator{
-  display: grid;
-  grid-template-columns: repeat(7, minmax(auto, 1fr));
-  grid-gap: 1px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+    .date-week-icon {
+      display: block;
+      text-align: center;
+      justify-content: center;
+      justify-self: center;
+      align-items: center;
+      height: 75px;
+      width: 15px;
 
-  .date-week-icon {
-    display: block;
-    text-align: center;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    height: 75px;
-    width: 15px;
-        
-    cursor: pointer;
-    &[data-active-month='false'] {
-      color: rgba(0, 0, 0, 0.3);
-    }
-    &.active,
-    &.selected {
-      border-radius: 50%;
-      box-shadow: 0 0 3px #834e4a;        
-      color:  blue;
-      font-weight: bold;        
-      height: 25px;
-      width: 25px;
-     
+      cursor: pointer;
+      &[data-active-month="false"] {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      &.active,
+      &.selected {
+        border-radius: 50%;
+        box-shadow: 0 0 3px #834e4a;
+        color: blue;
+        font-weight: bold;
+        height: 25px;
+        width: 25px;
+      }
     }
   }
-}
 
-//day
-.date-day-indicator{
-  display: grid;
-  grid-template-columns: repeat(1, minmax(auto, 1fr));
-  
-  grid-gap: 1px;
-  margin-top: 5px;
-  margin-bottom: 5px;  
+  //day
+  .date-day-indicator {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(auto, 1fr));
 
+    grid-gap: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 
-  .date-day-icon {
-    display: flex;
-    justify-content: left;
-    justify-self: left;
-    align-items: center;
-    padding-left: 20px;
-    height: 50px;
-    width: 100%;
-        
-    cursor: pointer;
-    &[data-active-month='false'] {
-      color: rgba(0, 0, 0, 0.3);
+    .date-day-icon {
+      display: flex;
+      justify-content: left;
+      justify-self: left;
+      align-items: center;
+      padding-left: 20px;
+      height: 50px;
+      width: 100%;
+
+      cursor: pointer;
+      &[data-active-month="false"] {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      &.active,
+      &.selected {
+        color: blue;
+        font-weight: bold;
+      }
     }
-    &.active,
-    &.selected {
-      color:  blue;
-      font-weight: bold;
-    }
-
-    
   }
 }
 
+.image-header {
+  position: relative;
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
 }
 
-  .image-header{
-    position: relative;
-   width: 100%;
-   height: 30vh;
-   object-fit: cover;
-
-  }
-
-  .title-header{
-    position: absolute;
-    font-weight: bolder;
-    color: black;
-    padding-top: 10%;
- 
-  }
-
-  .speach-bubble-text{
-    color: white;
-  }
-
-  .speach-bubble {
-position: relative;
-width: 230px;
-height: 40px;
-padding: 0px;
-background: #FFFFFF;
--webkit-border-radius: 10px;
--moz-border-radius: 10px;
-border-radius: 10px;
-background-color: #834e4a;
-
+.title-header {
+  position: absolute;
+  font-weight: bolder;
+  color: black;
+  padding-top: 10%;
 }
 
-.speach-bubble:after{
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 15px 15px 0;
-border-color:  #834e4a transparent;
-display: block;
-width: 0;
-z-index: 1;
-bottom: -15px;
-left: 35px;
+.speach-bubble-text {
+  color: white;
 }
 
+.speach-bubble {
+  position: relative;
+  width: 230px;
+  height: 40px;
+  padding: 0px;
+  background: #ffffff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #834e4a;
+}
 
- 
+.speach-bubble:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 15px 0;
+  border-color: #834e4a transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+  bottom: -15px;
+  left: 35px;
+}
 
+.blue {
+  background-color: $blue !important;
+}
 
+.green {
+  background-color: $green !important;
+}
 
+.purple {
+  background-color: $purple !important;
+}
 
-  
+.yellow {
+  background-color: $yellow !important;
+}
+
+.orange {
+  background-color: $orange !important;
+}
+
+.red {
+  background-color: $orange !important;
+}
+
+.pink {
+  background-color: $pink !important;
+}
+
+.burgundy {
+  background-color: $burgundy !important;
+}
+
+.turquoise {
+  background-color: $turquoise !important;
+}
+
+.grey {
+  background-color: $grey !important;
+}

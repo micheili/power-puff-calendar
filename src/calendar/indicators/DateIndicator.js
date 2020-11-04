@@ -46,7 +46,7 @@ export default function DateIndicator({
       if (date >= start1Before && date <= event.stop) {
         info.push(
           <div
-            className="events"
+            className={`${event.className ? `events w-100 ${event.className}` : "events w-100"}`}
             data-date={date.toString()}
             key={event.id}
             style={{ position: "relative" }}

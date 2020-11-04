@@ -28,7 +28,7 @@ export default function App() {
       ...updates,
     });
 
-    
+    console.log("events", contextVal.myEvents);
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);

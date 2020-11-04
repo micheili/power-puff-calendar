@@ -35,10 +35,10 @@ export default function DateWeekIndicator({
       let start1Before = new Date(event.start.getTime());
       start1Before.setMinutes(start1Before.getMinutes() - 59);
 
-      if (date >= start1Before && date <= event.stop) {
+      if (date >= start1Before && date <= event.stop) {        
         info.push(
           <div
-            className="events w-100"
+            className={`${event.className ? `events w-100 ${event.className}` : "events w-100"}`}
             data-date={date.toString()}
             key={event.id}
             style={{ position: "relative" }}
