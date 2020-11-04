@@ -229,6 +229,28 @@ module.exports = class RestApi {
       }
     });
 
+    this.app.get(this.routePrefix + "/allInvited/:eventId", (req, res) => {
+      if (!allowed("", req, res, this.db)) {
+        return;
+      }
+      let result = this.db
+        .select(
+          /*sql*/ `
+      SELECT u.* FROM User u
+      INNER JOIN Invite i ON u.id = i.invitedUser
+      WHERE i.eventId = $eventId
+      `,
+          req.params
+        )
+        .map((x) => ({ ...x, password: undefined }));
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
     // this.app.delete(
     //   this.routePrefix + "/delete_invitations/:eventId",
     //   (req, res) => {

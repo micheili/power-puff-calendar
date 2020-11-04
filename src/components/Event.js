@@ -114,39 +114,64 @@ export default function Event(props) {
   }
   const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
   const [inviteList, setInviteList] = useState([]);
+  const [allGuests, setAllGuests] = useState([]);
+  const [options, setOptions] = useState([]);
+
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
 
   async function fetchInvitedUsersAccepted() {
     let guest = await (
-      await fetch("api/invitedUsers/" + id + "?accepted=1")
+      await fetch("/api/invitedUsers/" + id + "?accepted=1")
     ).json();
     setInvitedUsersAccept(guest);
   }
 
-  const usersData = context.allUsers.filter((u) => u.id !== context.user.id);
-  const filteredUserData = [];
+  let usersData = context.allUsers.filter((u) => u.id !== context.user.id);
+  //const [filteredUser, setFilteredUser] = useState(usersData);
+
+  async function fetchAllInvited() {
+    let allInvited = await (await fetch("/api/allInvited/" + id)).json();
+    if (allInvited.error === 404) {
+      allInvited = [];
+    }
+    setAllGuests(allInvited);
+    //console.log("allInvited", allInvited);
+  }
 
   useEffect(() => {
     fetchInvitedUsersAccepted();
-    console.log(allGuestsAccept);
-    // if (allGuestsAccept.length) {
-    //   for (let u in usersData) {
-    //     for (let a in allGuestsAccept) {
-    //       if (u.id !== a.id) {
-    //         filteredUserData.push(u);
-    //       }
-    //     }
-    //   }
-    // }
+    fetchAllInvited();
   }, [id]);
-  //console.log("filtered", filteredUserData);
 
-  const options = usersData.map((user) => ({
-    value: user.id,
-    label: user.email,
-  }));
+  console.log("id: ", id, "  allGuests: ", allGuests);
+  console.log("id: ", id, "userDataBeforeFilter: ", usersData);
+
+  // let options = usersData.map((user) => ({
+  //   value: user.id,
+  //   label: user.email,
+  // }));
+
+  function openModal(e) {
+    e.preventDefault();
+    toggle();
+    if (allGuests.length) {
+      usersData = usersData.filter(
+        (u) => !allGuests.find((a) => a.id === u.id)
+      );
+    }
+    console.log("filtered", usersData);
+    let o = usersData.map((u) => ({
+      value: u.id,
+      label: u.email,
+    }));
+    setOptions(o);
+  }
+  // let options = usersData.map((u) => ({
+  //   value: u.id,
+  //   label: u.email,
+  // }));
 
   const handleInvites = (e) => {
     setInviteList(e);
@@ -157,7 +182,7 @@ export default function Event(props) {
     console.log("invitedList", inviteList);
     if (inviteList.length) {
       for (let i in inviteList) {
-        let invitedUser = i.value;
+        let invitedUser = inviteList[i].value;
         console.log("invitedUser", invitedUser);
         let res = await (
           await fetch("/api/Invite", {
@@ -168,7 +193,8 @@ export default function Event(props) {
         ).json();
       }
     }
-    //toggle();
+    fetchInvitedUsersAccepted();
+    toggle();
   }
 
   return (
@@ -214,7 +240,7 @@ export default function Event(props) {
         {loggedInUser === userId ? (
           <>
             <ButtonToggle
-              onClick={toggle}
+              onClick={openModal}
               outline
               color="lightpink"
               id="inviteButton"
