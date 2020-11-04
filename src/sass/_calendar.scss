@@ -221,8 +221,13 @@
 
   //events
   .events{
-    font-size: 11px;
-    
+    font-size: 11px;   
+    color: #834e4a  
+  }
+
+  .events-day{
+    font-size: 11px;   
+    color: #834e4a  
   }
 
   @media only screen and (max-width: 500px) {
@@ -297,14 +302,23 @@
 
     //events
   .events{
-    font-size: 8px;
+    font-size: 0px;
+    height: 5px;
+    width: 5px;
+    background-color: #834e4a;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 2px;
+  
+    
     
   }
 
   .calendar-buttons .row .col .link-btn{ 
     color:  #fbc5b8;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 20px;
   }
 
 
@@ -374,7 +388,25 @@
       
     }
   }
-  
   }
+
+  .image-header{
+    position: relative;
+   width: 100%;
+   height: 30vh;
+   object-fit: cover;
+
+  }
+
+  .title-header{
+    position: absolute;
+    font-weight: bolder;
+    color: black;
+    padding-top: 10%;
+ 
+  }
+
+
+
 
   
