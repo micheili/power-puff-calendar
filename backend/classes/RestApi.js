@@ -184,6 +184,27 @@ module.exports = class RestApi {
       }
     });
 
+    //get all category created by (logged-in) userId
+
+    this.app.get(this.routePrefix + "/myCategories/:userId", (req, res) => {
+      if (!allowed("", req, res, this.db)) {
+        return;
+      }
+      let result = this.db.select(
+        /*sql*/ `
+        SELECT * FROM Category
+        WHERE userId = $userId
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
     //get events which i am invited for and have accepted
     this.app.get(this.routePrefix + "/invitedEvents/:userId", (req, res) => {
       if (!allowed("", req, res, this.db)) {

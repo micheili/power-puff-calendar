@@ -34,7 +34,7 @@ const NewEvent = () => {
   const categories = context.myCategories;
 
   console.log("Categories", categories);
-  
+  console.log("context categories", context.myCategories)
 
   const handleInputChange = (e) =>
     setFormData({
@@ -54,13 +54,13 @@ const NewEvent = () => {
   }));
 
  
- const allCategories = useMemo(() => (
+ const allCategories = useMemo(() => (    
     categories.map((category) => ({
       value: category.id,
       label: category.name,
       color: category.color
     })) 
-  ),[categories]);
+),[categories]);
 
 
   

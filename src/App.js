@@ -18,7 +18,7 @@ export default function App() {
     showNewEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
-    
+    myCategories: [], 
     header: {background:"", font: ""}
   });
 
@@ -69,6 +69,11 @@ export default function App() {
       if (allInvites.error) {
         allInvites = [];
       }
+
+      let allCategories = await (await fetch("/api/myCategories/" + result.id)).json();
+      if (allCategories.error) {
+        allCategories = [];
+      }
       // add the user data to the context variable
       updateContext({
         user: result,
@@ -77,6 +82,7 @@ export default function App() {
         allUsers: users,
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
+        myCategories: allCategories
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -92,6 +98,7 @@ export default function App() {
       myEvents: [],
       invitedEvents: [],
       declinedInvitations: [],
+      myCategories: [],
     });
     const result = await res.json();
   }
