@@ -112,7 +112,7 @@ export default function Event(props) {
       declinedInvitations: declinedInvitations,
     });
   }
-  //const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
   const [inviteList, setInviteList] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -123,29 +123,33 @@ export default function Event(props) {
 
   useEffect(() => {
     fetchInvitedUsersAccepted();
-    console.log(context.allGuestsAccept);
+    console.log(allGuestsAccept);
   }, [id]);
 
   async function fetchInvitedUsersAccepted() {
     let guest = await (
       await fetch("api/invitedUsers/" + id + "?accepted=1")
     ).json();
-    if (guest.length) {
-      updateContext({ allGuestsAccept: guest });
-    }
+    setInvitedUsersAccept(guest);
   }
 
   const usersData = context.allUsers.filter((u) => u.id !== context.user.id);
-  // const filteredUserData = [];
 
-  // for (let u in usersData) {
-  //   for (let a in context.allGuestsAccept) {
-  //     if (u.id !== a.id) {
-  //       filteredUserData.push(u);
-  //     }
-  //   }
-  // }
-  // console.log("filtered", filteredUserData);
+  function filter() {
+    const filteredUserData = [];
+    for (let u in usersData) {
+      for (let a in allGuestsAccept) {
+        if (u.id !== a.id) {
+          filteredUserData.push(u);
+        }
+      }
+    }
+    console.log("filtered", filteredUserData);
+  }
+
+  useEffect(() => {
+    filter();
+  }, [allGuestsAccept]);
 
   const options = usersData.map((user) => ({
     value: user.id,
@@ -182,7 +186,7 @@ export default function Event(props) {
         </CardSubtitle>
         <GuestList
           id={id}
-          allGuestsAccept={context.allGuestsAccept}
+          allGuestsAccept={allGuestsAccept}
           ownerFirstName={
             loggedInUser === userId ? context.user.firstName : ownerFirstName
           }
