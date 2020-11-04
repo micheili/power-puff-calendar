@@ -25,7 +25,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     ...x, 
     start: new Date(x.start), 
     stop: new Date(x.stop),
-    length: Math.ceil ((new Date(x.stop).getDate() - new Date(x.start).getDate()))
+    length: Math.ceil ((new Date(x.stop).getTime() - new Date(x.start).getTime()) / (60 * 60 * 1000 *24))
   }));
 
 
@@ -40,22 +40,24 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
 
 
     for(let event of events){
+      let start1Before = new Date(event.start.getTime());
+      start1Before.setHours(start1Before.getHours() -24);
       
-    let start1Before = new Date(event.start.getTime());
-    start1Before.setHours(start1Before.getHours() -24);
-
-      if(date >= start1Before && date <= event.stop){
-        !event.startedPrinting && info.push(
-          <div className="events" data-date={date.toString()} key={event.id} >     
-          *{event.title.substr(0,10) + '...'}
-          </div>
-        );
-        
-        event.startedPrinting = true;
+      if(date >= start1Before && date <= event.stop){        
+        console.log("dateindicator event length", event.title, " ", event.length)
+        for (var i = 0; i < event.length; i++) {        
+          info.push(
+           <div className="events" data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
+                {event.title.substr(0,10) + '...'}
+           </div>
+         ); 
+         return  <>{info}</> ; 
+         }
+         
+         }  
       }
     }
-    return info.length ? <>{info}</> : null;
-  }
+     
 
   //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
   //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}
