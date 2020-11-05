@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Event from "./Event";
 import EventList from "./EventList";
 import NewEvent from "./NewEvent";
@@ -125,7 +125,6 @@ const Infobox = (props) => {
                   onClick={addNewEvent}
                 />
               </span>
-
               <UncontrolledTooltip placement="right" target="addEventHover">
                 Add new event
               </UncontrolledTooltip>

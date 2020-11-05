@@ -5,7 +5,6 @@ import TopBar from "./components/TopBar";
 import Content from "./components/Content";
 import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
-import DateIndicator from "./calendar/indicators/DateIndicator";
 
 // create and export the context
 export const Context = createContext();
@@ -108,13 +107,6 @@ export default function App() {
       myCategories: [],
     });
     const result = await res.json();
-
-
-   
- 
-
-
-
   }
 
   return (
