@@ -12,23 +12,25 @@ export default function Header(){
     const header = context.header;
 
     
-  useEffect(() => {
-    const currentHeader = localStorage.getItem("header");
-    let currentHeaderJson = JSON.parse(currentHeader)
-
-    if (currentHeaderJson) {
-      updateContext({
-        header: currentHeaderJson,
-      });
-    }
-  }, []);
-
-    const setHeader = (background, font) =>{
+    useEffect(() => {
+      const currentHeader = localStorage.getItem("header");
+      let currentHeaderJson = JSON.parse(currentHeader)
+  
+      if (currentHeaderJson) {
         updateContext({
-            header:{background : background, font : font }
-          });
-          localStorage.setItem("header", JSON.stringify(header) );
-    };
+          header: currentHeaderJson,
+        });
+      }
+    }, []);
+  
+      const setHeader = (background, font) =>{
+        const currentHeaderFromPage = {background : background, font : font }
+        console.log(currentHeaderFromPage)
+          updateContext({
+              header:{background : background, font : font }
+            });
+          localStorage.setItem("header", JSON.stringify(currentHeaderFromPage));
+      };
   
     return(
         <div>
