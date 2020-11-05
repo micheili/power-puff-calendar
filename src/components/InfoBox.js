@@ -145,16 +145,16 @@ const Infobox = (props) => {
 
           {context.showNewEvent != true && context.showEditEvent != true ? (
             <Alert
-              className="container-fun-fact mt-3"
+              className="m-3"
               color="whitee"
               isOpen={funFactVisible}
               toggle={onDismissFunFact}
             >
               <Row>
-                <Col className="fun-fact">Fun fact about today: </Col>
+                <Col className="fun-fact">Fun fact of the day: </Col>
               </Row>
               <Row>
-                <Col className="mb-2">
+                <Col className="my-2">
                   <span className="fun-fact">Year {info.year} : </span>{" "}
                   {info.text}
                 </Col>{" "}
