@@ -232,6 +232,22 @@
 }
 
 @media only screen and (max-width: 500px) {
+
+  .events:first-child{
+    font-size: 0px;
+    height: 5px;
+    width: 5px !important;
+    background-color: #834e4a;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 2px;
+  }
+
+  .events{
+    display: none;
+  }
+
   .date-indicator {
     display: grid;
     grid-template-columns: repeat(7, minmax(auto, 1fr));
