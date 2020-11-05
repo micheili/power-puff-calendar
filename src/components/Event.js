@@ -255,7 +255,7 @@ export default function Event(props) {
             />
           </CardBody>
 
-          <CardFooter>
+          <CardFooter className={`card-footer ${context.colorTheme}`}>
             {userIsCreator ? (
               <>
                 <ButtonToggle
@@ -276,13 +276,14 @@ export default function Event(props) {
                   </ModalHeader>
                   <ModalBody>
                     <Select
+                    className={`s ${context.colorTheme}`}
                       options={options}
                       onChange={handleInvites}
                       isMulti
                     />
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="info" onClick={invite}>
+                    <Button className={`inv-btn ${context.colorTheme}`} color="info" onClick={invite}>
                       Invite
                     </Button>{" "}
                   </ModalFooter>
