@@ -132,16 +132,16 @@ const Infobox = (props) => {
           </CardHeader>
 
           <CardBody>
-            {context.showNewEvent != true && context.showEditEvent != true ? (
-              <Container className="container-fun-fact">
-                <Row>
-                  <Col className="fun-fact">Fun fact about today: </Col>
-                </Row>
-                <Row>
-                  <Col className="mb-2">{info.text}</Col>
-                </Row>
-              </Container>
-            ) : null}
+            <Container className="container-fun-fact">
+              <Row>
+                <Col className="fun-fact">Fun fact about today: </Col>
+              </Row>
+              <Row>
+                <Col className="mb-2">
+                  <span className="fun-fact">{info.year} : </span> {info.text}
+                </Col>
+              </Row>
+            </Container>
 
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
