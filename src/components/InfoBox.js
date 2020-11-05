@@ -73,7 +73,6 @@ const Infobox = (props) => {
     }
   }
 
-  console.log("filteredevents", filterCombinedEvents);
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
