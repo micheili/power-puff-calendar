@@ -171,8 +171,8 @@ module.exports = class RestApi {
       }
       let result = this.db.select(
         /*sql*/ `
-        SELECT * FROM Event e
-        LEFT JOIN Category c ON e.categoryId = c.id
+        SELECT e.*, c.id as catId, c.name, c.color, c.className FROM Event e   
+        LEFT JOIN Category c ON e.categoryId = c.id     
         WHERE e.userId = $userId
       `,
         req.params
