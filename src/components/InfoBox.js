@@ -42,6 +42,7 @@ const Infobox = (props) => {
     setVisible(true);
   }, [selectDate]);
 
+  
   let date = moment(selectDate).format("DD/MM");
   let year = moment(selectDate).format("YYYY");
 

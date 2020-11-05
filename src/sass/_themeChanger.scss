@@ -272,6 +272,14 @@
 }.bitem.theme-pink{
     color:  #d27f78 !important;
 }
+.newCategory.theme-pink{
+    background-color: #fbc5b8 !important; 
+    border-color: #fbc5b8 !important; 
+}
+.newCategory.theme-pink:hover{
+    background-color: #d27f78 !important; 
+    border-color: #fbc5b8 !important; 
+}
 .event_label.theme-pink{
     color: #fbc5b8 !important;
 }
@@ -340,6 +348,14 @@
 }
 .bitem.theme-blue{
     color:  #92a4d6 !important;
+}
+.newCategory.theme-blue{
+    background-color: #92a4d6 !important;
+    border-color: #92a4d6 !important;
+}
+.newCategory.theme-blue:hover{
+    background-color: #3C69E7 !important; 
+    border-color: #92a4d6 !important;
 }
 .event_label.theme-blue{
     color:  #3C69E7 !important; 
@@ -448,6 +464,14 @@ s.theme-blue .css-1hb7zxy-IndicatorsContainer{
 .bitem.theme-black{
     color:  rgb(110, 110, 110)!important; 
 }
+.newCategory.theme-black{
+    background-color: rgb(110, 110, 110)!important; 
+    border-color: rgb(110, 110, 110)!important; 
+}
+.newCategory.theme-black:hover{
+    background-color: black!important; 
+    border-color: rgb(110, 110, 110)!important; 
+}
 .event_label.theme-black{
     color: rgb(110, 110, 110)!important;
 }
@@ -553,6 +577,15 @@ s.theme-black .css-1hb7zxy-IndicatorsContainer{
 .bitem.theme-neon{
     color: #66FF00 !important; 
 }
+.newCategory.theme-neon{
+    background-color: #66FF00 !important; 
+    border-color: #66FF00 !important;    
+}
+.newCategory.theme-neon:hover{
+    background-color: #06963d !important; 
+    border-color: #66FF00 !important;    
+}
+
 .event_label.theme-neon{
     color: #66FF00 !important; 
 }
@@ -657,6 +690,9 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .sidebar.theme-pink{
     background: #fbc5b8; 
 }
+.sidebar.theme-pink  .side-menu  ul  .nav-link:hover {
+    color:   #fbc5b8 !important; 
+}
 .sidebar  .side-menu  ul  .active.theme-pink{ 
     background:rgb(143, 84, 117) !important; 
 }
@@ -673,6 +709,9 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 
 .sidebar.theme-blue{
     background:  #3C69E7;
+}
+.sidebar.theme-blue  .side-menu  ul  .nav-link:hover {
+    color:   #92a4d6 !important; 
 }
 .sidebar  .side-menu  ul  .active.theme-blue{ 
     background: #1e3677 !important;  
@@ -691,6 +730,9 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .sidebar.theme-black{
     background: black; 
 }
+.sidebar.theme-black  .side-menu  ul  .nav-link:hover {
+    color:   rgb(175, 173, 173)  !important;  
+}
 .sidebar  .side-menu  ul  .active.theme-black{ 
     background: rgb(110, 110, 110)  !important;  
 }
@@ -707,6 +749,9 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 
 .sidebar.theme-neon{
     background:  #66FF00; 
+}
+.sidebar.theme-neon  .side-menu  ul  .nav-link:hover {
+    color:  #66FF00  !important;  
 }
 .sidebar  .side-menu  ul  .active.theme-neon{ 
     background: #06963d  !important;  
@@ -769,7 +814,7 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 
 
 .welcome.theme-blue{
-    color: #3C69E7 !important;
+    color: #92a4d6 !important;
 }
 .text-info.theme-blue{
     color: #3C69E7 !important;
@@ -812,7 +857,7 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 
 
 .welcome.theme-black{
-    color: black !important;
+    color:  rgb(110, 110, 110) !important; 
 }
 .text-info.theme-black{
     color: black !important;
@@ -945,5 +990,24 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .header-btn.theme-neon{
     background-color:#77e656 !important;
     border-color: white !important;
+    color: white !important;
+}
+
+
+//Event in calendar
+.events.theme-pink{
+    background-color: #d27f78 !important;
+    color: white !important;
+}
+.events.theme-blue{
+    background-color: #3C69E7 !important;
+    color: white !important;
+}
+.events.theme-black{
+    background-color: black !important;
+    color: white !important;
+}
+.events.theme-neon{
+    background-color:#77e656 !important;
     color: white !important;
 }

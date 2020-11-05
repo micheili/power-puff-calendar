@@ -22,8 +22,8 @@ export default function Sidebar({ logout, isOpen}) {
       <div className={classNames(`sidebar ${context.colorTheme}`, { "is-open": isOpen })}>
         <div className="side-menu">
           <Nav vertical className="list-unstyled pb-3">
-            <h3 className={`text-info ${context.colorTheme}`}>
-              {context.user ? `Welcome ${context.user.firstName}` : "Calendar"}
+            <h3 className={`welcome  ${context.colorTheme}`}>
+              {context.user ? `Welcome  ${context.user.firstName}` : "Calendar"}
             </h3>
             <NavItem>
               <NavLink tag={RRNavLink} activeClassName={`active ${context.colorTheme}`} to={"/home"}>

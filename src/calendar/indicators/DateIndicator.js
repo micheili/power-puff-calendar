@@ -51,7 +51,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
       if (date >= start1Before && date <= event.stop) {
         info.push(
           <div
-            className={`${event.className ? `events w-100 ${event.className}` : "events w-100"}`}
+            className={`${event.className ? `events w-100 ${event.className}` : `events ${context.colorTheme} w-100`}`}
             data-date={date.toString()}
             key={event.id}
             style={{ position: "relative" }}

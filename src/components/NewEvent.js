@@ -99,14 +99,7 @@ const NewEvent = () => {
         padding: 10,
         background: state.data.color,
       }),
-      control: (provided) => ({
-        ...provided,
-        color: "white",
-        fontWeigth: "bold",
-        background: "white",
-        border: "3px solid #fbc5b8",
-        borderRadius: "10px",
-      }),
+     
       singleValue: (provided, state) => ({
         ...provided,
         color: "white",
@@ -408,11 +401,12 @@ const NewEvent = () => {
       <Row className="d-flex justify-content-end">
         <Col xs="10" md="8" lg="10" className="align-self-end">
           <FormGroup>
-            <Label>Category:</Label>
+            <Label className={`event_label ${context.colorTheme}`}>Category:</Label>
             <Select
+              className={`s ${context.colorTheme}`}
               isClearable
               options={allCategories}
-              styles={customStyles}
+              styles={customStyles} 
               onChange={handleCategories}
             />
           </FormGroup>
@@ -421,7 +415,7 @@ const NewEvent = () => {
           <Button
             color="danger"
             onClick={handleAddCategory}
-            className="newCategory float-right"
+            className={`newCategory ${context.colorTheme} float-right`}
           >
             <FontAwesomeIcon icon={faPlus} />
           </Button>
@@ -443,11 +437,12 @@ const NewEvent = () => {
             <Row>
               <Col xs="12" md="12" lg="6">
                 <FormGroup>
-                  <Label for="category-name">Category Name</Label>
+                  <Label for="category-name" className={`event_label ${context.colorTheme}`}>Category Name</Label>
                   <Input
                     type="text"
                     name="name"
                     id="catName"
+                    className={`form-control ${context.colorTheme}`}
                     onChange={handleCatChange}
                     value={name}
                   />
@@ -455,8 +450,9 @@ const NewEvent = () => {
               </Col>
               <Col xs="12" md="12" lg="6">
                 <FormGroup>
-                  <Label>Color:</Label>
+                  <Label className={`event_label ${context.colorTheme}`}>Color:</Label>
                   <Select
+                  className={`s ${context.colorTheme}`}
                     isClearable
                     options={colorList}
                     styles={customStyles}
@@ -492,7 +488,7 @@ const NewEvent = () => {
       </div>
 
       <FormGroup>
-        <Label>Invite:</Label>
+        <Label className={`event_label ${context.colorTheme}`}>Invite:</Label>
         <Select className={`s ${context.colorTheme}`}  options={options} onChange={handleInvites} isMulti />
 
       </FormGroup>

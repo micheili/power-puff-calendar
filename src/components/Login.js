@@ -146,7 +146,7 @@ export default function Login() {
       <Row className="justify-content-center">
         <Form onSubmit={login} className="login-container">
           <Col xs="12">
-            <h3 className={`row welcome ${context.colorTheme} justify-content-center mb-4 text-info`}>Welcome back</h3>
+            <h3 className={`row text-info ${context.colorTheme} justify-content-center mb-4 text-info`}>Welcome back</h3>
           </Col>
           <Col xs="12">
             <Alert color="danger" isOpen={alert} toggle={onDismiss}>
