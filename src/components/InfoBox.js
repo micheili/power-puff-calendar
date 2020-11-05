@@ -29,7 +29,11 @@ const Infobox = (props) => {
   const onDismissFunFact = () => setVisible(false);
 
   const getdayInfo = async () => {
-    const dateQuery = moment(selectDate).format("M/D");
+    const month = moment(selectDate).format("M") -1;
+    const day = moment(selectDate).format("D") -1;
+    console.log(month, day);
+    const dateQuery = `${month}` + `/`+ `${day}` 
+    
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
     );
