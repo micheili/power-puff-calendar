@@ -27,7 +27,6 @@ const Infobox = (props) => {
 
   const getdayInfo = async () => {
     const dateQuery = moment(selectDate).format("M/D");
-    console.log("datequery", dateQuery);
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
     );
