@@ -3,12 +3,9 @@ import { getDayOfMonth, getMonthDayYear } from "../utils/MomentUtils";
 import { getDatesInWeekDisplay } from "../utils/DateUtils";
 import { Context } from "../../App";
 
-export default function DateWeekIndicator({
-  activeDates,
-  selectDate,
-  setSelectDate,
-}) {
-  const [context] = useContext(Context);
+
+export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
+  const [context, updateContext] = useContext(Context);
 
   let events = [...context.myEvents, ...context.invitedEvents];
 
@@ -55,7 +52,8 @@ export default function DateWeekIndicator({
   //------------------------------------
   // EVENT HANDLING CALLBACK
   const changeDate = (e) => {
-    setSelectDate(e.target.getAttribute("data-date"));
+    setSelectDate(e.target.getAttribute('data-date'));
+    updateContext({ showEditEvent: false  });
   };
 
   const datesInWeek = getDatesInWeekDisplay(selectDate);

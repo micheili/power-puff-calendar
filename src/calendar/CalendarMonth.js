@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import WeekdayIndicator from "./indicators/WeekdayIndicator";
 import DateIndicator from "./indicators/DateIndicator";
 import MonthIndicator from "./indicators/MonthIndicator";
@@ -12,6 +12,7 @@ import "../sass/_calendar.scss";
 export default function CalendarMonth() {
   const [context] = useContext(Context);
   const [selectDate, setSelectDate] = useState(moment().toDate());
+  
 
   return (
     <Container fluid={true}>
@@ -23,7 +24,7 @@ export default function CalendarMonth() {
               selectDate={selectDate}
               setSelectDate={setSelectDate}
             />
-            <div className="calendar-container">
+            <div className={`calendar-container ${context.colorTheme}`}>
               <WeekdayIndicator />
               <DateIndicator
                 selectDate={selectDate}

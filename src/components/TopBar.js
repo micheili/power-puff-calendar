@@ -16,7 +16,7 @@ export default function TopBar({logout}) {
 
   return (
     
-    <div className="my-topbar">
+    <div className={`my-topbar ${context.colorTheme}`}>
     <Navbar color="light" light expand="md">      
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>

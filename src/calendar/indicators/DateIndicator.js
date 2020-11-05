@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+
+import React, {useContext, useState, useEffect} from 'react';
+
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -8,16 +10,18 @@ import {
 import { getDatesInMonthDisplay } from "../utils/DateUtils";
 import { Context } from "../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlgolia, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
+import {faAlgolia, faCalendarPlus
+} from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 
-export default function DateIndicator({
-  activeDates,
-  selectDate,
-  setSelectDate,
-}) {
-  const [context] = useContext(Context);
+export default function DateIndicator({activeDates, selectDate, setSelectDate}){
+  const [context, updateContext] = useContext(Context);
 
-  let events = [...context.myEvents, ...context.invitedEvents];
+  
+  let events = [
+    ...context.myEvents,...context.invitedEvents
+  ]
+  
 
   // map start and stop to real date objects
   events = events.map((x) => ({
@@ -34,6 +38,7 @@ export default function DateIndicator({
     for (let event of events) {
       event.startedPrinting = false;
     }
+    
   }
 
   function checkEvent(date) {

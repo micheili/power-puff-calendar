@@ -138,15 +138,15 @@ export default function Login() {
 
   return (
     <div>
-      <div className="bg"></div>
-<div className="bg bg2"></div>
-<div className="bg bg3"></div>
+      <div class={`bg ${context.colorTheme}`}></div>
+    <div class={`bg  bg2 ${context.colorTheme}`}></div>
+  <div class={`bg  bg3 ${context.colorTheme}`}></div>
     
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Form onSubmit={login} className="login-container">
           <Col xs="12">
-            <h3 className="row justify-content-center mb-4 text-info">Welcome back</h3>
+            <h3 className={`row welcome ${context.colorTheme} justify-content-center mb-4 text-info`}>Welcome back</h3>
           </Col>
           <Col xs="12">
             <Alert color="danger" isOpen={alert} toggle={onDismiss}>
@@ -155,11 +155,12 @@ export default function Login() {
           </Col>
           <Col xs="12">
             <FormGroup>
-              <Label className="text-info">
+              <Label className={`text-info ${context.colorTheme}`}>
                 Email address</Label>
                 <Input
                   name="email"
                   type="email"
+                  className={`form-control ${context.colorTheme}`}
                   onChange={handleInputChange}
                   value={formData.email}
                   aria-describedby="emailHelp"
@@ -168,28 +169,29 @@ export default function Login() {
               
             </FormGroup>
             <FormGroup>
-              <Label>
+              <Label className={`text-info ${context.colorTheme}`}>
                 Password</Label>
                 <InputGroup>
                   <Input name="password"
                             type={PasswordInputType}
+                            className={`form-control ${context.colorTheme}`}
                             onChange={handleInputChange}
                             value={formData.password}
                             required/>
-                  <InputGroupAddon addonType="append">
-                  <InputGroupText><span className="password-toggle-icon">{ToggleIcon}</span></InputGroupText>
+                  <InputGroupAddon addonType="append" className={`input-group-append ${context.colorTheme}`}>
+                  <InputGroupText><span className={`password-toggle-icon ${context.colorTheme}`}>{ToggleIcon}</span></InputGroupText>
                   </InputGroupAddon>
               </InputGroup>
             </FormGroup>
             <Link to="/Register">
-              <Row className="justify-content-center text-info">
+              <Row className={`reg ${context.colorTheme} justify-content-center text-info`}>
                 Don't have an account?
               </Row>
             </Link>
             <Button
               color="info"
               type="submit"
-              className="btn-block text-light mt-2"
+              className={`logbtn ${context.colorTheme} btn-block text-light mt-2`}
             >
               Login
             </Button>

@@ -27,7 +27,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import GuestList from "./GuestList";
+import EditEvent from "./EditEvent";
 import Select from "react-select";
+
 
 export default function Event(props) {
   let {
@@ -42,9 +44,21 @@ export default function Event(props) {
     ownerFirstName,
     ownerLastName,
   } = props.combinedEvents;
+
   let [context, updateContext] = useContext(Context);
 
+
   const loggedInUser = context.user.id;
+
+  let userIsCreator = true;
+
+  if (loggedInUser !== userId) {
+    userIsCreator = false;
+  }
+
+  const editEvent = () => {
+    updateContext({ showEditEvent: true });
+  };
 
   let startMoment = moment(start);
   let stopMoment = moment(stop);
@@ -185,59 +199,128 @@ export default function Event(props) {
     toggle();
   }
 
+  const getSuffix = (dateNr) => {
+        let j = dateNr % 10,
+        k = dateNr % 100;
+  
+    if (j == 1 && k != 11) {
+        return dateNr + "st";
+    }
+    if (j == 2 && k != 12) {
+        return dateNr + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return dateNr + "rd";
+    }
+    return dateNr + "th";
+}
+
   return (
     <div className="mb-3 pb-5 sm-6">
-      <CardBody className="event-card-body">
-        <CardSubtitle tag="h5">
-          <span className="mr-1">
-            <strong>Description:</strong>{" "}
-          </span>
-        </CardSubtitle>
-        <CardSubtitle tag="h5" className="mt-1">
-          {description}
-        </CardSubtitle>
-        <span className="mt-5 p-5"></span>
-        <CardSubtitle className="mt-3 ">
-          <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
-          {startMonth} {startYear}
-        </CardSubtitle>
-        <CardSubtitle>
-          <strong>to</strong> {stopTime}
-          {startMoment.isBefore(stopMoment)
-            ? null
-            : " " + stopWeekday + ", " + stopDateNr}
-          {startMoment.isSameOrAfter(stopMoment, "month")
-            ? null
-            : " " + stopMonth + " "}
-          {startMoment.isSameOrAfter(stopMoment, "year")
-            ? null
-            : +" " + stopYear}
-        </CardSubtitle>
-        <GuestList
-          id={id}
-          allGuestsAccept={allGuestsAccept}
-          ownerFirstName={
-            loggedInUser === userId ? context.user.firstName : ownerFirstName
-          }
-          ownerLastName={
-            loggedInUser === userId ? context.user.lastName : ownerLastName
-          }
-        />
-      </CardBody>
-      <CardFooter>
-        {loggedInUser === userId ? (
-          <>
-            <ButtonToggle
-              onClick={openModal}
+      {context.showEditEvent ? (
+        <EditEvent editEvent={props.combinedEvents} />
+      ) : (
+        <div>
+          <CardBody className="event-card-body">
+            <CardSubtitle tag="h5">
+              <span className="mr-1">
+                <strong>Description:</strong>{" "}
+              </span>
+            </CardSubtitle>
+            <CardSubtitle tag="h5" className="mt-1">
+              {description}
+            </CardSubtitle>
+            <span className="mt-5 p-5"></span>
+            <CardSubtitle className="mt-3 ">
+              <strong>from</strong> {startTime} {weekDay}, {getSuffix(startDateNr) + ' of '}{" "}
+              {startMonth} {startYear}
+            </CardSubtitle>
+            <CardSubtitle>
+              <strong>to</strong> {stopTime}
+              {startMoment.isBefore(stopMoment, "day")
+                ? " " + stopWeekday + ", " + getSuffix(stopDateNr)
+                : null}
+              {startMoment.isSameOrAfter(stopMoment, "month")
+                ? null
+                : " of " + stopMonth + " "}
+              {startMoment.isSameOrAfter(stopMoment, "year")
+                ? null
+                : +" " + stopYear}
+            </CardSubtitle>
+            <GuestList
+              allGuestsAccept={allGuestsAccept}
+              ownerFirstName={
+                userIsCreator ? context.user.firstName : ownerFirstName
+              }
+              ownerLastName={
+                userIsCreator ? context.user.lastName : ownerLastName
+              }
+            />
+          </CardBody>
+
+          <CardFooter className={`card-footer ${context.colorTheme}`}>
+            {userIsCreator ? (
+              <>
+                <ButtonToggle
+                  onClick={openModal}
+                  outline
+                  color="lightpink"
+                  id="inviteButton"
+                >
+                  <FontAwesomeIcon icon={faUserPlus} />
+                  {/* <Select options={options} onChange={handleInvites} isMulti /> */}
+                  <UncontrolledTooltip placement="bottom" target="inviteButton">
+                    Invite people
+                  </UncontrolledTooltip>
+                </ButtonToggle>
+                <Modal isOpen={modal} toggle={toggle}>
+                  <ModalHeader toggle={toggle}>
+                    Select friends to invite
+                  </ModalHeader>
+                  <ModalBody>
+                    <Select
+                    className={`s ${context.colorTheme}`}
+                      options={options}
+                      onChange={handleInvites}
+                      isMulti
+                    />
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button className={`inv-btn ${context.colorTheme}`} color="info" onClick={invite}>
+                      Invite
+                    </Button>{" "}
+                  </ModalFooter>
+                </Modal>
+              </>
+            ) : null}{" "}
+            {userIsCreator ? (
+              <Button
+                outline
+                color="lightpink"
+                id="editButton"
+                onClick={editEvent}
+              >
+                <FontAwesomeIcon icon={faPen} />
+                <UncontrolledTooltip placement="bottom" target="editButton">
+                  Edit
+                </UncontrolledTooltip>
+              </Button>
+            ) : null}{" "}
+            {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
+            <Button
+              onClick={(e) =>
+                window.confirm("Are you sure you want to delete the event?") &&
+                deleteEvent()
+              }
               outline
               color="lightpink"
-              id="inviteButton"
+              id="deleteButton"
             >
-              <FontAwesomeIcon icon={faUserPlus} />
-              {/* <Select options={options} onChange={handleInvites} isMulti /> */}
-              <UncontrolledTooltip placement="bottom" target="inviteButton">
-                Invite people
+              <FontAwesomeIcon icon={faTrashAlt} />
+              <UncontrolledTooltip placement="bottom" target="deleteButton">
+                Delete event
               </UncontrolledTooltip>
+
             </ButtonToggle>
             <Modal isOpen={modal} toggle={toggle}>
               <ModalHeader toggle={toggle}>
@@ -286,6 +369,12 @@ export default function Event(props) {
           {name}
         </Badge>
       </CardFooter>
+
+            </Button>{" "}
+          </CardFooter>
+        </div>
+      )}
+
     </div>
   );
 }

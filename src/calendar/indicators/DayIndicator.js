@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useContext, updateContext } from "react";
 import { getDay } from "../utils/MomentUtils";
 import { getDaySet } from "../utils/DateUtils";
+import { Context } from "../../App";
 
 export default function DayIndicator({ selectDate, setSelectDate }) {
+  const [context, updateContext] = useContext(Context);
+
   const changeDay = (e) => {
     setSelectDate(e.target.getAttribute("data-date"));
+    updateContext({ showEditEvent: false });
   };
 
   const daySet = getDaySet(selectDate);
 
   return (
-    <div className="month-indicator container">
+    <div className={`month-indicator container ${context.colorTheme}  `}>
       <div className="row  ">
         <h5
-          className="col prev p-0 m-0 text-right align-self-center "
+          className={`col prev ${context.colorTheme} p-0 m-0 text-right align-self-center`}
           data-date={daySet.prev}
           onClick={changeDay}
         >
@@ -24,7 +28,7 @@ export default function DayIndicator({ selectDate, setSelectDate }) {
           {[getDay(daySet.current)]}
         </h1>
         <h5
-          className="col next p-0 m-0 text-left align-self-center"
+          className={`col next ${context.colorTheme} p-0 m-0 text-left align-self-center`}
           data-date={daySet.next}
           onClick={changeDay}
         >
