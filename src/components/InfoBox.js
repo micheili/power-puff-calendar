@@ -29,13 +29,32 @@ const Infobox = (props) => {
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
   };
+  function getDates(startDate, stopDate) {
+    let dateArray = [];
+    let currentDate = moment(startDate);
+    let endDate = moment(stopDate);
+    while (currentDate <= endDate) {
+      dateArray.push(moment(currentDate).format("YYYY-MM-DD"));
+      currentDate = moment(currentDate).add(1, "days");
+    }
+    return dateArray;
+  }
+  // let dates = getDates("2020-11-04 12:36", "2020-11-04 12:38");
+  // console.log("dates", dates);
 
   let combinedEvents = [...myEvents, ...invitedEvents];
-  let filterCombinedEvents = combinedEvents.filter(
-    (t) =>
-      moment(t.start).format("YYYY-MM-DD") ===
-      moment(selectDate).format("YYYY-MM-DD")
-  );
+  let filterCombinedEvents = [];
+
+  for (let i in combinedEvents) {
+    let dates = getDates(combinedEvents[i].start, combinedEvents[i].stop);
+    for (let d in dates) {
+      if (dates[d] === moment(selectDate).format("YYYY-MM-DD")) {
+        filterCombinedEvents.push(combinedEvents[i]);
+      }
+    }
+  }
+
+  console.log("filteredevents", filterCombinedEvents);
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
