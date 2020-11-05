@@ -13,7 +13,7 @@ export default function TopBar({logout}) {
     const toggle = () => setIsOpen(!isOpen);
     const [context] = useContext(Context);
     
-
+//className={`topbar-nav ${context.colorTheme}`}
   return (
     
     <div className={`my-topbar ${context.colorTheme}`}>
@@ -21,13 +21,13 @@ export default function TopBar({logout}) {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
-        <NavItem>
-              <NavLink tag={Link} to={"/home"}>               
+        <NavItem >
+              <NavLink  tag={Link} to={"/home"}>               
                 Home
               </NavLink>
         </NavItem>
         <NavItem>
-              <NavLink tag={Link} to={"/invitation"}>                
+              <NavLink  tag={Link}  to={"/invitation"}>                
                 Invitation                  
                 {context.allInvites.length > 0 ? (
                   <Badge className="ml-2" color="danger">{context.allInvites.length}</Badge>
@@ -37,7 +37,7 @@ export default function TopBar({logout}) {
               </NavLink>
         </NavItem>         
         <NavItem>
-              <NavLink tag={Link}
+              <NavLink tag={Link} 
             to="/"
             onClick={logout}>                
                 LogOut               
