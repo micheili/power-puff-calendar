@@ -13,20 +13,17 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
 } from "reactstrap";
 
-const NewEvent = params => {
+const NewEvent = (params) => {
   const [formData, setFormData] = useState({});
-  const [alert, setAlert] = useState(false); 
+  const [alert, setAlert] = useState(false);
   const [invitesList, setinvitesList] = useState([]);
   const [context, updateContext] = useContext(Context);
 
-
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
-  
-  
 
   const handleInputChange = (e) =>
     setFormData({
@@ -43,9 +40,9 @@ const NewEvent = params => {
     setinvitesList(e);
   };
 
-  const cancel = () => {    
+  const cancel = () => {
     updateContext({ showNewEvent: false });
-  }
+  };
 
   let {
     title,
@@ -61,7 +58,6 @@ const NewEvent = params => {
 
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
-
 
   const validate = () => {
     let isValid = true;
@@ -82,7 +78,6 @@ const NewEvent = params => {
 
   async function save(e) {
     e.preventDefault();
-    
 
     if (validate()) {
       let result = await (
@@ -95,16 +90,16 @@ const NewEvent = params => {
 
       //error msg handling
       if (result.error === 403) {
-        setAlert("Sorry, the date and time interval you entered is invalid!");        
+        setAlert("Sorry, the date and time interval you entered is invalid!");
         return;
       } else if (result.error) {
-        setAlert("You are not logged in ");        
+        setAlert("You are not logged in ");
         return;
       }
 
       if (!result.error && invitesList.length) {
         const eventId = result.lastInsertRowid;
-        for (var i = 0; i < invitesList.length; i++) {
+        for (let i = 0; i < invitesList.length; i++) {
           const invitedUser = invitesList[i].value;
           let inviteresult = await (
             await fetch("/api/Invite", {
@@ -113,14 +108,14 @@ const NewEvent = params => {
               headers: { "Content-Type": "application/json" },
             })
           ).json();
-        }        
+        }
       }
 
-      if(!result.error){
-        let events = await (await fetch("/api/myEvents/" + userId)).json();        
-        updateContext({ showNewEvent: false, myEvents: events });        
+      if (!result.error) {
+        let events = await (await fetch("/api/myEvents/" + userId)).json();
+        updateContext({ showNewEvent: false, myEvents: events });
       }
-      
+
       setinvitesList("");
       setFormData({
         title: "",
@@ -131,12 +126,9 @@ const NewEvent = params => {
         stopTime: "",
       });
 
-      
       return result;
     }
   }
-
-  
 
   return (
     <Form onSubmit={save}>

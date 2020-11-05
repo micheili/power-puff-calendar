@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
-  CardTitle,
   CardSubtitle,
   ButtonToggle,
   Button,
-  CardText,
   UncontrolledTooltip,
   CardFooter,
   CardBody,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
 } from "reactstrap";
 import moment from "moment";
 import {
@@ -24,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import GuestList from "./GuestList";
+import Select from "react-select";
 
 
 export default function Event(props) {
@@ -31,7 +34,6 @@ export default function Event(props) {
     id,
     userId,
     inviteId,
-    title,
     description,
     start,
     stop,
@@ -61,11 +63,6 @@ export default function Event(props) {
   async function deleteEvent() {
     //delete if it's your event
     if (loggedInUser === userId) {
-      const deleteInvitations = await (
-        await fetch("/api/delete_invitations/" + id, {
-          method: "DELETE",
-        })
-      ).json();
       const deleteEvent = await (
         await fetch("/api/Event/" + id, {
           method: "DELETE",
@@ -93,21 +90,21 @@ export default function Event(props) {
 
   async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
-    if (events.error) {
+    if (events.error == 404) {
       events = [];
     }
 
     let invitedEvents = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
     ).json();
-    if (invitedEvents.error) {
+    if (invitedEvents.error == 404) {
       invitedEvents = [];
     }
 
     let declinedInvitations = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=false")
     ).json();
-    if (declinedInvitations.error) {
+    if (declinedInvitations.error == 404) {
       declinedInvitations = [];
     }
 
@@ -116,6 +113,75 @@ export default function Event(props) {
       invitedEvents: invitedEvents,
       declinedInvitations: declinedInvitations,
     });
+  }
+  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [inviteList, setInviteList] = useState([]);
+  const [allGuests, setAllGuests] = useState([]);
+  const [options, setOptions] = useState([]);
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  async function fetchInvitedUsersAccepted() {
+    let guest = await (
+      await fetch("/api/invitedUsers/" + id + "?accepted=1")
+    ).json();
+    setInvitedUsersAccept(guest);
+  }
+
+  let usersData = context.allUsers.filter((u) => u.id !== context.user.id);
+  //const [filteredUser, setFilteredUser] = useState(usersData);
+
+  async function fetchAllInvited() {
+    let allInvited = await (await fetch("/api/allInvited/" + id)).json();
+    if (allInvited.error === 404) {
+      allInvited = [];
+    }
+    setAllGuests(allInvited);
+  }
+
+  useEffect(() => {
+    fetchInvitedUsersAccepted();
+    fetchAllInvited();
+  }, [id]);
+
+  function openModal(e) {
+    e.preventDefault();
+    toggle();
+    if (allGuests.length) {
+      usersData = usersData.filter(
+        (u) => !allGuests.find((a) => a.id === u.id)
+      );
+    }
+    console.log("filtered", usersData);
+    let o = usersData.map((u) => ({
+      value: u.id,
+      label: u.email,
+    }));
+    setOptions(o);
+  }
+
+  const handleInvites = (e) => {
+    setInviteList(e);
+  };
+
+  async function invite(e) {
+    e.preventDefault();
+    if (inviteList.length) {
+      for (let i in inviteList) {
+        let invitedUser = inviteList[i].value;
+        let res = await (
+          await fetch("/api/Invite", {
+            method: "POST",
+            body: JSON.stringify({ eventId: id, invitedUser }),
+            headers: { "Content-Type": "application/json" },
+          })
+        ).json();
+      }
+    }
+    fetchAllInvited();
+    toggle();
   }
 
   return (
@@ -148,6 +214,7 @@ export default function Event(props) {
         </CardSubtitle>
         <GuestList
           id={id}
+          allGuestsAccept={allGuestsAccept}
           ownerFirstName={
             loggedInUser === userId ? context.user.firstName : ownerFirstName
           }
@@ -158,12 +225,33 @@ export default function Event(props) {
       </CardBody>
       <CardFooter className={`card-footer ${context.colorTheme} `}>
         {loggedInUser === userId ? (
-          <ButtonToggle outline color="lightpink" id="inviteButton">
-            <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
-            <UncontrolledTooltip placement="bottom" target="inviteButton">
-              Invite people
-            </UncontrolledTooltip>
-          </ButtonToggle>
+          <>
+            <ButtonToggle
+              onClick={openModal}
+              outline
+              color="lightpink"
+              id="inviteButton"
+            >
+              <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
+              {/* <Select options={options} onChange={handleInvites} isMulti /> */}
+              <UncontrolledTooltip placement="bottom" target="inviteButton">
+                Invite people
+              </UncontrolledTooltip>
+            </ButtonToggle>
+            <Modal isOpen={modal} toggle={toggle}>
+              <ModalHeader toggle={toggle}>
+                Select friends to invite
+              </ModalHeader>
+              <ModalBody>
+                <Select options={options} onChange={handleInvites} isMulti />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="info" onClick={invite}>
+                  Invite
+                </Button>{" "}
+              </ModalFooter>
+            </Modal>
+          </>
         ) : null}{" "}
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="editButton">
@@ -175,7 +263,10 @@ export default function Event(props) {
         ) : null}{" "}
         {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
         <Button
-          onClick={e => window.confirm("Are you sure you want to delete the event?") && deleteEvent()}
+          onClick={(e) =>
+            window.confirm("Are you sure you want to delete the event?") &&
+            deleteEvent()
+          }
           outline
           color="lightpink"
           id="deleteButton"

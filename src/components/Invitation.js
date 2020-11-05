@@ -11,7 +11,7 @@ import {
  
 } from "reactstrap";
 
-export default function Invitation(prop) {
+export default function Invitation() {
 
   const [context] = useContext(Context);
 

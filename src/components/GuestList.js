@@ -4,17 +4,18 @@ import React, { useState, useEffect } from "react";
 import { CardText } from "reactstrap";
 
 export default function GuestList(props) {
-  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  // const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
 
-  useEffect(() => {
-    fetchInvitedUsersAccepted();
-  }, []);
+  // useEffect(() => {
+  //   fetchInvitedUsersAccepted();
+  // }, [props.id]);
 
-  async function fetchInvitedUsersAccepted() {
-    setInvitedUsersAccept(
-      await (await fetch("api/invitedUsers/" + props.id + "?accepted=1")).json()
-    );
-  }
+  // async function fetchInvitedUsersAccepted() {
+  //   setInvitedUsersAccept(
+  //     await (await fetch("api/invitedUsers/" + props.id + "?accepted=1")).json()
+  //   );
+  // }
+  const { allGuestsAccept } = props;
 
   return (
     <div className="mt-3">

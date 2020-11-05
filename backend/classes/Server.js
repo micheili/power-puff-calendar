@@ -21,8 +21,8 @@ module.exports = class Server {
         salt: "veryUnusual%butDontChangeAfterDBhasDataX",
       })
     );
-    new RestApi(this.app, dbPath);
     new LoginHandler(this.app, dbPath);
+    new RestApi(this.app, dbPath);
 
     this.setupRoutes();
     this.serveStaticFiles();

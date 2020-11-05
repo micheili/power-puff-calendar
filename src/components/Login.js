@@ -67,7 +67,7 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
       });
       const data = await result.json();
-      if (data.error == "Already logged in!") {
+      if (data.error === "Already logged in!") {
         setError("Someone is already logged-in");
         setFormData({ email: "", password: "" });
         setAlert(true);

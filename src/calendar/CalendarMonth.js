@@ -7,7 +7,6 @@ import moment from "moment";
 import { Context } from "../App";
 import Infobox from "../components/InfoBox";
 import { Container, Row, Col } from "reactstrap";
-import ThemeChanger from "../components/ThemeChanger";
 import "../sass/_calendar.scss";
 
 export default function CalendarMonth() {
