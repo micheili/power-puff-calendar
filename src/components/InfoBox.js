@@ -27,6 +27,7 @@ const Infobox = (props) => {
 
   const [funFactVisible, setVisible] = useState(true);
   const onDismissFunFact = () => setVisible(false);
+  const onSeeFunFact = () => setVisible(true);
 
   const getdayInfo = async () => {
     const month = moment(selectDate).format("M") - 1;
@@ -83,7 +84,6 @@ const Infobox = (props) => {
     }
   }
 
-  console.log("filteredevents", filterCombinedEvents);
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
@@ -141,18 +141,29 @@ const Infobox = (props) => {
             </div>
           </CardHeader>
 
+          {funFactVisible ? null : (
+            <a
+              href="#"
+              onClick={onSeeFunFact}
+              className="text-dark font-weight-bolder link m-3"
+              id="funFactShowText"
+            >
+              Show me fun fact of the day...
+            </a>
+          )}
+
           {context.showNewEvent != true && context.showEditEvent != true ? (
             <Alert
-              className="container-fun-fact mt-3"
+              className="m-3"
               color="whitee"
               isOpen={funFactVisible}
               toggle={onDismissFunFact}
             >
               <Row>
-                <Col className="fun-fact">Fun fact about today: </Col>
+                <Col className="fun-fact">Fun fact of the day: </Col>
               </Row>
               <Row>
-                <Col className="mb-2">
+                <Col className="my-2">
                   <span className="fun-fact">Year {info.year} : </span>{" "}
                   {info.text}
                 </Col>{" "}
