@@ -16,10 +16,11 @@ export default function ThemeChanger() {
   }, []);
 
   const handleClick = (theme) => {
+    const currentThemeFromPage = theme     
     updateContext({
       colorTheme: theme,
     });
-    localStorage.setItem("theme-color", theme);
+    localStorage.setItem("theme-color", currentThemeFromPage );
   };
 
   return (

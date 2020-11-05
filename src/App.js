@@ -21,7 +21,7 @@ export default function App() {
     declinedInvitations: [], //accepted= false
     allUsers: [],
     myCategories: [], 
-    colorTheme: '',
+    colorTheme: localStorage.getItem("theme-color"),
     header: {background:"", font: ""}
   });
 
