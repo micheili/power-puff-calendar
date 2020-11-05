@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -10,12 +10,12 @@ import {Context} from '../../App';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAlgolia, faCalendarPlus
 } from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context, updateContext] = useContext(Context);
 
-  
+
+
   let events = [
     ...context.myEvents,...context.invitedEvents
   ]
@@ -33,7 +33,6 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     for(let event of events){
       event.startedPrinting = false;
     }
-    
   }
   
   function checkEvent(date){

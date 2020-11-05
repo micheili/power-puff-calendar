@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import Event from "./Event";
 import EventList from "./EventList";
 import NewEvent from "./NewEvent";
@@ -17,30 +17,12 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-  Container
 } from "reactstrap";
 
 const Infobox = (props) => {
   const [context, updateContext] = useContext(Context);
-  const [info, setInfo] = useState([]);
+
   let { myEvents, invitedEvents, selectDate } = props;
-
-  const getdayInfo = async() =>{
-  const dateQuery = moment(selectDate).format("M/D")
-    const response = await fetch
-    (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
-    const data = await response.json();
-    setInfo(data.data.Events[0]);
-    console.log('data from api', data);
-    
-  };
-
-  useEffect(()=>{
-    getdayInfo();   
-  }, [selectDate]);
-
-  console.log(info.text);
-
   let date = moment(selectDate).format("DD/MM");
   let year = moment(selectDate).format("YYYY");
 
@@ -124,26 +106,13 @@ const Infobox = (props) => {
                   onClick={addNewEvent}
                 />
               </span>
-            
-
               <UncontrolledTooltip placement="right" target="addEventHover">
                 Add new event
               </UncontrolledTooltip>
             </div>
           </CardHeader>
 
-         
-
           <CardBody>
-            <Container className="container-fun-fact">
-          <Row>
-          <Col className="fun-fact">Fun fact about today: </Col>
-          </Row>
-          <Row>
-          <Col className="mb-2">{info.text}</Col>
-          </Row>
-          </Container>
-          
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
             ) : combinedEvents.length === 0 ? (

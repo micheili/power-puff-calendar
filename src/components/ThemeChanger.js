@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 //import themeChanger from "../sass/_themeChanger.scss";
 import { Context } from "../App";
+import { Container } from "reactstrap";
 
 export default function ThemeChanger() {
   const [context, updateContext] = useContext(Context);
@@ -22,7 +23,7 @@ export default function ThemeChanger() {
   };
 
   return (
-    <div className="theme-options">
+    <Container className="theme-options d-flex justify-content-center mt-2">
       <div
         id="theme-pink"
         onClick={() => handleClick("theme-pink")}
@@ -43,6 +44,6 @@ export default function ThemeChanger() {
         onClick={() => handleClick("theme-neon")}
         className={`${context.colorTheme === "theme-neon" ? "active" : ""}`}
       ></div>
-    </div>
+    </Container>
   );
 }
