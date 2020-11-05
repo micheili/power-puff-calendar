@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   CardSubtitle,
   ButtonToggle,
@@ -6,8 +6,12 @@ import {
   UncontrolledTooltip,
   CardFooter,  
   CardBody,
-  Badge
-} from "reactstrap";
+  Badge,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+from "reactstrap";
 import moment from "moment";
 import {
   getDayWithoutZero,
@@ -23,6 +27,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import GuestList from "./GuestList";
+import Select from "react-select";
 
 export default function Event(props) {
   let {
@@ -110,6 +115,75 @@ export default function Event(props) {
       declinedInvitations: declinedInvitations,
     });
   }
+  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
+  const [inviteList, setInviteList] = useState([]);
+  const [allGuests, setAllGuests] = useState([]);
+  const [options, setOptions] = useState([]);
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  async function fetchInvitedUsersAccepted() {
+    let guest = await (
+      await fetch("/api/invitedUsers/" + id + "?accepted=1")
+    ).json();
+    setInvitedUsersAccept(guest);
+  }
+
+  let usersData = context.allUsers.filter((u) => u.id !== context.user.id);
+  //const [filteredUser, setFilteredUser] = useState(usersData);
+
+  async function fetchAllInvited() {
+    let allInvited = await (await fetch("/api/allInvited/" + id)).json();
+    if (allInvited.error === 404) {
+      allInvited = [];
+    }
+    setAllGuests(allInvited);
+  }
+
+  useEffect(() => {
+    fetchInvitedUsersAccepted();
+    fetchAllInvited();
+  }, [id]);
+
+  function openModal(e) {
+    e.preventDefault();
+    toggle();
+    if (allGuests.length) {
+      usersData = usersData.filter(
+        (u) => !allGuests.find((a) => a.id === u.id)
+      );
+    }
+    console.log("filtered", usersData);
+    let o = usersData.map((u) => ({
+      value: u.id,
+      label: u.email,
+    }));
+    setOptions(o);
+  }
+
+  const handleInvites = (e) => {
+    setInviteList(e);
+  };
+
+  async function invite(e) {
+    e.preventDefault();
+    if (inviteList.length) {
+      for (let i in inviteList) {
+        let invitedUser = inviteList[i].value;
+        let res = await (
+          await fetch("/api/Invite", {
+            method: "POST",
+            body: JSON.stringify({ eventId: id, invitedUser }),
+            headers: { "Content-Type": "application/json" },
+          })
+        ).json();
+      }
+    }
+    fetchAllInvited();
+    toggle();
+  }
 
   return (
     <div className="mb-3 pb-5 sm-6">
@@ -141,7 +215,7 @@ export default function Event(props) {
         </CardSubtitle>        
         <GuestList
           id={id}
-          //GuestList={context.allGuestsAccept}
+          allGuestsAccept={allGuestsAccept}
           ownerFirstName={
             loggedInUser === userId ? context.user.firstName : ownerFirstName
           }
@@ -152,12 +226,33 @@ export default function Event(props) {
       </CardBody>
       <CardFooter>
         {loggedInUser === userId ? (
-          <ButtonToggle outline color="lightpink" id="inviteButton">
-            <FontAwesomeIcon icon={faUserPlus} />
-            <UncontrolledTooltip placement="bottom" target="inviteButton">
-              Invite people
-            </UncontrolledTooltip>
-          </ButtonToggle>
+          <>
+            <ButtonToggle
+              onClick={openModal}
+              outline
+              color="lightpink"
+              id="inviteButton"
+            >
+              <FontAwesomeIcon icon={faUserPlus} />
+              {/* <Select options={options} onChange={handleInvites} isMulti /> */}
+              <UncontrolledTooltip placement="bottom" target="inviteButton">
+                Invite people
+              </UncontrolledTooltip>
+            </ButtonToggle>
+            <Modal isOpen={modal} toggle={toggle}>
+              <ModalHeader toggle={toggle}>
+                Select friends to invite
+              </ModalHeader>
+              <ModalBody>
+                <Select options={options} onChange={handleInvites} isMulti />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="info" onClick={invite}>
+                  Invite
+                </Button>{" "}
+              </ModalFooter>
+            </Modal>
+          </>
         ) : null}{" "}
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="editButton">
