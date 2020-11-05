@@ -17,7 +17,7 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-  Alert
+  Alert,
 } from "reactstrap";
 
 const Infobox = (props) => {
@@ -29,11 +29,11 @@ const Infobox = (props) => {
   const onDismissFunFact = () => setVisible(false);
 
   const getdayInfo = async () => {
-    const month = moment(selectDate).format("M") -1;
-    const day = moment(selectDate).format("D") -1;
+    const month = moment(selectDate).format("M") - 1;
+    const day = moment(selectDate).format("D") - 1;
     console.log(month, day);
-    const dateQuery = `${month}` + `/`+ `${day}` 
-    
+    const dateQuery = `${month}` + `/` + `${day}`;
+
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
     );
@@ -52,26 +52,32 @@ const Infobox = (props) => {
   const addNewEvent = () => {
     updateContext({ showNewEvent: true });
   };
+
   function getDates(startDate, stopDate) {
-    let dateArray = [];
-    let currentDate = moment(startDate);
-    let endDate = moment(stopDate);
-    while (currentDate <= endDate) {
-      dateArray.push(moment(currentDate).format("YYYY-MM-DD"));
-      currentDate = moment(currentDate).add(1, "days");
+    let dates = [];
+    //to avoid modifying the original date
+    const theDate = new Date(startDate);
+    while (theDate < new Date(stopDate)) {
+      dates = [...dates, new Date(theDate)];
+      theDate.setDate(theDate.getDate() + 1);
     }
-    return dateArray;
+    dates = [...dates, new Date(stopDate)];
+    return dates;
   }
-  // let dates = getDates("2020-11-04 12:36", "2020-11-04 12:38");
-  // console.log("dates", dates);
 
   let combinedEvents = [...myEvents, ...invitedEvents];
   let filterCombinedEvents = [];
 
   for (let i in combinedEvents) {
-    let dates = getDates(combinedEvents[i].start, combinedEvents[i].stop);
+    let startDate = moment(combinedEvents[i].start).format("YYYY-MM-DD");
+    let stopDate = moment(combinedEvents[i].stop).format("YYYY-MM-DD");
+
+    let dates = getDates(startDate, stopDate);
     for (let d in dates) {
-      if (dates[d] === moment(selectDate).format("YYYY-MM-DD")) {
+      if (
+        moment(dates[d]).format("YYYY-MM-DD") ===
+        moment(selectDate).format("YYYY-MM-DD")
+      ) {
         filterCombinedEvents.push(combinedEvents[i]);
       }
     }
