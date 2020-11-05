@@ -129,13 +129,14 @@ const EditEvent = (props) => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className="event_label">
+        <Label for="eventTitle"  className={`event_label ${context.colorTheme}`}>
           Title
         </Label>
         <Input
           type="text"
           name="editedTitle"
           id="eventTitle"
+          className={`form-control ${context.colorTheme}`}
           onChange={handleInputChange}
           value={editedTitle}
           required
@@ -143,11 +144,12 @@ const EditEvent = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="eventDescription">Description</Label>
+        <Label for="eventDescription" className={`event_label ${context.colorTheme}`}>Description</Label>
         <Input
           type="textarea"
           name="editedDescription"
           id="eventDescription"
+          className={`form-control ${context.colorTheme}`}
           onChange={handleInputChange}
           value={editedDescription}
           placeholder="Description"
@@ -156,12 +158,13 @@ const EditEvent = (props) => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventStartDate">Start Date:</Label>
+            <Label for="eventStartDate" className={`event_label ${context.colorTheme}`}>Start Date:</Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
               name="editedStartDate"
               id="eventStartDate"
+              className={`form-control ${context.colorTheme}`}
               placeholder="date placeholder"
               format="yyyy/MM/dd"
               onChange={handleInputChange}
@@ -173,11 +176,12 @@ const EditEvent = (props) => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventStartTime">Start Time:</Label>
+            <Label for="eventStartTime" className={`event_label ${context.colorTheme}`}>Start Time:</Label>
             <Input
               type="time"
               name="editedStartTime"
               id="eventStartTime"
+              className={`form-control ${context.colorTheme}`}
               placeholder="startTime"
               onChange={handleInputChange}
               value={editedStartTime}
@@ -189,12 +193,13 @@ const EditEvent = (props) => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventEndDate">End Date:</Label>
+            <Label for="eventEndDate" className={`event_label ${context.colorTheme}`}>End Date:</Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
               name="editedStopDate"
               id="eventEndDate"
+              className={`form-control ${context.colorTheme}`}
               placeholder="date placeholder"
               onChange={handleInputChange}
               value={editedStopDate}
@@ -205,11 +210,12 @@ const EditEvent = (props) => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventEndTime">End Time:</Label>
+            <Label for="eventEndTime" className={`event_label ${context.colorTheme}`}>End Time:</Label>
             <Input
               type="time"
               name="editedStopTime"
               id="eventEndTime"
+              className={`form-control ${context.colorTheme}`}
               placeholder="time placeholder"
               onChange={handleInputChange}
               value={editedStopTime}
@@ -224,7 +230,7 @@ const EditEvent = (props) => {
         Cancel
       </Button>
 
-      <Button className="button-submit" type="submit" value="save" >
+      <Button className={`button-submit ${context.colorTheme}`} type="submit" value="save" >
         Submit
       </Button>
     </Form>

@@ -4,7 +4,7 @@ import { getDaySet } from "../utils/DateUtils";
 import { Context } from "../../App";
 
 export default function DayIndicator({ selectDate, setSelectDate }) {
-  const [context] = useContext(Context);
+  const [context, updateContext] = useContext(Context);
 
   const changeDay = (e) => {
     setSelectDate(e.target.getAttribute("data-date"));

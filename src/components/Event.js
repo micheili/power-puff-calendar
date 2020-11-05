@@ -6,6 +6,7 @@ import {
   UncontrolledTooltip,
   CardFooter,
   CardBody,
+  Badge,
   Modal,
   ModalBody,
   ModalHeader,
@@ -29,7 +30,6 @@ import GuestList from "./GuestList";
 import EditEvent from "./EditEvent";
 import Select from "react-select";
 
-
 export default function Event(props) {
   let {
     id,
@@ -38,12 +38,13 @@ export default function Event(props) {
     description,
     start,
     stop,
+    className,
+    name,
     ownerFirstName,
     ownerLastName,
   } = props.combinedEvents;
 
   let [context, updateContext] = useContext(Context);
-
 
   const loggedInUser = context.user.id;
 
@@ -197,20 +198,20 @@ export default function Event(props) {
   }
 
   const getSuffix = (dateNr) => {
-        let j = dateNr % 10,
-        k = dateNr % 100;
-  
+    let j = dateNr % 10,
+      k = dateNr % 100;
+
     if (j == 1 && k != 11) {
-        return dateNr + "st";
+      return dateNr + "st";
     }
     if (j == 2 && k != 12) {
-        return dateNr + "nd";
+      return dateNr + "nd";
     }
     if (j == 3 && k != 13) {
-        return dateNr + "rd";
+      return dateNr + "rd";
     }
     return dateNr + "th";
-}
+  };
 
   return (
     <div className="mb-3 pb-5 sm-6">
@@ -229,8 +230,8 @@ export default function Event(props) {
             </CardSubtitle>
             <span className="mt-5 p-5"></span>
             <CardSubtitle className="mt-3 ">
-              <strong>from</strong> {startTime} {weekDay}, {getSuffix(startDateNr) + ' of '}{" "}
-              {startMonth} {startYear}
+              <strong>from</strong> {startTime} {weekDay},{" "}
+              {getSuffix(startDateNr) + " of "} {startMonth} {startYear}
             </CardSubtitle>
             <CardSubtitle>
               <strong>to</strong> {stopTime}
@@ -255,7 +256,7 @@ export default function Event(props) {
             />
           </CardBody>
 
-          <CardFooter>
+          <CardFooter className={`card-footer ${context.colorTheme}`}>
             {userIsCreator ? (
               <>
                 <ButtonToggle
@@ -276,13 +277,18 @@ export default function Event(props) {
                   </ModalHeader>
                   <ModalBody>
                     <Select
+                      className={`s ${context.colorTheme}`}
                       options={options}
                       onChange={handleInvites}
                       isMulti
                     />
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="info" onClick={invite}>
+                    <Button
+                      className={`inv-btn ${context.colorTheme}`}
+                      color="info"
+                      onClick={invite}
+                    >
                       Invite
                     </Button>{" "}
                   </ModalFooter>
@@ -317,6 +323,16 @@ export default function Event(props) {
                 Delete event
               </UncontrolledTooltip>
             </Button>{" "}
+            <Badge
+              pill
+              className={`${
+                className
+                  ? `p-2 mt-1 float-right category-box ${className}`
+                  : ""
+              }`}
+            >
+              {name}
+            </Badge>
           </CardFooter>
         </div>
       )}
