@@ -14,30 +14,7 @@ import moment from 'moment';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
   const [context] = useContext(Context);
-  const [info, setInfo] = useState([]);
-
-  const getdayInfo = async() =>{
-    const response = await fetch
-    (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
-    const data = await response.json();
-    setInfo(data);
-    console.log('data from api', data)
-  };
-
-
-  const dateQuery = moment(selectDate).format("M/D")
-
-  console.log('date query', dateQuery)
-  console.log('selected day in calendar', selectDate)
-
-  useEffect(()=>{
-    getdayInfo();
-  }, [selectDate]);
-
-  const fullstring = (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
-  console.log(fullstring)
-
-  console.log('the day', info.date, 'info', info.data)
+ 
 
   
   let events = [
