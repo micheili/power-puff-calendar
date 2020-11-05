@@ -17,13 +17,16 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-  Container,
+  Alert
 } from "reactstrap";
 
 const Infobox = (props) => {
   const [context, updateContext] = useContext(Context);
   const [info, setInfo] = useState([]);
   let { myEvents, invitedEvents, selectDate } = props;
+
+  const [funFactVisible, setVisible] = useState(true);
+  const onDismissFunFact = () => setVisible(false);
 
   const getdayInfo = async () => {
     const dateQuery = moment(selectDate).format("M/D");
@@ -32,14 +35,12 @@ const Infobox = (props) => {
     );
     const data = await response.json();
     setInfo(data.data.Events[0]);
-    console.log("data from api", data);
   };
 
   useEffect(() => {
     getdayInfo();
+    setVisible(true);
   }, [selectDate]);
-
-  console.log(info.text);
 
   let date = moment(selectDate).format("DD/MM");
   let year = moment(selectDate).format("YYYY");
@@ -131,18 +132,26 @@ const Infobox = (props) => {
             </div>
           </CardHeader>
 
-          <CardBody>
-            <Container className="container-fun-fact">
+          {context.showNewEvent != true && context.showEditEvent != true ? (
+            <Alert
+              className="container-fun-fact mt-3"
+              color="whitee"
+              isOpen={funFactVisible}
+              toggle={onDismissFunFact}
+            >
               <Row>
                 <Col className="fun-fact">Fun fact about today: </Col>
               </Row>
               <Row>
                 <Col className="mb-2">
-                  <span className="fun-fact">{info.year} : </span> {info.text}
-                </Col>
+                  <span className="fun-fact">Year {info.year} : </span>{" "}
+                  {info.text}
+                </Col>{" "}
               </Row>
-            </Container>
+            </Alert>
+          ) : null}
 
+          <CardBody>
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
             ) : combinedEvents.length === 0 ? (
