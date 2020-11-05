@@ -17,6 +17,7 @@ export default function App() {
     invitedEvents: [], //accepted = true
     allInvites: [], // accepted = null
     showNewEvent: false,
+    showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
     colorTheme: '',
