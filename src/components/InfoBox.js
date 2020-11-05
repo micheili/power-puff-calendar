@@ -17,7 +17,7 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-  Container
+  Container,
 } from "reactstrap";
 
 const Infobox = (props) => {
@@ -25,18 +25,19 @@ const Infobox = (props) => {
   const [info, setInfo] = useState([]);
   let { myEvents, invitedEvents, selectDate } = props;
 
-  const getdayInfo = async() =>{
-  const dateQuery = moment(selectDate).format("M/D")
-    const response = await fetch
-    (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
+  const getdayInfo = async () => {
+    const dateQuery = moment(selectDate).format("M/D");
+    console.log("datequery", dateQuery);
+    const response = await fetch(
+      `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
+    );
     const data = await response.json();
     setInfo(data.data.Events[0]);
-    console.log('data from api', data);
-    
+    console.log("data from api", data);
   };
 
-  useEffect(()=>{
-    getdayInfo();   
+  useEffect(() => {
+    getdayInfo();
   }, [selectDate]);
 
   console.log(info.text);
@@ -124,7 +125,6 @@ const Infobox = (props) => {
                   onClick={addNewEvent}
                 />
               </span>
-            
 
               <UncontrolledTooltip placement="right" target="addEventHover">
                 Add new event
@@ -132,18 +132,18 @@ const Infobox = (props) => {
             </div>
           </CardHeader>
 
-         
-
           <CardBody>
             <Container className="container-fun-fact">
-          <Row>
-          <Col className="fun-fact">Fun fact about today: </Col>
-          </Row>
-          <Row>
-          <Col className="mb-2">{info.text}</Col>
-          </Row>
-          </Container>
-          
+              <Row>
+                <Col className="fun-fact">Fun fact about today: </Col>
+              </Row>
+              <Row>
+                <Col className="mb-2">
+                  <span className="fun-fact">{info.year} : </span> {info.text}
+                </Col>
+              </Row>
+            </Container>
+
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
             ) : combinedEvents.length === 0 ? (
