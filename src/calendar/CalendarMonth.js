@@ -23,7 +23,7 @@ export default function CalendarMonth() {
               selectDate={selectDate}
               setSelectDate={setSelectDate}
             />
-            <div className="calendar-container">
+            <div className={`calendar-container ${context.colorTheme}`}>
               <WeekdayIndicator />
               <DateIndicator
                 selectDate={selectDate}

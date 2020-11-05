@@ -28,6 +28,7 @@ import { Context } from "../App";
 import GuestList from "./GuestList";
 import Select from "react-select";
 
+
 export default function Event(props) {
   let {
     id,
@@ -40,6 +41,7 @@ export default function Event(props) {
     ownerLastName,
   } = props.combinedEvents;
   let [context, updateContext] = useContext(Context);
+
 
   const loggedInUser = context.user.id;
 
@@ -221,7 +223,7 @@ export default function Event(props) {
           }
         />
       </CardBody>
-      <CardFooter>
+      <CardFooter className={`card-footer ${context.colorTheme} `}>
         {loggedInUser === userId ? (
           <>
             <ButtonToggle
@@ -230,7 +232,7 @@ export default function Event(props) {
               color="lightpink"
               id="inviteButton"
             >
-              <FontAwesomeIcon icon={faUserPlus} />
+              <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
               {/* <Select options={options} onChange={handleInvites} isMulti /> */}
               <UncontrolledTooltip placement="bottom" target="inviteButton">
                 Invite people
@@ -241,10 +243,10 @@ export default function Event(props) {
                 Select friends to invite
               </ModalHeader>
               <ModalBody>
-                <Select options={options} onChange={handleInvites} isMulti />
+                <Select className={`s ${context.colorTheme}`} options={options} onChange={handleInvites} isMulti />
               </ModalBody>
               <ModalFooter>
-                <Button color="info" onClick={invite}>
+                <Button className={`inv-btn ${context.colorTheme}`} color="info" onClick={invite}>
                   Invite
                 </Button>{" "}
               </ModalFooter>
@@ -253,7 +255,7 @@ export default function Event(props) {
         ) : null}{" "}
         {loggedInUser === userId ? (
           <ButtonToggle outline color="lightpink" id="editButton">
-            <FontAwesomeIcon icon={faPen} />
+            <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faPen} />
             <UncontrolledTooltip placement="bottom" target="editButton">
               Edit
             </UncontrolledTooltip>
@@ -269,7 +271,7 @@ export default function Event(props) {
           color="lightpink"
           id="deleteButton"
         >
-          <FontAwesomeIcon icon={faTrashAlt} />
+          <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faTrashAlt} />
           <UncontrolledTooltip placement="bottom" target="deleteButton">
             Delete event
           </UncontrolledTooltip>

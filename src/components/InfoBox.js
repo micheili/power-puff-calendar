@@ -59,7 +59,7 @@ const Infobox = (props) => {
 
   let eventDetails = (
     <>
-      <CardHeader className="single-event" tag="h3">
+      <CardHeader className={`single-event ${context.colorTheme}`} tag="h3">
         {combinedEvents.length ? combinedEvents[0].title : ""}
       </CardHeader>
       <Event combinedEvents={combinedEvents[0]} />
@@ -91,7 +91,7 @@ const Infobox = (props) => {
     <Row>
       <Col>
         <Card>
-          <CardHeader className="bg-info">
+          <CardHeader className={`bg-info ${context.colorTheme}`}>
             {dateText}
             <div className="float-left ml-3" id="yearText">
               {year}

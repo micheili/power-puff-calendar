@@ -24,8 +24,8 @@ export default function CalendarWeek() {
               setSelectDate={setSelectDate}
             />
 
-            <div className="calendar-container">
-              <WeekdayIndicator />
+      <div className={`calendar-container ${context.colorTheme}`}>
+        <WeekdayIndicator />
 
               <DateWeekIndicator
                 selectDate={selectDate}

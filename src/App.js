@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
+import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
 
 // create and export the context
@@ -18,7 +19,7 @@ export default function App() {
     showNewEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
-    
+    colorTheme: '',
     header: {background:"", font: ""}
   });
 
@@ -120,5 +121,6 @@ export default function App() {
         )}
       </Router>
     </Context.Provider>
+  
   );
 }
