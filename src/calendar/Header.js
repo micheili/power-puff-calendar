@@ -10,9 +10,7 @@ import ThemeChanger from "../components/ThemeChanger"
 
 export default function Header(){
     const [context, updateContext] = useContext(Context);
-    const header = context.header;
-
-    
+        
     useEffect(() => {
       const currentHeader = localStorage.getItem("header");
       let currentHeaderJson = JSON.parse(currentHeader)
@@ -25,8 +23,7 @@ export default function Header(){
     }, []);
   
       const setHeader = (background, font) =>{
-        const currentHeaderFromPage = {background : background, font : font }
-        console.log(currentHeaderFromPage)
+        const currentHeaderFromPage = {background : background, font : font }        
           updateContext({
               header:{background : background, font : font }
             });
