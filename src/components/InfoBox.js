@@ -17,7 +17,7 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-  Alert
+  Alert,
 } from "reactstrap";
 
 const Infobox = (props) => {
@@ -27,6 +27,7 @@ const Infobox = (props) => {
 
   const [funFactVisible, setVisible] = useState(true);
   const onDismissFunFact = () => setVisible(false);
+  const onSeeFunFact = () => setVisible(true);
 
   const getdayInfo = async () => {
     const dateQuery = moment(selectDate).format("M/D");
@@ -73,7 +74,6 @@ const Infobox = (props) => {
     }
   }
 
-  console.log("filteredevents", filterCombinedEvents);
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
@@ -131,6 +131,17 @@ const Infobox = (props) => {
               </UncontrolledTooltip>
             </div>
           </CardHeader>
+
+          {funFactVisible ? null : (
+            <a
+              href="#"
+              onClick={onSeeFunFact}
+              className="text-dark font-weight-bolder link m-3"
+              id="funFactShowText"
+            >
+              Show me fun fact of the day...
+            </a>
+          )}
 
           {context.showNewEvent != true && context.showEditEvent != true ? (
             <Alert
