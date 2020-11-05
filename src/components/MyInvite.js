@@ -50,18 +50,18 @@ export default function MyInvite(props) {
 
   useEffect(() => {
     fetchInvitedUsers();
-  }, []);
+  });
 
   useEffect(() => {
     fetchInvitedUsersAccepted();
-  }, []);
+  });
 
   useEffect(() => {
     fetchInvitedUsersDecline();
-  }, []);
+  });
 
   async function Decline() {
-    let result = await (
+    await (
       await fetch("/api/invite/" + inviteId, {
         method: "PUT",
         body: JSON.stringify({
@@ -74,7 +74,7 @@ export default function MyInvite(props) {
   }
 
   async function Accept() {
-    let result = await (
+    await (
       await fetch("/api/invite/" + inviteId, {
         method: "PUT",
         body: JSON.stringify({

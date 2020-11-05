@@ -36,24 +36,10 @@ export default function MyDeclinedInvite(props) {
     );
   }
 
-
   useEffect(() => {
     fetchInvitedUsersAccepted();
-  }, []);
+  });
 
-  async function fetchEvents() {
-    let invitedEvents = await (
-      await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
-    ).json();
-    if (invitedEvents.error) {
-      invitedEvents = [];
-    }
-
-
-    updateContext({
-      invitedEvents: invitedEvents
-    });
-  }
 
   return (
     <div className="mt-4">

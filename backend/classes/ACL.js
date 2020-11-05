@@ -55,7 +55,6 @@ module.exports = class ACL {
         let invite = db.select("SELECT * FROM Invite WHERE id=$id", {
           id: req.params.id,
         });
-        console.log("invite", invite);
         if (
           !invite.error &&
           (module.exports.isOwner(db, loggedInId, invite[0].eventId) ||
@@ -71,7 +70,6 @@ module.exports = class ACL {
     }
 
     if (table == "") {
-      console.log("own api", user);
       if (req.params.userId && req.params.userId == loggedInId) {
         return true;
       }

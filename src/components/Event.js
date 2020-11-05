@@ -76,7 +76,7 @@ export default function Event(props) {
   async function deleteEvent() {
     //delete if it's your event
     if (loggedInUser === userId) {
-      const deleteEvent = await (
+      await (
         await fetch("/api/Event/" + id, {
           method: "DELETE",
         })
@@ -88,7 +88,7 @@ export default function Event(props) {
   }
   //decline if invited to event
   async function declineEvent() {
-    let result = await (
+    await (
       await fetch("/api/invite/" + inviteId, {
         method: "PUT",
         body: JSON.stringify({

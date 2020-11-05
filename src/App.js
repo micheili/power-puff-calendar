@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
-import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
 
 // create and export the context
@@ -20,9 +19,9 @@ export default function App() {
     showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
-    myCategories: [], 
-    colorTheme: '',
-    header: {background:"", font: ""}
+    myCategories: [],
+    colorTheme: "",
+    header: { background: "", font: "" },
   });
 
   const updateContext = (updates) =>
@@ -30,8 +29,6 @@ export default function App() {
       ...contextVal,
       ...updates,
     });
-
-    console.log("events", contextVal.myEvents);
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
@@ -75,7 +72,9 @@ export default function App() {
         allInvites = [];
       }
 
-      let allCategories = await (await fetch("/api/myCategories/" + result.id)).json();
+      let allCategories = await (
+        await fetch("/api/myCategories/" + result.id)
+      ).json();
       if (allCategories.error) {
         allCategories = [];
       }
@@ -92,7 +91,6 @@ export default function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   async function logout() {
     const res = await fetch("/api/login", {
       method: "DELETE",
@@ -106,7 +104,7 @@ export default function App() {
       declinedInvitations: [],
       myCategories: [],
     });
-    const result = await res.json();
+    await res.json();
   }
 
   return (
@@ -133,6 +131,5 @@ export default function App() {
         )}
       </Router>
     </Context.Provider>
-  
   );
 }
