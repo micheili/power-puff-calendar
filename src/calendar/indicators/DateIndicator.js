@@ -32,7 +32,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
 
   useEffect(()=>{
     getdayInfo();
-  }, []);
+  }, [selectDate]);
 
   const fullstring = (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
   console.log(fullstring)
