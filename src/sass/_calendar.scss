@@ -396,6 +396,39 @@
  
   }
 
+  .speach-bubble-text{
+    color: white;
+  }
+
+  .speach-bubble {
+position: relative;
+width: 230px;
+height: 40px;
+padding: 0px;
+background: #FFFFFF;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+background-color: #834e4a;
+
+}
+
+.speach-bubble:after{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 15px 15px 0;
+border-color:  #834e4a transparent;
+display: block;
+width: 0;
+z-index: 1;
+bottom: -15px;
+left: 35px;
+}
+
+
+ 
+
 
 
 
