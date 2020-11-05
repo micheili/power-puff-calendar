@@ -171,8 +171,30 @@ module.exports = class RestApi {
       }
       let result = this.db.select(
         /*sql*/ `
-      SELECT * FROM Event 
-      WHERE userId = $userId
+        SELECT e.*, c.id as catId, c.name, c.color, c.className FROM Event e   
+        LEFT JOIN Category c ON e.categoryId = c.id     
+        WHERE e.userId = $userId
+      `,
+        req.params
+      );
+      if (result.length > 0) {
+        res.json(result);
+      } else {
+        res.status(404);
+        res.json({ error: 404 });
+      }
+    });
+
+    //get all category created by (logged-in) userId
+
+    this.app.get(this.routePrefix + "/myCategories/:userId", (req, res) => {
+      if (!allowed("", req, res, this.db)) {
+        return;
+      }
+      let result = this.db.select(
+        /*sql*/ `
+        SELECT * FROM Category
+        WHERE userId = $userId
       `,
         req.params
       );

@@ -84,6 +84,11 @@ export default function Login() {
         events = [];
       }
 
+      let categories = await (await fetch("/api/myCategories/" + data.id)).json();
+      if (categories.error) {
+        categories = [];
+      }
+
       let users = await (await fetch("/api/user")).json();
       if (users.error) {
         users = [];
@@ -117,6 +122,7 @@ export default function Login() {
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
         allUsers: users,
+        myCategories: categories
       });
 
       setRedirect(true);
