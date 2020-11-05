@@ -30,7 +30,6 @@ import GuestList from "./GuestList";
 import EditEvent from "./EditEvent";
 import Select from "react-select";
 
-
 export default function Event(props) {
   let {
     id,
@@ -46,7 +45,6 @@ export default function Event(props) {
   } = props.combinedEvents;
 
   let [context, updateContext] = useContext(Context);
-
 
   const loggedInUser = context.user.id;
 
@@ -200,20 +198,20 @@ export default function Event(props) {
   }
 
   const getSuffix = (dateNr) => {
-        let j = dateNr % 10,
-        k = dateNr % 100;
-  
+    let j = dateNr % 10,
+      k = dateNr % 100;
+
     if (j == 1 && k != 11) {
-        return dateNr + "st";
+      return dateNr + "st";
     }
     if (j == 2 && k != 12) {
-        return dateNr + "nd";
+      return dateNr + "nd";
     }
     if (j == 3 && k != 13) {
-        return dateNr + "rd";
+      return dateNr + "rd";
     }
     return dateNr + "th";
-}
+  };
 
   return (
     <div className="mb-3 pb-5 sm-6">
@@ -232,8 +230,8 @@ export default function Event(props) {
             </CardSubtitle>
             <span className="mt-5 p-5"></span>
             <CardSubtitle className="mt-3 ">
-              <strong>from</strong> {startTime} {weekDay}, {getSuffix(startDateNr) + ' of '}{" "}
-              {startMonth} {startYear}
+              <strong>from</strong> {startTime} {weekDay},{" "}
+              {getSuffix(startDateNr) + " of "} {startMonth} {startYear}
             </CardSubtitle>
             <CardSubtitle>
               <strong>to</strong> {stopTime}
@@ -279,14 +277,18 @@ export default function Event(props) {
                   </ModalHeader>
                   <ModalBody>
                     <Select
-                    className={`s ${context.colorTheme}`}
+                      className={`s ${context.colorTheme}`}
                       options={options}
                       onChange={handleInvites}
                       isMulti
                     />
                   </ModalBody>
                   <ModalFooter>
-                    <Button className={`inv-btn ${context.colorTheme}`} color="info" onClick={invite}>
+                    <Button
+                      className={`inv-btn ${context.colorTheme}`}
+                      color="info"
+                      onClick={invite}
+                    >
                       Invite
                     </Button>{" "}
                   </ModalFooter>
@@ -320,61 +322,20 @@ export default function Event(props) {
               <UncontrolledTooltip placement="bottom" target="deleteButton">
                 Delete event
               </UncontrolledTooltip>
-
-            </ButtonToggle>
-            <Modal isOpen={modal} toggle={toggle}>
-              <ModalHeader toggle={toggle}>
-                Select friends to invite
-              </ModalHeader>
-              <ModalBody>
-                <Select options={options} onChange={handleInvites} isMulti />
-              </ModalBody>
-              <ModalFooter>
-                <Button color="info" onClick={invite}>
-                  Invite
-                </Button>{" "}
-              </ModalFooter>
-            </Modal>
-          </>
-        ) : null}{" "}
-        {loggedInUser === userId ? (
-          <ButtonToggle outline color="lightpink" id="editButton">
-            <FontAwesomeIcon icon={faPen} />
-            <UncontrolledTooltip placement="bottom" target="editButton">
-              Edit
-            </UncontrolledTooltip>
-          </ButtonToggle>
-        ) : null}{" "}
-        {/* onClick: Are you Sure? delete event from loggedInUsers calendar */}
-        <Button
-          onClick={(e) =>
-            window.confirm("Are you sure you want to delete the event?") &&
-            deleteEvent()
-          }
-          outline
-          color="lightpink"
-          id="deleteButton"
-        >
-          <FontAwesomeIcon icon={faTrashAlt} />
-          <UncontrolledTooltip placement="bottom" target="deleteButton">
-            Delete event
-          </UncontrolledTooltip>
-        </Button>{" "}
-        <Badge
-          pill
-          className={`${
-            className ? `p-2 mt-1 float-right category-box ${className}` : ""
-          }`}
-        >
-          {name}
-        </Badge>
-      </CardFooter>
-
             </Button>{" "}
+            <Badge
+              pill
+              className={`${
+                className
+                  ? `p-2 mt-1 float-right category-box ${className}`
+                  : ""
+              }`}
+            >
+              {name}
+            </Badge>
           </CardFooter>
         </div>
       )}
-
     </div>
   );
 }
