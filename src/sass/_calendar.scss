@@ -239,20 +239,7 @@
 
 @media only screen and (max-width: 500px) {
 
-  .events:first-child{
-    font-size: 0px;
-    height: 5px;
-    width: 5px !important;
-    background-color: #834e4a;
-    border-radius: 50%;
-    display: block;
-    margin: auto;
-    margin-bottom: 2px;
-  }
-
-  .events{
-    display: none;
-  }
+  
 
   .date-indicator {
     display: grid;
@@ -270,6 +257,8 @@
       align-items: center;
       height: 75px;
       width: 15px;
+      overflow: visible;
+      
 
       cursor: pointer;
       &[data-active-month="false"] {
@@ -283,6 +272,21 @@
         font-weight: bold;
         height: 25px;
         width: 25px;
+        overflow: visible;
+      }
+      .events:first-child{
+        font-size: 0px;
+        height: 5px;
+        width: 5px !important;
+        background-color: #834e4a;
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+        margin-bottom: 2px;
+      }
+    
+      .events{
+        display: none;
       }
     }
   }
@@ -319,10 +323,7 @@
     color: white;
   }
 
-  //events
-  .events {
-    font-size: 8px;
-  }
+  
 
   .calendar-buttons .row .col .link-btn {
     color: #fbc5b8;
@@ -336,7 +337,7 @@
     grid-template-columns: repeat(7, minmax(auto, 1fr));
     grid-gap: 1px;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 5px;    
 
     .date-week-icon {
       display: block;
@@ -346,6 +347,7 @@
       align-items: center;
       height: 75px;
       width: 15px;
+      overflow: visible;
 
       cursor: pointer;
       &[data-active-month="false"] {
@@ -359,7 +361,23 @@
         font-weight: bold;
         height: 25px;
         width: 25px;
+        overflow: visible;
       }
+      .events:first-child{
+        font-size: 0px;
+        height: 5px;
+        width: 5px !important;
+        background-color: #834e4a;
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+        margin-bottom: 2px;
+      }
+    
+      .events{
+        display: none;
+      }
+
     }
   }
 
@@ -389,6 +407,13 @@
       &.selected {
         color: blue;
         font-weight: bold;
+      }
+      .events {
+        font-size: 8px;
+        background-color: #d27f78;
+        padding: 2%;
+        margin-left: 10px;
+        color: white !important;
       }
     }
   }

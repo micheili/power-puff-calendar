@@ -252,7 +252,7 @@
     background-color:  black !important;
 }
 .card-footer.theme-black button:hover{
-    background-color:  rgb(143, 140, 140) !important;
+    background-color:  #ffff !important;
 }
 .card-footer-icon.theme-black{
    color:  rgb(143, 140, 140) !important;
@@ -272,6 +272,9 @@
     background-color:  #66FF00  !important;
     border-color:  #66FF00  !important;
     color: #ffffff !important;
+}
+.card-footer.theme-neon button:hover{
+    background-color:   #06963d !important; 
 }
 .card-footer.theme-neon{
     background-color:   #66FF00  !important;
@@ -960,23 +963,13 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .my-topbar.theme-pink .navbar .navbar-toggler  {
     background-color: #d27f78 !important;
 }
-.my-topbar.theme-pink .navbar-nav .nav-item .nav-link:hover{
-    color: #d27f78 !important;
-}
-
 
 .my-topbar.theme-blue .navbar{
     background-color: #3C69E7 !important;
 }
 .my-topbar.theme-blue .navbar .navbar-toggler  {
     background-color: #3C69E7 !important;
-   
 }
-.my-topbar.theme-blue .navbar-nav .nav-item .nav-link:hover{
-    color: #3C69E7 !important;
-}
-
-
 
 .my-topbar.theme-black .navbar{
     background-color: black !important;
@@ -984,18 +977,12 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .my-topbar.theme-black .navbar .navbar-toggler  {
     background-color: rgb(110, 110, 110) !important; 
 }
-.my-topbar.theme-black .navbar-nav .nav-item .nav-link:hover{
-    color: black !important;
-}
 
 .my-topbar.theme-neon .navbar{
     background-color: #77e656 !important;
 }
 .my-topbar.theme-neon .navbar .navbar-toggler  {
     background-color:#77e656 !important;
-}
-.my-topbar.theme-neon .navbar-nav .nav-item .nav-link:hover{
-    color: #77e656 !important;
 }
 
 
