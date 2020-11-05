@@ -13,8 +13,7 @@ import {faAlgolia, faCalendarPlus
 import moment from 'moment';
 
 export default function DateIndicator({activeDates, selectDate, setSelectDate}){
-  const [context] = useContext(Context);
- 
+  const [context, updateContext] = useContext(Context);
 
   
   let events = [
@@ -68,6 +67,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     // EVENT HANDLING CALLBACK
     const changeDate = (e) => {
       setSelectDate(e.target.getAttribute('data-date'));
+      updateContext({ showEditEvent: false  });
     };
 
     const datesInMonth = getDatesInMonthDisplay(

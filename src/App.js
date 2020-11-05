@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
+import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
 import DateIndicator from "./calendar/indicators/DateIndicator";
 
@@ -17,9 +18,10 @@ export default function App() {
     invitedEvents: [], //accepted = true
     allInvites: [], // accepted = null
     showNewEvent: false,
+    showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
-    
+    colorTheme: '',
     header: {background:"", font: ""}
   });
 
@@ -128,5 +130,6 @@ export default function App() {
         )}
       </Router>
     </Context.Provider>
+  
   );
 }

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { Context } from "../../App";
 
 export default function WeekdayIndicator(){
 
+  const [context] = useContext(Context);
 
     const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -13,6 +15,6 @@ export default function WeekdayIndicator(){
         );
       });
 
-      return <div className="weekday-indicators">{weekdayIcons}</div>;
+      return <div className={`weekday-indicators ${context.colorTheme}`}>{weekdayIcons}</div>;
 
 }

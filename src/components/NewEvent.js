@@ -13,15 +13,14 @@ import {
   Input,
   Alert,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
 } from "reactstrap";
 
-const NewEvent = params => {
+const NewEvent = (params) => {
   const [formData, setFormData] = useState({});
-  const [alert, setAlert] = useState(false); 
+  const [alert, setAlert] = useState(false);
   const [invitesList, setinvitesList] = useState([]);
   const [context, updateContext] = useContext(Context);
-
 
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
@@ -43,9 +42,9 @@ const NewEvent = params => {
     setinvitesList(e);
   };
 
-  const cancel = () => {    
+  const cancel = () => {
     updateContext({ showNewEvent: false });
-  }
+  };
 
   let {
     title,
@@ -61,7 +60,6 @@ const NewEvent = params => {
 
   const getStop = new Date(stopDate + " " + stopTime);
   const stop = moment(getStop).format("YYYY-MM-DD HH:mm");
-
 
   const validate = () => {
     let isValid = true;
@@ -82,7 +80,6 @@ const NewEvent = params => {
 
   async function save(e) {
     e.preventDefault();
-    
 
     if (validate()) {
       let result = await (
@@ -95,16 +92,16 @@ const NewEvent = params => {
 
       //error msg handling
       if (result.error === 403) {
-        setAlert("Sorry, the date and time interval you entered is invalid!");        
+        setAlert("Sorry, the date and time interval you entered is invalid!");
         return;
       } else if (result.error) {
-        setAlert("You are not logged in ");        
+        setAlert("You are not logged in ");
         return;
       }
 
       if (!result.error && invitesList.length) {
         const eventId = result.lastInsertRowid;
-        for (var i = 0; i < invitesList.length; i++) {
+        for (let i = 0; i < invitesList.length; i++) {
           const invitedUser = invitesList[i].value;
           let inviteresult = await (
             await fetch("/api/Invite", {
@@ -113,14 +110,14 @@ const NewEvent = params => {
               headers: { "Content-Type": "application/json" },
             })
           ).json();
-        }        
+        }
       }
 
-      if(!result.error){
-        let events = await (await fetch("/api/myEvents/" + userId)).json();        
-        updateContext({ showNewEvent: false, myEvents: events });        
+      if (!result.error) {
+        let events = await (await fetch("/api/myEvents/" + userId)).json();
+        updateContext({ showNewEvent: false, myEvents: events });
       }
-      
+
       setinvitesList("");
       setFormData({
         title: "",
@@ -131,17 +128,14 @@ const NewEvent = params => {
         stopTime: "",
       });
 
-      
       return result;
     }
   }
 
-  
-
   return (
     <Form onSubmit={save}>
-      <Breadcrumb>
-        <BreadcrumbItem active>New Event</BreadcrumbItem>
+      <Breadcrumb className={`b ${context.colorTheme} `}>
+        <BreadcrumbItem className={`bitem ${context.colorTheme} `} active>New Event</BreadcrumbItem>
       </Breadcrumb>
       <Alert
         color="danger"
@@ -153,22 +147,24 @@ const NewEvent = params => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className="event_label">Title</Label>
+        <Label for="eventTitle" className={`event_label ${context.colorTheme}`}>Title</Label>
         <Input
           type="text"
           name="title"
           id="eventTitle"
+          className={`form-control ${context.colorTheme}`}
           onChange={handleInputChange}
           value={title}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Label for="eventDescription">Description</Label>
+        <Label for="eventDescription" className={`event_label ${context.colorTheme}`}>Description</Label>
         <Input
           type="textarea"
           name="description"
           id="eventDescription"
+          className={`form-control ${context.colorTheme}`}
           onChange={handleInputChange}
           value={description}
         />
@@ -176,12 +172,13 @@ const NewEvent = params => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventStartDate">Start Date:</Label>
+            <Label for="eventStartDate" className={`event_label ${context.colorTheme}`}>Start Date:</Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
               name="startDate"
               id="eventStartDate"
+              className={`form-control ${context.colorTheme}`}
               placeholder="date placeholder"
               format="yyyy/MM/dd"
               onChange={handleInputChange}
@@ -192,11 +189,12 @@ const NewEvent = params => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventStartTime">Start Time:</Label>
+            <Label for="eventStartTime" className={`event_label ${context.colorTheme}`}>Start Time:</Label>
             <Input
               type="time"
               name="startTime"
               id="eventStartTime"
+              className={`form-control ${context.colorTheme}`}
               placeholder="time placeholder"
               onChange={handleInputChange}
               value={startTime}
@@ -208,12 +206,13 @@ const NewEvent = params => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventEndDate">End Date:</Label>
+            <Label for="eventEndDate" className={`event_label ${context.colorTheme}`}>End Date:</Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
               name="stopDate"
               id="eventEndDate"
+              className={`form-control ${context.colorTheme}`}
               placeholder="date placeholder"
               onChange={handleInputChange}
               value={stopDate}
@@ -223,11 +222,12 @@ const NewEvent = params => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventEndTime">End Time:</Label>
+            <Label for="eventEndTime" className={`event_label ${context.colorTheme}`}>End Time:</Label>
             <Input
               type="time"
               name="stopTime"
               id="eventEndTime"
+              className={`form-control ${context.colorTheme}`}
               placeholder="time placeholder"
               onChange={handleInputChange}
               value={stopTime}
@@ -238,14 +238,14 @@ const NewEvent = params => {
       </Row>
       <FormGroup>
       
-        <Select  options={options} onChange={handleInvites} isMulti />
+        <Select className={`s ${context.colorTheme}`}  options={options} onChange={handleInvites} isMulti />
       </FormGroup>
-
+     
       <Button color="danger" onClick={cancel}>
         Cancel
       </Button>
 
-      <Button className="button-submit" type="submit" value="save">
+      <Button className={`button-submit ${context.colorTheme}`} type="submit" value="save">
         Submit
       </Button>
     </Form>
