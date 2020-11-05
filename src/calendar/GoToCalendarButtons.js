@@ -12,10 +12,10 @@ export default function GoToCalendarButtons() {
     return (
         
 
-        <div className={`calendar-buttons ${context.colorTheme} container`}>
+        
         <div className="header">
              <Header/>
-        <div className="calendar-buttons container ">
+        <div className={`calendar-buttons ${context.colorTheme} container`}>
            
             <div className="row justify-content-md-center ">
                 <div className="col text-center">
@@ -39,7 +39,7 @@ export default function GoToCalendarButtons() {
             </div>
         </div>
         </div>
-        </div>
+      
     );
 
 

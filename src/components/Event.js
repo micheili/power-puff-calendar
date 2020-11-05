@@ -243,10 +243,10 @@ export default function Event(props) {
                 Select friends to invite
               </ModalHeader>
               <ModalBody>
-                <Select options={options} onChange={handleInvites} isMulti />
+                <Select className={`s ${context.colorTheme}`} options={options} onChange={handleInvites} isMulti />
               </ModalBody>
               <ModalFooter>
-                <Button color="info" onClick={invite}>
+                <Button className={`inv-btn ${context.colorTheme}`} color="info" onClick={invite}>
                   Invite
                 </Button>{" "}
               </ModalFooter>

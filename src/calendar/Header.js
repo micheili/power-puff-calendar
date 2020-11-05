@@ -46,10 +46,10 @@ export default function Header(){
                 </Row>
               }
                 <Row className="button-container justify-content-center justify-content-between ">
-                    <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
-                    <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>{' '}
-                    <Button onClick={()=> setHeader(SpringImage, "Spring")} color="secondary">Spring</Button>{' '}
-                    <Button onClick={()=> setHeader(SummerImage, "Summer")} color="secondary">Summer</Button>{' '}     
+                    <Button className={`header-btn ${context.colorTheme}`} onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>
+                    <Button className={`header-btn ${context.colorTheme}`} onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>
+                    <Button className={`header-btn ${context.colorTheme}`} onClick={()=> setHeader(SpringImage, "Spring")} color="secondary">Spring</Button>
+                    <Button className={`header-btn ${context.colorTheme}`} onClick={()=> setHeader(SummerImage, "Summer")} color="secondary">Summer</Button>    
                 </Row>
             </Container>
         </div>
