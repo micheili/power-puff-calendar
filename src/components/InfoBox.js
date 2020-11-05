@@ -17,11 +17,12 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
+  Container
 } from "reactstrap";
 
 const Infobox = (props) => {
   const [context, updateContext] = useContext(Context);
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState([]);
   let { myEvents, invitedEvents, selectDate } = props;
 
   const getdayInfo = async() =>{
@@ -29,17 +30,16 @@ const Infobox = (props) => {
     const response = await fetch
     (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
     const data = await response.json();
-    setInfo(data);
+    setInfo(data.data.Events[0]);
     console.log('data from api', data);
+    
   };
 
   useEffect(()=>{
-    getdayInfo();
+    getdayInfo();   
   }, [selectDate]);
 
-  let ev = {info};
-  console.log('the day', info.date, 'info', info.data)
-  console.log({ev});
+  console.log(info.text);
 
   let date = moment(selectDate).format("DD/MM");
   let year = moment(selectDate).format("YYYY");
@@ -113,12 +113,18 @@ const Infobox = (props) => {
             </div>
           </CardHeader>
 
-          <Row>
          
-           
-          </Row>
 
           <CardBody>
+            <Container className="container-fun-fact">
+          <Row>
+          <Col className="fun-fact">Fun fact about today: </Col>
+          </Row>
+          <Row>
+          <Col className="mb-2">{info.text}</Col>
+          </Row>
+          </Container>
+          
             {context.showNewEvent ? (
               <NewEvent showNewEvent />
             ) : combinedEvents.length === 0 ? (
