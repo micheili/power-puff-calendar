@@ -7,15 +7,15 @@ import SummerImage from "./images/summer.jpg";
 import { Context } from "../App";
 
 
+
 export default function Header(){
     const [context, updateContext] = useContext(Context);
     const header = context.header;
-
-    
+ 
   useEffect(() => {
     const currentHeader = localStorage.getItem("header");
     let currentHeaderJson = JSON.parse(currentHeader)
-
+    
     if (currentHeaderJson) {
       updateContext({
         header: currentHeaderJson,
@@ -26,10 +26,14 @@ export default function Header(){
     const setHeader = (background, font) =>{
         updateContext({
             header:{background : background, font : font }
+          
           });
-          localStorage.setItem("header", JSON.stringify(header) );
+          console.log('in set header', header) 
+          let jsonheader = JSON.stringify(header);
+          localStorage.setItem("header", jsonheader );
     };
-  
+
+   
     return(
         <div>
             <Container>
@@ -46,10 +50,10 @@ export default function Header(){
                 </Row>
               }
                 <Row className="button-container justify-content-center justify-content-between ">
-                    <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>{' '}
-                    <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>{' '}
-                    <Button onClick={()=> setHeader(SpringImage, "Spring")} color="secondary">Spring</Button>{' '}
-                    <Button onClick={()=> setHeader(SummerImage, "Summer")} color="secondary">Summer</Button>{' '}     
+                    <Button onClick={()=> setHeader(FallImage, "Fall")} color="secondary">Fall</Button>
+                    <Button onClick={()=> setHeader(WinterImage, "Winter")} color="secondary">Winter</Button>
+                    <Button onClick={()=> setHeader(SpringImage, "Spring")} color="secondary">Spring</Button>
+                    <Button onClick={()=> setHeader(SummerImage, "Summer")} color="secondary">Summer</Button>     
                 </Row>
             </Container>
         </div>

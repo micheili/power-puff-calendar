@@ -24,15 +24,18 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     console.log('data from api', data)
   };
 
-  const dateQuery = moment(selectDate).format("MM/D")
-  new Date(dateQuery)
+
+  const dateQuery = moment(selectDate).format("M/D")
 
   console.log('date query', dateQuery)
-  console.log('selected day', selectDate)
+  console.log('selected day in calendar', selectDate)
 
   useEffect(()=>{
     getdayInfo();
   }, []);
+
+  const fullstring = (`https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`);
+  console.log(fullstring)
 
   console.log('the day', info.date, 'info', info.data)
 
