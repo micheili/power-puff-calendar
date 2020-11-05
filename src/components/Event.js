@@ -4,14 +4,14 @@ import {
   ButtonToggle,
   Button,
   UncontrolledTooltip,
-  CardFooter,  
+  CardFooter,
   CardBody,
   Badge,
   Modal,
   ModalBody,
   ModalHeader,
   ModalFooter,
-from "reactstrap";
+} from "reactstrap";
 import moment from "moment";
 import {
   getDayWithoutZero,
@@ -212,7 +212,7 @@ export default function Event(props) {
           {startMoment.isSameOrAfter(stopMoment, "year")
             ? null
             : +" " + stopYear}
-        </CardSubtitle>        
+        </CardSubtitle>
         <GuestList
           id={id}
           allGuestsAccept={allGuestsAccept}
@@ -277,7 +277,14 @@ export default function Event(props) {
             Delete event
           </UncontrolledTooltip>
         </Button>{" "}
-        <Badge pill className={`${className ? `p-2 mt-1 float-right category-box ${className}` : ""}`}>{name}</Badge>   
+        <Badge
+          pill
+          className={`${
+            className ? `p-2 mt-1 float-right category-box ${className}` : ""
+          }`}
+        >
+          {name}
+        </Badge>
       </CardFooter>
     </div>
   );
