@@ -23,7 +23,7 @@ export default function Invitation() {
     <Container className="data">
       <NavInvites />
       <Col className="justify-content-center mt-4">
-        <h3 className="invite-header">
+        <h3 className={`invite-header ${context.colorTheme}`}>
           {allInvites.length} New invitation
           {allInvites.length > 1
             ? "s"

@@ -265,7 +265,7 @@ export default function Event(props) {
                   color="lightpink"
                   id="inviteButton"
                 >
-                  <FontAwesomeIcon icon={faUserPlus} />
+                  <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
                   {/* <Select options={options} onChange={handleInvites} isMulti /> */}
                   <UncontrolledTooltip placement="bottom" target="inviteButton">
                     Invite people
@@ -302,7 +302,7 @@ export default function Event(props) {
                 id="editButton"
                 onClick={editEvent}
               >
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faPen} />
                 <UncontrolledTooltip placement="bottom" target="editButton">
                   Edit
                 </UncontrolledTooltip>
@@ -318,7 +318,7 @@ export default function Event(props) {
               color="lightpink"
               id="deleteButton"
             >
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faTrashAlt} />
               <UncontrolledTooltip placement="bottom" target="deleteButton">
                 Delete event
               </UncontrolledTooltip>

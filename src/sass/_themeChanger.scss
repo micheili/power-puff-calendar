@@ -207,6 +207,9 @@
 .card-footer.theme-pink{
     background-color: #fbc5b8  !important;
 }
+.card-footer.theme-pink button:hover{
+    background-color:  #d27f78 !important;
+}
 
 
 .bg-info.theme-blue{
@@ -225,6 +228,11 @@
 .card-footer.theme-blue{
     background-color: #3C69E7 !important;
 }
+.card-footer.theme-blue button:hover{
+    background-color: #92a4d6 !important;
+}
+
+
 
 
 .bg-info.theme-black{
@@ -243,9 +251,13 @@
 .card-footer.theme-black{
     background-color:  black !important;
 }
-.card-footer-icon.theme-black{
-    color: rgb(143, 140, 140) !important;
+.card-footer.theme-black button:hover{
+    background-color:  rgb(143, 140, 140) !important;
 }
+.card-footer-icon.theme-black{
+   color:  rgb(143, 140, 140) !important;
+}
+
 
 
 .bg-info.theme-neon{
@@ -1010,4 +1022,81 @@ s.theme-neon .css-1hb7zxy-IndicatorsContainer{
 .events.theme-neon{
     background-color:#77e656 !important;
     color: white !important;
+}
+
+
+//invitations
+.navLinks.theme-pink{
+    color:  #fbc5b8 !important; 
+}
+.active.theme-pink{
+    color: #d27f78 !important;
+}
+.invite-header.theme-pink{
+    color: #ffff !important;
+    background-color: #d27f78 !important;
+}
+.invit-btn.theme-pink{
+    background-color: #d27f78 !important;
+    border-color:  #d27f78 !important;
+}
+.invit-form.theme-pink .form-control{
+    border-color:  #fbc5b8 !important; 
+}
+
+
+.navLinks.theme-blue{
+    color: #92a4d6 !important; 
+}
+.active.theme-blue{
+    color: #3C69E7 !important;
+}
+.invite-header.theme-blue{
+    color: #ffff !important;
+    background-color: #3C69E7 !important;
+}
+.invit-btn.theme-blue{
+    background-color: #3C69E7 !important;
+    border-color:  #3C69E7 !important;
+}
+.invit-form.theme-blue .form-control{
+    border-color:   #92a4d6 !important; 
+}
+
+
+.navLinks.theme-black{
+    color:  rgb(110, 110, 110) !important; 
+}
+.active.theme-black{
+    color: black !important;
+}
+.invite-header.theme-black{
+    color: #ffff !important;
+    background-color: black !important;
+}
+.invit-btn.theme-black{
+    background-color: black!important;
+    border-color:  black !important;
+}
+.invit-form.theme-black .form-control{
+    border-color:   rgb(110, 110, 110) !important; 
+}
+
+
+.navLinks.theme-neon{
+    color: #77e656 !important;
+}
+.active.theme-neon{
+    color:  #06963d !important;
+}
+.invite-header.theme-neon{
+    color: #ffff !important;
+    background-color: #77e656 !important;
+}
+.invit-btn.theme-neon{
+    background-color: #77e656 !important;
+    border-color:  #77e656 !important;
+}
+.invit-form.theme-neon .form-control{
+    border-color:   #77e656 !important;
 }

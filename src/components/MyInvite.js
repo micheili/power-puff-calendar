@@ -123,7 +123,7 @@ export default function MyInvite(props) {
     <>
       <div className="mt-4">
         <Button
-          className="text-white w-100 text-left"
+          className={`invit-btn ${context.colorTheme} text-white w-100 text-left`}
           color="info"
           onClick={toggle}
           style={{ marginBottom: "1rem" }}
@@ -133,7 +133,7 @@ export default function MyInvite(props) {
         <Collapse isOpen={isOpen} className="invite-card-body">
           <Form className="p-3 my-2 rounded bg-docs-transparent-grid">
             <h3>{title}</h3>
-            <FormGroup>
+            <FormGroup className={`invit-form ${context.colorTheme}`} >
               <Label for="eventDescription"></Label>
               <Input
                 type="textarea"
@@ -180,7 +180,7 @@ export default function MyInvite(props) {
             <Label>Start:</Label>
             <Row>
               <Col xs="12" lg="12">
-                <FormGroup xs="12" lg="12">
+                <FormGroup xs="12" lg="12" className={`invit-form ${context.colorTheme}`}>
                   <Input
                     type="text"
                     name="startTime"
@@ -192,7 +192,7 @@ export default function MyInvite(props) {
               </Col>
               <Col xs="12" lg="12">
                 <Label>End:</Label>
-                <FormGroup xs="12" lg="12">
+                <FormGroup xs="12" lg="12" className={`invit-form ${context.colorTheme}`}>
                   <Input
                     type="text"
                     name="stopTime"
