@@ -4,21 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCalendarWeek, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import Header from "./Header";
-import ThemeChanger from "../components/ThemeChanger";
 
 export default function GoToCalendarButtons() {
 
     const [context] = useContext(Context);
 
     return (
-        
-
-        
         <div className="header">
-             <Header/>
-             <ThemeChanger />
+        <Header/> 
         <div className={`calendar-buttons ${context.colorTheme} container`}>
-           
             <div className="row justify-content-md-center ">
                 <div className="col text-center">
                     <NavLink to="/calendarday" className={`link-btn ${context.colorTheme} btn-lg btn-block my-2`} activeClassName={`link-btn-active ${context.colorTheme}`}>                   
