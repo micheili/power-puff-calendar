@@ -252,7 +252,7 @@
     background-color:  black !important;
 }
 .card-footer.theme-black button:hover{
-    background-color:  rgb(143, 140, 140) !important;
+    background-color:  #ffff !important;
 }
 .card-footer-icon.theme-black{
    color:  rgb(143, 140, 140) !important;
@@ -272,6 +272,9 @@
     background-color:  #66FF00  !important;
     border-color:  #66FF00  !important;
     color: #ffffff !important;
+}
+.card-footer.theme-neon button:hover{
+    background-color:   #06963d !important; 
 }
 .card-footer.theme-neon{
     background-color:   #66FF00  !important;
