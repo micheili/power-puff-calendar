@@ -21,6 +21,7 @@ export default function App() {
     showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
+    myCategories: [], 
     colorTheme: '',
     header: {background:"", font: ""}
   });
@@ -30,6 +31,8 @@ export default function App() {
       ...contextVal,
       ...updates,
     });
+
+    console.log("events", contextVal.myEvents);
 
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
@@ -72,6 +75,11 @@ export default function App() {
       if (allInvites.error) {
         allInvites = [];
       }
+
+      let allCategories = await (await fetch("/api/myCategories/" + result.id)).json();
+      if (allCategories.error) {
+        allCategories = [];
+      }
       // add the user data to the context variable
       updateContext({
         user: result,
@@ -80,9 +88,11 @@ export default function App() {
         allUsers: users,
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
+        myCategories: allCategories,
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 
   async function logout() {
     const res = await fetch("/api/login", {
@@ -95,6 +105,7 @@ export default function App() {
       myEvents: [],
       invitedEvents: [],
       declinedInvitations: [],
+      myCategories: [],
     });
     const result = await res.json();
 
