@@ -412,8 +412,7 @@ const NewEvent = () => {
           </FormGroup>
         </Col>
         <Col xs="2" md="4" lg="2" className="align-self-end">
-          <Button
-            color="danger"
+          <Button            
             onClick={handleAddCategory}
             className={`newCategory ${context.colorTheme} float-right`}
           >
