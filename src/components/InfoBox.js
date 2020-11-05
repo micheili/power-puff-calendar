@@ -5,9 +5,8 @@ import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
-import { getMonthDay, getDayOfMonth } from "../calendar/utils/MomentUtils";
 import moment from "moment";
-import { CardTitle } from "reactstrap";
+
 
 import {
   CardHeader,
@@ -26,7 +25,10 @@ const Infobox = (props) => {
   let { myEvents, invitedEvents, selectDate } = props;
 
   const getdayInfo = async () => {
-    const dateQuery = moment(selectDate).format("M/D");
+    const month = moment(selectDate).format("M") - 1;
+    const day = moment(selectDate).format("D") - 1;
+    const dateQuery = `${month}/${day}`;
+
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
     );
@@ -72,7 +74,6 @@ const Infobox = (props) => {
     }
   }
 
-  console.log("filteredevents", filterCombinedEvents);
   combinedEvents = filterCombinedEvents;
 
   let eventDetails = (
@@ -88,7 +89,7 @@ const Infobox = (props) => {
     <CardText>
       You have no events this day! <br></br>
       Do you want to{" "}
-      <a
+      <a        
         href="#"
         onClick={addNewEvent}
         className="text-dark font-weight-bolder link"
@@ -130,6 +131,25 @@ const Infobox = (props) => {
               </UncontrolledTooltip>
             </div>
           </CardHeader>
+
+          {context.showNewEvent !== true && context.showEditEvent !== true ? (
+            <Alert
+              className="container-fun-fact mt-3"
+              color="whitee"
+              isOpen={funFactVisible}
+              toggle={onDismissFunFact}
+            >
+              <Row>
+                <Col className="fun-fact">Fun fact about today: </Col>
+              </Row>
+              <Row>
+                <Col className="mb-2">
+                  <span className="fun-fact">Year {info.year} : </span>{" "}
+                  {info.text}
+                </Col>{" "}
+              </Row>
+            </Alert>
+          ) : null}
 
           <CardBody>
             {context.showNewEvent != true && context.showEditEvent != true ? (

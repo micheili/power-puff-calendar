@@ -97,27 +97,26 @@ export default function Event(props) {
         headers: { "Content-Type": "application/json" },
       })
     ).json();
-    console.log("FETCH & UPDATE IN DECLINE ");
     fetchAndUpdate();
   }
 
   async function fetchAndUpdate() {
     let events = await (await fetch("/api/myEvents/" + context.user.id)).json();
-    if (events.error == 404) {
+    if (events.error === 404) {
       events = [];
     }
 
     let invitedEvents = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=true")
     ).json();
-    if (invitedEvents.error == 404) {
+    if (invitedEvents.error === 404) {
       invitedEvents = [];
     }
 
     let declinedInvitations = await (
       await fetch("/api/invitedEvents/" + context.user.id + "?accepted=false")
     ).json();
-    if (declinedInvitations.error == 404) {
+    if (declinedInvitations.error === 404) {
       declinedInvitations = [];
     }
 
@@ -167,7 +166,6 @@ export default function Event(props) {
         (u) => !allGuests.find((a) => a.id === u.id)
       );
     }
-    console.log("filtered", usersData);
     let o = usersData.map((u) => ({
       value: u.id,
       label: u.email,
@@ -201,13 +199,13 @@ export default function Event(props) {
     let j = dateNr % 10,
       k = dateNr % 100;
 
-    if (j == 1 && k != 11) {
+    if (j === 1 && k !== 11) {
       return dateNr + "st";
     }
-    if (j == 2 && k != 12) {
+    if (j === 2 && k !== 12) {
       return dateNr + "nd";
     }
-    if (j == 3 && k != 13) {
+    if (j === 3 && k !== 13) {
       return dateNr + "rd";
     }
     return dateNr + "th";

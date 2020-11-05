@@ -1,6 +1,4 @@
-
-import React, {useContext, useState, useEffect} from 'react';
-
+import React, { useContext } from "react";
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -9,19 +7,15 @@ import {
 } from "../utils/MomentUtils";
 import { getDatesInMonthDisplay } from "../utils/DateUtils";
 import { Context } from "../../App";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faAlgolia, faCalendarPlus
-} from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment';
 
-export default function DateIndicator({activeDates, selectDate, setSelectDate}){
-  const [context, updateContext] = useContext(Context);
+export default function DateIndicator({
+  activeDates,
+  selectDate,
+  setSelectDate,
+}) {
+  const [context] = useContext(Context);
 
-  
-  let events = [
-    ...context.myEvents,...context.invitedEvents
-  ]
-  
+  let events = [...context.myEvents, ...context.invitedEvents];
 
   // map start and stop to real date objects
   events = events.map((x) => ({
@@ -34,13 +28,6 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     ),
   }));
 
-  function resetStartedPrinting() {
-    for (let event of events) {
-      event.startedPrinting = false;
-    }
-    
-  }
-
   function checkEvent(date) {
     let info = [];
 
@@ -51,7 +38,11 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
       if (date >= start1Before && date <= event.stop) {
         info.push(
           <div
-            className={`${event.className ? `events w-100 ${event.className}` : "events w-100"}`}
+            className={`${
+              event.className
+                ? `events w-100 ${event.className}`
+                : "events w-100"
+            }`}
             data-date={date.toString()}
             key={event.id}
             style={{ position: "relative" }}
@@ -77,7 +68,7 @@ export default function DateIndicator({activeDates, selectDate, setSelectDate}){
     getYear(selectDate)
   );
 
-  resetStartedPrinting();
+ 
 
   const monthDates = datesInMonth.map((item, key) => {
     const selected =

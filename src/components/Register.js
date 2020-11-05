@@ -23,7 +23,7 @@ export default function Register() {
   const [formData, setFormData] = useState({});
   const [PasswordInputType, ToggleIcon] = usePassWordToggler();
   const [alert, setAlert] = useState(false);
-  const [context, updateContext] = useContext(Context);
+  const [updateContext] = useContext(Context);
 
   useEffect(() => {
     setFormData({ firstName: "", lastName: "", email: "", password: "" });
