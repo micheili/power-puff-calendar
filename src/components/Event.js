@@ -127,7 +127,6 @@ export default function Event(props) {
       declinedInvitations: declinedInvitations,
     });
   }
-  const [allGuestsAccept, setInvitedUsersAccept] = useState([]);
   const [inviteList, setInviteList] = useState([]);
   const [allGuests, setAllGuests] = useState([]);
   const [options, setOptions] = useState([]);
@@ -136,15 +135,7 @@ export default function Event(props) {
 
   const toggle = () => setModal(!modal);
 
-  async function fetchInvitedUsersAccepted() {
-    let guest = await (
-      await fetch("/api/invitedUsers/" + id + "?accepted=1")
-    ).json();
-    setInvitedUsersAccept(guest);
-  }
-
   let usersData = context.allUsers.filter((u) => u.id !== context.user.id);
-  //const [filteredUser, setFilteredUser] = useState(usersData);
 
   async function fetchAllInvited() {
     let allInvited = await (await fetch("/api/allInvited/" + id)).json();
@@ -155,7 +146,6 @@ export default function Event(props) {
   }
 
   useEffect(() => {
-    fetchInvitedUsersAccepted();
     fetchAllInvited();
   }, [id]);
 
@@ -246,7 +236,7 @@ export default function Event(props) {
                 : +" " + stopYear}
             </CardSubtitle>
             <GuestList
-              allGuestsAccept={allGuestsAccept}
+              id={id}
               ownerFirstName={
                 userIsCreator ? context.user.firstName : ownerFirstName
               }
@@ -265,7 +255,10 @@ export default function Event(props) {
                   color="lightpink"
                   id="inviteButton"
                 >
-                  <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faUserPlus} />
+                  <FontAwesomeIcon
+                    className={`card-footer-icon ${context.colorTheme}`}
+                    icon={faUserPlus}
+                  />
                   {/* <Select options={options} onChange={handleInvites} isMulti /> */}
                   <UncontrolledTooltip placement="bottom" target="inviteButton">
                     Invite people
@@ -302,7 +295,10 @@ export default function Event(props) {
                 id="editButton"
                 onClick={editEvent}
               >
-                <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faPen} />
+                <FontAwesomeIcon
+                  className={`card-footer-icon ${context.colorTheme}`}
+                  icon={faPen}
+                />
                 <UncontrolledTooltip placement="bottom" target="editButton">
                   Edit
                 </UncontrolledTooltip>
@@ -318,7 +314,10 @@ export default function Event(props) {
               color="lightpink"
               id="deleteButton"
             >
-              <FontAwesomeIcon className={`card-footer-icon ${context.colorTheme}`} icon={faTrashAlt} />
+              <FontAwesomeIcon
+                className={`card-footer-icon ${context.colorTheme}`}
+                icon={faTrashAlt}
+              />
               <UncontrolledTooltip placement="bottom" target="deleteButton">
                 Delete event
               </UncontrolledTooltip>
