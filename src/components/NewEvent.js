@@ -76,7 +76,7 @@ const NewEvent = () => {
 
   const colorList = useMemo(
     () => [
-      { value: "blue", label: "Blue", color: "#3C69E7" },
+      { value: "blue", label: "Blue", color: "#2d4ca0" },
       { value: "green", label: "Green", color: "#5AC18E" },
       { value: "purple", label: "Purple", color: "#8A2BE2" },
       { value: "yellow", label: "Yellow", color: "#FFFF66" },
