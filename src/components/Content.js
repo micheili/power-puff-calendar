@@ -38,7 +38,6 @@ export default function Content({ sidebarIsOpen, toggleSidebar, logout }) {
         )}
       </Row>
 
-      <ThemeChanger />
 
       <Switch>
         <Route exact path="/" component={Login}>

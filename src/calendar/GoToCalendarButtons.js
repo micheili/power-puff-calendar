@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCalendarWeek, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
 import Header from "./Header";
+import ThemeChanger from "../components/ThemeChanger";
 
 export default function GoToCalendarButtons() {
 
@@ -15,6 +16,7 @@ export default function GoToCalendarButtons() {
         
         <div className="header">
              <Header/>
+             <ThemeChanger />
         <div className={`calendar-buttons ${context.colorTheme} container`}>
            
             <div className="row justify-content-md-center ">
