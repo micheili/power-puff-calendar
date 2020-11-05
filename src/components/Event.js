@@ -194,6 +194,22 @@ export default function Event(props) {
     toggle();
   }
 
+  const getSuffix = (dateNr) => {
+        let j = dateNr % 10,
+        k = dateNr % 100;
+  
+    if (j == 1 && k != 11) {
+        return dateNr + "st";
+    }
+    if (j == 2 && k != 12) {
+        return dateNr + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return dateNr + "rd";
+    }
+    return dateNr + "th";
+}
+
   return (
     <div className="mb-3 pb-5 sm-6">
       {context.showEditEvent ? (
@@ -211,17 +227,17 @@ export default function Event(props) {
             </CardSubtitle>
             <span className="mt-5 p-5"></span>
             <CardSubtitle className="mt-3 ">
-              <strong>from</strong> {startTime} {weekDay}, {startDateNr}{" "}
+              <strong>from</strong> {startTime} {weekDay}, {getSuffix(startDateNr) + ' of '}{" "}
               {startMonth} {startYear}
             </CardSubtitle>
             <CardSubtitle>
               <strong>to</strong> {stopTime}
-              {startMoment.isBefore(stopMoment)
-                ? null
-                : " " + stopWeekday + ", " + stopDateNr}
+              {startMoment.isBefore(stopMoment, "day")
+                ? " " + stopWeekday + ", " + getSuffix(stopDateNr)
+                : null}
               {startMoment.isSameOrAfter(stopMoment, "month")
                 ? null
-                : " " + stopMonth + " "}
+                : " of " + stopMonth + " "}
               {startMoment.isSameOrAfter(stopMoment, "year")
                 ? null
                 : +" " + stopYear}
