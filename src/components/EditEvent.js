@@ -17,10 +17,8 @@ import {
 const EditEvent = (props) => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(false);
-  const [invitesList, setinvitesList] = useState([]);
   const [context, updateContext] = useContext(Context);
 
-  console.log("i edit event ", props.editEvent);
   let { id, userId, title, description, start, stop } = props.editEvent;
 
   useEffect(() => {
@@ -57,10 +55,6 @@ const EditEvent = (props) => {
     label: user.email,
   }));
 
-  const handleInvites = (e) => {
-    setinvitesList(e);
-  };
-
   const cancel = () => {
     updateContext({ showEditEvent: false });
   };
@@ -70,7 +64,6 @@ const EditEvent = (props) => {
 
   const getStop = new Date(editedStopDate + " " + editedStopTime);
   const editedStop = moment(getStop).format("YYYY-MM-DD HH:mm");
-
 
   const validate = () => {
     let isValid = true;
@@ -115,26 +108,10 @@ const EditEvent = (props) => {
         return;
       }
 
-      if (!result.error && invitesList.length) {
-        const eventId = result.lastInsertRowid;
-        for (var i = 0; i < invitesList.length; i++) {
-          const invitedUser = invitesList[i].value;
-          let inviteresult = await (
-            await fetch("/api/Invite", {
-              method: "POST",
-              body: JSON.stringify({ eventId, invitedUser }),
-              headers: { "Content-Type": "application/json" },
-            })
-          ).json();
-        }
-      }
-
       if (!result.error) {
         let events = await (await fetch("/api/myEvents/" + userId)).json();
         updateContext({ showEditEvent: false, myEvents: events });
       }
-
-      setinvitesList("");
 
       return result;
     }
@@ -242,10 +219,6 @@ const EditEvent = (props) => {
           </FormGroup>
         </Col>
       </Row>
-      <FormGroup>
-      <Label for="eventEndTime">Invite:</Label>
-        <Select options={options} onChange={handleInvites} isMulti />
-      </FormGroup>
 
       <Button color="danger" onClick={cancel}>
         Cancel
