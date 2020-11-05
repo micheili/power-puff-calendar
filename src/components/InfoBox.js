@@ -5,9 +5,8 @@ import NewEvent from "./NewEvent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../App";
-import { getMonthDay, getDayOfMonth } from "../calendar/utils/MomentUtils";
 import moment from "moment";
-import { CardTitle } from "reactstrap";
+
 
 import {
   CardHeader,
@@ -32,8 +31,7 @@ const Infobox = (props) => {
   const getdayInfo = async () => {
     const month = moment(selectDate).format("M") - 1;
     const day = moment(selectDate).format("D") - 1;
-    console.log(month, day);
-    const dateQuery = `${month}` + `/` + `${day}`;
+    const dateQuery = `${month}/${day}`;
 
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/http://history.muffinlabs.com/date/${dateQuery}`
@@ -99,7 +97,7 @@ const Infobox = (props) => {
     <CardText>
       You have no events this day! <br></br>
       Do you want to{" "}
-      <a
+      <a        
         href="#"
         onClick={addNewEvent}
         className="text-dark font-weight-bolder link"
@@ -141,29 +139,18 @@ const Infobox = (props) => {
             </div>
           </CardHeader>
 
-          {funFactVisible ? null : (
-            <a
-              href="#"
-              onClick={onSeeFunFact}
-              className="text-dark font-weight-bolder link m-3"
-              id="funFactShowText"
-            >
-              Show me fun fact of the day...
-            </a>
-          )}
-
-          {context.showNewEvent != true && context.showEditEvent != true ? (
+          {context.showNewEvent !== true && context.showEditEvent !== true ? (
             <Alert
-              className="m-3"
+              className="container-fun-fact mt-3"
               color="whitee"
               isOpen={funFactVisible}
               toggle={onDismissFunFact}
             >
               <Row>
-                <Col className="fun-fact">Fun fact of the day: </Col>
+                <Col className="fun-fact">Fun fact about today: </Col>
               </Row>
               <Row>
-                <Col className="my-2">
+                <Col className="mb-2">
                   <span className="fun-fact">Year {info.year} : </span>{" "}
                   {info.text}
                 </Col>{" "}

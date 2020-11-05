@@ -1,4 +1,4 @@
-import React, { useContext, updateContext } from "react";
+import React, { useContext } from "react";
 import { getDay } from "../utils/MomentUtils";
 import { getDaySet } from "../utils/DateUtils";
 import { Context } from "../../App";

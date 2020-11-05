@@ -33,9 +33,6 @@ const NewEvent = () => {
   const usersData = context.allUsers.filter((u) => u.id !== userId);
   const categories = context.myCategories;
 
-  console.log("Categories", categories);
-  console.log("context categories", context.myCategories);
-
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
@@ -193,13 +190,12 @@ const NewEvent = () => {
   const validateCategory = () => {
     let isValid = true;
 
-    if (name && listOfColor.color == undefined) {
+    if (name && listOfColor.color === undefined) {
       isValid = false;
       setAlertCategory("The name and the color are required");
     }
 
     const categoryName = allCategories.filter((c) => c.label === name);
-    console.log("catName", categoryName);
 
     if (categoryName.length > 0) {
       isValid = false;
@@ -272,7 +268,7 @@ const NewEvent = () => {
         const eventId = result.lastInsertRowid;
         for (var i = 0; i < invitesList.length; i++) {
           const invitedUser = invitesList[i].value;
-          let inviteresult = await (
+          await (
             await fetch("/api/Invite", {
               method: "POST",
               body: JSON.stringify({ eventId, invitedUser }),
@@ -304,7 +300,9 @@ const NewEvent = () => {
   return (
     <Form onSubmit={save}>
       <Breadcrumb className={`b ${context.colorTheme} `}>
-        <BreadcrumbItem className={`bitem ${context.colorTheme} `} active>New Event</BreadcrumbItem>
+        <BreadcrumbItem className={`bitem ${context.colorTheme} `} active>
+          New Event
+        </BreadcrumbItem>
       </Breadcrumb>
       <Alert
         color="danger"
@@ -316,7 +314,9 @@ const NewEvent = () => {
         {alert}
       </Alert>
       <FormGroup>
-        <Label for="eventTitle" className={`event_label ${context.colorTheme}`}>Title</Label>
+        <Label for="eventTitle" className={`event_label ${context.colorTheme}`}>
+          Title
+        </Label>
         <Input
           type="text"
           name="title"
@@ -328,7 +328,12 @@ const NewEvent = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="eventDescription" className={`event_label ${context.colorTheme}`}>Description</Label>
+        <Label
+          for="eventDescription"
+          className={`event_label ${context.colorTheme}`}
+        >
+          Description
+        </Label>
         <Input
           type="textarea"
           name="description"
@@ -341,7 +346,12 @@ const NewEvent = () => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventStartDate" className={`event_label ${context.colorTheme}`}>Start Date:</Label>
+            <Label
+              for="eventStartDate"
+              className={`event_label ${context.colorTheme}`}
+            >
+              Start Date:
+            </Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
@@ -358,7 +368,12 @@ const NewEvent = () => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventStartTime" className={`event_label ${context.colorTheme}`}>Start Time:</Label>
+            <Label
+              for="eventStartTime"
+              className={`event_label ${context.colorTheme}`}
+            >
+              Start Time:
+            </Label>
             <Input
               type="time"
               name="startTime"
@@ -375,7 +390,12 @@ const NewEvent = () => {
       <Row>
         <Col xs="12" lg="7">
           <FormGroup>
-            <Label for="eventEndDate" className={`event_label ${context.colorTheme}`}>End Date:</Label>
+            <Label
+              for="eventEndDate"
+              className={`event_label ${context.colorTheme}`}
+            >
+              End Date:
+            </Label>
             <Input
               type="date"
               min={new Date().toISOString().split("T")[0]}
@@ -391,7 +411,12 @@ const NewEvent = () => {
         </Col>
         <Col>
           <FormGroup xs="12" lg="5">
-            <Label for="eventEndTime" className={`event_label ${context.colorTheme}`}>End Time:</Label>
+            <Label
+              for="eventEndTime"
+              className={`event_label ${context.colorTheme}`}
+            >
+              End Time:
+            </Label>
             <Input
               type="time"
               name="stopTime"
@@ -493,15 +518,23 @@ const NewEvent = () => {
 
       <FormGroup>
         <Label>Invite:</Label>
-        <Select className={`s ${context.colorTheme}`}  options={options} onChange={handleInvites} isMulti />
-
+        <Select
+          className={`s ${context.colorTheme}`}
+          options={options}
+          onChange={handleInvites}
+          isMulti
+        />
       </FormGroup>
-     
+
       <Button color="danger" onClick={cancel}>
         Cancel
       </Button>
 
-      <Button className={`button-submit ${context.colorTheme}`} type="submit" value="save">
+      <Button
+        className={`button-submit ${context.colorTheme}`}
+        type="submit"
+        value="save"
+      >
         Submit
       </Button>
     </Form>
