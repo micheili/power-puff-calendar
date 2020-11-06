@@ -155,7 +155,7 @@ const Infobox = (props) => {
 
           {context.showNewEvent != true && context.showEditEvent != true ? (
             <Alert
-              className="m-3"
+              className={`fun-btn ${context.colorTheme} m-3`}
               color="whitee"
               isOpen={funFactVisible}
               toggle={onDismissFunFact}
