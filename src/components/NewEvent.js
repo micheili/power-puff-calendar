@@ -297,7 +297,7 @@ const NewEvent = () => {
   return (
     <Form onSubmit={save}>
       <Breadcrumb className={`b ${context.colorTheme} `}>
-        <BreadcrumbItem className={`bitem ${context.colorTheme} `} active>New Event</BreadcrumbItem>
+        <BreadcrumbItem className={`bitem ${context.colorTheme} `} >New Event</BreadcrumbItem>
       </Breadcrumb>
       <Alert
         color="danger"
@@ -462,22 +462,22 @@ const NewEvent = () => {
             </Row>
             <Row>
               <Col xs="6" lg="6">
-                <Button
+              <Button
+                  color="danger"
+                  onClick={cancelCreateCategory}
+                  className="w-100"
+                >
+                  <FontAwesomeIcon icon={faTimes} /> Cancel
+                </Button>
+              </Col>
+              <Col xs="6" lg="6">
+              <Button
                   color="success"
                   className="w-100"
                   type="submit"
                   onClick={createCategory}
                 >
                   <FontAwesomeIcon icon={faCheck} /> Create Category
-                </Button>
-              </Col>
-              <Col xs="6" lg="6">
-                <Button
-                  color="danger"
-                  onClick={cancelCreateCategory}
-                  className="w-100"
-                >
-                  <FontAwesomeIcon icon={faTimes} /> Cancel
                 </Button>
               </Col>
             </Row>
