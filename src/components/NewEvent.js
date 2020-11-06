@@ -32,10 +32,7 @@ const NewEvent = () => {
   const userId = context.user.id;
   const usersData = context.allUsers.filter((u) => u.id !== userId);
   const categories = context.myCategories;
-
-  console.log("Categories", categories);
-  console.log("context categories", context.myCategories);
-
+  
   const handleInputChange = (e) =>
     setFormData({
       ...formData,
@@ -191,8 +188,7 @@ const NewEvent = () => {
       setAlertCategory("The name and the color are required");
     }
 
-    const categoryName = allCategories.filter((c) => c.label === name);
-    console.log("catName", categoryName);
+    const categoryName = allCategories.filter((c) => c.label === name);    
 
     if (categoryName.length > 0) {
       isValid = false;

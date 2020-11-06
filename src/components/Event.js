@@ -96,8 +96,7 @@ export default function Event(props) {
         }),
         headers: { "Content-Type": "application/json" },
       })
-    ).json();
-    console.log("FETCH & UPDATE IN DECLINE ");
+    ).json();    
     fetchAndUpdate();
   }
 
@@ -156,8 +155,7 @@ export default function Event(props) {
       usersData = usersData.filter(
         (u) => !allGuests.find((a) => a.id === u.id)
       );
-    }
-    console.log("filtered", usersData);
+    }    
     let o = usersData.map((u) => ({
       value: u.id,
       label: u.email,

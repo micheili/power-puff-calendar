@@ -96,8 +96,7 @@ module.exports = class RestApi {
         let start = Date.parse(req.body.start);
         let stop = Date.parse(req.body.stop);
 
-        let diff = (stop - start) / 1000;
-        console.log("start: ", start, " stop: ", stop, " diff: ", diff);
+        let diff = (stop - start) / 1000;        
         if (diff >= 900 && diff < 604800) {
           res.json(
             this.db.run(

@@ -31,8 +31,7 @@ const Infobox = (props) => {
 
   const getdayInfo = async () => {
     const month = moment(selectDate).format("M") - 1;
-    const day = moment(selectDate).format("D") - 1;
-    console.log(month, day);
+    const day = moment(selectDate).format("D") - 1;    
     const dateQuery = `${month}` + `/` + `${day}`;
 
     const response = await fetch(
