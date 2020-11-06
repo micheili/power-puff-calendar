@@ -128,9 +128,9 @@ export default function Register() {
 
   return (
     <div>
-      <div class="bg"></div>
-      <div class="bg bg2"></div>
-      <div class="bg bg3"></div>
+      <div className="bg"></div>
+      <div clasName="bg bg2"></div>
+      <div className="bg bg3"></div>
 
       <Container className="data" fluid={true}>
         <Row className="justify-content-center">
