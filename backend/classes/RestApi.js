@@ -176,7 +176,7 @@ module.exports = class RestApi {
       `,
         req.params
       );
-      if (result.length > 0) {
+      if (result.length >= 0) {
         res.json(result);
       } else {
         res.status(404);
@@ -197,7 +197,7 @@ module.exports = class RestApi {
       `,
         req.params
       );
-      if (result.length > 0) {
+      if (result.length >= 0) {
         res.json(result);
       } else {
         res.status(404);
@@ -219,7 +219,7 @@ module.exports = class RestApi {
       `,
         req.params
       );
-      if (result.length > 0) {
+      if (result.length >= 0) {
         res.json(result);
       } else {
         res.status(404);
@@ -242,7 +242,7 @@ module.exports = class RestApi {
           req.params
         )
         .map((x) => ({ ...x, password: undefined }));
-      if (result.length > 0) {
+      if (result.length >= 0) {
         res.json(result);
       } else {
         res.status(404);
@@ -264,7 +264,7 @@ module.exports = class RestApi {
           req.params
         )
         .map((x) => ({ ...x, password: undefined }));
-      if (result.length > 0) {
+      if (result.length >= 0) {
         res.json(result);
       } else {
         res.status(404);
