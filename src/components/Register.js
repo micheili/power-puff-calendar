@@ -129,7 +129,7 @@ export default function Register() {
   return (
     <div>
       <div className="bg"></div>
-      <div clasName="bg bg2"></div>
+      <div className="bg bg2"></div>
       <div className="bg bg3"></div>
 
       <Container className="data" fluid={true}>
