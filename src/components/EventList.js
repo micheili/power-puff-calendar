@@ -1,15 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import {  
   Button,
   UncontrolledCollapse
 } from "reactstrap";
+import { Context } from "../App";
 
 import Event from "./Event";
 /*eslint-disable*/
 export default function EventList(props) {
 
   let { id, title } = props.combinedEvents;
-
+  const [context] = useContext(Context);
 
   
 
@@ -21,7 +22,7 @@ export default function EventList(props) {
             <Button              
               color="secondary"
               id={`my${event.id}`}
-              className="w-100 eventList-Button"              
+              className={`w-100 eventList-Button ${context.colorTheme}`}              
               style={{ marginBottom: "1rem" }}
             >
               {event.title}

@@ -1,23 +1,28 @@
-import React, { useState, useEffect, createContext} from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useState, useEffect, createContext } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Content from "./components/Content";
+import ThemeChanger from './components/ThemeChanger';
 import "./sass/style.scss";
 
 // create and export the context
 export const Context = createContext();
 
 export default function App() {
-window.userFetch = window.userFetch || false;
-  const [contextVal, setContext] = useState({    
+  window.userFetch = window.userFetch || false;
+  const [contextVal, setContext] = useState({
     user: false,
     myEvents: [],
     invitedEvents: [], //accepted = true
     allInvites: [], // accepted = null
     showNewEvent: false,
+    showEditEvent: false,
     declinedInvitations: [], //accepted= false
     allUsers: [],
+    myCategories: [], 
+    colorTheme: localStorage.getItem("theme-color"),
+    header: {background:"", font: ""}
   });
 
   const updateContext = (updates) =>
@@ -25,7 +30,7 @@ window.userFetch = window.userFetch || false;
       ...contextVal,
       ...updates,
     });
-
+  
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
 
@@ -33,7 +38,6 @@ window.userFetch = window.userFetch || false;
     (async () => {
       let result = await (await fetch("/api/login")).json();
       window.userFetch = true;
-      console.log("window user fetch", window.userFetch)
       if (result.error) {
         updateContext({ user: false });
         return;
@@ -68,6 +72,11 @@ window.userFetch = window.userFetch || false;
       if (allInvites.error) {
         allInvites = [];
       }
+
+      let allCategories = await (await fetch("/api/myCategories/" + result.id)).json();
+      if (allCategories.error) {
+        allCategories = [];
+      }
       // add the user data to the context variable
       updateContext({
         user: result,
@@ -76,9 +85,11 @@ window.userFetch = window.userFetch || false;
         allUsers: users,
         allInvites: allInvites,
         declinedInvitations: declinedInvitations,
+        myCategories: allCategories,
       });
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 
   async function logout() {
     const res = await fetch("/api/login", {
@@ -91,26 +102,35 @@ window.userFetch = window.userFetch || false;
       myEvents: [],
       invitedEvents: [],
       declinedInvitations: [],
+      myCategories: [],
     });
     const result = await res.json();
   }
 
-
-
   return (
     <Context.Provider value={[contextVal, updateContext]}>
       <Router>
-      {contextVal.user ? <div className="App wrapper">  
-      <TopBar logout={logout}/>        
-      <Sidebar toggle={toggleSidebar} logout={logout} isOpen={sidebarIsOpen} />
-           <Content
-            toggleSidebar={toggleSidebar}
-            sidebarIsOpen={sidebarIsOpen}
-            logout={logout} />
-        </div> : <div className="App wrapper" >                
-           <Content/>
-        </div>}
+        {contextVal.user ? (
+          <div className="App wrapper">
+            <TopBar logout={logout} />
+            <Sidebar
+              toggle={toggleSidebar}
+              logout={logout}
+              isOpen={sidebarIsOpen}
+            />
+            <Content
+              toggleSidebar={toggleSidebar}
+              sidebarIsOpen={sidebarIsOpen}
+              logout={logout}
+            />
+          </div>
+        ) : (
+          <div className="App wrapper">
+            <Content />
+          </div>
+        )}
       </Router>
     </Context.Provider>
+  
   );
 }

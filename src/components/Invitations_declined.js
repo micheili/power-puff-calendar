@@ -19,7 +19,7 @@ export default function Invitations_declined() {
     <Container className="data">
       <NavInvites />
       <Col className="justify-content-center mt-4 mb-3">
-      <h3 className="invite-header">
+      <h3 className={`invite-header ${context.colorTheme}`}>
           Declined invitation
           {declinedInvitations.length > 1
             ? "s"

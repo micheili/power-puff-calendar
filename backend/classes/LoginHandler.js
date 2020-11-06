@@ -1,9 +1,11 @@
 const session = require("express-session");
 const DbHandler = require("./DbHandler");
+const store = require("better-express-store");
 
 module.exports = class LoginHandler {
   constructor(app, dbPath) {
     // connect to db via DbHandler
+    this.dbPath = dbPath;
     this.db = new DbHandler(dbPath);
     // change secret for each project
     this.secret = "my secret salt";
@@ -21,6 +23,7 @@ module.exports = class LoginHandler {
         resave: false,
         saveUninitialized: true,
         cookie: { secure: "auto" },
+        store: store({ dbPath: this.dbPath }),
       })
     );
   }

@@ -1,3 +1,4 @@
+
 import React, {useContext} from 'react';
 import {
   getMonthDayYearHour,
@@ -9,66 +10,58 @@ import {Context} from '../../App';
 
 
 
+
 export default function DateWeekIndicator({ activeDates, selectDate, setSelectDate }) {
 
-  const [context] = useContext(Context);
+  const [context, updateContext] = useContext(Context);
 
+  let events = [...context.myEvents, ...context.invitedEvents];
 
-
-  let events = [
-    ...context.myEvents,...context.invitedEvents
-  ]
-  
-  
-  
   // map start and stop to real date objects
-  events =events.map(x => ({
-    ...x, 
-    start: new Date(x.start), 
+  events = events.map((x) => ({
+    ...x,
+    start: new Date(x.start),
     stop: new Date(x.stop),
-    length: Math.ceil ((new Date(x.stop).getTime() - new Date(x.start).getTime()) / (60 * 60 * 1000))
+    length: Math.ceil(
+      (new Date(x.stop).getTime() - new Date(x.start).getTime()) /
+        (60 * 60 * 1000)
+    ),
   }));
 
-
-  function resetStartedPrinting(){
-    for(let event of events){
+  function resetStartedPrinting() {
+    for (let event of events) {
       event.startedPrinting = false;
     }
   }
-  
-  function checkEvent(date){
+
+  function checkEvent(date) {
     let info = [];
-    for(let event of events){
+    for (let event of events) {
+      let start1Before = new Date(event.start.getTime());
+      start1Before.setMinutes(start1Before.getMinutes() - 59);
 
-    let start1Before = new Date(event.start.getTime());
-     start1Before.setMinutes(start1Before.getMinutes() - 59);
-
-      if(date >= start1Before && date <= event.stop){
-        !event.startedPrinting && info.push(
-          <div className="events ml-3 pl-3 " data-date={date.toString()} key={event.id} style={{position: 'relative'}}>
-           
-              *{event.title}
-        
+      if (date >= start1Before && date <= event.stop) {        
+        info.push(
+          <div
+            className={`${event.className ? `events w-100 ${event.className}` : `events ${context.colorTheme} w-100`}`}
+            data-date={date.toString()}
+            key={event.id}
+            style={{ position: "relative" }}
+          >
+            {event.title.substr(0, 10) + "..."}
           </div>
         );
-        
-        event.startedPrinting = true;
       }
     }
-    return info.length ? <>{info}</> : null;
+    return <>{info}</>;
   }
 
-  // <div className="m-0 " style={{position: 'absolute', top: 0, left: 0, 
-  //borderLeft:'3px solid #999', height: (event.length + 1) * 100 + 'px'}}></div>
-  
-  //    {event.start.getHours() + '.' + (event.start.getMinutes() + '').padStart(2, '0')} -
-  //{event.stop.getHours() + '.' +  (event.stop.getMinutes() + '').padStart(2, '0')}
-
-
   //------------------------------------
+
    // EVENT HANDLING CALLBACK
    const changeDate = (e) => {
     setSelectDate(e.target.getAttribute('data-date'));
+    updateContext({ showEditEvent: false  });
   };
 
   const hoursInDay = getHoursInDayDisplay(selectDate);
@@ -77,9 +70,13 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
 
   const dayHours = hoursInDay.map((item, key) => {
     const selected =
-    getMonthDayYearHour(selectDate) === getMonthDayYearHour(item.date) ? 'selected' : '';
-      const active =
-    activeDates && activeDates[getMonthDayYearHour(item.date)] ? 'active' : '';
+      getMonthDayYearHour(selectDate) === getMonthDayYearHour(item.date)
+        ? "selected"
+        : "";
+    const active =
+      activeDates && activeDates[getMonthDayYearHour(item.date)]
+        ? "active"
+        : "";
 
     return (
       <div
@@ -89,14 +86,10 @@ export default function DateWeekIndicator({ activeDates, selectDate, setSelectDa
         onClick={changeDate}
       >
         {getHourOfDay(item.date)}
-        {checkEvent(item.date)}  
+        {checkEvent(item.date)}
       </div>
     );
   });
 
   return <div className="date-day-indicator">{dayHours}</div>;
-
-
-
-
 }
