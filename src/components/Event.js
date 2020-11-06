@@ -313,13 +313,13 @@ export default function Event(props) {
               outline
               color="lightpink"
               id="deleteButton"
-            >
-              <FontAwesomeIcon
-                className={`card-footer-icon ${context.colorTheme}`}
-                icon={faTrashAlt}
-              />
+              > {userIsCreator ?
+                <FontAwesomeIcon
+                  className={`card-footer-icon ${context.colorTheme}`}
+                  icon={faTrashAlt}
+                /> : 'Decline'}
               <UncontrolledTooltip placement="bottom" target="deleteButton">
-                Delete event
+                  {userIsCreator ? 'Delete event' : 'Decline event'}
               </UncontrolledTooltip>
             </Button>{" "}
             <Badge

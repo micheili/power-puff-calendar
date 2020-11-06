@@ -77,18 +77,6 @@ module.exports = class ACL {
       }
 
       if (req.params.eventId) {
-        /*  let owner = db.select("SELECT userId FROM Event WHERE id = $id", {
-          id: req.params.eventId,
-        });
-        let invitee = db
-          .select("SELECT invitedUser FROM Invite WHERE eventId = $id", {
-            id: req.params.eventId,
-          })
-          .filter((i) => i.invitedUser === loggedInId);
-
-        if (owner[0].userId === loggedInId || invitee.length) {
-          return true;
-        }*/
 
         if (
           module.exports.isOwner(db, loggedInId, req.params.eventId) ||
